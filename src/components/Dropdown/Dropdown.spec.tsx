@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Dropdown, DropdownMenu, TreeViewMenu } from './index';
+import { Field } from '~/components/Field';
 import { dropdownData } from '~/data/dropdownData';
 import { dropdownDataGrouped } from '~/data/dropdownDataGrouped';
 import { dropdownDataTree } from '~/data/dropdownDataTree';
@@ -149,6 +150,52 @@ describe('Dropdown', () => {
 
         await user.click(screen.getByRole('listbox'));
         expect(screen.getByRole('tree')).toBeInTheDocument();
+    });
+
+    it('should name the trigger with the aria-label of the consumer', () => {
+        render(<Dropdown aria-label="Language" data={dropdownDataGrouped} value="" onChange={() => 'testing'}/>);
+        expect(screen.getByRole('listbox')).toHaveAccessibleName('Language');
+    });
+
+    it('should name the trigger with the aria-label of the consumer inside a Field', () => {
+        render(
+            <Field id="language" label="Field label">
+                <Dropdown aria-label="Language" data={dropdownDataGrouped} value="" onChange={() => 'testing'}/>
+            </Field>,
+        );
+        expect(screen.getByRole('listbox')).toHaveAccessibleName('Language');
+    });
+
+    it('should name the search input of the menu with i18n.searchLabel', async () => {
+        const user = userEvent.setup();
+        render(
+            <Dropdown
+                hasSearch
+                data={dropdownDataGrouped}
+                i18n={{ searchLabel: 'Find' }}
+                value=""
+                onChange={() => 'testing'}
+            />,
+        );
+
+        await user.click(screen.getByRole('listbox'));
+        expect(screen.getByRole('searchbox')).toHaveAccessibleName('Find');
+    });
+
+    it('should name the search input of the tree menu with i18n.searchLabel', async () => {
+        const user = userEvent.setup();
+        render(
+            <Dropdown
+                hasSearch
+                i18n={{ searchLabel: 'Find' }}
+                treeData={dropdownDataTree}
+                value=""
+                onChange={() => 'testing'}
+            />,
+        );
+
+        await user.click(screen.getByRole('listbox'));
+        expect(screen.getByRole('searchbox')).toHaveAccessibleName('Find');
     });
 
     it('should update searchbar when I click on the dropdown and start typing', async () => {

@@ -8,14 +8,9 @@ describe('SortIndicator', () => {
         expect(screen.getByTestId('moonstone-SortIndicator')).toBeInTheDocument();
     });
 
-    it('should display arrowDown on direction descending', () => {
-        render(<SortIndicator direction="descending"/>);
-        expect(screen.getByLabelText('Icon for sorting in descending order')).toBeInTheDocument();
-    });
-
-    it('should display arrowUp on direction ascending', () => {
-        render(<SortIndicator direction="ascending"/>);
-        expect(screen.getByLabelText('Icon for sorting in ascending order')).toBeInTheDocument();
+    it.each(['descending', 'ascending'] as const)('should hide the arrow from assistive technologies on direction %s', (direction) => {
+        render(<SortIndicator data-testid="moonstone-SortIndicator" direction={direction}/>);
+        expect(screen.getByTestId('moonstone-SortIndicator')).toHaveAttribute('aria-hidden', 'true');
     });
 
     it('should be sorted', () => {
