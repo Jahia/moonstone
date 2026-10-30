@@ -67,13 +67,22 @@ describe('TableHeadCell', () => {
             expect(screen.getByTestId('cell')).toHaveAttribute('aria-sort', 'ascending');
         });
 
-        it('should not set `aria-sort` when `isActive` is `false`', () => {
+        it('should set `aria-sort` to `none` when `isActive` is `false`', () => {
             render(
                 <TableWrapper>
                     <TableHeadCell data-testid="cell" sorting={{ direction: 'ascending', isActive: false }}>Header</TableHeadCell>
                 </TableWrapper>,
             );
-            expect(screen.getByTestId('cell')).not.toHaveAttribute('aria-sort');
+            expect(screen.getByTestId('cell')).toHaveAttribute('aria-sort', 'none');
+        });
+
+        it('should let the consumer override `aria-sort`', () => {
+            render(
+                <TableWrapper>
+                    <TableHeadCell aria-sort="none" data-testid="cell" sorting={{ direction: 'ascending', isActive: true }}>Header</TableHeadCell>
+                </TableWrapper>,
+            );
+            expect(screen.getByTestId('cell')).toHaveAttribute('aria-sort', 'none');
         });
 
         it('should not display sort icon when column is not sortable', () => {
