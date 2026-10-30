@@ -44,6 +44,12 @@ describe('MultipleLeftRightSelector', () => {
         expect(screen.getByRole('list', { name: 'Selected' })).toHaveAttribute('data-list', 'right');
     });
 
+    it('should not create page landmarks for its titles and counter', () => {
+        render(<ListSelector {...requiredProps}/>);
+        expect(screen.queryByRole('banner')).not.toBeInTheDocument();
+        expect(screen.queryByRole('contentinfo')).not.toBeInTheDocument();
+    });
+
     it('should display options in left list', () => {
         render(
             <ListSelector {...requiredProps} options={options}/>,
