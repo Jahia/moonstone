@@ -1,5 +1,5 @@
 import { PrimaryNavItem } from './index';
-import markdownNotes from './PrimaryNavItem.md';
+import markdownNotes from './PrimaryNavItem.md?raw';
 import { Badge, Button } from '~/components';
 import { Edit, Person, Power, Workflow } from '~/icons';
 
@@ -10,8 +10,8 @@ export default {
     component: PrimaryNavItem,
 
     parameters: {
-        componentSubtitle: 'PrimaryNavItem',
-        notes: { markdown: markdownNotes },
+        componentSubtitle: 'One entry of the primary navigation.',
+        docs: { description: { component: markdownNotes } },
     },
 } as Meta<typeof PrimaryNavItem>;
 

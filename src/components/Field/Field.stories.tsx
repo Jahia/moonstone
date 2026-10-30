@@ -1,4 +1,4 @@
-import markdownNotes from './Field.md';
+import markdownNotes from './Field.md?raw';
 import { FieldSelector } from './FieldSelector';
 import { Field } from './index';
 import { Button, CardSelector, CheckboxItem, Chip, Dropdown, EmptyCardSelector, Input, ListSelector, RadioGroup, RadioItem, Textarea } from '~/components';
@@ -16,7 +16,8 @@ const meta: Meta<typeof Field> = {
     parameters: {
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
-        notes: { markdown: markdownNotes },
+        componentSubtitle: 'Turns a control into a labelled form field.',
+        docs: { description: { component: markdownNotes } },
     },
     argTypes: {
         buttons: {

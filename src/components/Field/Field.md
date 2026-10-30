@@ -1,17 +1,29 @@
-Form validation must be made on the Field level
-Prop buttons only supports button components
+## Example
+```jsx
+import {Field, FieldSelector, Input} from '@jahia/moonstone';
+
+<Field id="page-title" label="Title">
+    <FieldSelector selector={<Input/>}/>
+</Field>
+```
+
+## Do
+- Use it to give a form control a visible label, with optional helper text and a validation error message.
+- Use it for a field that holds several values, with one [FieldSelector](?path=/docs/components-fieldselector--docs) per value.
+- Use it to show the validation error of a single field. The validation logic stays in your code.
+
+## Don't
+- Don't use a Field for a single checkbox that holds a yes/no value. Use a [FieldBoolean](?path=/docs/components-fieldboolean--docs) instead.
+- Don't use a Field to group several fields under a heading. Use a [Fieldset](?path=/docs/components-fieldset--docs) instead.
+- Don't put a control directly in a Field. Wrap each control in a [FieldSelector](?path=/docs/components-fieldselector--docs).
+
+## Voice and tone
+- Write the `label` in sentence case, using a few words at most (3 maximum), such as "Title". Never write a full sentence.
+- Write the `helper` text and the chip labels in sentence case, such as a "Required" chip.
+- Error message wording: _Pending design guidance_ <!-- designer: rules for `errorMessage` copy (tone, whether it says how to fix the problem, punctuation). -->
 
 ## Accessibility
-
-`Field` links its label, helper and error to the Moonstone control inside it. A click on the label focuses an `Input` or a `Textarea` that has no `id`.
-
-A custom control gets the same links from `useFieldAria`. For a click on the label to focus it, give it the id `<Field id>-control`. Pass it the props of the control, and spread the result after them: the values of the consumer win, and its `aria-describedby` is joined to the helper and the error.
-
-```tsx
-import { useFieldAria } from '@jahia/moonstone';
-
-const CustomSelect = (props) => {
-    const fieldAria = useFieldAria(props);
-    return <select {...props} {...fieldAria}/>;
-};
-```
+- Give each Field a unique `id`.
+- An icon-only [Button](?path=/docs/components-button--docs) in `buttons` must have an `aria-label` that describes the action.
+- A control that is not a Moonstone component, such as a native `select`, is not linked to the label, the helper, and the error on its own. Call `useFieldAria` with its props and spread the result after them: `<select {...props} {...useFieldAria(props)}/>`. Your own `aria-*` values still win.
+- Give that control the id `<Field id>-control`, so a click on the label focuses it.

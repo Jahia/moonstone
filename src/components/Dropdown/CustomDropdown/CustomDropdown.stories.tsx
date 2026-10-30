@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { action } from 'storybook/actions';
 
 import { CustomDropdown } from './CustomDropdown';
+import markdownNotes from './CustomDropdown.md?raw';
 import { Button, CardSelector, Chip, Dropdown, EmptyCardSelector, Field, FieldBoolean, FieldSelector, Fieldset, Input, MenuItem, RadioGroup, RadioItem, Separator, Textarea, Typography } from '~/components';
 import { File } from '~/icons';
 import * as icons from '~/icons/components';
@@ -15,7 +16,9 @@ export default {
 
     parameters: {
         layout: 'centered',
+        componentSubtitle: 'Opens a menu of custom content from a button.',
         docs: {
+            description: { component: markdownNotes },
             // Fix issues in the doc tab with firefox
             inlineStories: false,
             IframeHeight: 500,

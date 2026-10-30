@@ -1,24 +1,67 @@
-Toggle contextual overlays for displaying a list of actions. This component replaces the classic `select` HTML element.
+## Example
+```jsx
+import {Dropdown} from '@jahia/moonstone';
 
-## Specifications:
+<Dropdown
+    data={[
+        {label: 'Draft', value: 'draft'},
+        {label: 'Published', value: 'published'}
+    ]}
+    value={status}
+    placeholder="Select a value"
+    aria-label="Status"
+/>
+```
 
-Click on the Dropdown label to display the Menu component.
+## Do
+- Use it to let the user pick one value from a list of options.
+- Use it to let the user pick several values from a list. Each selected value shows as a tag in
+  the field, and the user can remove it from there.
+- Use it to let the user pick an item in a hierarchy.
+- Use it for 4 options or more. A search field appears automatically past 7 options.
 
-The label should be truncated if it's longer than the container.
+## Don't
+- Don't use it for a list of actions. Use a [Menu](?path=/docs/components-menu--docs) instead.
+- Don't use it for 3 options or fewer. Use a [RadioGroup](?path=/docs/components-radiogroup--docs) (one value) or a [CheckboxGroup](?path=/docs/components-checkboxgroup--docs)
+  (several values) instead.
+- Don't use it when the user selects 10 values or more. Use a [ListSelector](?path=/docs/components-listselector--docs) instead.
+- Don't use it to open custom content. Use a [CustomDropdown](?path=/docs/components-customdropdown--docs) instead.
 
-Allow user to navigate between option by using `Tabulation`.
+## Appearance
 
-Allow user to validate a value by pressing `Enter`.
+### `variant` for emphasis
 
-To hide the menu click on an item of the list or click outside to it.
+| Value | Use it for |
+|---|---|
+| `ghost` | _Pending design guidance_ <!-- designer: default value. Where should a borderless Dropdown be used (toolbars, inline filters)? --> |
+| `outlined` | _Pending design guidance_ <!-- designer: is outlined the form-field look, such as inside a Field? --> |
 
-The selected item has a specific design.
+### `size` for prominence
 
-## Grouping Items
-Items can be grouped with a title.
-If you are using item groups then all items must be within a group.
+| Value | Use it for |
+|---|---|
+| `small` | _Pending design guidance_ <!-- designer: which contexts call for a small Dropdown? --> |
+| `medium` | _Pending design guidance_ <!-- designer: default value. Confirm it is the standard size for forms. --> |
 
-## Dropdown Options with Images
-To use image dropdown options, ensure that the data passed into the Dropdown has an `image` property in addition to the `label` and any other properties you wish.
+### `imageSize` for previews
 
-The value of the `image` property should be an `img` HTML element.
+| Value | Use it for |
+|---|---|
+| `small` | _Pending design guidance_ <!-- designer: when options carry an image, when should the images be small? --> |
+| `big` | _Pending design guidance_ <!-- designer: when should option images be big, such as a visual picker for templates? --> |
+
+## Voice and tone
+- Write option labels and the `placeholder` in sentence case, using a few words at most.
+- Make the `placeholder` say what to pick. It shows only while nothing is selected.
+- Write `searchEmptyText` as a short, plain statement, such as "No results found.".
+
+## Accessibility
+- Add an `aria-label` that names the field when the Dropdown is not in a [Field](?path=/docs/components-field--docs).
+- Override `i18n.clearButton` and `i18n.searchLabel` when translating; left unset, they default to English.
+- Enter opens the list. Space and the Down arrow key open it too (soon).
+- Opening the list with the keyboard moves the focus into the options.
+- The Up and Down arrow keys move the focus between options.
+- Home and End move the focus to the first and last options.
+- Enter selects the focused option and closes the list. In multiple selection, Space toggles the
+  focused option.
+- Escape closes the list and returns the focus to the trigger.

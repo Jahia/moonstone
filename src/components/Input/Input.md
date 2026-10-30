@@ -1,18 +1,52 @@
-The Input component is built in two sizes. It also uses the Icon token as a leading icon which indicates the purpose of the Input.
+## Example
+```jsx
+import {Input} from '@jahia/moonstone';
 
-## Design
-[Figma Link](https://www.figma.com/file/939bW74C3TLW5VAzK23uox/%F0%9F%8C%99moonstone-components?node-id=4631%3A365)
+<Input aria-label="Page title"/>
+```
 
-## Search Variant
-To use the search variant of the Input, use `variant="search"` for the Input.
-This displays the Search/magnifying glass icon at the beginning of the Input.
+## Controlled
+- Pass `value` and `onChange`. You own the state, and `onChange(event)` gives you the new text through `event.target.value`.
+- Use it when the value drives other UI.
+- Don't mix the two modes. Passing both `value` and `defaultValue` is not supported.
 
-Also, ensure that an `onClear` callback is provided which will cause the Cancel icon to appear at the end of the input.
-The purpose of the `onClear` prop is to provide a callback which will clear the text in the Input.
+```jsx
+<Input aria-label="Page title" value={title} onChange={e => setTitle(e.target.value)}/>
+```
 
-## Number Input
-Only allows numbers to be typed inside & '-' as first character if `allowNegative` is true (default).
+## Uncontrolled
+- Pass `defaultValue` (optional) and let the component manage its own state.
+- Use it for a simple field whose value you only need on submit.
 
-`min`, `max` & `step` props take numbers and are only used for arrow incrementation. NumberInput's value validation must be done on the form level.
+```jsx
+<Input aria-label="Page title" defaultValue="About us"/>
+```
 
-`NumberInput`'s value is typed as a string.
+## Do
+- Use it to capture a short piece of free-form text on a single line.
+- Use it inside a [Field](?path=/docs/components-field--docs) when it needs a visible label, helper text, or an error message.
+
+## Don't
+- Don't use an Input for multi-line text. Use a [Textarea](?path=/docs/components-textarea--docs) instead.
+- Don't use an Input for numbers that need stepping or numeric validation. Use a [NumberInput](?path=/docs/components-numberinput--docs) instead.
+- Don't use an Input for a search box. Use a [SearchInput](?path=/docs/components-searchinput--docs) instead.
+- Don't use an Input for a date or a time. Use a [DateTimeInput](?path=/docs/components-datetimeinput--docs) or a [TimeInput](?path=/docs/components-timeinput--docs) instead.
+- Don't use an Input to choose from a fixed list of options. Use a [Dropdown](?path=/docs/components-dropdown--docs) instead.
+
+## Appearance
+
+### `size` for prominence
+
+| Value | Use it for |
+|---|---|
+| `default` | Small contexts, such as [SecondaryNav](?path=/docs/components-secondarynav--docs) or [Menu](?path=/docs/components-menu--docs). |
+| `big` | The main area of the product. |
+
+## Voice and tone
+- Write the placeholder in sentence case, using a few words at most (3 maximum). Never write a full sentence.
+- Use the placeholder as a hint about the expected text, such as "Enter a title". Never use it to replace the label.
+
+## Accessibility
+- Add an `aria-label` when the Input is not in a [Field](?path=/docs/components-field--docs).
+- Don't rely on the placeholder as the label. It disappears as soon as the user types.
+- Clearing the Input with the clear button returns the focus to the Input.

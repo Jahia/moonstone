@@ -1,9 +1,13 @@
+import { Controls, Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks';
 import React from 'react';
 import {
     STORY_ARGS_UPDATED,
     UPDATE_GLOBALS,
 } from 'storybook/internal/core-events';
 import { addons } from 'storybook/preview-api';
+
+import { categorizeArgs, controlArgs, nameIconArgs } from '../src/__storybook__/argTypesEnhancers';
+import { iconElements } from '../src/__storybook__/iconArgType';
 
 import '@fontsource-variable/nunito-sans';
 
@@ -44,8 +48,25 @@ function setupBackgroundListener() {
     channel.addListener(STORY_ARGS_UPDATED, storyListener);
 }
 
+// Icon props hold an icon name (see iconArgType): render it as the icon
+const renderIconArgs = (Story, { args, argTypes }) => {
+    const icons = Object.fromEntries(Object.entries(args)
+        .filter(([key, value]) => argTypes[key]?.isIcon && iconElements[value])
+        .map(([key, value]) => [key, iconElements[value]]));
+    if (Object.keys(icons).length === 0) {
+        return Story();
+    }
+    return Story({
+        args: {
+            ...args,
+            ...icons,
+        },
+    });
+};
+
 // Dark theme runs: stories tagged `dark-theme` render their reversed variant unless they set it
 export const decorators = [
+    renderIconArgs,
     (Story, { globals, args, tags }) =>
         globals.theme === 'dark' && tags.includes('dark-theme') && args.isReversed === undefined
             ? Story({
@@ -61,19 +82,48 @@ export const parameters = {
     layout: 'fullscreen',
 
     docs: {
-        extractComponentDescription: (component, { notes }) => {
-            if (notes) {
-                return typeof notes === 'string'
-                    ? notes
-                    : notes.markdown || notes.text;
-            }
-            return null;
-        },
+        // One Docs page for every component, built from native blocks only:
+        // subtitle = parameters.componentSubtitle, preview = first story,
+        // prose = parameters.docs.description.component (the component's .md).
+        // No "Show code": it prints the args, not the code a consumer writes (an icon shows as its
+        // name). The .md Example is the code to copy.
+        canvas: { sourceState: 'none' },
+        page: () => (
+            <>
+                <Title/>
+                <Subtitle/>
+                <Primary/>
+                <h2>Props</h2>
+                <Controls/>
+                <Description/>
+            </>
+        ),
     },
 
     options: {
-        storySort: {
-            method: 'alphabetical',
+        // Alphabetical by title, but EmptyCardSelector sorts as "CardSelector Empty", right after
+        // CardSelector. Self-contained: Storybook serializes this function.
+        storySort: (a, b) => {
+            if (a.title === b.title) {
+                return 0;
+            }
+            const key = entry => entry.title.replace(/(^|\/)EmptyCardSelector$/, '$1CardSelector Empty').split('/');
+            const [keyA, keyB] = [key(a), key(b)];
+            for (let i = 0; i < Math.max(keyA.length, keyB.length); i++) {
+                if (keyA[i] === undefined) {
+                    return -1;
+                }
+                if (keyB[i] === undefined) {
+                    return 1;
+                }
+                if (keyA[i] !== keyB[i]) {
+                    return keyA[i].localeCompare(keyB[i], undefined, {
+                        numeric: true,
+                        sensitivity: 'accent',
+                    });
+                }
+            }
+            return 0;
         },
     },
 
@@ -124,3 +174,6 @@ export const parameters = {
 
 setupBackgroundListener();
 export const tags = ['autodocs'];
+
+export const argTypesEnhancers = [controlArgs, categorizeArgs];
+export const argsEnhancers = [nameIconArgs];

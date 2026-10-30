@@ -94,7 +94,7 @@ export const Menu: React.FC<MenuProps> = ({
     style,
     onMouseEnter,
     onMouseLeave,
-    anchorEl = null,
+    anchorEl,
     anchorElOrigin = defaultAnchorElOrigin,
     transformElOrigin = defaultTransformElOrigin,
     anchorPosition = defaultAnchorPosition,

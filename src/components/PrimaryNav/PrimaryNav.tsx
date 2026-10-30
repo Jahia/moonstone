@@ -63,10 +63,10 @@ const NavHeader: React.FC<PrimaryNavHeaderProps> = ({ headerCaption, modeIcon, h
 };
 
 export const PrimaryNav: React.FC<PrimaryNavProps> = ({
-    headerLogo = '',
-    top = null,
-    bottom = null,
-    headerCaption = '',
+    headerLogo,
+    top,
+    bottom,
+    headerCaption,
     modeIcon,
     i18n,
     ...props

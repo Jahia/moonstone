@@ -1,5 +1,5 @@
 import { TimezoneSelector } from './TimezoneSelector';
-import markdownNotes from './TimezoneSelector.md';
+import markdownNotes from './TimezoneSelector.md?raw';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
@@ -14,7 +14,8 @@ export default {
     parameters: {
         layout: 'centered',
         actions: { argTypesRegex: '^on.*' },
-        notes: { markdown: markdownNotes },
+        componentSubtitle: 'Lets the user pick a standalone IANA timezone.',
+        docs: { description: { component: markdownNotes } },
     },
 } satisfies Meta<typeof TimezoneSelector>;
 

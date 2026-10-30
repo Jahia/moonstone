@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import React, { useState } from 'react';
 
 import { Menu, MenuItem } from './index';
-import markdownNotes from './Menu.md';
+import markdownNotes from './Menu.md?raw';
 import imgHorizontal from '~/__storybook__/assets/img-horizontal.webp';
 import imgSquare from '~/__storybook__/assets/img-square.webp';
 import imgVertical from '~/__storybook__/assets/img-vertical.webp';
@@ -17,8 +17,9 @@ export default {
     component: Menu,
     subcomponents: { MenuItem },
     parameters: {
-        notes: { markdown: markdownNotes },
+        componentSubtitle: 'Shows a floating list of actions.',
         docs: {
+            description: { component: markdownNotes },
             // Fix issues in the doc tab with firefox
             inlineStories: false,
             IframeHeight: 500,

@@ -49,8 +49,8 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
     icon?: React.ReactElement;
 
     /**
-     * Which icon to use at the beginning of the input
-     * @deprecated Values 'text' and 'search' use specific component instead
+     * Visual style of the field.
+     * @deprecated Use SearchInput instead of `search`, and Input instead of `text`. `ghost` will be removed: a field is always outlined.
      */
     variant?: 'text' | 'search' | 'outlined' | 'ghost';
 
@@ -60,7 +60,7 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
     isShowClearButton?: boolean;
 
     /**
-     * Input labels
+     * Texts of the component, shown on screen or read by screen readers. Translate them with the rest of the UI.
      */
     i18n?: {
         /**
@@ -86,7 +86,7 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
     onClick?: React.MouseEventHandler;
 
     /**
-     * @deprecated onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.
+     * @deprecated Use `onKeyUp` instead.
      */
     onKeyPress?: React.KeyboardEventHandler;
 
@@ -106,7 +106,7 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 
     /**
-     * Function triggered on blur of the input (i.e., focussing away from the input)
+     * Function triggered on blur of the input, when the focus leaves it
      */
     onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 

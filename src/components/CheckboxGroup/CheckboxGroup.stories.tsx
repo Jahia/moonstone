@@ -1,3 +1,4 @@
+import markdownNotes from './CheckboxGroup.md?raw';
 import { CheckboxItem } from './CheckboxItem';
 import { CheckboxGroup } from './index';
 
@@ -11,6 +12,8 @@ export default {
         knobs: { disable: true },
         storysource: { disable: true },
         actions: { argTypesRegex: '^on.*' },
+        componentSubtitle: 'Lets the user select any number of options.',
+        docs: { description: { component: markdownNotes } },
     },
     argTypes: {
         children: {

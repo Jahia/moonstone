@@ -108,4 +108,16 @@ describe('Switch', () => {
 
         expect(ref.current).toBe(screen.getByRole('switch'));
     });
+
+    it('should not throw when clicked without onChange (controlled)', async () => {
+        const user = userEvent.setup();
+        const onError = vi.fn();
+        window.addEventListener('error', onError);
+
+        render(<Switch checked aria-label="switch"/>);
+        await user.click(screen.getByRole('switch'));
+
+        window.removeEventListener('error', onError);
+        expect(onError).not.toHaveBeenCalled();
+    });
 });

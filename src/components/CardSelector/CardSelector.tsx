@@ -19,10 +19,10 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
     thumbnailAlt,
     id,
     className,
-    isDisabled = false,
-    isReadOnly = false,
+    isDisabled,
+    isReadOnly,
     cardAction,
-    hasError = false,
+    hasError,
     errorMessage,
     onClick,
     ...props

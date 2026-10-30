@@ -102,6 +102,19 @@ describe('NavItem', () => {
         expect(onClick).toHaveBeenCalled();
     });
 
+    it('should not throw when clicked without onClick', async () => {
+        const user = userEvent.setup();
+        const onError = vi.fn();
+        window.addEventListener('error', onError);
+
+        render(<PrimaryNav top={<PrimaryNavItem label="test me"/>}/>);
+        await user.click(screen.getByText('test me'));
+
+        window.removeEventListener('error', onError);
+        expect(onError).not.toHaveBeenCalled();
+    });
+
+    // TODO: is the usefull ? It seems we test the Tooltip implementation here
     it('should give the description of a Tooltip to the control', async () => {
         const user = userEvent.setup();
         render(<Tooltip label="Tip"><PrimaryNavItem label="Item"/></Tooltip>);

@@ -1,0 +1,46 @@
+# Component docs — style
+
+## Voice
+
+Mixed, by section:
+
+- **Descriptive** for any introductory sentence. Present tense, third person, stating what the
+  component is or does. The subtitle is a noun phrase (see `structure.md`).
+- **Imperative** for guidance (Do, Don't, Appearance, Accessibility, Voice and tone). Address
+  the reader directly ("Use it to submit a form." "Don't use it for navigation.").
+
+## Sentences
+
+- **Write complete sentences, or clean list items.** Do not stitch fragments together.
+- **Never use an em dash (`—`).** Use a full stop and a second sentence, a comma, or a list.
+- **Avoid arrow shortcuts (`→`).** Write the alternative as a sentence ("Use a link instead.").
+- Present tense, active voice. Sentence case for all headings.
+- Use "such as" for examples, not "e.g." or "i.e.".
+- **Every example must have a source.** An example ("such as …") or a label in an Example comes
+  from the code, the stories, a real usage in a Jahia repository, or a human decision. Never
+  invent one to illustrate a bullet: a bullet without an example is better than a wrong one. When
+  no source exists, drop the example, or ask the human.
+- Never gerunds ("Showing …") or bare noun phrases in Do/Don't bullets.
+
+## Terminology & formatting
+
+- Refer to the component by its exact name, or as "the component". Be consistent within a doc.
+- Put prop names, values, and code in backticks: `variant`, `default`, `aria-label`.
+- Every mention of another public component is a link to its Docs page:
+  `[Switch](?path=/docs/components-switch--docs)`. The id is the page's id in the Storybook
+  index. Never link the component the page documents, nor an internal component (it is left out
+  of the published build). A link must point to a page that exists.
+- Only mention public, exported components and props. Never reference internal or non-exported
+  parts.
+- No implementation details (pixel values, `.moonstone-*` classes, `$` Sass variables,
+  `--moon-*` token names). Describing observable rendered behaviour in plain terms is fine (for
+  example, "the label is shown in uppercase"); only *implementation* detail is off-limits.
+- Native HTML attributes the component forwards (via `{...props}`, such as `type` or `data-*`)
+  are **not** documented; consumers know HTML. Surface only the ones that carry a usage rule
+  (for example `aria-label`), in the section that calls for them. The same applies to native
+  props the component *omits*: not documented.
+- No "states in prose" that merely restate the Props table.
+- Deprecated props: the `@deprecated` JSDoc already surfaces them in the Props table; don't
+  document them anywhere else. Never use a deprecated prop in the Example.
+- No links to design-tool files (Figma) or to repo-internal files. Component docs are
+  self-contained.

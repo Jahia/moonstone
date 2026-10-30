@@ -12,7 +12,7 @@ export type ThumbnailProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'classN
     alt: string;
     /** Size: 'small' (40x40) or 'default' (46x46) @default 'default' */
     size?: ThumbnailSize;
-    /** Display variant: 'preview' (object-fit cover) or 'icon' (centered) @default 'preview' */
+    /** Display variant: 'preview' fills the area, cropping as needed; 'icon' is centered and not cropped @default 'preview' */
     variant?: ThumbnailVariant;
     /** Additional className */
     className?: string;

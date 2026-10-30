@@ -13,9 +13,9 @@ import styles from './MenuItem.module.scss';
 export const MenuItem: React.FC<MenuItemProps> = ({
     variant = 'default',
     isHover,
-    isSelected = false,
+    isSelected,
     isDisabled = false,
-    isHighlighted = false,
+    isHighlighted,
     iconStart,
     iconSize,
     iconEnd,

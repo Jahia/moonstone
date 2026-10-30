@@ -12,6 +12,7 @@ export type ImgWrapperProps = Omit<React.ComponentPropsWithoutRef<'img'>, 'class
     alt: string;
     /**
      * Image size
+     * @default 'default'
      */
     size?: typeof imgWrapperSizes[number];
     /**
