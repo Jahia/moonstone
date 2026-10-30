@@ -1,5 +1,73 @@
 # @jahia/moonstone Changelog
 
+## 2.22.0
+
+### New Features
+
+* Remove the global classes `moonstone-accordionItem_iconContainer` and `moonstone-primaryNavItem_content` with their wrappers (#1428)
+
+* `ImgWrapper` and `Thumbnail` now require an `alt` text (#1424)
+
+* Move focus into a `Drawer` or a `Menu` when it opens and back when it closes, close both with Escape when `onOpenChange` or `onClose` is set, and click a `MenuItem` with Enter or Space (#1432)
+
+* Prevent nested buttons in `CardSelector` components (#1440)
+
+* Name the `Loader` "Loading", translatable through `i18n.loadingLabel` of `Loader` and `LayoutContent`, and warn on an unnamed icon-only `Button` (#1527)
+
+* Make the scrolling area of `LayoutContent` a focusable `section` named "Page content", translatable through `i18n.contentLabel` (#1537)
+
+* Added Delete and Backspace to remove a `Tag`, and Home and End to jump to the `NumberInput` bounds (#1545)
+
+* A `Typography` rendered as a `button` has no native border and background, and inherits its color and text alignment (#1428)
+
+* Link the `Field` label, helper and error to its control, name `RadioGroup`, `CheckboxGroup` and `Fieldset` as groups, make the `id` of `RadioItem` and `CheckboxItem` optional, and export `useFieldAria` for custom controls (#1426)
+
+* Name the `Pagination`, `TablePagination` and `DataTable` controls and the `Input` and `Dropdown` clear buttons, translatable with `i18n` (`label` for `TablePagination`) (#1425)
+
+* Add `role="switch"` to `Switch`, set the `indeterminate` property of `Checkbox`, and drop `aria-checked` from both (#1427)
+
+* Call `onResizeStop` of `ResizableBox` after a keyboard resize, and resize a controlled box through its `size` (#1561)
+
+* Name the search input of `Menu` and `Dropdown` through a `searchLabel` key and each search input of `ListSelector` after its list title, pass the `aria-label` of a `Dropdown` to its trigger, and remove the hard-coded English `aria-label` of the `SortIndicator` icon (#1572)
+
+* Resize `ResizableBox` with the keyboard, and translate its handle with `i18n` on `ResizableBox` and `SecondaryNav` (#1439)
+
+* Add an `i18n` prop to `Header`, `PrimaryNav` and `SecondaryNav` to translate their `aria-label` (#1428)
+
+### Bug Fixes
+
+* Set `aria-orientation="vertical"` on a vertical `Separator` (#1532)
+
+* Keep focus after keyboard activation on `ButtonToggle` or `CardSelector`, or after clearing an `Input` or a `SearchInput` (#1544)
+
+* Add `role="status"` to the `ListSelector` selection count and to the `Menu` and `Dropdown` "no results" text (#1447)
+
+* Add a visible focus indicator on the `PrimaryNav` and `SecondaryNav` toggle buttons (#1422)
+
+* Make generated icons decorative by default, and stop `TreeView` naming icons after a function (#1423)
+
+* The `EmptyData` title is now an `h3` heading (#1514)
+
+* Fix `onClick is not a function` error when clicking a component without `onClick` (#1506)
+
+* Navigate `Tab`, `Menu` and `TreeView` with the arrow keys, Home and End, as one Tab stop each; `Accordion`, `ListSelector`, `PrimaryNavItem` and `Dropdown` items act on Enter keydown and Space keyup (#1430)
+
+* Animations turn off when users enable “reduce motion” in their OS (#1441)
+
+* Use the correct attributes, `role` and `aria-*` on `Accordion`, `Banner`, `DynamicFieldset`, `ListSelector`, `Modal`, `PrimaryNav`, `ResizableBox`, `SecondaryNav` and `Tooltip` (#1428)
+
+* Fix `ref` not being forwarded on several components (#1466)
+
+* Name the group of a `DynamicFieldset` by its `label` only, without the text of its `buttons` (#1581)
+
+* Show hover-only content on keyboard focus, and make `Tooltip` hoverable (#1446)
+
+* A consumer `onKeyUp` on `NumberInput` no longer replaces its arrow keys, and the last `Breadcrumb` item keeps its own `aria-current` (#1431)
+
+* Escape collapses an expanded `PrimaryNav` and returns the focus to its toggle button, and no longer bubbles while the nav is expanded (#1584)
+
+* Link the label of each `DynamicFieldset` to its own switch, and remove its fixed `moonstone-dynamic-fieldset-switch` id (#1535)
+
 ## 2.21.0
 
 ### New Features
