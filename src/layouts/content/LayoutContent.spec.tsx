@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { LayoutContent } from './index';
 
@@ -12,6 +13,18 @@ describe('LayoutContent', () => {
         expect(screen.getByText('test-header')).toBeInTheDocument();
     });
 
+    it('should let the keyboard reach the "Page content" region with Tab', async () => {
+        const user = userEvent.setup();
+        render(<LayoutContent {...requiredProps}/>);
+        await user.tab();
+        expect(screen.getByRole('region', { name: 'Page content' })).toHaveFocus();
+    });
+
+    it('should name the content area with i18n.contentLabel', () => {
+        render(<LayoutContent {...requiredProps} i18n={{ contentLabel: 'Users' }}/>);
+        expect(screen.getByRole('region', { name: 'Users' })).toBeInTheDocument();
+    });
+
     it('should display content', () => {
         render(<LayoutContent {...requiredProps}/>);
         expect(screen.getByText(requiredProps.children)).toBeInTheDocument();
@@ -21,6 +34,11 @@ describe('LayoutContent', () => {
         render(<LayoutContent isLoading {...requiredProps}/>);
         expect(screen.getByRole('status')).toBeInTheDocument();
         expect(screen.queryByText(requiredProps.children)).not.toBeInTheDocument();
+    });
+
+    it('should name the loader with i18n.loadingLabel', () => {
+        render(<LayoutContent isLoading i18n={{ loadingLabel: 'Chargement' }} {...requiredProps}/>);
+        expect(screen.getByRole('status')).toHaveAccessibleName('Chargement');
     });
 
     it('should have the class "moonstone-layoutContent_centered" when "isCentered" set to true', () => {

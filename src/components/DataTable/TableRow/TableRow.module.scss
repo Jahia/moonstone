@@ -17,6 +17,10 @@ $background-highlight-hover: var(--moon-color-accent_light_plain40);
             --moon-row-background: #{$background-hover};
             --moon-cellAction-visibility: visible;
         }
+
+        &:focus-within:not(:focus) {
+            --moon-cellAction-visibility: visible;
+        }
     }
 }
 

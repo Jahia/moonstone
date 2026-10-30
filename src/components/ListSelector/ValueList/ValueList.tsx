@@ -35,7 +35,7 @@ export const ValueList: React.FC<ValueListProps> = ({
             )}
         >
             <WithoutField>
-                <SearchInput onChange={e => setFilter(e.target.value.trim())}/>
+                <SearchInput aria-label={listLabel || 'Search'} onChange={e => setFilter(e.target.value.trim())}/>
             </WithoutField>
             <ul
                 aria-label={listLabel}
