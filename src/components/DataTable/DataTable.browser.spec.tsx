@@ -20,6 +20,10 @@ const kbColumns: DataTableColumn<User>[] = [
     { key: 'age', label: 'Age', isSortable: true },
 ];
 
+const kbStructuredData: (User & { subRows?: User[] })[] = [
+    { id: '1', name: 'Alice', age: 30, subRows: [{ id: '1.1', name: 'Bob', age: 25 }] },
+];
+
 const renderTable = (props = {}) => {
     render(
         <>
@@ -101,6 +105,25 @@ describe('DataTable keyboard', () => {
         row('Bob').focus();
         await userEvent.keyboard(' ');
         expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('collapses and expands a structured row with Enter on its toggle and updates aria-expanded', async () => {
+        renderTable({ isStructured: true, data: kbStructuredData });
+        const toggle = screen.getByRole('button', { name: 'Alice' });
+        toggle.focus();
+        await userEvent.keyboard('{Enter}');
+        expect(toggle).toHaveAttribute('aria-expanded', 'false');
+        expect(screen.queryByText('Bob')).not.toBeInTheDocument();
+        await userEvent.keyboard('{Enter}');
+        expect(toggle).toHaveAttribute('aria-expanded', 'true');
+        expect(screen.getByText('Bob')).toBeInTheDocument();
+    });
+
+    it('collapses a structured row with Space on its toggle', async () => {
+        renderTable({ isStructured: true, data: kbStructuredData });
+        screen.getByRole('button', { name: 'Alice' }).focus();
+        await userEvent.keyboard(' ');
+        expect(screen.queryByText('Bob')).not.toBeInTheDocument();
     });
 
     describe('TableCellActions actionsOnHover', () => {
