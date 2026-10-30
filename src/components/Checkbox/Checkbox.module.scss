@@ -62,6 +62,11 @@ $checkbox-sizeBig: 20px;
         --shadow-size: 2px;
     }
 
+    // Only triggered when the input is focus with tab
+    &:focus-visible {
+        @extend %is-focused;
+    }
+
     &:checked,
     &:indeterminate {
         --shadow-size: 12px;
@@ -74,11 +79,6 @@ $checkbox-sizeBig: 20px;
         & ~ .moonstone-checkbox_icon {
             @include animation(checkboxBounce 0.1s linear forwards 0.05s);
         }
-    }
-
-    // Only triggered when the input is focus with tab
-    &:focus-visible {
-        @extend %is-focused;
     }
 
     &[disabled],
