@@ -100,6 +100,17 @@ export type MenuProps = {
     searchEmptyText?: string;
 
     /**
+     * Menu labels
+     */
+    i18n?: {
+        /**
+         * Accessible name of the search input
+         * @default 'Search'
+         */
+        searchLabel?: string;
+    };
+
+    /**
      * If 'absolute' is passed in for the position, the component will be positioned as per normal
      * CSS rules, that is positioned against the closest positioned ancestor.
      * @default 'fixed'
@@ -117,9 +128,9 @@ export type MenuProps = {
     onMouseLeave?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 
     /**
-     * Function triggered when the menu close
+     * Function triggered when the menu close: a click on the overlay, or Escape pressed inside the menu
      */
-    onClose?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+    onClose?: (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLMenuElement>) => void;
 
     /**
      * Function triggered when the menu is going to be opened (before open)

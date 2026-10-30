@@ -65,8 +65,8 @@ export const Basic = () => (
                 <TableBodyCell>cell 2</TableBodyCell>
                 <TableBodyCell>cell 3</TableBodyCell>
                 <TableBodyCell>
-                    <Button icon={<Edit/>} variant="ghost"/>
-                    <Button icon={<Visibility/>} variant="ghost"/>
+                    <Button aria-label="Edit" icon={<Edit/>} variant="ghost"/>
+                    <Button aria-label="View" icon={<Visibility/>} variant="ghost"/>
                 </TableBodyCell>
             </TableRow>
             <TableRow>
@@ -74,8 +74,8 @@ export const Basic = () => (
                 <TableBodyCell>cell 5</TableBodyCell>
                 <TableBodyCell>cell 6</TableBodyCell>
                 <TableBodyCell>
-                    <Button icon={<Edit/>} variant="ghost"/>
-                    <Button icon={<Visibility/>} variant="ghost"/>
+                    <Button aria-label="Edit" icon={<Edit/>} variant="ghost"/>
+                    <Button aria-label="View" icon={<Visibility/>} variant="ghost"/>
                 </TableBodyCell>
             </TableRow>
             <TableRow>
@@ -83,8 +83,8 @@ export const Basic = () => (
                 <TableBodyCell>cell 8</TableBodyCell>
                 <TableBodyCell>cell 9</TableBodyCell>
                 <TableBodyCell>
-                    <Button icon={<Edit/>} variant="ghost"/>
-                    <Button icon={<Visibility/>} variant="ghost"/>
+                    <Button aria-label="Edit" icon={<Edit/>} variant="ghost"/>
+                    <Button aria-label="View" icon={<Visibility/>} variant="ghost"/>
                 </TableBodyCell>
             </TableRow>
         </TableBody>

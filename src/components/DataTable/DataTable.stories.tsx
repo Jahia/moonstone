@@ -144,13 +144,13 @@ export const InsertCells: Story = {
                                     actionsOnHover={(
                                         <>
                                             <Tooltip label="View">
-                                                <Button icon={<Visibility/>} variant="ghost"/>
+                                                <Button aria-label="View" icon={<Visibility/>} variant="ghost"/>
                                             </Tooltip>
                                             <Tooltip label="Edit">
-                                                <Button icon={<Edit/>} variant="ghost"/>
+                                                <Button aria-label="Edit" icon={<Edit/>} variant="ghost"/>
                                             </Tooltip>
                                             <Tooltip label="Delete">
-                                                <Button icon={<Delete/>} variant="ghost"/>
+                                                <Button aria-label="Delete" icon={<Delete/>} variant="ghost"/>
                                             </Tooltip>
                                         </>
                                     )}

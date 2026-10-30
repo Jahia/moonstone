@@ -32,7 +32,7 @@ type Story = StoryObj<typeof FieldSelector>;
 
 export const Default: Story = {
     args: {
-        buttons: <><Button icon={<MoreVert/>}/><Button icon={<Close/>}/></>,
+        buttons: <><Button aria-label="More actions" icon={<MoreVert/>}/><Button aria-label="Remove" icon={<Close/>}/></>,
         selector: <Input placeholder="Input value" size="big"/>,
     },
 };
@@ -75,7 +75,7 @@ export const WithTextarea: Story = {
 export const WithRadio: Story = {
     args: {
         ...Default.args,
-        buttons: <Button icon={<Close/>}/>,
+        buttons: <Button aria-label="Remove" icon={<Close/>}/>,
         selector: <RadioGroup name="radio"><RadioItem id="radio1" label="Yes" value="Yes"/><RadioItem id="radio2" label="No" value="No"/></RadioGroup>,
     },
 };

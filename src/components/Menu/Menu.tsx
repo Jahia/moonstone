@@ -1,6 +1,6 @@
 import { Composite } from '@floating-ui/react';
 import clsx from 'clsx';
-import React, { useMemo, useState } from 'react';
+import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { MenuItem } from './MenuItem';
 import { WithoutField } from '~/components/Field/Field.context';
@@ -107,6 +107,7 @@ export const Menu: React.FC<MenuProps> = ({
     hasSearch,
     autoAddSearchLimit = 7,
     searchEmptyText = 'No results found.',
+    i18n,
     ...props
 }) => {
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
@@ -122,6 +123,40 @@ export const Menu: React.FC<MenuProps> = ({
         [inputValue, children],
     );
     const isEmptySearch = filteredChildren !== null && filteredChildren.length === 0;
+
+    // Focus moves into the menu when it shows, and back when it hides with focus inside.
+    // On mount, every item still has tabindex="-1", so the items are found by `data-roving-item`.
+    const searchRef = useRef<HTMLInputElement>(null);
+    const returnFocusTo = useRef<HTMLElement | null>(null);
+    useLayoutEffect(() => {
+        const menu = itemRef.current;
+        if (isDisplayed) {
+            // StrictMode runs the effect twice on mount: the second run must not save a focus already inside
+            if (!menu?.contains(document.activeElement)) {
+                returnFocusTo.current = document.activeElement as HTMLElement | null;
+            }
+
+            const target = searchRef.current
+                ?? menu?.querySelector<HTMLElement>('[data-roving-item].moonstone-selected:not([aria-disabled="true"])')
+                ?? menu?.querySelector<HTMLElement>('[data-roving-item]:not([aria-disabled="true"])');
+            target?.focus({ preventScroll: true });
+        } else if (menu?.contains(document.activeElement)) {
+            returnFocusTo.current?.focus();
+        }
+    }, [isDisplayed, itemRef]);
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLMenuElement>) => {
+        const hasModifier = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
+        if (e.defaultPrevented || hasModifier || e.key !== 'Escape' || !onClose) {
+            return;
+        }
+
+        // Stops a Drawer or a Modal around the menu from closing on the same Escape
+        e.stopPropagation();
+        // Before onClose: a Dropdown unmounts its menu, which then cannot give the focus back
+        returnFocusTo.current?.focus();
+        onClose(e);
+    };
 
     if (!children || React.Children.count(children) < 1) {
         return null;
@@ -185,7 +220,7 @@ export const Menu: React.FC<MenuProps> = ({
                         {...mergeHandlers(props, {
                             onKeyDown: rovingTabIndex.onKeyDown(compositeProps.onKeyDown),
                             onBlur: rovingTabIndex.onBlur,
-                        })}
+                        }, { onKeyDown: handleKeyDown })}
                     />
                 )}
             >
@@ -194,7 +229,8 @@ export const Menu: React.FC<MenuProps> = ({
                     <WithoutField>
                         <div className={clsx('moonstone-menu_searchInput', styles['moonstone-menu_searchInput'])}>
                             <SearchInput
-                                focusOnField
+                                aria-label={i18n?.searchLabel || 'Search'}
+                                ref={searchRef}
                                 value={inputValue}
                                 onChange={e => setInputValue(e.target.value)}
                                 onClear={() => setInputValue('')}

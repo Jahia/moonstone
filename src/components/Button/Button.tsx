@@ -40,11 +40,16 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
         onClick?.(e);
     };
 
+    if (!label && !props['aria-label'] && !props['aria-labelledby'] && !props.title) {
+        console.warn('Button: add a label, an aria-label, an aria-labelledby or a title to name a button that only shows an icon');
+    }
+
     const LoaderReversed = Boolean(variant === 'default' && (color === 'accent' || color === 'danger'));
 
     return (
         <button
             disabled={isDisabled || isLoading}
+            aria-busy={isLoading || undefined}
             className={clsx(
                 ['moonstone-button', styles['moonstone-button']],
                 [`moonstone-button_${size}`, styles[`moonstone-button_${size}`]],
@@ -70,6 +75,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
             {isLoading && (
                 <Loader
                     isReversed={LoaderReversed}
+                    aria-hidden
                     className={clsx(!icon && ['moonstone-button_loaderOverlay', styles['moonstone-button_loaderOverlay']])}
                     size="small"
                 />

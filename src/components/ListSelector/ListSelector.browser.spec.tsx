@@ -132,4 +132,13 @@ describe('ListSelector keyboard', () => {
         await userEvent.keyboard(' ');
         expect(onChange).not.toHaveBeenCalled();
     });
+
+    it('shows the action icon of an option while it has keyboard focus', async () => {
+        renderSelector();
+        screen.getByRole('button', { name: 'before' }).focus();
+        // A key press first, so that the focus set by script matches :focus-visible
+        await userEvent.keyboard('{Tab}');
+        option('Two').focus();
+        expect(option('Two').querySelector('.moonstone-displayNone')).toBeVisible();
+    });
 });

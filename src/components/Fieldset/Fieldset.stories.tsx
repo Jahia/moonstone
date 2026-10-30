@@ -33,11 +33,11 @@ type Story = StoryObj<typeof Fieldset>;
 export const SingleField: Story = {
     args: {
         label: 'Fieldset',
-        buttons: <Button icon={<MoreVert/>} variant="ghost"/>,
+        buttons: <Button aria-label="More actions" icon={<MoreVert/>} variant="ghost"/>,
         helper: 'Fieldset information',
         children: (
             <Field
-                buttons={<><Button icon={<Add/>} label="Add"/><Button icon={<MoreVert/>} variant="ghost"/></>}
+                buttons={<><Button icon={<Add/>} label="Add"/><Button aria-label="More actions" icon={<MoreVert/>} variant="ghost"/></>}
                 chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>}
                 helper="information"
                 id="field"
@@ -55,27 +55,27 @@ export const MultipleFields: Story = {
         children:
     <>
         <Field
-            buttons={<><Button icon={<Add/>} label="Add"/><Button icon={<MoreVert/>} variant="ghost"/></>}
+            buttons={<><Button icon={<Add/>} label="Add"/><Button aria-label="More actions" icon={<MoreVert/>} variant="ghost"/></>}
             chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>}
             helper="information"
             id="field-multiple"
             label="Field"
         >
             <>
-                <FieldSelector buttons={<Button icon={<MoreVert/>}/>} selector={<Input placeholder="Input value" size="big"/>}/>
-                <FieldSelector buttons={<Button icon={<MoreVert/>}/>} selector={<Input placeholder="Input value" size="big"/>}/>
-                <FieldSelector buttons={<Button icon={<MoreVert/>}/>} selector={<Input placeholder="Input value" size="big"/>}/>
+                <FieldSelector buttons={<Button aria-label="More actions" icon={<MoreVert/>}/>} selector={<Input placeholder="Input value" size="big"/>}/>
+                <FieldSelector buttons={<Button aria-label="More actions" icon={<MoreVert/>}/>} selector={<Input placeholder="Input value" size="big"/>}/>
+                <FieldSelector buttons={<Button aria-label="More actions" icon={<MoreVert/>}/>} selector={<Input placeholder="Input value" size="big"/>}/>
             </>
         </Field>
         <FieldBoolean
-            buttons={<Button icon={<MoreVert/>} variant="ghost"/>}
+            buttons={<Button aria-label="More actions" icon={<MoreVert/>} variant="ghost"/>}
             chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>}
             helper="information"
             id="field-boolean"
             label="Field Boolean"
         />
         <Field
-            buttons={<Button icon={<MoreVert/>} variant="ghost"/>}
+            buttons={<Button aria-label="More actions" icon={<MoreVert/>} variant="ghost"/>}
             chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>}
             helper="information"
             id="field-dropdown"
@@ -108,7 +108,7 @@ export const MultipleFields: Story = {
         </Field>
         <Field
             hasError
-            buttons={<Button icon={<MoreVert/>} variant="ghost"/>}
+            buttons={<Button aria-label="More actions" icon={<MoreVert/>} variant="ghost"/>}
             chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>}
             errorMessage="There is an error"
             helper="information"
@@ -121,7 +121,7 @@ export const MultipleFields: Story = {
             <FieldSelector selector={<RadioGroup name="radio"><RadioItem id="radio1" label="Yes" value="Yes"/><RadioItem id="radio2" label="No" value="No"/></RadioGroup>}/>
         </Field>
         <Field
-            buttons={<Button icon={<MoreVert/>} variant="ghost"/>}
+            buttons={<Button aria-label="More actions" icon={<MoreVert/>} variant="ghost"/>}
             chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>}
             helper="information"
             id="field-cardselectors"
@@ -129,7 +129,7 @@ export const MultipleFields: Story = {
         >
             <>
                 <FieldSelector
-                    buttons={<Button icon={<Close/>}/>}
+                    buttons={<Button aria-label="Remove" icon={<Close/>}/>}
                     selector={(
                         <CardSelector
                             displayName="Item name"
@@ -141,7 +141,7 @@ export const MultipleFields: Story = {
                     )}
                 />
                 <FieldSelector
-                    buttons={<Button icon={<Close/>}/>}
+                    buttons={<Button aria-label="Remove" icon={<Close/>}/>}
                     selector={(
                         <CardSelector
                             displayName="Item name"

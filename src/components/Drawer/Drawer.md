@@ -2,7 +2,7 @@
 ```jsx
 import {Button, Drawer} from '@jahia/moonstone';
 
-<Drawer isOpen={isOpen} aria-label="Page details">
+<Drawer isOpen={isOpen} aria-label="Page details" onOpenChange={setIsOpen}>
     <Button label="Close"/>
     <YourContent/>
 </Drawer>
@@ -18,6 +18,7 @@ import {Button, Drawer} from '@jahia/moonstone';
 - Don't use a Drawer to show or hide a section within the page flow. Use a [Collapsible](?path=/docs/components-collapsible--docs) instead.
 
 ## Accessibility
-- By default, the Drawer renders a complementary landmark. Give it an `aria-label` that names the panel.
+- By default, the Drawer renders a complementary landmark. Name it with `aria-label` or `aria-labelledby`.
 - Always provide a visible control that closes the Drawer, such as a "Close" [Button](?path=/docs/components-button--docs).
-- Escape closes the Drawer (soon).
+- Pass `onOpenChange` so that Escape closes the Drawer. Without it, Escape does nothing.
+- Opening the Drawer moves the focus to its first focusable element, and closing it while the focus is inside returns the focus to the element that had it before. A Drawer rendered open does not take the focus.

@@ -9,10 +9,12 @@ export const Loader: React.FC<LoaderProps> = ({
     size,
     className,
     isReversed,
+    i18n,
     ...props
 }) => {
     return (
         <svg
+            aria-label={i18n?.loadingLabel || 'Loading'}
             className={clsx(
                 ['moonstone-loader', styles['moonstone-loader']],
                 [`moonstone-loader_${size}`, styles[`moonstone-loader_${size}`]],

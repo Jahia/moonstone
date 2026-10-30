@@ -33,7 +33,7 @@ export const Default: Story = {
     args: {
         label: 'Title',
         chips: <><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>,
-        buttons: <Button icon={<MoreVert/>} variant="ghost"/>,
+        buttons: <Button aria-label="More actions" icon={<MoreVert/>} variant="ghost"/>,
         helper: 'information',
         checkboxAttributes: {
             value: 'checkbox',

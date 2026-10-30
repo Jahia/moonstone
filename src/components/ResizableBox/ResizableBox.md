@@ -12,6 +12,7 @@ import {ResizableBox} from '~/components';
 - Use it when you need to restore a saved width, or to set the width from elsewhere in the UI.
 - Don't mix the two modes. Passing both `size` and `defaultSize` is not supported: `defaultSize` is then ignored.
 - `onResizeStart`, `onResizing`, and `onResizeStop` receive the event, the resized edge (`'right'`), and the resized element. `onResizing` and `onResizeStop` also receive the `delta`, the change of `width` and `height` since the resize began.
+- A keyboard resize calls `onResizeStop` too, with the keyboard event, but not `onResizeStart` or `onResizing`.
 
 ```jsx
 <ResizableBox size={{width, height: 'auto'}} maxWidth={600} onResizeStop={(event, direction, element, delta) => setWidth(width + delta.width)}>…</ResizableBox>

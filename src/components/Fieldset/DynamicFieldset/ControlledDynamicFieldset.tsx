@@ -21,6 +21,8 @@ export const ControlledDynamicFieldset = React.forwardRef<HTMLFieldSetElement, C
 }, ref) => {
     return (
         <fieldset
+            // The group is named by its label only, without the text of its buttons
+            aria-labelledby={`${id}-label`}
             className={clsx(
                 ['moonstone-dynamic-fieldset', styles['moonstone-dynamic-fieldset']],
                 checked && 'moonstone-dynamic-fieldset_open',
@@ -46,13 +48,14 @@ export const ControlledDynamicFieldset = React.forwardRef<HTMLFieldSetElement, C
                         ['alignCenter', layout.alignCenter],
                     )}
                     component="label"
-                    htmlFor="moonstone-dynamic-fieldset-switch"
+                    htmlFor={`${id}-control`}
+                    id={`${id}-label`}
                     variant="heading"
                     weight="bold"
                 >
                     {label}
                 </Typography>
-                <Switch checked={checked} id="moonstone-dynamic-fieldset-switch" onChange={onChange}/>
+                <Switch checked={checked} id={`${id}-control`} onChange={onChange}/>
                 {buttons}
             </legend>
             {helper

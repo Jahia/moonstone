@@ -39,7 +39,7 @@ export const Default: Story = {
     args: {
         label: 'Title',
         chips: <><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>,
-        buttons: <><Button icon={<Add/>} label="Add"/><Button icon={<MoreVert/>} variant="ghost"/></>,
+        buttons: <><Button icon={<Add/>} label="Add"/><Button aria-label="More actions" icon={<MoreVert/>} variant="ghost"/></>,
         helper: 'information',
         children: <FieldSelector selector={<Input placeholder="Input value" size="big"/>}/>,
     },
@@ -48,7 +48,7 @@ export const Default: Story = {
 export const SelectorButtons: Story = {
     args: {
         ...Default.args,
-        children: <FieldSelector isDraggable buttons={<Button icon={<MoreVert/>}/>} selector={<Input placeholder="Input value" size="big"/>}/>,
+        children: <FieldSelector isDraggable buttons={<Button aria-label="More actions" icon={<MoreVert/>}/>} selector={<Input placeholder="Input value" size="big"/>}/>,
     },
 };
 
@@ -57,9 +57,9 @@ export const Multiple: Story = {
         ...Default.args,
         children:
     <>
-        <FieldSelector isDraggable buttons={<><Button icon={<MoreVert/>}/><Button icon={<Close/>}/></>} selector={<Input placeholder="Input value" size="big"/>}/>
-        <FieldSelector isDraggable buttons={<><Button icon={<MoreVert/>}/><Button icon={<Close/>}/></>} selector={<Input placeholder="Input value" size="big"/>}/>
-        <FieldSelector isDraggable buttons={<><Button icon={<MoreVert/>}/><Button icon={<Close/>}/></>} selector={<Input placeholder="Input value" size="big"/>}/>
+        <FieldSelector isDraggable buttons={<><Button aria-label="More actions" icon={<MoreVert/>}/><Button aria-label="Remove" icon={<Close/>}/></>} selector={<Input placeholder="Input value" size="big"/>}/>
+        <FieldSelector isDraggable buttons={<><Button aria-label="More actions" icon={<MoreVert/>}/><Button aria-label="Remove" icon={<Close/>}/></>} selector={<Input placeholder="Input value" size="big"/>}/>
+        <FieldSelector isDraggable buttons={<><Button aria-label="More actions" icon={<MoreVert/>}/><Button aria-label="Remove" icon={<Close/>}/></>} selector={<Input placeholder="Input value" size="big"/>}/>
     </>,
     },
 };
@@ -148,9 +148,9 @@ export const WithMultipleCheckboxes: Story = {
         ...Default.args,
         children:
     <>
-        <FieldSelector isDraggable buttons={<Button icon={<Close/>}/>} selector={<CheckboxItem id="checkbox1" label="CheckboxItem 1" value="checkbox1"/>}/>
-        <FieldSelector isDraggable buttons={<Button icon={<Close/>}/>} selector={<CheckboxItem id="checkbox2" label="CheckboxItem 2" value="checkbox2"/>}/>
-        <FieldSelector isDraggable buttons={<Button icon={<Close/>}/>} selector={<CheckboxItem id="checkbox3" label="CheckboxItem 3" value="checkbox3"/>}/>
+        <FieldSelector isDraggable buttons={<Button aria-label="Remove" icon={<Close/>}/>} selector={<CheckboxItem id="checkbox1" label="CheckboxItem 1" value="checkbox1"/>}/>
+        <FieldSelector isDraggable buttons={<Button aria-label="Remove" icon={<Close/>}/>} selector={<CheckboxItem id="checkbox2" label="CheckboxItem 2" value="checkbox2"/>}/>
+        <FieldSelector isDraggable buttons={<Button aria-label="Remove" icon={<Close/>}/>} selector={<CheckboxItem id="checkbox3" label="CheckboxItem 3" value="checkbox3"/>}/>
     </>,
     },
 };

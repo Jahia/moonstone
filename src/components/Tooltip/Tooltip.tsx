@@ -1,4 +1,4 @@
-import { arrow, flip, FloatingArrow, FloatingPortal, offset, shift, useDismiss, useFloating, useFocus, useHover, useInteractions } from '@floating-ui/react';
+import { arrow, flip, FloatingArrow, FloatingPortal, offset, safePolygon, shift, useDismiss, useFloating, useFocus, useHover, useInteractions } from '@floating-ui/react';
 import clsx from 'clsx';
 import React, { useId, useRef, useState } from 'react';
 
@@ -35,7 +35,7 @@ export const Tooltip = ({
         ],
     });
 
-    const hover = useHover(context);
+    const hover = useHover(context, { handleClose: safePolygon() });
     const focus = useFocus(context);
     const dismiss = useDismiss(context);
 

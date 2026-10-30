@@ -28,7 +28,7 @@ export const IconButtonTooltip = {
     render: Template,
     args: {
         label: 'Home',
-        children: <Button icon={<Home/>} variant="outlined"/>,
+        children: <Button aria-label="Home" icon={<Home/>} variant="outlined"/>,
     },
 };
 
@@ -51,7 +51,7 @@ export const LongTooltip = {
     render: Template,
     args: {
         label: 'Very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long tooltip',
-        children: <Button icon={<Home/>} variant="outlined"/>,
+        children: <Button aria-label="Home" icon={<Home/>} variant="outlined"/>,
     },
 };
 

@@ -70,7 +70,7 @@ export const IconComponent: Story = {
 export const Actions: Story = {
     args: {
         ...Image.args,
-        cardAction: <Button icon={<Close/>} key="btn" variant="ghost"/>,
+        cardAction: <Button aria-label="Remove" icon={<Close/>} key="btn" variant="ghost"/>,
     },
     render: Template,
 };

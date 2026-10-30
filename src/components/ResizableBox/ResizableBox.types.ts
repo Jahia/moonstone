@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { ResizeCallback, ResizeStartCallback, Size } from 're-resizable';
+import type { NumberSize, ResizeCallback, ResizeDirection, ResizeStartCallback, Size } from 're-resizable';
 
 export type EnableZonesProps = {
     // Top?: boolean;
@@ -78,13 +78,13 @@ export type ResizableBoxProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'chi
      */
     onResizing?: ResizeCallback;
     /**
-     * Called when the user releases the handle. A keyboard resize does not call it.
-     * @param event - The mouse or touch event.
+     * Called when the user releases the handle, and after each key press that resizes the box from the focused handle. With a controlled `size`, apply `delta` to it.
+     * @param event - The mouse, touch, or keyboard event.
      * @param direction - The resized edge, `'right'`.
      * @param elementRef - The resized element.
-     * @param delta - The change of `width` and `height` since the drag began.
+     * @param delta - The change of `width` and `height` since the resize began.
      */
-    onResizeStop?: ResizeCallback;
+    onResizeStop?: (event: MouseEvent | TouchEvent | KeyboardEvent, direction: ResizeDirection, elementRef: HTMLElement, delta: NumberSize) => void;
     /**
      * Texts read by screen readers. Translate them with the rest of the UI.
      */

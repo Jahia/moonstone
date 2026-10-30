@@ -31,7 +31,10 @@ import {Menu, MenuItem} from '@jahia/moonstone';
 
 ## Accessibility
 - An icon-only trigger, such as a [Button](?path=/docs/components-button--docs) with only an `icon`, must have an `aria-label` that describes the menu, such as "More actions".
+- Close the menu by setting `isDisplayed` to false, not by unmounting it: an unmounted menu does not return the focus.
+- Override `i18n.searchLabel` when translating; left unset, it defaults to English.
+- Opening the menu moves the focus to the search input, else to the selected item, else to the first enabled item. Closing it while the focus is inside returns the focus to the element that had it before.
 - The Up and Down arrow keys move the focus between items.
-- Enter or Space activates the focused item (soon).
+- Enter or Space activates the focused item.
 - Home and End move the focus to the first and last items.
-- Escape closes the menu (soon).
+- Escape returns the focus to the element that had it before and calls `onClose`: close the menu there.
