@@ -16,6 +16,10 @@ $radio-sizeDefault: 16px;
 
         // Prevent :hover on disabled and read-only
         pointer-events: none;
+
+        &:has(.moonstone-radio_input:focus-visible) {
+            opacity: 1;
+        }
     }
 
     .radioItem_wrapper {

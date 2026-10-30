@@ -141,4 +141,11 @@ describe('RadioGroup read-only style', () => {
         expect(opacityOf('Small')).toBe('1');
         expect(opacityOf('Medium')).toBe('0.4');
     });
+
+    it('shows the focused item of a read-only group at full opacity', async () => {
+        renderGroup({ defaultValue: 'small', isReadOnly: true });
+        screen.getByRole('button', { name: 'before' }).focus();
+        await userEvent.keyboard('{Tab}');
+        expect(opacityOf('Small')).toBe('1');
+    });
 });
