@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { ResizeCallback, ResizeStartCallback, Size } from 're-resizable';
+import type { NumberSize, ResizeCallback, ResizeDirection, ResizeStartCallback, Size } from 're-resizable';
 
 export type EnableZonesProps = {
     // Top?: boolean;
@@ -71,13 +71,13 @@ export type ResizableBoxProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'chi
      */
     onResizing?: ResizeCallback;
     /**
-     * Function triggered when the resize is finished. A keyboard resize does not call it
-     * @param {object} e - Mouse event
+     * Function triggered when the resize is finished, by the pointer or by a key on the handle. With a controlled `size`, apply `delta` to it
+     * @param {object} e - Mouse, touch or keyboard event
      * @param {string} dir - Direction resized
      * @param {node} ref - HTML element resized
      * @param {object} delta - delta between after resize
      */
-    onResizeStop?: ResizeCallback;
+    onResizeStop?: (e: MouseEvent | TouchEvent | KeyboardEvent, dir: ResizeDirection, ref: HTMLElement, delta: NumberSize) => void;
     /**
      * ResizableBox labels
      */

@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { useState } from 'react';
 import { userEvent } from 'vitest/browser';
 
 import { ResizableBox } from './index';
@@ -82,5 +83,52 @@ describe('ResizableBox keyboard', () => {
         handle.focus();
         await userEvent.keyboard('{End}');
         expect(width()).toBe(200);
+    });
+
+    it('calls onResizeStop with the keyboard event and the delta after a key press', async () => {
+        const onResizeStop = vi.fn();
+        const { box, handle } = renderBox({ onResizeStop });
+        handle.focus();
+        await userEvent.keyboard('{ArrowRight}');
+        expect(onResizeStop).toHaveBeenCalledWith(expect.any(KeyboardEvent), 'right', box, { width: 10, height: 0 });
+    });
+
+    it('reads the new width of an uncontrolled box in onResizeStop', async () => {
+        const onResizeStop = vi.fn((_e: KeyboardEvent, _dir: string, ref: HTMLElement) => ref.offsetWidth);
+        const { handle } = renderBox({ onResizeStop });
+        handle.focus();
+        await userEvent.keyboard('{ArrowRight}');
+        expect(onResizeStop).toHaveReturnedWith(110);
+    });
+
+    it('keeps the width of a controlled box until the consumer updates its size', async () => {
+        const { handle } = renderBox({ size: { width: 100, height: 100 } });
+        handle.focus();
+        await userEvent.keyboard('{ArrowRight}');
+        expect(handle).toHaveAttribute('aria-valuenow', '100');
+    });
+
+    it('resizes a controlled box once the consumer updates its size', async () => {
+        const ControlledBox = () => {
+            const [size, setSize] = useState({ width: 100, height: 100 });
+            return (
+                <ResizableBox
+                    aria-label="Side panel"
+                    maxWidth={200}
+                    minWidth={50}
+                    role="region"
+                    size={size}
+                    onResizeStop={(_e, _dir, _ref, delta) => setSize({ width: size.width + delta.width, height: 100 })}
+                />
+            );
+        };
+        render(<ControlledBox/>);
+        const box = screen.getByRole('region', { name: 'Side panel' });
+        const handle = screen.getByRole('separator');
+        handle.focus();
+        await userEvent.keyboard('{ArrowRight}');
+        await userEvent.keyboard('{ArrowRight}');
+        expect(box.getBoundingClientRect().width).toBe(120);
+        expect(handle).toHaveAttribute('aria-valuenow', '120');
     });
 });

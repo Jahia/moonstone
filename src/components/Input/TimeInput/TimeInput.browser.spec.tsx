@@ -79,7 +79,7 @@ describe('TimeInput keyboard', () => {
         expect(await findOption('AM')).toBeVisible();
     });
 
-    it.fails('closes the AM/PM selector with Escape and returns focus to it', async () => {
+    it('closes the AM/PM selector with Escape and returns focus to it', async () => {
         render(<TimeInput defaultValue="23:56" timeFormat="12h"/>);
         screen.getByRole('listbox', { name: 'PM' }).focus();
         await userEvent.keyboard('{Enter}');
