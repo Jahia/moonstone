@@ -25,14 +25,14 @@ describe('radio', () => {
         expect(screen.getByDisplayValue('02')).toBeDisabled();
     });
 
-    it('should be read-only when isReadOnly is set', () => {
+    it('should not put aria-readonly on a read-only radio, which does not support it', () => {
         render(
             <RadioGroup name="test-name">
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
                 <RadioItem isReadOnly id="radio-02" label="radio 02" value="02"/>
             </RadioGroup>,
         );
-        expect(screen.getByDisplayValue('02')).toHaveAttribute('aria-readonly', 'true');
+        expect(screen.getByDisplayValue('02')).not.toHaveAttribute('aria-readonly');
     });
 
     it('should display the description', () => {

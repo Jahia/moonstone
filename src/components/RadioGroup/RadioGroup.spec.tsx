@@ -100,14 +100,8 @@ describe('RadioGroup', () => {
                 <RadioItem id="radio-02" label="radio 02" value="02"/>
             </RadioGroup>,
         );
-        expect(screen.getByLabelText('radio 01')).toHaveAttribute(
-            'aria-readonly',
-            'true',
-        );
-        expect(screen.getByLabelText('radio 02')).toHaveAttribute(
-            'aria-readonly',
-            'true',
-        );
+        expect(screen.getByRole('radiogroup')).toHaveAttribute('aria-readonly', 'true');
+        expect(screen.getByLabelText('radio 01')).not.toHaveAttribute('aria-readonly');
     });
 });
 

@@ -27,6 +27,7 @@ export const ControlledRadioGroup: React.FC<ControlledRadioGroupProps> = ({
     return (
         <RadioGroupContext.Provider value={provider}>
             <div
+                aria-readonly={isReadOnly || undefined}
                 role="radiogroup"
                 {...props}
                 {...fieldAria}
