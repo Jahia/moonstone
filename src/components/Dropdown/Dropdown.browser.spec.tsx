@@ -66,7 +66,7 @@ describe('Dropdown keyboard', () => {
         expect(await screen.findByRole('list')).toBeInTheDocument();
     });
 
-    it.fails('moves focus into the options when opened with the keyboard', async () => {
+    it('moves focus into the options when opened with the keyboard', async () => {
         const { trigger } = renderDropdown();
         await openWithEnter(trigger);
         expect(getOption('Apple')).toHaveFocus();
@@ -101,7 +101,7 @@ describe('Dropdown keyboard', () => {
         await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
     });
 
-    it.fails('closes with Escape and returns focus to the trigger', async () => {
+    it('closes with Escape and returns focus to the trigger', async () => {
         const { trigger } = renderDropdown();
         await openWithEnter(trigger);
         getOption('Apple').focus();

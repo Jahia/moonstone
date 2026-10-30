@@ -107,6 +107,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     hasOverlay = true,
     hasSearch,
     autoAddSearchLimit = 7,
+    i18n,
     // SearchEmptyText = 'No results found.',
     treeData,
     value,
@@ -195,6 +196,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                     <WithoutField>
                         <div className={clsx('moonstone-menu_searchInput', styles['moonstone-menu_searchInput'])}>
                             <SearchInput
+                                aria-label={i18n?.searchLabel || 'Search'}
                                 value={inputValue}
                                 onChange={e => setInputValue(e.target.value)}
                                 onClear={() => setInputValue('')}

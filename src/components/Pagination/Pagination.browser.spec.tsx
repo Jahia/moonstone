@@ -80,7 +80,7 @@ describe('Pagination keyboard', () => {
         expect(await screen.findByRole('option', { name: '25' })).toBeVisible();
     });
 
-    it.fails('moves focus into the options when the selector is opened with the keyboard', async () => {
+    it('moves focus into the options when the selector is opened with the keyboard', async () => {
         renderPagination();
         screen.getByRole('listbox').focus();
         await userEvent.keyboard('{Enter}');

@@ -15,6 +15,15 @@ describe('Menu', () => {
     });
 
     describe('search functionality', () => {
+        it('should name the search input', () => {
+            render(
+                <Menu hasSearch isDisplayed>
+                    <MenuItem label="Item1"/>
+                </Menu>,
+            );
+            expect(screen.getByRole('searchbox')).toHaveAccessibleName('Search');
+        });
+
         it('should show the correct search results', async () => {
             const user = userEvent.setup();
 
