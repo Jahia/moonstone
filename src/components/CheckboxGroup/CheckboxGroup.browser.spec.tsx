@@ -101,4 +101,12 @@ describe('CheckboxItem dimmed style', () => {
         renderGroup(props);
         expect(opacityOf('Apple')).toBe('0.4');
     });
+
+    it('shows the focused item of a read-only group at full opacity', async () => {
+        renderGroup({ isReadOnly: true });
+        screen.getByRole('button', { name: 'before' }).focus();
+        await userEvent.keyboard('{Tab}');
+        expect(opacityOf('Apple')).toBe('1');
+        expect(getComputedStyle(screen.getByRole('checkbox', { name: 'Apple' })).opacity).toBe('1');
+    });
 });

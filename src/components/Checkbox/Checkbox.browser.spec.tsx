@@ -73,6 +73,7 @@ describe('Checkbox keyboard', () => {
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(getComputedStyle(screen.getByRole('checkbox')).outlineStyle).toBe('solid');
+        expect(getComputedStyle(screen.getByRole('checkbox')).opacity).toBe('1');
     });
 
     it('skips a disabled checkbox in the tab sequence', async () => {

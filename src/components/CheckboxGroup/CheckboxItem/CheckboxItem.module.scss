@@ -18,6 +18,10 @@
         opacity: 0.4;
 
         pointer-events: none;
+
+        &:has(input:focus-visible) {
+            opacity: 1;
+        }
     }
 
     .moonstone-checkboxItem_label {

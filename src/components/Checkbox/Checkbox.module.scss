@@ -89,6 +89,11 @@ $checkbox-sizeBig: 20px;
         // Prevent :hover on disabled and read-only
         pointer-events: none;
 
+        // Only a read-only checkbox can take the focus: its ring shows at full strength
+        &:focus-visible {
+            opacity: 1;
+        }
+
         // Reset :hover style for disabled and readonly state
         &:hover {
             --shadow-color: var(--moon-color-gray);
