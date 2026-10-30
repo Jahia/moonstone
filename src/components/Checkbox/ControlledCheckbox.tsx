@@ -35,7 +35,9 @@ export const ControlledCheckbox = React.forwardRef<HTMLInputElement, ControlledC
                 onChange={(ev) => {
                     // A click clears the property, even when the checkbox should stay indeterminate
                     ev.target.indeterminate = indeterminate;
-                    onChange?.(ev, value, ev.target.checked);
+                    if (!isReadOnly) {
+                        onChange?.(ev, value, ev.target.checked);
+                    }
                 }}
             />
             <svg
