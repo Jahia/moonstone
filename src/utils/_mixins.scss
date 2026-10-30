@@ -12,6 +12,16 @@
     clip-path: inset(50%);
 }
 
+// Grows the pointer target of a small positioned control to at least 24 × 24 px (WCAG 2.5.8), centred on it, with no change to its layout or look
+@mixin min-target-size {
+    &::after {
+        content: "";
+
+        position: absolute;
+        inset: min(0px, (100% - 24px) / 2);
+    }
+}
+
 @mixin truncate($maxWidth: 100%, $display: null) {
     @if ($display) {
         display: $display;

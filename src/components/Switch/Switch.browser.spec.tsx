@@ -76,3 +76,12 @@ describe('Switch keyboard', () => {
         expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
     });
 });
+
+describe('Switch pointer', () => {
+    it('turns on with a click 1px inside the 24px target around its track', async () => {
+        render(<div style={{ padding: 8 }}><Switch aria-label="Notifications" value="a"/></div>);
+        const { height } = getSwitch().getBoundingClientRect();
+        await userEvent.click(getSwitch(), { position: { x: 1, y: ((height - 24) / 2) + 1 }, force: true });
+        expect(getSwitch()).toBeChecked();
+    });
+});
