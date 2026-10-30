@@ -37,9 +37,9 @@ import type { ControlledDateTimeInputProps } from './DateTimeInput.types';
 import type { DropdownProps } from '@daypicker/react';
 import type { Temporal } from 'temporal-polyfill';
 
+import dayPickerClassNames from '@daypicker/react/style.module.css';
 import baseInputStyles from '../BaseInput/BaseInput.module.scss';
 import styles from './DateTimeInput.module.scss';
-import dayPickerClassNames from '@daypicker/react/style.module.css';
 
 // Options outside `startMonth`/`endMonth` arrive already flagged as disabled.
 const toDropdownData = (options: DropdownProps['options']) => (options ?? []).map(option => ({
