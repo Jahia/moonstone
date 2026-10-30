@@ -78,6 +78,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     onBlur,
     onFocus,
     className,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
     ...props
 }) => {
     if (value !== undefined && values !== undefined) {
@@ -102,7 +104,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const [minWidth, setMinWith] = useState(null);
     const ref: MutableRefObject<HTMLDivElement> = useRef();
     const triggerId = useId();
-    const fieldAria = useFieldAria();
+    const fieldAria = useFieldAria({ 'aria-label': ariaLabel });
 
     const isTree = Array.isArray(treeData);
     const flatData = useMemo(() => isTree ? flatten(treeData) : data, [treeData, data, isTree]);
@@ -222,9 +224,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 aria-describedby={fieldAria['aria-describedby']}
                 aria-disabled={isDisabled || isEmpty}
                 aria-invalid={fieldAria['aria-invalid']}
-                aria-label={label || getDataItem(flatData, value)?.label || placeholder}
+                aria-label={ariaLabel ?? (label || getDataItem(flatData, value)?.label || placeholder)}
                 // In a Field, the name is the Field label followed by the aria-label above, such as "Language French"
-                aria-labelledby={fieldAria['aria-labelledby'] && `${fieldAria['aria-labelledby']} ${triggerId}`}
+                aria-labelledby={ariaLabelledBy ?? (fieldAria['aria-labelledby'] && `${fieldAria['aria-labelledby']} ${triggerId}`)}
                 className={clsx(cssDropdown)}
                 id={triggerId}
                 ref={ref}
@@ -248,7 +250,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 }}
             >
                 {icon && !isLoading && <icon.type {...icon.props} className={clsx('moonstone-dropdown_icon', styles['moonstone-dropdown_icon'])} role="presentation" size="default"/>}
-                {isLoading && <Loader className={clsx({ 'moonstone-dropdown_loaderOverlay': !icon })} size="small"/>}
+                {isLoading && <Loader aria-hidden className={clsx({ 'moonstone-dropdown_loaderOverlay': !icon })} size="small"/>}
                 {!label && values && values.length > 0
                     ? (
                             <div
@@ -326,6 +328,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     data={data}
                     handleKeyPress={handleKeyPress}
                     handleSelect={handleSelect}
+                    i18n={i18n}
                     imageSize={imageSize}
                     maxHeight={menuMaxHeight}
                     maxWidth={menuMaxWidth}

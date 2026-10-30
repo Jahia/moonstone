@@ -44,3 +44,16 @@ describe('Tooltip keyboard', () => {
         expect(trigger).toHaveFocus();
     });
 });
+
+describe('Tooltip pointer', () => {
+    it('stays open while the pointer moves from the trigger onto it', async () => {
+        const { trigger } = renderTooltip();
+        await userEvent.hover(trigger);
+        const tooltip = await screen.findByRole('tooltip');
+        await userEvent.hover(tooltip);
+        await new Promise((resolve) => {
+            setTimeout(resolve, 100);
+        });
+        expect(screen.getByRole('tooltip')).toBeVisible();
+    });
+});
