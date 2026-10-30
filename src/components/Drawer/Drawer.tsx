@@ -44,8 +44,14 @@ export const Drawer = React.forwardRef(<C extends React.ElementType = 'aside'>({
         wasOpen.current = isOpen;
         if (isOpen) {
             returnFocusTo.current = document.activeElement as HTMLElement | null;
-            // The Drawer is still off-screen at the start of its slide-in, so focus must not scroll to it
-            drawerRef.current?.querySelector<HTMLElement>(FOCUSABLE)?.focus({ preventScroll: true });
+            // Waits a frame: a Tab, Menu or TreeView gives `tabindex="0"` to its active item in a later render
+            const frame = requestAnimationFrame(() => {
+                // With nothing focusable inside, the Drawer itself takes focus, so Escape still closes it.
+                // The Drawer is still off-screen at the start of its slide-in, so focus must not scroll to it
+                const target = drawerRef.current?.querySelector<HTMLElement>(FOCUSABLE) ?? drawerRef.current;
+                target?.focus({ preventScroll: true });
+            });
+            return () => cancelAnimationFrame(frame);
         } else if (drawerRef.current?.contains(document.activeElement)) {
             returnFocusTo.current?.focus();
         }
@@ -67,6 +73,7 @@ export const Drawer = React.forwardRef(<C extends React.ElementType = 'aside'>({
         'ref': mergedRef,
         'component': component || 'aside',
         'className': clsx(styles.drawer, className),
+        'tabIndex': -1,
         ...mergeHandlers(props, { onKeyDown: handleKeyDown }) as BasicPaperProps,
         'style': {
             ...style,

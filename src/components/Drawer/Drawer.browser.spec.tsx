@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { userEvent } from 'vitest/browser';
 
 import { Drawer } from './index';
-import { Button } from '~/components';
+import { Button, Tab, TabItem } from '~/components';
 
 const Harness = () => {
     const [open, setOpen] = useState(false);
@@ -26,6 +26,7 @@ const renderAndOpen = async () => {
     trigger.focus();
     await userEvent.keyboard('{Enter}');
     const drawer = await screen.findByRole('complementary', { name: 'Side panel' });
+    await waitFor(() => expect(drawer).toContainElement(document.activeElement as HTMLElement));
     return { trigger, drawer };
 };
 
@@ -50,7 +51,7 @@ describe('Drawer keyboard', () => {
         expect(trigger).toHaveFocus();
     });
 
-    it('moves focus to the first element that Tab reaches when it opens', () => {
+    it('moves focus to the first element that Tab reaches when it opens', async () => {
         const content = (
             <>
                 <button tabIndex={-1} type="button">Inactive tab</button>
@@ -59,7 +60,28 @@ describe('Drawer keyboard', () => {
         );
         const { rerender } = render(<Drawer aria-label="Side panel">{content}</Drawer>);
         rerender(<Drawer isOpen aria-label="Side panel">{content}</Drawer>);
-        expect(screen.getByRole('button', { name: 'Selected tab' })).toHaveFocus();
+        await waitFor(() => expect(screen.getByRole('button', { name: 'Selected tab' })).toHaveFocus());
+    });
+
+    it('moves focus to the selected tab of a Tab placed first when it opens', async () => {
+        const content = (
+            <Tab>
+                <TabItem label="First"/>
+                <TabItem isSelected label="Second"/>
+            </Tab>
+        );
+        const { rerender } = render(<Drawer aria-label="Side panel">{content}</Drawer>);
+        rerender(<Drawer isOpen aria-label="Side panel">{content}</Drawer>);
+        await waitFor(() => expect(screen.getByRole('tab', { name: 'Second' })).toHaveFocus());
+    });
+
+    it('closes with Escape when nothing inside can take focus', async () => {
+        const onOpenChange = vi.fn();
+        const { rerender } = render(<Drawer aria-label="Side panel" onOpenChange={onOpenChange}><p>Drawer content</p></Drawer>);
+        rerender(<Drawer isOpen aria-label="Side panel" onOpenChange={onOpenChange}><p>Drawer content</p></Drawer>);
+        await waitFor(() => expect(screen.getByRole('complementary', { name: 'Side panel' })).toHaveFocus());
+        await userEvent.keyboard('{Escape}');
+        expect(onOpenChange).toHaveBeenCalledWith(false);
     });
 
     it('returns focus to the trigger when closed from inside', async () => {
@@ -70,8 +92,9 @@ describe('Drawer keyboard', () => {
         expect(trigger).toHaveFocus();
     });
 
-    it('does not take focus when it is rendered open', () => {
+    it('does not take focus when it is rendered open', async () => {
         render(<Drawer isOpen aria-label="Side panel"><button type="button">Inside action</button></Drawer>);
+        await new Promise(requestAnimationFrame);
         expect(screen.getByRole('button', { name: 'Inside action' })).not.toHaveFocus();
     });
 });

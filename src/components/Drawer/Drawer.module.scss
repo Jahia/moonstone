@@ -1,3 +1,4 @@
+@use "../../utils/mixins" as *;
 @use "../../utils/motion" as *;
 
 .drawer {
@@ -7,6 +8,12 @@
     height: stretch;
     min-height: 0;
     overflow-y: auto;
+
+    &:focus-visible {
+        @extend %is-focused;
+
+        outline-offset: -2px;
+    }
 }
 
 .drawer[data-state='open'] {
