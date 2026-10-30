@@ -37,16 +37,18 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             event.stopPropagation();
             onToggleExpand?.();
         };
+        // The click of the button, also fired by Enter and Space, bubbles to the onClick of the cell
+        const Toggle = isExpandable ? 'button' : 'div';
 
         return (
             <TableCell
-                aria-expanded={isExpanded}
                 className={clsx(styles.tableStructuredCell, className)}
                 ref={ref}
                 onClick={handleToggleExpand}
                 {...props}
             >
-                <div
+                <Toggle
+                    aria-expanded={isExpandable ? isExpanded : undefined}
                     className={clsx(
                         layout.flexRow_nowrap,
                         layout.flexFluid,
@@ -57,6 +59,7 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                         },
                     )}
                     style={{ marginLeft: indent }}
+                    type={isExpandable ? 'button' : undefined}
                 >
                     {isExpandable
                         ? (
@@ -78,7 +81,7 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                                 </>
                             )
                         : children}
-                </div>
+                </Toggle>
             </TableCell>
         );
     },
