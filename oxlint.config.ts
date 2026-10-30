@@ -92,7 +92,11 @@ export default defineConfig({
                 ['internal', 'parent', 'sibling', 'index'],
                 ['type', 'type-import', 'type-internal', 'type-parent', 'type-sibling', 'type-index'],
                 'side-effect',
-                'style',
+                // Stylesheet order is CSS load order: place the group, keep its order
+                {
+                    group: 'style',
+                    type: 'unsorted',
+                },
                 'side-effect-style',
             ],
         }],
