@@ -76,3 +76,13 @@ describe('Checkbox keyboard', () => {
         expect(screen.getByRole('checkbox')).toBeChecked();
     });
 });
+
+describe('Checkbox pointer', () => {
+    it.each(['default', 'big'] as const)('checks with a click 1px inside the 24px target around a %s box', async (size) => {
+        render(<div style={{ padding: 8 }}><Checkbox aria-label="Accept" size={size} value="a"/></div>);
+        const checkbox = screen.getByRole('checkbox');
+        const { width, height } = checkbox.getBoundingClientRect();
+        await userEvent.click(checkbox, { position: { x: ((width - 24) / 2) + 1, y: ((height - 24) / 2) + 1 }, force: true });
+        expect(checkbox).toBeChecked();
+    });
+});

@@ -36,6 +36,7 @@ $checkbox-sizeBig: 20px;
 
 .moonstone-checkbox_input {
     @include transition(box-shadow 0.1s);
+    @include min-target-size;
 
     --shadow-size: 1px;
     --shadow-color: var(--moon-color-gray);
