@@ -1,9 +1,10 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from 'vitest/browser';
 
 import { PrimaryNav } from './index';
 import { PrimaryNavItem } from './PrimaryNavItem';
 import { PrimaryNavItemsGroup } from './PrimaryNavItemsGroup';
+import { Modal } from '~/components/Modal';
 
 const renderNav = () => {
     const onFirst = vi.fn();
@@ -83,7 +84,7 @@ describe('PrimaryNav keyboard', () => {
         expect(toggle()).toHaveAttribute('aria-expanded', 'true');
     });
 
-    it.fails('collapses an expanded nav with Escape and returns focus to the toggle button', async () => {
+    it('collapses an expanded nav with Escape and returns focus to the toggle button', async () => {
         renderNav();
         toggle().focus();
         await userEvent.keyboard('{Enter}');
@@ -92,5 +93,31 @@ describe('PrimaryNav keyboard', () => {
         await userEvent.keyboard('{Escape}');
         expect(toggle()).toHaveAttribute('aria-expanded', 'false');
         expect(toggle()).toHaveFocus();
+    });
+
+    it('collapses the nav on the first Escape and lets the second close a Modal around it', async () => {
+        const onOpenChange = vi.fn();
+        render(
+            <Modal isOpen aria-label="Navigation" onOpenChange={onOpenChange}>
+                <PrimaryNav
+                    headerCaption="development"
+                    top={(
+                        <PrimaryNavItemsGroup>
+                            <PrimaryNavItem label="First"/>
+                        </PrimaryNavItemsGroup>
+                    )}
+                />
+            </Modal>,
+        );
+        // The Modal moves focus into the dialog once open
+        await waitFor(() => expect(screen.getByRole('dialog')).toContainElement(document.activeElement as HTMLElement));
+        toggle().focus();
+        await userEvent.keyboard('{Enter}');
+        expect(toggle()).toHaveAttribute('aria-expanded', 'true');
+        await userEvent.keyboard('{Escape}');
+        expect(toggle()).toHaveAttribute('aria-expanded', 'false');
+        expect(onOpenChange).not.toHaveBeenCalled();
+        await userEvent.keyboard('{Escape}');
+        expect(onOpenChange).toHaveBeenCalledWith(false, expect.anything(), 'escape-key');
     });
 });

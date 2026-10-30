@@ -17,6 +17,10 @@ if expanded :
  - Show mail of the user
  - Show sign out button
 
+## Accessibility
+
+With the focus inside an expanded navigation, Escape collapses it and returns the focus to the toggle button. The key does not bubble while the navigation is expanded.
+
 ## Labels:
 
 The navigation and its toggle button are named in English by default. Pass translated values with `i18n`.
