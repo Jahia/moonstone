@@ -115,7 +115,9 @@ export type DataTableBaseProps<T extends NonNullable<unknown>> = {
     rowProps?:
         | (React.HTMLAttributes<HTMLTableRowElement> & Record<string, unknown>)
         | ((context: RowContext<T>) => React.HTMLAttributes<HTMLTableRowElement> & Record<string, unknown>);
-    /** Labels of the pagination and of the selection checkboxes */
+    /**
+     * Texts of the component, shown on screen or read by screen readers. Translate them with the rest of the UI.
+     */
     i18n?: DataTableI18n;
 };
 

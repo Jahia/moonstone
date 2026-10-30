@@ -55,4 +55,4 @@ import {TimezoneSelector} from '@jahia/moonstone';
 - The Up and Down arrow keys move the focus between options. From the search field, the Down
   arrow key moves it to the first option (soon).
 - Enter selects the focused option and closes the list.
-- Escape closes the list and returns the focus to the trigger (soon).
+- Escape closes the list and returns the focus to the trigger.

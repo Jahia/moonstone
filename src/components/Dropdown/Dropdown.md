@@ -9,6 +9,7 @@ import {Dropdown} from '@jahia/moonstone';
     ]}
     value={status}
     placeholder="Select a value"
+    aria-label="Status"
 />
 ```
 
@@ -55,10 +56,12 @@ import {Dropdown} from '@jahia/moonstone';
 - Write `searchEmptyText` as a short, plain statement, such as "No results found.".
 
 ## Accessibility
+- Add an `aria-label` that names the field when the Dropdown is not in a [Field](?path=/docs/components-field--docs).
+- Override `i18n.clearButton` and `i18n.searchLabel` when translating; left unset, they default to English.
 - Enter opens the list. Space and the Down arrow key open it too (soon).
-- Opening the list with the keyboard moves the focus into the options (soon).
+- Opening the list with the keyboard moves the focus into the options.
 - The Up and Down arrow keys move the focus between options.
 - Home and End move the focus to the first and last options.
 - Enter selects the focused option and closes the list. In multiple selection, Space toggles the
   focused option.
-- Escape closes the list and returns the focus to the trigger (soon).
+- Escape closes the list and returns the focus to the trigger.

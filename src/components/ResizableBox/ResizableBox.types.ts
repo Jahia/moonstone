@@ -86,7 +86,7 @@ export type ResizableBoxProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'chi
      */
     onResizeStop?: (event: MouseEvent | TouchEvent | KeyboardEvent, direction: ResizeDirection, elementRef: HTMLElement, delta: NumberSize) => void;
     /**
-     * Texts read by screen readers. Translate them with the rest of the UI.
+     * Texts of the component, shown on screen or read by screen readers. Translate them with the rest of the UI.
      */
     i18n?: {
         /**

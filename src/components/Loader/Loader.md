@@ -2,7 +2,7 @@
 ```jsx
 import {Loader} from '@jahia/moonstone';
 
-<Loader size="medium" aria-label="Loading content"/>
+<Loader size="medium"/>
 ```
 
 ## Do
@@ -26,5 +26,5 @@ import {Loader} from '@jahia/moonstone';
 | `big` | _Pending design guidance_ <!-- designer: when to use the big Loader? Moonstone itself uses it for the loading state of LayoutApp, LayoutModule, and LayoutContent. --> |
 
 ## Accessibility
-- Pass an `aria-label` that says what is loading, such as `aria-label="Loading content"`.
+- Override `i18n.loadingLabel` when translating; left unset, it defaults to English.
 - On a dark background, set `isReversed` so the spinner keeps enough contrast.

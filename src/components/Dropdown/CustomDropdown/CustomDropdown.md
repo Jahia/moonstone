@@ -41,7 +41,7 @@ import {CustomDropdown} from '@jahia/moonstone';
   it opens.
 - Make sure every control you pass as children is reachable with the keyboard.
 - The Down arrow key opens the menu (soon).
-- Opening the menu with the keyboard moves the focus to the first item (soon).
+- Opening the menu with the keyboard moves the focus to the first item.
 - The Up and Down arrow keys move the focus between items.
-- Enter activates the focused item (soon).
-- Escape closes the menu and returns the focus to the trigger (soon).
+- Enter activates the focused item.
+- Escape closes the menu and returns the focus to the trigger.

@@ -123,7 +123,7 @@ export type BaseDropdownProps = {
     onClear?: React.MouseEventHandler;
 
     /**
-     * Dropdown labels
+     * Texts of the component, shown on screen or read by screen readers. Translate them with the rest of the UI.
      */
     i18n?: {
         /**

@@ -44,3 +44,6 @@ import {TimeInput} from '@jahia/moonstone';
 - Add an `aria-label` when it is not in a [Field](?path=/docs/components-field--docs).
 - The Up and Down arrow keys step the hour or minute segment under the caret. The Left and Right
   arrow keys move between the two segments.
+- With `timeFormat="12h"`, Enter opens the AM/PM dropdown. The Down arrow key opens it too (soon).
+- Enter selects the focused AM/PM option.
+- Escape closes the AM/PM dropdown and returns the focus to it.

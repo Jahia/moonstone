@@ -44,7 +44,7 @@ export type PrimaryNavProps = React.ComponentPropsWithoutRef<'nav'> & {
      */
     bottom?: React.ReactElement<PrimaryNavItemsGroupProps> | React.ReactElement<PrimaryNavItemsGroupProps>[];
     /**
-     * Primary nav labels
+     * Texts of the component, shown on screen or read by screen readers. Translate them with the rest of the UI.
      */
     i18n?: {
         /**

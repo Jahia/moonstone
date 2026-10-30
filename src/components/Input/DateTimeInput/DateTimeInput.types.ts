@@ -153,7 +153,9 @@ export type DateTimeInputSharedProps = Omit<BaseInputProps,
      */
     weekStartsOn?: DayOfWeek;
 
-    /** I18n labels for calendar actions */
+    /**
+     * Texts of the component, shown on screen or read by screen readers. Translate them with the rest of the UI.
+     */
     i18n?: DateTimeInputI18n;
 
     /** Additional props forwarded to the internal TimeInput (`type='dateTime'` or `'zonedDateTime'`). */

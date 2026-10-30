@@ -19,3 +19,4 @@ import {Header, LayoutContent} from '@jahia/moonstone';
 ## Accessibility
 - Give the page a title with a [Header](?path=/docs/components-header--docs). It renders the title as the page's main heading.
 - While `isLoading` is `true`, the content region is marked busy and its content is replaced by a [Loader](?path=/docs/components-loader--docs). Set it back to `false` as soon as the content is ready, so assistive technology reads the new content.
+- Override `i18n.contentLabel` and `i18n.loadingLabel` when translating; left unset, they default to English.

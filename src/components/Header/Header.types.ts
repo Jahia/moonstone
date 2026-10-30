@@ -49,7 +49,7 @@ export type HeaderProps = Omit<React.ComponentPropsWithoutRef<'header'>, 'classN
     toolbarLeft?: React.ReactNode;
 
     /**
-     * Header labels
+     * Texts of the component, shown on screen or read by screen readers. Translate them with the rest of the UI.
      */
     i18n?: {
         /**

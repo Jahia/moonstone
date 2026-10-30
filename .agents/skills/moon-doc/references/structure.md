@@ -188,6 +188,9 @@ The props' JSDoc is user-facing: the IDE shows it, and Storybook renders it as t
   called.
 - **Non-obvious booleans get a one-sentence rationale** in their JSDoc (see *The Appearance
   pattern*).
+- **The `i18n` prop always has the same JSDoc**, word for word: "Texts of the component, shown on
+  screen or read by screen readers. Translate them with the rest of the UI." Each key says in its
+  own JSDoc what the text is, with its `@default`.
 - Edit only the `/** … */` blocks, never the types or the code (see the Write workflow).
 
 ## Wiring into Storybook
