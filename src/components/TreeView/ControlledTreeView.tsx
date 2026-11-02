@@ -61,11 +61,10 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
     // The rendered nodes, in the order of treeItems
     const visibleNodes: TreeViewData[] = [];
 
-    // Moves focus from the focused node to another one. The nodes are found in the DOM, because a custom itemComponent may not forward its ref
-    const focusNode = (id?: string) => {
-        const nodes = document.activeElement?.closest('[role="tree"]')?.querySelectorAll<HTMLElement>('[data-roving-item]');
-        nodes?.[visibleNodes.findIndex(node => node.id === id)]?.focus();
-    };
+    // The nodes are found in the DOM, in the order of visibleNodes, because a custom itemComponent may not forward its ref
+    const getNodes = (tree?: Element | null) => Array.from(tree?.querySelectorAll<HTMLElement>('[data-roving-item]') ?? []);
+    // Called from the keydown of the focused node
+    const focusNode = (id?: string) => getNodes(document.activeElement?.closest('[role="tree"]'))[visibleNodes.findIndex(node => node.id === id)]?.focus();
 
     function generateLevelJSX(nodeData: TreeViewData[], depth: number, parentHasIconStart: boolean, parentId?: string): React.ReactElement[] {
         const expandSiblings = (e: React.MouseEvent) => {
@@ -241,12 +240,17 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
             return;
         }
 
-        const nodes = Array.from(e.currentTarget.querySelectorAll<HTMLElement>('[data-roving-item]:not([aria-disabled="true"])'));
-        const next = nodes[nodes.indexOf(e.target as HTMLElement) + (e.key === 'ArrowDown' ? 1 : -1)];
-        if (next) {
+        const step = e.key === 'ArrowDown' ? 1 : -1;
+        const nodes = getNodes(e.currentTarget);
+        let next = nodes.indexOf(e.target as HTMLElement) + step;
+        while (visibleNodes[next]?.isDisabled) {
+            next += step;
+        }
+
+        if (nodes[next]) {
             e.preventDefault();
             e.stopPropagation();
-            next.focus();
+            nodes[next].focus();
         }
     };
 
