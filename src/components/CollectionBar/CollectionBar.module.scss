@@ -1,0 +1,160 @@
+@use '../../utils/index';
+
+$chip-maxWidth: 400px;
+
+.moonstone-collectionBar {
+    padding: var(--moon-spacing-small) 0;
+}
+
+.moonstone-collectionBar_toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--moon-spacing-small);
+    align-items: center;
+}
+
+// The column choice sits at the right end of the bar
+.moonstone-collectionBar_end {
+    display: flex;
+    margin-left: auto;
+}
+
+// ---
+// Chip: an edit button, and a clear button once the filter has a value
+// ---
+.moonstone-collectionBar_chip {
+    display: inline-flex;
+    max-width: $chip-maxWidth;
+}
+
+// The chip restyles an outlined Button, as ButtonToggle restyles Button: same specificity, later in the bundle
+.moonstone-collectionBar_chipButton[data-variant] {
+    min-width: 0;
+
+    // A long value ends with an ellipsis, and the tooltip shows the full text
+    > span {
+        min-width: 0;
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+    }
+
+    > svg {
+        flex: none;
+    }
+}
+
+// The looks first, then the states, which outrank them
+.moonstone-empty .moonstone-collectionBar_chipButton[data-variant] {
+    color: var(--moon-color-gray_dark);
+
+    border: 1px dashed var(--moon-color-gray40);
+    background-color: var(--moon-background-selector);
+}
+
+.moonstone-filled .moonstone-collectionBar_chipButton[data-variant],
+.moonstone-filled .moonstone-collectionBar_chipClear[data-variant] {
+    color: var(--moon-color-accent_dark);
+
+    border-color: var(--moon-color-accent_light_plain20);
+    background-color: var(--moon-color-accent_light_plain20);
+}
+
+.moonstone-filled .moonstone-collectionBar_chipButton[data-variant] {
+    border-radius: var(--moon-radius) 0 0 var(--moon-radius);
+}
+
+.moonstone-filled .moonstone-collectionBar_chipClear[data-variant] {
+    flex: none;
+
+    border-left-color: var(--moon-color-accent_light_plain40);
+    border-radius: 0 var(--moon-radius) var(--moon-radius) 0;
+}
+
+.moonstone-empty .moonstone-collectionBar_chipButton[data-variant]:hover:not(:disabled) {
+    color: var(--moon-color-gray_dark);
+
+    border: var(--moon-border-selector_hover);
+}
+
+.moonstone-empty .moonstone-collectionBar_chipButton[data-variant]:active:not(:disabled) {
+    color: var(--moon-color-gray_dark);
+
+    border: var(--moon-border-selector_hover);
+    background-color: var(--moon-color-gray_light_plain40);
+}
+
+.moonstone-filled .moonstone-collectionBar_chipButton[data-variant]:hover:not(:disabled),
+.moonstone-filled .moonstone-collectionBar_chipClear[data-variant]:hover:not(:disabled) {
+    z-index: 1;
+
+    color: var(--moon-color-accent_dark_contrast);
+
+    border-color: var(--moon-color-accent_light_plain40);
+    background-color: var(--moon-color-accent_light_plain40);
+}
+
+.moonstone-filled .moonstone-collectionBar_chipButton[data-variant]:active:not(:disabled),
+.moonstone-filled .moonstone-collectionBar_chipClear[data-variant]:active:not(:disabled) {
+    color: var(--moon-color-accent_dark_contrast);
+
+    border-color: var(--moon-color-accent_light_plain60);
+    background-color: var(--moon-color-accent_light_plain60);
+}
+
+// The tooltip wraps the edit button of a filled chip
+.moonstone-collectionBar_chip > .moonstone-tooltip {
+    display: flex;
+    min-width: 0;
+}
+
+// The ghost accent Button has a contrast of 2.9:1 on white, under the 4.5:1 of WCAG 1.4.3
+.moonstone-collectionBar_addFilter[data-variant]:not(:disabled) {
+    color: var(--moon-color-accent_dark);
+}
+
+// ---
+// Selector: a dialog with the look of a Menu
+// ---
+.moonstone-collectionBar_selector {
+    z-index: 9000;
+
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    max-width: calc(100vw - 2 * var(--moon-spacing-medium));
+
+    color: var(--moon-color-gray_dark);
+
+    border-radius: var(--moon-radius);
+    background-color: var(--moon-color-light);
+    box-shadow: 0 var(--moon-spacing-nano) var(--moon-spacing-small) var(--moon-color-gray_dark60);
+}
+
+.moonstone-collectionBar_selectorTitle {
+    padding: var(--moon-spacing-small) var(--moon-spacing-medium) 0;
+
+    color: var(--moon-color-gray);
+}
+
+.moonstone-collectionBar_selectorBody {
+    display: flex;
+    flex-direction: column;
+    gap: var(--moon-spacing-small);
+    align-items: flex-start;
+    padding: var(--moon-spacing-small) var(--moon-spacing-medium);
+}
+
+.moonstone-collectionBar_selectorFooter {
+    display: flex;
+    justify-content: flex-end;
+    padding: var(--moon-spacing-small);
+
+    border-top: 1px solid var(--moon-color-gray_light);
+}
+
+.moonstone-collectionBar_overlay {
+    @extend %overlay;
+
+    z-index: 8500;
+}
