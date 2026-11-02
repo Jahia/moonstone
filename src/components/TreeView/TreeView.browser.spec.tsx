@@ -159,3 +159,48 @@ describe('TreeView keyboard', () => {
         expect(node('Child Z1')).toHaveFocus();
     });
 });
+
+// Spreads its props but does not forward its ref, like the tree rows of jContent
+const ItemWithoutRef = ({ children, ...props }: React.HTMLAttributes<HTMLLIElement>) => <li {...props}>{children}</li>;
+
+describe('TreeView keyboard with an itemComponent that does not forward its ref', () => {
+    it('exposes a single Tab stop: Tab enters the tree and the next Tab leaves it', async () => {
+        renderTree({ itemComponent: ItemWithoutRef });
+        screen.getByRole('button', { name: 'before' }).focus();
+        await userEvent.keyboard('{Tab}');
+        expect(node('Root A')).toHaveFocus();
+        await userEvent.keyboard('{Tab}');
+        expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
+    });
+
+    it('moves focus with ArrowDown, ArrowUp, Home and End', async () => {
+        renderTree({ itemComponent: ItemWithoutRef });
+        node('Root A').focus();
+        await userEvent.keyboard('{ArrowDown}');
+        expect(node('Child A1')).toHaveFocus();
+        await userEvent.keyboard('{ArrowUp}');
+        expect(node('Root A')).toHaveFocus();
+        await userEvent.keyboard('{End}');
+        expect(node('Root C')).toHaveFocus();
+        await userEvent.keyboard('{Home}');
+        expect(node('Root A')).toHaveFocus();
+    });
+
+    it('moves focus to the first child with ArrowRight and back to the parent with ArrowLeft', async () => {
+        renderTree({ itemComponent: ItemWithoutRef });
+        node('Root A').focus();
+        await userEvent.keyboard('{ArrowRight}');
+        expect(node('Child A1')).toHaveFocus();
+        await userEvent.keyboard('{ArrowLeft}');
+        expect(node('Root A')).toHaveFocus();
+    });
+
+    it('enters the tree again on the selected node with Shift+Tab', async () => {
+        renderTree({ itemComponent: ItemWithoutRef, selectedItems: ['B'] });
+        node('Root B').focus();
+        await userEvent.keyboard('{ArrowUp}');
+        await userEvent.keyboard('{Tab}');
+        await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+        expect(node('Root B')).toHaveFocus();
+    });
+});
