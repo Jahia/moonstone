@@ -1,6 +1,6 @@
 ## Example
 ```jsx
-import {Tag} from '~/components';
+import {Tag} from '~/components/Tag';
 
 <Tag label="Featured" value="featured" onClick={(event, value) => removeFilter(value)}/>
 ```
