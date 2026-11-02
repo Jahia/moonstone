@@ -6,24 +6,23 @@ $chip-maxWidth: 400px;
     padding: var(--moon-spacing-small) 0;
 }
 
+// The flexRow and alignCenter classes hold the layout
 .moonstone-collectionBar_toolbar {
-    display: flex;
-    flex-wrap: wrap;
     gap: var(--moon-spacing-small);
-    align-items: center;
 }
 
 // The column choice sits at the right end of the bar
 .moonstone-collectionBar_end {
-    display: flex;
     margin-left: auto;
 }
 
 // ---
 // Chip: an edit button, and a clear button once the filter has a value
 // ---
+// min-width lets a chip shrink below its text, so a narrow screen shows the ellipsis
 .moonstone-collectionBar_chip {
     display: inline-flex;
+    min-width: 0;
     max-width: $chip-maxWidth;
 }
 
@@ -44,48 +43,63 @@ $chip-maxWidth: 400px;
     }
 }
 
+// The tooltips wrap the edit button and the clear button of a filled chip
+.moonstone-collectionBar_chipTooltip {
+    display: flex;
+    min-width: 0;
+}
+
+.moonstone-collectionBar_chipClearTooltip {
+    display: flex;
+    flex: none;
+}
+
 // The looks first, then the states, which outrank them
-.moonstone-empty .moonstone-collectionBar_chipButton[data-variant] {
+.moonstone-collectionBar_chip.moonstone-empty .moonstone-collectionBar_chipButton[data-variant] {
     color: var(--moon-color-gray_dark);
 
     border: 1px dashed var(--moon-color-gray40);
     background-color: var(--moon-background-selector);
 }
 
-.moonstone-filled .moonstone-collectionBar_chipButton[data-variant],
-.moonstone-filled .moonstone-collectionBar_chipClear[data-variant] {
+.moonstone-collectionBar_chip.moonstone-filled .moonstone-collectionBar_chipButton[data-variant],
+.moonstone-collectionBar_chip.moonstone-filled .moonstone-collectionBar_chipClear[data-variant] {
     color: var(--moon-color-accent_dark);
 
     border-color: var(--moon-color-accent_light_plain20);
     background-color: var(--moon-color-accent_light_plain20);
 }
 
-.moonstone-filled .moonstone-collectionBar_chipButton[data-variant] {
+.moonstone-collectionBar_chip.moonstone-filled .moonstone-collectionBar_chipButton[data-variant] {
     border-radius: var(--moon-radius) 0 0 var(--moon-radius);
 }
 
-.moonstone-filled .moonstone-collectionBar_chipClear[data-variant] {
-    flex: none;
-
+.moonstone-collectionBar_chip.moonstone-filled .moonstone-collectionBar_chipClear[data-variant] {
     border-left-color: var(--moon-color-accent_light_plain40);
     border-radius: 0 var(--moon-radius) var(--moon-radius) 0;
 }
 
-.moonstone-empty .moonstone-collectionBar_chipButton[data-variant]:hover:not(:disabled) {
+.moonstone-collectionBar_chip.moonstone-empty .moonstone-collectionBar_chipButton[data-variant]:hover:not(:disabled) {
     color: var(--moon-color-gray_dark);
 
     border: var(--moon-border-selector_hover);
 }
 
-.moonstone-empty .moonstone-collectionBar_chipButton[data-variant]:active:not(:disabled) {
+// An open chip takes the border of an open Dropdown
+.moonstone-collectionBar_chip.moonstone-empty .moonstone-collectionBar_chipButton[data-variant][aria-expanded="true"] {
+    border: var(--moon-border-selector_active);
+}
+
+.moonstone-collectionBar_chip.moonstone-empty .moonstone-collectionBar_chipButton[data-variant]:active:not(:disabled) {
     color: var(--moon-color-gray_dark);
 
     border: var(--moon-border-selector_hover);
     background-color: var(--moon-color-gray_light_plain40);
 }
 
-.moonstone-filled .moonstone-collectionBar_chipButton[data-variant]:hover:not(:disabled),
-.moonstone-filled .moonstone-collectionBar_chipClear[data-variant]:hover:not(:disabled) {
+.moonstone-collectionBar_chip.moonstone-filled .moonstone-collectionBar_chipButton[data-variant]:hover:not(:disabled),
+.moonstone-collectionBar_chip.moonstone-filled .moonstone-collectionBar_chipButton[data-variant][aria-expanded="true"],
+.moonstone-collectionBar_chip.moonstone-filled .moonstone-collectionBar_chipClear[data-variant]:hover:not(:disabled) {
     z-index: 1;
 
     color: var(--moon-color-accent_dark_contrast);
@@ -94,18 +108,12 @@ $chip-maxWidth: 400px;
     background-color: var(--moon-color-accent_light_plain40);
 }
 
-.moonstone-filled .moonstone-collectionBar_chipButton[data-variant]:active:not(:disabled),
-.moonstone-filled .moonstone-collectionBar_chipClear[data-variant]:active:not(:disabled) {
+.moonstone-collectionBar_chip.moonstone-filled .moonstone-collectionBar_chipButton[data-variant]:active:not(:disabled),
+.moonstone-collectionBar_chip.moonstone-filled .moonstone-collectionBar_chipClear[data-variant]:active:not(:disabled) {
     color: var(--moon-color-accent_dark_contrast);
 
     border-color: var(--moon-color-accent_light_plain60);
     background-color: var(--moon-color-accent_light_plain60);
-}
-
-// The tooltip wraps the edit button of a filled chip
-.moonstone-collectionBar_chip > .moonstone-tooltip {
-    display: flex;
-    min-width: 0;
 }
 
 // The ghost accent Button has a contrast of 2.9:1 on white, under the 4.5:1 of WCAG 1.4.3
@@ -119,8 +127,6 @@ $chip-maxWidth: 400px;
 .moonstone-collectionBar_selector {
     z-index: 9000;
 
-    display: flex;
-    flex-direction: column;
     min-width: 200px;
     max-width: calc(100vw - 2 * var(--moon-spacing-medium));
 
@@ -131,23 +137,26 @@ $chip-maxWidth: 400px;
     box-shadow: 0 var(--moon-spacing-nano) var(--moon-spacing-small) var(--moon-color-gray_dark60);
 }
 
-.moonstone-collectionBar_selectorTitle {
-    padding: var(--moon-spacing-small) var(--moon-spacing-medium) 0;
+// Forced colours remove the shadow, the only edge of the dialog
+@media (forced-colors: active) {
+    .moonstone-collectionBar_selector {
+        border: 1px solid canvastext;
+    }
+}
 
-    color: var(--moon-color-gray);
+// The padding and the colour of a MenuItem title
+.moonstone-collectionBar_selectorTitle {
+    padding: var(--moon-spacing-nano) var(--moon-spacing-medium);
+
+    color: var(--moon-color-gray_dark);
 }
 
 .moonstone-collectionBar_selectorBody {
-    display: flex;
-    flex-direction: column;
     gap: var(--moon-spacing-small);
-    align-items: flex-start;
     padding: var(--moon-spacing-small) var(--moon-spacing-medium);
 }
 
 .moonstone-collectionBar_selectorFooter {
-    display: flex;
-    justify-content: flex-end;
     padding: var(--moon-spacing-small);
 
     border-top: 1px solid var(--moon-color-gray_light);

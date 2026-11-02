@@ -145,4 +145,36 @@ describe('CollectionBar keyboard', () => {
         expect(within(menu).getByRole('menuitemcheckbox', { name: 'Details' })).toHaveAttribute('aria-checked', 'true');
         expect(menu).toBeVisible();
     });
+    it('keeps Tab and Shift+Tab in the open selector', async () => {
+        render(<Bar/>);
+        button('Date').focus();
+        await userEvent.keyboard('{Enter}');
+        await waitFor(() => expect(screen.getByRole('textbox', { name: 'Date' })).toHaveFocus());
+        await userEvent.keyboard('{Tab}');
+        expect(within(screen.getByRole('dialog')).getByRole('button', { name: 'Close' })).toHaveFocus();
+        await userEvent.keyboard('{Tab}');
+        expect(screen.getByRole('textbox', { name: 'Date' })).toHaveFocus();
+        await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+        expect(within(screen.getByRole('dialog')).getByRole('button', { name: 'Close' })).toHaveFocus();
+    });
+
+    it('keeps the focus on a visible column that moves to the hidden columns', async () => {
+        render(<Bar/>);
+        button('Choose the columns').focus();
+        await userEvent.keyboard('{Enter}');
+        await waitFor(() => expect(screen.getByRole('searchbox', { name: 'Search' })).toHaveFocus());
+        const user = screen.getByRole('menuitemcheckbox', { name: 'User' });
+        user.focus();
+        await userEvent.keyboard(' ');
+        await waitFor(() => expect(screen.getByRole('menuitemcheckbox', { name: 'User' })).toHaveFocus());
+        expect(screen.getByRole('menuitemcheckbox', { name: 'User' })).toHaveAttribute('aria-checked', 'false');
+    });
+
+    it('shows the name of the clear button in a tooltip on focus', async () => {
+        render(<Bar initialValues={{ date: 'Today' }}/>);
+        button('Date: Today').focus();
+        await userEvent.keyboard('{ArrowRight}');
+        expect(button('Clear the Date filter')).toHaveFocus();
+        await waitFor(() => expect(screen.getByRole('tooltip')).toHaveTextContent('Clear the Date filter'));
+    });
 });

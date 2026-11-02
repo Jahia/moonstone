@@ -28,7 +28,7 @@ export const useCollectionBarFilters = ({ isEveryFilterDisplayed = false, initia
     const [values, setValues] = useState<Record<string, string>>(initialValues);
     const setValue = (key: string, value: string) => setValues(current => ({ ...current, [key]: value }));
 
-    const filter = (key: string, label: string, isDisplayedByDefault: boolean, iconStart?: React.ReactElement): CollectionBarFilter => ({
+    const filter = (key: string, label: string, example: string, isDisplayedByDefault: boolean, iconStart?: React.ReactElement): CollectionBarFilter => ({
         key,
         label,
         iconStart,
@@ -37,7 +37,7 @@ export const useCollectionBarFilters = ({ isEveryFilterDisplayed = false, initia
         selector: (
             <Input
                 aria-label={label}
-                placeholder={`${label} value`}
+                placeholder={`For example ${example}`}
                 value={values[key] ?? ''}
                 onChange={e => setValue(key, e.target.value)}
                 onClear={() => setValue(key, '')}
@@ -49,9 +49,9 @@ export const useCollectionBarFilters = ({ isEveryFilterDisplayed = false, initia
     return {
         values,
         filters: [
-            filter('date', 'Date', true),
-            filter('user', 'User', false, <Person/>),
-            filter('action', 'Action', false, <Filter/>),
+            filter('date', 'Date', '2026-11-02', true),
+            filter('user', 'User', 'root', false, <Person/>),
+            filter('action', 'Action', 'Published', false, <Filter/>),
         ],
         clearAll: () => setValues({}),
     };

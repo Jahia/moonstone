@@ -55,12 +55,13 @@ export type CollectionBarFilter = {
     selector: React.ReactNode | ((context: CollectionBarSelectorContext) => React.ReactNode);
 
     /**
-     * Function triggered by the clear button of the chip
+     * Function triggered by the clear button of the chip, with its click event
      */
-    onClear: () => void;
+    onClear: (event: React.MouseEvent) => void;
 
     /**
-     * Function triggered when the selector closes
+     * Function triggered on every close of the selector: Escape, the Close button, a click outside, the chip,
+     * or the close of the function form. A selector commits a typed draft value there
      */
     onClose?: () => void;
 };
@@ -85,7 +86,8 @@ export type CollectionBarColumn = {
  */
 export type CollectionBarI18n = {
     /**
-     * Accessible name of the bar
+     * Accessible name of the bar, a toolbar from 3 controls on and a group below.
+     * Name the collection that the bar filters, such as 'History filters'
      * @default 'Collection options'
      */
     toolbarLabel?: string;
@@ -164,14 +166,15 @@ type ColumnChoiceProps
 
 export type CollectionBarProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className' | 'children'> & {
     /**
-     * Filters of the bar, in the order of their chips
+     * Filters of the bar. The chips of the filters displayed by default come first, in this order,
+     * then the added chips, in the order the user added them
      */
     filters: ReadonlyArray<CollectionBarFilter>;
 
     /**
-     * Function triggered by the Clear all button. The button shows when it is set and a filter has a value
+     * Function triggered by the Clear all button, with its click event. The button shows when it is set and a filter has a value
      */
-    onClearAll?: () => void;
+    onClearAll?: (event: React.MouseEvent) => void;
 
     /**
      * Whether every control of the bar is disabled

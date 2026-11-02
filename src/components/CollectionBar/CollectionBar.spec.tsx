@@ -261,4 +261,62 @@ describe('CollectionBar', () => {
         await user.click(screen.getByRole('button', { name: 'Pick' }));
         expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     });
+    it('is a group with a Tab stop on each control when it holds fewer than 3 controls', () => {
+        render(<Bar hasColumns={false}/>);
+        expect(screen.queryByRole('toolbar')).not.toBeInTheDocument();
+        const group = screen.getByRole('group', { name: 'Collection options' });
+        within(group).getAllByRole('button').forEach(button => expect(button).not.toHaveAttribute('tabindex', '-1'));
+    });
+
+    it('becomes a toolbar once it holds 3 controls', () => {
+        render(<Bar hasColumns={false} initialValues={{ date: 'Today' }}/>);
+        expect(screen.getByRole('toolbar', { name: 'Collection options' })).toBeInTheDocument();
+    });
+
+    it('falls back to the default of an empty label', () => {
+        render(<Bar i18n={{ addFilter: '', toolbarLabel: undefined }}/>);
+        expect(chip('Add filter')).toBeInTheDocument();
+        expect(screen.getByRole('toolbar', { name: 'Collection options' })).toBeInTheDocument();
+    });
+
+    it('calls onClose of a filter when a click outside closes its selector', async () => {
+        const user = userEvent.setup();
+        const onClose = vi.fn();
+        const filters = [{
+            key: 'path',
+            label: 'Path',
+            isDisplayedByDefault: true,
+            selector: <span>Selector</span>,
+            onClear: vi.fn(),
+            onClose,
+        }];
+        const { container } = render(<CollectionBar filters={filters}/>);
+        await user.click(chip('Path'));
+        await user.click(container.querySelector('.moonstone-collectionBar_overlay'));
+        expect(onClose).toHaveBeenCalledTimes(1);
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+
+    it('passes the click event to onClear', async () => {
+        const user = userEvent.setup();
+        const onClear = vi.fn();
+        const filters = [{
+            key: 'path',
+            label: 'Path',
+            valueLabel: '/sites',
+            isDisplayedByDefault: true,
+            selector: <span>Selector</span>,
+            onClear,
+        }];
+        render(<CollectionBar filters={filters}/>);
+        await user.click(chip('Clear the Path filter'));
+        expect(onClear.mock.calls[0][0]).toHaveProperty('type', 'click');
+    });
+
+    it('names its two menus', async () => {
+        const user = userEvent.setup();
+        render(<Bar/>);
+        await user.click(chip('Add filter'));
+        expect(screen.getByLabelText('Add filter', { selector: 'menu' })).toBeInTheDocument();
+    });
 });

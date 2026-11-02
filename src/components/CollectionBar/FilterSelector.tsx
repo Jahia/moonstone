@@ -3,9 +3,10 @@ import React, { useEffect, useId, useLayoutEffect, useRef } from 'react';
 
 import { Button } from '~/components/Button';
 import { Typography } from '~/components/Typography';
+import { layout } from '~/globals/css-utils.js';
 import { usePositioning } from '~/hooks';
 
-import type { CollectionBarFilter } from './CollectionBar.types';
+import type { FilterSelectorProps } from './FilterSelector.types';
 
 import styles from './CollectionBar.module.scss';
 
@@ -24,17 +25,9 @@ const transformElOrigin = {
     vertical: 'top',
 } as const;
 
-const FOCUSABLE = 'input:not([disabled]), textarea:not([disabled]), select:not([disabled]), button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])';
+const FOCUSABLE = 'input:not([disabled], [type="hidden"]), textarea:not([disabled]), select:not([disabled]), button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])';
 
-type FilterSelectorProps = {
-    filter: CollectionBarFilter;
-    /** Returns the chip that anchors the selector */
-    getAnchor: () => HTMLElement | null;
-    closeLabel: string;
-    onClose: () => void;
-};
-
-/** The selector of a filter: a non-modal dialog anchored below its chip, with the look of a Menu */
+/** The selector of a filter: a modal dialog anchored below its chip, with the look of a Menu */
 export const FilterSelector = ({
     filter,
     getAnchor,
@@ -58,20 +51,36 @@ export const FilterSelector = ({
     }, [dialogRef]);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-        const hasModifier = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
-        if (e.key === 'Escape' && !e.defaultPrevented && !hasModifier) {
+        if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.altKey) {
+            return;
+        }
+
+        if (e.key === 'Escape' && !e.shiftKey) {
             // Stops a Drawer or a Modal around the bar from closing on the same Escape
             e.stopPropagation();
             onClose();
+        } else if (e.key === 'Tab') {
+            // The overlay blocks the page, so Tab and Shift+Tab cycle inside the dialog
+            const focusables = Array.from(e.currentTarget.querySelectorAll<HTMLElement>(FOCUSABLE));
+            const edge = e.shiftKey ? focusables[0] : focusables[focusables.length - 1];
+            if (document.activeElement === edge) {
+                e.preventDefault();
+                (e.shiftKey ? focusables[focusables.length - 1] : focusables[0])?.focus();
+            }
         }
     };
 
     return (
         <>
-            {/* oxlint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- Escape closes the dialog, as in a Menu */}
+            {/* oxlint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- Escape closes the dialog, and Tab stays in it */}
             <div
                 aria-labelledby={titleId}
-                className={clsx('moonstone-collectionBar_selector', styles['moonstone-collectionBar_selector'])}
+                aria-modal="true"
+                className={clsx(
+                    ['moonstone-collectionBar_selector', styles['moonstone-collectionBar_selector']],
+                    ['flexCol_nowrap', layout.flexCol_nowrap],
+                )}
+                data-filter={filter.key}
                 ref={dialogRef}
                 role="dialog"
                 style={stylePosition}
@@ -85,10 +94,23 @@ export const FilterSelector = ({
                 >
                     {filter.label}
                 </Typography>
-                <div className={clsx('moonstone-collectionBar_selectorBody', styles['moonstone-collectionBar_selectorBody'])} data-selector-body="">
+                <div
+                    className={clsx(
+                        ['moonstone-collectionBar_selectorBody', styles['moonstone-collectionBar_selectorBody']],
+                        ['flexCol_nowrap', layout.flexCol_nowrap],
+                        ['alignStart', layout.alignStart],
+                    )}
+                    data-selector-body=""
+                >
                     {typeof filter.selector === 'function' ? filter.selector({ close: onClose }) : filter.selector}
                 </div>
-                <div className={clsx('moonstone-collectionBar_selectorFooter', styles['moonstone-collectionBar_selectorFooter'])}>
+                <div
+                    className={clsx(
+                        ['moonstone-collectionBar_selectorFooter', styles['moonstone-collectionBar_selectorFooter']],
+                        ['flexRow', layout.flexRow],
+                        ['justifyEnd', layout.justifyEnd],
+                    )}
+                >
                     <Button label={closeLabel} variant="ghost" onClick={onClose}/>
                 </div>
             </div>

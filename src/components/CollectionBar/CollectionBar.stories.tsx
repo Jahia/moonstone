@@ -6,7 +6,7 @@ import { CollectionBar } from './index';
 import imgHorizontal from '~/__storybook__/assets/img-horizontal.webp';
 import imgSquare from '~/__storybook__/assets/img-square.webp';
 import imgVertical from '~/__storybook__/assets/img-vertical.webp';
-import { DataTable, Thumbnail, Typography } from '~/components';
+import { DataTable, Input, Thumbnail, Typography } from '~/components';
 import { collectionBarColumns, useCollectionBarFilters } from '~/data/collectionBar';
 import { layout } from '~/globals/css-utils.js';
 
@@ -24,6 +24,12 @@ const meta = {
     },
     argTypes: {
         i18n: { control: 'object' },
+        // The stories own these props, so their controls would change nothing
+        filters: { control: false },
+        columns: { control: false },
+        visibleColumns: { control: false },
+        onVisibleColumnsChange: { control: false },
+        onClearAll: { control: false },
     },
 } satisfies Meta<typeof CollectionBar>;
 
@@ -114,5 +120,45 @@ export const FocusedChip: Story = {
     name: 'Focused chip',
     play: async ({ canvasElement }) => {
         (canvasElement.querySelector('[role="toolbar"] button') as HTMLElement | null)?.focus({ focusVisible: true } as FocusOptions);
+    },
+};
+
+// A play function opens a popup, so that the axe pass and the visual test cover it
+export const OpenSelector: Story = {
+    render: args => <AboveDataTable {...args} initialValues={{ date: '2026-11-02' }}/>,
+    name: 'Open selector',
+    play: async ({ canvasElement }) => {
+        (canvasElement.querySelector('.moonstone-collectionBar_chipButton') as HTMLElement | null)?.click();
+    },
+};
+
+export const OpenColumnChoice: Story = {
+    render: args => <AboveDataTable {...args}/>,
+    name: 'Open column choice',
+    play: async ({ canvasElement }) => {
+        (canvasElement.querySelector('.moonstone-collectionBar_columnButton') as HTMLElement | null)?.click();
+    },
+};
+
+// The bar alone, with static props, as a developer writes it
+export const Minimal: StoryObj<typeof CollectionBar> = {
+    render: args => <CollectionBar {...args}/>,
+    args: {
+        filters: [
+            {
+                key: 'path',
+                label: 'Path',
+                valueLabel: '/sites/digitall/home',
+                isDisplayedByDefault: true,
+                selector: <Input aria-label="Path" placeholder="For example /sites/digitall/home" value="/sites/digitall/home"/>,
+                onClear: () => undefined,
+            },
+            {
+                key: 'user',
+                label: 'User',
+                selector: ({ close }) => <Input aria-label="User" placeholder="For example root" onKeyUp={e => e.key === 'Enter' && close()}/>,
+                onClear: () => undefined,
+            },
+        ],
     },
 };
