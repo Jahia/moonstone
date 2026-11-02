@@ -2,7 +2,7 @@
 ```jsx
 import {ListSelector} from '@jahia/moonstone';
 
-<ListSelector options={languages} onChange={setSelectedLanguages}/>
+<ListSelector options={languages} values={selectedLanguages} onChange={setSelectedLanguages}/>
 ```
 
 ## Do
