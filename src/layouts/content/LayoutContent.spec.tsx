@@ -20,6 +20,14 @@ describe('LayoutContent', () => {
         expect(screen.getByRole('region', { name: 'Page content' })).toHaveFocus();
     });
 
+    it('should not take the focus on a click once a control inside it is enabled', async () => {
+        const user = userEvent.setup();
+        const { rerender } = render(<LayoutContent><p>text</p><button disabled type="button">action</button></LayoutContent>);
+        rerender(<LayoutContent><p>text</p><button type="button">action</button></LayoutContent>);
+        await user.click(screen.getByText('text'));
+        expect(screen.getByRole('region', { name: 'Page content' })).not.toHaveFocus();
+    });
+
     it('should name the content area with i18n.contentLabel', () => {
         render(<LayoutContent {...requiredProps} i18n={{ contentLabel: 'Users' }}/>);
         expect(screen.getByRole('region', { name: 'Users' })).toBeInTheDocument();
