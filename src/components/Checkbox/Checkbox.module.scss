@@ -62,6 +62,11 @@ $checkbox-sizeBig: 20px;
         --shadow-size: 2px;
     }
 
+    // Only triggered when the input is focus with tab
+    &:focus-visible {
+        @extend %is-focused;
+    }
+
     &:checked,
     &:indeterminate {
         --shadow-size: 12px;
@@ -76,11 +81,6 @@ $checkbox-sizeBig: 20px;
         }
     }
 
-    // Only triggered when the input is focus with tab
-    &:focus-visible:not([disabled], [aria-readonly="true"]) {
-        @extend %is-focused;
-    }
-
     &[disabled],
     &[aria-readonly="true"] {
         cursor: default;
@@ -88,6 +88,11 @@ $checkbox-sizeBig: 20px;
 
         // Prevent :hover on disabled and read-only
         pointer-events: none;
+
+        // Only a read-only checkbox can take the focus: its ring shows at full strength
+        &:focus-visible {
+            opacity: 1;
+        }
 
         // Reset :hover style for disabled and readonly state
         &:hover {
