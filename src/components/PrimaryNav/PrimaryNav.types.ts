@@ -13,6 +13,7 @@ export type PrimaryNavButtonProps = {
     label: string;
     toggleExpand: () => void;
     modeIcon?: React.ReactElement;
+    buttonRef: React.Ref<HTMLButtonElement>;
 };
 
 export type PrimaryNavHeaderProps = {

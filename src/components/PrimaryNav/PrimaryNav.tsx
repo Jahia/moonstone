@@ -1,8 +1,9 @@
 import clsx from 'clsx';
-import React, { useCallback, useId, useMemo, useState } from 'react';
+import React, { useCallback, useId, useMemo, useRef, useState } from 'react';
 
 import { PrimaryNavContext } from './PrimaryNav.context';
 import { layout } from '~/globals/css-utils.js';
+import { mergeHandlers } from '~/hooks';
 import { ArrowLeft, MenuIcon } from '~/icons';
 
 import type { PrimaryNavButtonProps, PrimaryNavHeaderProps, PrimaryNavProps } from './PrimaryNav.types';
@@ -10,7 +11,7 @@ import type { PrimaryNavButtonProps, PrimaryNavHeaderProps, PrimaryNavProps } fr
 import styles from './PrimaryNav.module.scss';
 
 const NavButton: React.FC<PrimaryNavButtonProps> = ({
-    isExpanded, controlsId, label, toggleExpand, modeIcon,
+    isExpanded, controlsId, label, toggleExpand, modeIcon, buttonRef,
 }) => {
     return (
         <>
@@ -26,6 +27,7 @@ const NavButton: React.FC<PrimaryNavButtonProps> = ({
                 aria-label={label}
                 className={clsx('moonstone-primaryNav_button', styles['moonstone-primaryNav_button'])}
                 data-testid="primaryNavMenuButton"
+                ref={buttonRef}
                 type="button"
                 onClick={toggleExpand}
             >
@@ -72,22 +74,36 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
     const [isExpanded, setExpanded] = useState(false);
     const generatedId = useId();
     const navId = props.id ?? generatedId;
+    const toggleButtonRef = useRef<HTMLButtonElement>(null);
 
     const toggleExpand = () => {
         setExpanded(!isExpanded);
     };
 
     const collapse = useCallback(() => setExpanded(false), []);
+
     const contextValue = useMemo(() => ({
         isExpanded,
         collapse,
     }), [isExpanded, collapse]);
 
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+        const hasModifier = event.shiftKey || event.ctrlKey || event.metaKey || event.altKey;
+        if (event.defaultPrevented || hasModifier || event.key !== 'Escape' || !isExpanded) {
+            return;
+        }
+
+        // Only while expanded, so that the next Escape still reaches a Modal around the nav
+        event.stopPropagation();
+        collapse();
+        toggleButtonRef.current?.focus();
+    };
+
     return (
         <PrimaryNavContext.Provider value={contextValue}>
             <nav
                 aria-label={i18n?.navigationLabel || 'Primary'}
-                {...props}
+                {...mergeHandlers(props, { onKeyDown: handleKeyDown })}
                 className={clsx(
                     ['moonstone-primaryNav', styles['moonstone-primaryNav']],
                     isExpanded && ['moonstone-expanded', styles['moonstone-expanded']],
@@ -108,6 +124,7 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
                     >
                         <NavButton
                             isExpanded={isExpanded}
+                            buttonRef={toggleButtonRef}
                             controlsId={navId}
                             label={i18n?.toggleButtonLabel || 'Toggle primary navigation'}
                             modeIcon={modeIcon}
@@ -139,7 +156,10 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
                     {bottom}
                 </ul>
             </nav>
-            {isExpanded && <div className={clsx(['moonstone-primaryNav_overlay', styles['moonstone-primaryNav_overlay']])} onClick={toggleExpand}/>}
+            {isExpanded && (
+                // oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- Escape is the keyboard equivalent
+                <div className={clsx(['moonstone-primaryNav_overlay', styles['moonstone-primaryNav_overlay']])} onClick={toggleExpand}/>
+            )}
         </PrimaryNavContext.Provider>
     );
 };
