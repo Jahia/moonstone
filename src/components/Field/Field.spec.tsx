@@ -157,6 +157,37 @@ describe('Field', () => {
         expect(screen.getByRole('textbox', { name: 'Title' })).toHaveFocus();
     });
 
+    it('should give the id the label points to the first control inside only, and a unique id to the others', () => {
+        render(
+            <Field id="keyword" label="Keyword">
+                <Input/>
+                <Textarea/>
+            </Field>,
+        );
+        const controls = screen.getAllByRole('textbox', { name: 'Keyword' });
+        expect(controls[0]).toHaveAttribute('id', 'keyword-control');
+        expect(controls[1].id).not.toBe(controls[0].id);
+    });
+
+    it('should give the id the label points to the next input when the first one is removed', () => {
+        const { rerender } = render(
+            <Field id="keyword" label="Keyword">
+                <Input key="first"/>
+                <Input key="second"/>
+                <Input key="third"/>
+            </Field>,
+        );
+        rerender(
+            <Field id="keyword" label="Keyword">
+                <Input key="second"/>
+                <Input key="third"/>
+            </Field>,
+        );
+        const inputs = screen.getAllByRole('textbox', { name: 'Keyword' });
+        expect(inputs[0]).toHaveAttribute('id', 'keyword-control');
+        expect(inputs[1].id).not.toBe(inputs[0].id);
+    });
+
     it('should join the aria-describedby of the input to its helper', () => {
         render(
             <Field helper="Help" id="title" label="Title">
