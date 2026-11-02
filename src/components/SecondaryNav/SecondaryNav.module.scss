@@ -66,8 +66,8 @@
     overflow: hidden;
 
     .moonstone-secondaryNav_wrapper {
-        // Hidden once the collapse transition ends, so its content leaves the Tab sequence
-        @include transition(max-width 0.4s ease-out, visibility 0s 0.4s);
+        // Hidden once the 0.2s collapse of the nav ends, so its content leaves the Tab sequence
+        @include transition(visibility 0s 0.2s);
 
         max-width: 0;
 
