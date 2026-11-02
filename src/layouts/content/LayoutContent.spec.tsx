@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { LayoutContent } from './index';
@@ -18,6 +18,13 @@ describe('LayoutContent', () => {
         render(<LayoutContent {...requiredProps}/>);
         await user.tab();
         expect(screen.getByRole('region', { name: 'Page content' })).toHaveFocus();
+    });
+
+    it('should be a Tab stop only while the content area holds no focusable element', async () => {
+        const { rerender } = render(<LayoutContent><button type="button">action</button></LayoutContent>);
+        expect(screen.getByRole('region', { name: 'Page content' })).not.toHaveAttribute('tabindex');
+        rerender(<LayoutContent>text only</LayoutContent>);
+        await waitFor(() => expect(screen.getByRole('region', { name: 'Page content' })).toHaveAttribute('tabindex', '0'));
     });
 
     it('should name the content area with i18n.contentLabel', () => {

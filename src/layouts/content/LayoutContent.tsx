@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 
 import { Loader } from '~/components';
 import { layout } from '~/globals/css-utils.js';
@@ -8,6 +8,9 @@ import type { LayoutContentProps } from './LayoutContent.types';
 import type { ForwardedRef } from 'react';
 
 import styles from './LayoutContent.module.scss';
+
+// The elements Tab reaches
+const FOCUSABLE = ':is(a[href], button, input:not([type="hidden"]), select, textarea, [tabindex]):not(:disabled, [tabindex="-1"])';
 
 export const LayoutContent = React.forwardRef(({
     header,
@@ -20,6 +23,27 @@ export const LayoutContent = React.forwardRef(({
     i18n,
     ...props
 }: LayoutContentProps, ref: ForwardedRef<HTMLDivElement>) => {
+    const sectionRef = useRef<HTMLElement>(null);
+    // A Tab stop only while the area holds no focusable element: otherwise a click inside it would move the focus to the area,
+    // and the next Tab would start from its top
+    const [isTabStop, setIsTabStop] = useState(true);
+
+    useLayoutEffect(() => {
+        const section = sectionRef.current;
+        if (!section) {
+            return;
+        }
+
+        const update = () => setIsTabStop(!section.querySelector(FOCUSABLE));
+        update();
+        const observer = new MutationObserver(update);
+        observer.observe(section, {
+            childList: true,
+            subtree: true,
+        });
+        return () => observer.disconnect();
+    }, []);
+
     const classNameProps = clsx(
         ['flexFluid', layout.flexFluid],
         ['moonstone-layoutContent', styles['moonstone-layoutContent']],
@@ -43,9 +67,10 @@ export const LayoutContent = React.forwardRef(({
                 aria-busy={isLoading ? 'true' : undefined}
                 aria-label={i18n?.contentLabel || 'Page content'}
                 className={classNameProps}
+                ref={sectionRef}
                 // Lets the keyboard scroll the area when it holds no focusable element (axe scrollable-region-focusable)
                 // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-                tabIndex={0}
+                tabIndex={isTabStop ? 0 : undefined}
             >
                 {
                     isLoading
