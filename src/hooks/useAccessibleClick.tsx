@@ -1,3 +1,5 @@
+import { hasModifierKey } from './hasModifierKey';
+
 type onClickProp = (e: React.KeyboardEvent | React.MouseEvent) => void;
 
 type onAccessibleClickProps = {
@@ -15,9 +17,8 @@ type onAccessibleClickProps = {
 const spacePressed = new WeakSet<EventTarget>();
 
 const handleKeyDown = (e: React.KeyboardEvent, onClick: onClickProp) => {
-    const hasModifier = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
     // A nested link or button keeps its own keys
-    if (e.target !== e.currentTarget || e.defaultPrevented || hasModifier) {
+    if (e.target !== e.currentTarget || e.defaultPrevented || hasModifierKey(e)) {
         return;
     }
 

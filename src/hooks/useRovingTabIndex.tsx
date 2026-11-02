@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { hasModifierKey } from './hasModifierKey';
+
 const ITEM_SELECTOR = '[data-roving-item]';
 
 /** Marks a `CompositeItem` as an item of the widget, for Home, End and the keys of nested controls */
@@ -53,9 +55,8 @@ export const useRovingTabIndex = () => {
          * @param compositeKeyDown - the `onKeyDown` that `Composite` renders
          */
         onKeyDown: (compositeKeyDown: React.KeyboardEventHandler<HTMLElement>) => (e: React.KeyboardEvent<HTMLElement>) => {
-            const hasModifier = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
             // A key already handled, held with a modifier, or pressed in a nested control (the search box of a Menu) is left alone
-            if (e.defaultPrevented || hasModifier || !(e.target as HTMLElement).matches(ITEM_SELECTOR)) {
+            if (e.defaultPrevented || hasModifierKey(e) || !(e.target as HTMLElement).matches(ITEM_SELECTOR)) {
                 return;
             }
 

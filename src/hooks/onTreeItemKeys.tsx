@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { hasModifierKey } from './hasModifierKey';
+
 type onToggleProp = (e: React.KeyboardEvent | React.MouseEvent) => void;
 
 type onTreeItemKeysOptions = {
@@ -47,10 +49,9 @@ export const onTreeItemKeys = ({
     onExpandSiblings,
 }: onTreeItemKeysOptions): onTreeItemKeysProps => {
     const onKeyDown = (e: React.KeyboardEvent) => {
+        // A link or a button inside the node keeps its own keys.
         // Shift may be what types `*`, so it only counts as a modifier for the named keys
-        const hasModifier = e.ctrlKey || e.metaKey || e.altKey || (e.shiftKey && e.key !== '*');
-        // A link or a button inside the node keeps its own keys
-        if (e.target !== e.currentTarget || e.defaultPrevented || hasModifier) {
+        if (e.target !== e.currentTarget || e.defaultPrevented || hasModifierKey(e, { shift: e.key !== '*' })) {
             return;
         }
 

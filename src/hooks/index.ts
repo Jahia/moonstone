@@ -1,3 +1,4 @@
+export * from './hasModifierKey';
 export * from './mergeHandlers';
 export * from './onArrowIncrementation';
 export * from './onTreeItemKeys';
