@@ -1,6 +1,5 @@
-import { Composite, CompositeItem } from '@floating-ui/react';
 import clsx from 'clsx';
-import React, { useRef } from 'react';
+import React from 'react';
 
 import { Loader, Typography } from '~/components';
 import { icons, layout } from '~/globals/css-utils.js';
@@ -58,26 +57,24 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         ...props
     }, ref) => {
     const isFlatData = data.filter(item => item.children && item.children.length > 0).length === 0;
-    const refs = useRef(new Map<string, React.RefObject<HTMLElement>>());
     const rovingTabIndex = useRovingTabIndex();
-    // The rendered nodes, in the order of the items of the Composite
+    // The rendered nodes, in the order of treeItems
     const visibleNodes: TreeViewData[] = [];
 
-    function generateLevelJSX(nodeData: TreeViewData[], depth: number, parentHasIconStart: boolean, parentRef?: React.RefObject<HTMLElement>): React.ReactNode[] {
+    // The nodes are found in the DOM, in the order of visibleNodes, because a custom itemComponent may not forward its ref
+    const getNodes = (tree?: Element | null) => Array.from(tree?.querySelectorAll<HTMLElement>('[data-roving-item]') ?? []);
+    // Called from the keydown of the focused node
+    const focusNode = (id?: string) => getNodes(document.activeElement?.closest('[role="tree"]'))[visibleNodes.findIndex(node => node.id === id)]?.focus();
+
+    function generateLevelJSX(nodeData: TreeViewData[], depth: number, parentHasIconStart: boolean, parentId?: string): React.ReactElement[] {
         const expandSiblings = (e: React.MouseEvent) => {
             nodeData
                 .filter(sibling => (sibling.hasChildren || sibling.children?.length > 0) && sibling.isClosable !== false && !openedItems.includes(sibling.id))
                 .forEach(sibling => onOpenItem?.(sibling, e));
         };
 
-        return nodeData.map((node) => {
+        return nodeData.flatMap((node) => {
             visibleNodes.push(node);
-            let containerRef = refs.current.get(node.id);
-            if (!containerRef) {
-                containerRef = React.createRef<HTMLElement>();
-                refs.current.set(node.id, containerRef);
-            }
-
             const hasChild = Boolean(node.hasChildren || (node.children && node.children.length !== 0));
             const hasIconStart = Boolean(node.iconStart);
             const hasIconEnd = Boolean(node.iconEnd);
@@ -142,14 +139,15 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                 isDisabled: !isClickable,
                 isExpandable: hasChild && isClosable,
                 isOpen: hasChild && isOpen,
-                onFocusParent: () => parentRef?.current?.focus(),
-                onFocusFirstChild: () => refs.current.get(node.children?.[0]?.id)?.current?.focus(),
+                onFocusParent: () => focusNode(parentId),
+                onFocusFirstChild: () => focusNode(node.children?.[0]?.id),
                 onExpandSiblings: expandSiblings,
             });
 
             const treeItem = React.createElement(
                 itemComponent,
                 {
+                    'key': `${depth}-${node.id}`,
                     'role': 'treeitem',
                     'aria-selected': isSelected,
                     'aria-expanded': hasChild ? isOpen : null,
@@ -230,11 +228,31 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
             );
 
             return [
-                <CompositeItem key={`${depth}-${node.id}`} ref={containerRef} render={treeItem}/>,
-                ...((isOpen && node.children) ? generateLevelJSX(node.children, isClosable ? (depth + 1) : depth, hasIconStart, containerRef) : []),
+                treeItem,
+                ...((isOpen && node.children) ? generateLevelJSX(node.children, isClosable ? (depth + 1) : depth, hasIconStart, node.id) : []),
             ];
         });
     }
+
+    // ArrowUp and ArrowDown move to the previous or next enabled node
+    const moveFocus = (e: React.KeyboardEvent<HTMLElement>) => {
+        if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') {
+            return;
+        }
+
+        const step = e.key === 'ArrowDown' ? 1 : -1;
+        const nodes = getNodes(e.currentTarget);
+        let next = nodes.indexOf(e.target as HTMLElement) + step;
+        while (nodes[next]?.getAttribute('aria-disabled') === 'true') {
+            next += step;
+        }
+
+        if (nodes[next]) {
+            e.preventDefault();
+            e.stopPropagation();
+            nodes[next].focus();
+        }
+    };
 
     const treeItems = generateLevelJSX(data, 0, false);
     // Focus enters the tree on the first selected node, else on the first enabled one
@@ -242,29 +260,24 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         isSelected: selectedItems.includes(node.id),
         isDisabled: node.isDisabled,
     })));
+    const { activeIndex, onNavigate } = rovingTabIndex.getCompositeProps(initialIndex, visibleNodes.map(node => node.id));
 
-    // TreeView component. ArrowUp, ArrowDown, Home and End move between the nodes (useRovingTabIndex);
+    // TreeView component. ArrowUp and ArrowDown (moveFocus), Home and End (useRovingTabIndex) move between the nodes;
     // Enter, Space, ArrowLeft, ArrowRight and `*` act on the focused node (onTreeItemKeys)
-    return (
-        <Composite
-            {...rovingTabIndex.getCompositeProps(initialIndex, visibleNodes.map(node => node.id))}
-            loop={false}
-            orientation="vertical"
-            ref={ref}
-            render={compositeProps => React.createElement(component, {
-                ...compositeProps,
-                'role': 'tree',
-                'aria-multiselectable': showCheckbox,
-                ...mergeHandlers(props, {
-                    onKeyDown: rovingTabIndex.onKeyDown(compositeProps.onKeyDown),
-                    onBlur: rovingTabIndex.onBlur,
-                }),
-                'className': clsx(styles.treeView, className),
-            })}
-        >
-            {treeItems}
-        </Composite>
-    );
+    return React.createElement(component, {
+        ref,
+        'aria-orientation': 'vertical',
+        'role': 'tree',
+        'aria-multiselectable': showCheckbox,
+        ...mergeHandlers(props, {
+            onKeyDown: rovingTabIndex.onKeyDown(moveFocus),
+            onBlur: rovingTabIndex.onBlur,
+        }),
+        'className': clsx(styles.treeView, className),
+    }, treeItems.map((treeItem, index) => React.cloneElement(treeItem, {
+        ...mergeHandlers(treeItem.props, { onFocus: () => onNavigate(index) }),
+        tabIndex: index === activeIndex ? 0 : -1,
+    })));
 };
 
 export const ControlledTreeView = React.forwardRef(ControlledTreeViewForwardRef);
