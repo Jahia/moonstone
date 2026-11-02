@@ -2,7 +2,7 @@
 ```jsx
 import {Thumbnail} from '@jahia/moonstone';
 
-<Thumbnail/>
+<Thumbnail src={imageUrl} alt="Image description"/>
 ```
 
 ## Do
