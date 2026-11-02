@@ -23,8 +23,6 @@ export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({
 
     return (
         <Typography
-            aria-disabled={isDisabledItem}
-            aria-readonly={isReadOnlyItem}
             className={clsx(
                 ['moonstone-checkboxItem', styles['moonstone-checkboxItem']],
                 ['flexCol', layout.flexCol],
