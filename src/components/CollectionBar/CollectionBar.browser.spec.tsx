@@ -188,6 +188,21 @@ describe('CollectionBar keyboard', () => {
         expect(title.getBoundingClientRect().top - dialog.getBoundingClientRect().top).toBe(4);
     });
 
+    it('moves nothing below the bar when the selector opens', async () => {
+        render(<Bar/>);
+        const top = button('after').getBoundingClientRect().top;
+        const tops: number[] = [];
+        // The callback runs after each render that adds the dialog, before the next render positions it
+        const observer = new MutationObserver(() => tops.push(button('after').getBoundingClientRect().top));
+        observer.observe(document.body, { childList: true, subtree: true });
+        button('Date').focus();
+        await userEvent.keyboard('{Enter}');
+        await screen.findByRole('dialog', { name: 'Date' });
+        observer.disconnect();
+        expect(tops).not.toHaveLength(0);
+        expect(tops).toEqual(tops.map(() => top));
+    });
+
     it('gives the focus back to the chip when the function form calls close with an argument', async () => {
         render(
             <CollectionBar

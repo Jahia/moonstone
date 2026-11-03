@@ -37,6 +37,11 @@ export const FilterSelector = ({
     const titleId = useId();
     const anchorRef = useRef<HTMLElement>(null);
     const [stylePosition, dialogRef] = usePositioning(true, anchorPosition, anchorRef, anchorElOrigin, transformElOrigin, 'fixed');
+    // As in Menu: the first position of the hook is an offset with no position, which leaves the dialog in the row of the bar
+    const style: React.CSSProperties = {
+        position: 'fixed',
+        ...stylePosition,
+    };
 
     // Before the effect of usePositioning, which reads the anchor
     useLayoutEffect(() => {
@@ -83,7 +88,7 @@ export const FilterSelector = ({
                 data-filter={filter.key}
                 ref={dialogRef}
                 role="dialog"
-                style={stylePosition}
+                style={style}
                 onKeyDown={handleKeyDown}
             >
                 <div className={clsx('moonstone-collectionBar_selectorTitle', styles['moonstone-collectionBar_selectorTitle'])}>
