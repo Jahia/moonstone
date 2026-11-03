@@ -1,11 +1,20 @@
 import { composeStories } from '@storybook/react';
 import { describe, expect, test } from 'vitest';
 import { render } from 'vitest-browser-react';
+import { commands } from 'vitest/browser';
 
 // @ts-expect-error preview is js not ts
 import * as projectAnnotations from '../.storybook/preview.jsx';
 
 import type { JSX } from 'react';
+
+declare module 'vitest/browser' {
+    // oxlint-disable-next-line typescript/consistent-type-definitions -- declaration merging needs an interface
+    interface BrowserCommands {
+        // Defined in the visual project of vite.config.mjs
+        parkPointer: () => Promise<void>;
+    }
+}
 
 // A composed story is a render function; Storybook attaches its args, argTypes and `play`
 // interaction (if any) to it.
@@ -46,6 +55,9 @@ export const runVisualStoriesSuite = () => {
     describe.for(Object.entries(stories))('%s', ([file, imports]) => {
         test.for(Object.entries<ComposedStory>(composeStories(imports, projectAnnotations)))('%s', async ([name, Story], { skip }) => {
             skip(ignore.has(`${file}-${name}`));
+            // Chromium on Linux hovers whatever lies under a mouse that never moved, at the story's top-left
+            // corner. Parking the mouse before the render still lets a `play` interaction hover on purpose.
+            await commands.parkPointer();
             const { container } = await render(<Story {...mapArgs(Story)}/>, {});
             if (Story.play) {
                 await Story.play({ canvasElement: container });
