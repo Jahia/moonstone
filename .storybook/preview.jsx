@@ -23,7 +23,7 @@ export const decorators = [
         const selector = viewMode === 'docs' ? '.docs-story:has(style[data-reversed])' : '.sb-show-main';
         return (
             <>
-                {(args.isReversed || themeReversed) && <style data-reversed>{`${selector} { background: #293136; }`}</style>}
+                {(args.isReversed || themeReversed) && <style data-reversed>{`${selector} { background: var(--moon-color-gray_dark); color: var(--moon-color-light); }`}</style>}
                 {themeReversed
                     ? Story({
                             args: {
