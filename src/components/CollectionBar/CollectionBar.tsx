@@ -1,6 +1,7 @@
 import { Composite, CompositeItem } from '@floating-ui/react';
 import clsx from 'clsx';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 
 import { FilterSelector } from './FilterSelector';
 import { Button } from '~/components/Button';
@@ -43,15 +44,15 @@ const columnMenuTransformOrigin = {
     vertical: 'top',
 } as const;
 
+// The max height of the menu of a default Dropdown
+const MENU_MAX_HEIGHT = '270px';
+
 // The APG toolbar pattern groups 3 controls or more
 const TOOLBAR_MIN_CONTROLS = 3;
 
 const withName = (label: string, name: string) => label.split('{{name}}').join(name);
 
 const hasValue = (filter: CollectionBarFilter) => Boolean(filter.valueLabel);
-
-// The control that takes the focus once the render after a change is done
-type FocusRequest = { chip: string } | { column: string } | { first: true };
 
 /**
  * A toolbar of filters above a collection, also called a filter bar: filter chips, Add filter,
@@ -81,7 +82,6 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
 
     const rootRef = useRef<HTMLDivElement>(null);
     const chipRefs = useRef(new Map<string, HTMLElement>());
-    const focusRequest = useRef<FocusRequest | null>(null);
     const addFilterRef = useRef<HTMLElement>(null);
     const columnButtonRef = useRef<HTMLElement>(null);
 
@@ -96,25 +96,14 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
     const openFilter = shownFilters.find(filter => filter.key === openKey);
     const hasClearAll = Boolean(onClearAll) && filters.some(hasValue);
 
-    // A chip that leaves the bar gives the focus to Add filter, else to the first control.
-    // A column that moves to the other section of its menu keeps the focus
-    useEffect(() => {
-        const request = focusRequest.current;
-        if (!request) {
-            return;
-        }
-
-        focusRequest.current = null;
-        if ('column' in request) {
-            rootRef.current?.querySelector<HTMLElement>(`[data-column="${CSS.escape(request.column)}"]`)?.focus();
-            return;
-        }
-
-        const chip = 'chip' in request ? chipRefs.current.get(request.chip) : null;
+    // Each handler commits its change with flushSync first, so the control to focus is in the DOM.
+    // A chip that leaves the bar gives the focus to Add filter, else to the first control
+    const focusChip = (key?: string) => {
+        const chip = key ? chipRefs.current.get(key) : null;
         const addFilter = addFilterRef.current?.hasAttribute('disabled') ? null : addFilterRef.current;
         const firstItem = rootRef.current?.querySelector<HTMLElement>('[data-roving-item]:not([disabled])');
         (chip ?? addFilter ?? firstItem)?.focus();
-    });
+    };
 
     const getChip = useCallback(
         () => rootRef.current?.querySelector<HTMLElement>(`.moonstone-collectionBar_chip[data-filter="${CSS.escape(openKey ?? '')}"]`) ?? null,
@@ -135,11 +124,17 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
             return;
         }
 
-        setOpenKey(null);
-        openFilter.onClose?.();
-        if (isFocusBack) {
-            focusRequest.current = { chip: openFilter.key };
+        const close = () => {
+            setOpenKey(null);
+            openFilter.onClose?.();
+        };
+        if (!isFocusBack) {
+            close();
+            return;
         }
+
+        flushSync(close);
+        focusChip(openFilter.key);
     };
 
     const toggleSelector = (filter: CollectionBarFilter) => {
@@ -160,20 +155,23 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
     };
 
     const clearFilter = (filter: CollectionBarFilter, event: React.MouseEvent) => {
-        filter.onClear(event);
-        focusRequest.current = { chip: filter.key };
+        flushSync(() => filter.onClear(event));
+        focusChip(filter.key);
     };
 
     const clearAll = (event: React.MouseEvent) => {
-        onClearAll(event);
-        setAddedKeys([]);
-        focusRequest.current = { first: true };
+        flushSync(() => {
+            onClearAll(event);
+            setAddedKeys([]);
+        });
+        focusChip();
     };
 
     const toggleColumn = (key: string, isVisible: boolean) => {
         const next = isVisible ? visibleColumns.filter(visible => visible !== key) : [...visibleColumns, key];
-        onVisibleColumnsChange(columns.map(column => column.key).filter(column => next.includes(column)));
-        focusRequest.current = { column: key };
+        flushSync(() => onVisibleColumnsChange(columns.map(column => column.key).filter(column => next.includes(column))));
+        // A column that moves to the other section of its menu keeps the focus
+        rootRef.current?.querySelector<HTMLElement>(`[data-column="${CSS.escape(key)}"]`)?.focus();
     };
 
     // ---
@@ -322,13 +320,14 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
         }
 
         return [
-            <MenuItem key={isVisible ? 'visible' : 'hidden'} label={title} variant="title"/>,
+            // The prefixes keep a title and a column apart, whatever the key of the column
+            <MenuItem key={isVisible ? 'title:visible' : 'title:hidden'} label={title} variant="title"/>,
             ...sectionColumns.map(column => (
                 <MenuItem
                     aria-checked={isVisible}
                     data-column={column.key}
                     iconStart={isVisible ? <CheckboxChecked color="blue"/> : <CheckboxUnchecked/>}
-                    key={column.key}
+                    key={`column:${column.key}`}
                     label={column.label}
                     role="menuitemcheckbox"
                     onClick={() => toggleColumn(column.key, isVisible)}
@@ -404,6 +403,7 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
                     anchorPosition={menuAnchorPosition}
                     aria-label={labels.addFilter}
                     className={clsx('moonstone-collectionBar_addFilterMenu', styles['moonstone-collectionBar_addFilterMenu'])}
+                    maxHeight={MENU_MAX_HEIGHT}
                     onClose={() => setIsAddMenuOpen(false)}
                 >
                     {filtersToAdd.map(filter => (
@@ -427,6 +427,7 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
                     aria-label={labels.columnButton}
                     className={clsx('moonstone-collectionBar_columnMenu', styles['moonstone-collectionBar_columnMenu'])}
                     i18n={{ searchLabel: labels.searchLabel }}
+                    maxHeight={MENU_MAX_HEIGHT}
                     minWidth="200px"
                     searchEmptyText={labels.searchEmptyText}
                     transformElOrigin={columnMenuTransformOrigin}

@@ -184,6 +184,23 @@ describe('CollectionBar', () => {
         expect(onVisibleColumnsChange).toHaveBeenLastCalledWith(['date', 'action', 'path']);
     });
 
+    it('takes columns with the keys visible and hidden', async () => {
+        const user = userEvent.setup();
+        const error = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+        render(
+            <CollectionBar
+                columns={[{ key: 'visible', label: 'Shown' }, { key: 'hidden', label: 'Secret' }]}
+                filters={[]}
+                visibleColumns={['visible']}
+                onVisibleColumnsChange={() => undefined}
+            />,
+        );
+        await user.click(chip('Choose the columns'));
+        expect(screen.getAllByRole('menuitemcheckbox').map(item => item.textContent)).toEqual(['Shown', 'Secret']);
+        expect(error).not.toHaveBeenCalled();
+        error.mockRestore();
+    });
+
     it('shows no column button above thumbnails, with no columns (case 8)', () => {
         render(<Bar hasColumns={false}/>);
         expect(screen.queryByRole('button', { name: 'Choose the columns' })).not.toBeInTheDocument();

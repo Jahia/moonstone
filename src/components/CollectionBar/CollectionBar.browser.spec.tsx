@@ -203,6 +203,42 @@ describe('CollectionBar keyboard', () => {
         expect(tops).toEqual(tops.map(() => top));
     });
 
+    it('moves the focus once when a clear changes nothing', async () => {
+        render(
+            <CollectionBar
+                filters={[
+                    { key: 'path', label: 'Path', valueLabel: '/sites', isDisplayedByDefault: true, selector: <input aria-label="Path"/>, onClear: () => undefined },
+                    { key: 'user', label: 'User', selector: <input aria-label="User"/>, onClear: () => undefined },
+                ]}
+            />,
+        );
+        button('Clear the Path filter').focus();
+        await userEvent.keyboard('{Enter}');
+        await waitFor(() => expect(button('Path: /sites')).toHaveFocus());
+        await userEvent.keyboard('{ArrowRight}{ArrowRight}{Enter}');
+        await waitFor(() => expect(screen.getByText('User').closest('li')).toHaveFocus());
+    });
+
+    it.each([
+        ['Choose the columns', 30, 0],
+        ['Add filter', 0, 30],
+    ])('bounds the height of the %s menu, which scrolls', async (name, columnCount, filterCount) => {
+        const columns = Array.from({ length: columnCount }, (_, i) => ({ key: `column${i}`, label: `Column ${i}` }));
+        render(
+            <CollectionBar
+                columns={columnCount > 0 ? columns : undefined}
+                filters={Array.from({ length: filterCount }, (_, i) => ({ key: `filter${i}`, label: `Filter ${i}`, selector: <span/>, onClear: () => undefined }))}
+                visibleColumns={columns.map(column => column.key)}
+                onVisibleColumnsChange={() => undefined}
+            />,
+        );
+        button(name).focus();
+        await userEvent.keyboard('{Enter}');
+        const menu = await screen.findByLabelText(name, { selector: 'menu' });
+        expect(menu.getBoundingClientRect().height).toBeLessThanOrEqual(270);
+        expect(menu.scrollHeight).toBeGreaterThan(menu.clientHeight);
+    });
+
     it('gives the focus back to the chip when the function form calls close with an argument', async () => {
         render(
             <CollectionBar
