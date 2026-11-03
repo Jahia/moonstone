@@ -1,12 +1,13 @@
 import clsx from 'clsx';
-import { useState } from 'react';
+import { startTransition, Suspense, useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 import markdownNotes from './CollectionBar.md';
 import { CollectionBar } from './index';
 import imgHorizontal from '~/__storybook__/assets/img-horizontal.webp';
 import imgSquare from '~/__storybook__/assets/img-square.webp';
 import imgVertical from '~/__storybook__/assets/img-vertical.webp';
-import { DataTable, Input, Thumbnail, Typography } from '~/components';
+import { DataTable, DateTimeInput, Drawer, Input, Thumbnail, Typography } from '~/components';
 import { collectionBarColumns, useCollectionBarFilters } from '~/data/collectionBar';
 import { layout } from '~/globals/css-utils.js';
 
@@ -141,6 +142,133 @@ export const OpenColumnChoice: Story = {
     name: 'Open column choice',
     play: async ({ canvasElement }) => {
         (canvasElement.querySelector('.moonstone-collectionBar_columnButton') as HTMLElement | null)?.click();
+    },
+};
+
+export const OpenAddFilter: Story = {
+    render: args => <AboveDataTable {...args}/>,
+    name: 'Open Add filter',
+    play: async ({ canvasElement }) => {
+        await userEvent.click(within(canvasElement).getByRole('button', { name: 'Add filter' }));
+        await within(canvasElement).findByLabelText('Add filter', { selector: 'menu' });
+    },
+};
+
+// The gap between a chip and its selector
+const selectorGap = (chip: HTMLElement) => within(document.body).getByRole('dialog').getBoundingClientRect().top - chip.getBoundingClientRect().bottom;
+
+// The animation of a Drawer keeps a transform, which becomes the containing block of a fixed descendant.
+// The two menus of the bar still render inline, so this story opens the selector only
+export const InDrawer: Story = {
+    render: args => (
+        <Drawer isOpen aria-label="Site history">
+            <AboveDataTable {...args}/>
+        </Drawer>
+    ),
+    name: 'In an open Drawer',
+    play: async ({ canvasElement }) => {
+        await Promise.all(canvasElement.ownerDocument.getAnimations().map(animation => animation.finished));
+        const chip = within(canvasElement).getByRole('button', { name: 'Date' });
+        await userEvent.click(chip);
+        await waitFor(() => expect(selectorGap(chip)).toBe(4));
+    },
+};
+
+export const WithDateTimeInput: StoryObj<typeof CollectionBar> = {
+    render: args => <CollectionBar {...args}/>,
+    name: 'With a DateTimeInput in a selector',
+    args: {
+        filters: [{
+            key: 'date',
+            label: 'Date',
+            isDisplayedByDefault: true,
+            selector: <DateTimeInput aria-label="Date" defaultValue="2026-03-30" locale="en" type="date"/>,
+            onClear: () => undefined,
+        }],
+    },
+    play: async ({ canvasElement }) => {
+        const body = within(canvasElement.ownerDocument.body);
+        await userEvent.click(within(canvasElement).getByRole('button', { name: 'Date' }));
+        await waitFor(() => expect(body.getByRole('textbox', { name: 'Date' })).toHaveFocus());
+        // Escape closes the calendar first, and leaves the selector open
+        await userEvent.keyboard(' ');
+        await body.findByTestId('calendar');
+        await userEvent.keyboard('{Escape}');
+        await waitFor(() => expect(body.queryByTestId('calendar')).not.toBeInTheDocument());
+        await expect(body.getByRole('dialog', { name: 'Date' })).toBeInTheDocument();
+        // A click in the calendar is no click outside the selector
+        await userEvent.keyboard(' ');
+        await userEvent.click(await body.findByRole('button', { name: 'Go to the next month' }));
+        await expect(body.getByRole('dialog', { name: 'Date' })).toBeInTheDocument();
+        await expect(body.getByTestId('calendar')).toBeInTheDocument();
+        // Tab from the field stays in the selector while the calendar is open
+        await userEvent.click(body.getByRole('textbox', { name: 'Date' }));
+        await userEvent.tab();
+        await expect(body.getByRole('dialog', { name: 'Date' })).toContainElement(canvasElement.ownerDocument.activeElement as HTMLElement);
+    },
+};
+
+export const InScrolledContainer: Story = {
+    render: args => (
+        <div data-testid="scroller" style={{ height: 300, overflow: 'auto' }}>
+            <div style={{ height: 40 }}/>
+            <AboveDataTable {...args}/>
+            <div style={{ height: 600 }}/>
+        </div>
+    ),
+    name: 'In a scrolled container',
+    play: async ({ canvasElement }) => {
+        const chip = within(canvasElement).getByRole('button', { name: 'Date' });
+        await userEvent.click(chip);
+        await waitFor(() => expect(selectorGap(chip)).toBe(4));
+        // The selector follows its chip when the container scrolls
+        within(canvasElement).getByTestId('scroller').scrollTop = 30;
+        await waitFor(() => expect(selectorGap(chip)).toBe(4));
+    },
+};
+
+// The rows suspend while their data loads. onClear starts a transition, so the rows and the bar stay on screen until the data comes
+const SuspendingRows = ({ value, loading }: { value: string; loading: Promise<void> }) => {
+    if (!value) {
+        throw loading;
+    }
+
+    return <Typography>Rows of {value}</Typography>;
+};
+
+const WithSuspendingClear = (args: StoryArgs) => {
+    const [value, setValue] = useState('Today');
+    // A load that never ends, so the story shows the state while the data loads
+    const [loading] = useState(() => new Promise<void>(() => undefined));
+    return (
+        <div className={clsx('flexCol', layout.flexCol)}>
+            <CollectionBar
+                {...args}
+                filters={[{
+                    key: 'date',
+                    label: 'Date',
+                    valueLabel: value,
+                    isDisplayedByDefault: true,
+                    selector: <Input aria-label="Date" value={value} onChange={event => setValue(event.target.value)}/>,
+                    onClear: () => startTransition(() => setValue('')),
+                }]}
+            />
+            <Suspense fallback={<Typography>Loading</Typography>}>
+                <SuspendingRows loading={loading} value={value}/>
+            </Suspense>
+        </div>
+    );
+};
+
+export const SuspendingClear: Story = {
+    render: args => <WithSuspendingClear {...args}/>,
+    name: 'With an onClear that suspends',
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        await userEvent.click(canvas.getByRole('button', { name: 'Clear the Date filter' }));
+        await expect(canvas.queryByText('Loading')).not.toBeInTheDocument();
+        await expect(canvas.getByText('Rows of Today')).toBeInTheDocument();
+        await expect(canvas.getByRole('button', { name: 'Date: Today' })).toHaveFocus();
     },
 };
 
