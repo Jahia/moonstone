@@ -4,8 +4,11 @@ import { shouldIgnoreKey } from './shouldIgnoreKey';
 
 const ITEM_SELECTOR = '[data-roving-item]';
 
-/** Marks a `CompositeItem` as an item of the widget, for Home, End and the keys of nested controls */
+/** Marks an item of the widget, for the keys of this hook and those of nested controls */
 export const rovingItemProps = { 'data-roving-item': '' };
+
+/** The items of the widget, in DOM order */
+export const getRovingItems = (widget?: Element | null) => Array.from(widget?.querySelectorAll<HTMLElement>(ITEM_SELECTOR) ?? []);
 
 const isEnabled = (item: HTMLElement) => !item.hasAttribute('disabled') && item.getAttribute('aria-disabled') !== 'true';
 
@@ -24,11 +27,14 @@ export const getInitialIndex = (items: InitialItemProps[]) => {
 };
 
 /**
- * Roving tabindex of a composite widget (`Tab`, `Menu`, `TreeView`), on top of the `Composite` of floating-ui:
+ * Roving tabindex of a composite widget (`Tab`, `Menu`, `TreeView`):
  * the widget is one Tab stop, and the arrow keys, Home and End move between its items.
  *
- * - Spread `getCompositeProps(initialIndex)` on `Composite`, and `rovingItemProps` on each `CompositeItem`.
- * - On the element that `Composite` renders, chain `onKeyDown(compositeProps.onKeyDown)` and `onBlur`.
+ * - With the `Composite` of floating-ui (`Tab`, `Menu`): spread `getCompositeProps(initialIndex)` on `Composite`,
+ *   and `rovingItemProps` on each `CompositeItem`. On the element that `Composite` renders, chain `onKeyDown(compositeProps.onKeyDown)` and `onBlur`.
+ * - Without `Composite` (`TreeView`, whose `itemComponent` may not forward its ref): spread `rovingItemProps`, `tabIndex`
+ *   (0 on `activeIndex`, else -1) and `onFocus` (`onNavigate(index)`) on each item, and chain `onKeyDown()` and `onBlur` on the widget.
+ *   ArrowUp and ArrowDown then move here, without looping.
  * - A disabled item (`disabled` or `aria-disabled="true"`) is skipped.
  *
  * @see https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_roving_tabindex
@@ -51,23 +57,39 @@ export const useRovingTabIndex = () => {
             };
         },
         /**
-         * Keydown of the widget: Home and End here, the arrow keys in `Composite`
-         * @param compositeKeyDown - the `onKeyDown` that `Composite` renders
+         * Keydown of the widget: Home and End here, the arrow keys in `Composite`, or ArrowUp and ArrowDown here without it
+         * @param compositeKeyDown - the `onKeyDown` that `Composite` renders, if any
          */
-        onKeyDown: (compositeKeyDown: React.KeyboardEventHandler<HTMLElement>) => (e: React.KeyboardEvent<HTMLElement>) => {
+        onKeyDown: (compositeKeyDown?: React.KeyboardEventHandler<HTMLElement>) => (e: React.KeyboardEvent<HTMLElement>) => {
             // A key already handled, held with a modifier, or pressed in a nested control (the search box of a Menu) is left alone
             if (shouldIgnoreKey(e) || !(e.target as HTMLElement).matches(ITEM_SELECTOR)) {
                 return;
             }
 
             if (e.key === 'Home' || e.key === 'End') {
-                const items = Array.from(e.currentTarget.querySelectorAll<HTMLElement>(ITEM_SELECTOR)).filter(isEnabled);
+                const items = getRovingItems(e.currentTarget).filter(isEnabled);
                 e.preventDefault();
                 (e.key === 'Home' ? items[0] : items[items.length - 1])?.focus();
                 return;
             }
 
-            compositeKeyDown(e);
+            if (compositeKeyDown) {
+                compositeKeyDown(e);
+            } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                // The focused item may be disabled, so the next one is searched from it
+                const items = getRovingItems(e.currentTarget);
+                const step = e.key === 'ArrowDown' ? 1 : -1;
+                let next = items.indexOf(e.target as HTMLElement) + step;
+                while (items[next] && !isEnabled(items[next])) {
+                    next += step;
+                }
+
+                if (items[next]) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    items[next].focus();
+                }
+            }
         },
         /** Blur of the widget: once focus leaves its items (for the search box of a Menu, or out of the widget), the Tab stop goes back to the initial item */
         onBlur: (e: React.FocusEvent<HTMLElement>) => {
