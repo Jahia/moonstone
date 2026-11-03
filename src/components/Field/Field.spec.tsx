@@ -188,6 +188,23 @@ describe('Field', () => {
         expect(inputs[1].id).not.toBe(inputs[0].id);
     });
 
+    // Limit: FloatingList sorts the controls again only when one mounts or unmounts
+    it.fails('should give the id the label points to the input that becomes first after a keyed reorder', () => {
+        const { rerender } = render(
+            <Field id="keyword" label="Keyword">
+                <Input key="first"/>
+                <Input key="second"/>
+            </Field>,
+        );
+        rerender(
+            <Field id="keyword" label="Keyword">
+                <Input key="second"/>
+                <Input key="first"/>
+            </Field>,
+        );
+        expect(screen.getAllByRole('textbox', { name: 'Keyword' })[0]).toHaveAttribute('id', 'keyword-control');
+    });
+
     it('should join the aria-describedby of the input to its helper', () => {
         render(
             <Field helper="Help" id="title" label="Title">
