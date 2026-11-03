@@ -1,9 +1,10 @@
 import clsx from 'clsx';
-import React from 'react';
+import React, { useId } from 'react';
 
 import { TableCell } from '../TableCell';
 import { Typography } from '~/components';
 import { layout } from '~/globals/css-utils.js';
+import { mergeHandlers } from '~/hooks';
 import { ChevronDown, ChevronRight } from '~/icons';
 
 import type { TableStructuredCellProps } from './TableStructuredCell.types';
@@ -27,6 +28,8 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
         },
         ref,
     ) => {
+        const contentId = useId();
+
         // Render nothing when no children are provided to avoid empty HTML markup
         if (!children) {
             return null;
@@ -37,18 +40,13 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             event.stopPropagation();
             onToggleExpand?.();
         };
-        // The click of the button, also fired by Enter and Space, bubbles to the onClick of the cell
-        const Toggle = isExpandable ? 'button' : 'div';
-
         return (
             <TableCell
                 className={clsx(styles.tableStructuredCell, className)}
                 ref={ref}
-                onClick={handleToggleExpand}
-                {...props}
+                {...mergeHandlers(props, { onClick: handleToggleExpand })}
             >
-                <Toggle
-                    aria-expanded={isExpandable ? isExpanded : undefined}
+                <div
                     className={clsx(
                         layout.flexRow_nowrap,
                         layout.flexFluid,
@@ -59,14 +57,22 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                         },
                     )}
                     style={{ marginLeft: indent }}
-                    type={isExpandable ? 'button' : undefined}
                 >
                     {isExpandable
                         ? (
                                 <>
-                                    {isExpanded
-                                        ? <ChevronDown/>
-                                        : <ChevronRight/>}
+                                    {/* Only the chevron is the button: the content may hold a link or a button. Its click bubbles to the onClick of the cell */}
+                                    <Typography
+                                        aria-expanded={isExpanded}
+                                        aria-labelledby={contentId}
+                                        className={styles.toggle}
+                                        component="button"
+                                        type="button"
+                                    >
+                                        {isExpanded
+                                            ? <ChevronDown/>
+                                            : <ChevronRight/>}
+                                    </Typography>
                                     <Typography
                                         isNowrap
                                         className={clsx(
@@ -75,13 +81,14 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                                             { [styles.scrollable]: isScrollable },
                                         )}
                                         component="div"
+                                        id={contentId}
                                     >
                                         {children}
                                     </Typography>
                                 </>
                             )
                         : children}
-                </Toggle>
+                </div>
             </TableCell>
         );
     },

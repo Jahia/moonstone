@@ -126,6 +126,20 @@ describe('DataTable keyboard', () => {
         expect(screen.queryByText('Bob')).not.toBeInTheDocument();
     });
 
+    it('toggles a structured row and calls the onClick of the cell when a column sets one', async () => {
+        const onClick = vi.fn();
+        renderTable({
+            isStructured: true,
+            data: kbStructuredData,
+            columns: [{ ...kbColumns[0], cellProps: { onClick } }, kbColumns[1]],
+        });
+        const toggle = screen.getByRole('button', { name: 'Alice' });
+        toggle.focus();
+        await userEvent.keyboard('{Enter}');
+        expect(onClick).toHaveBeenCalledTimes(1);
+        expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    });
+
     describe('TableCellActions actionsOnHover', () => {
         const renderWithActions = () => {
             renderTable({
