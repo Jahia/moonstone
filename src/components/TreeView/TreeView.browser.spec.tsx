@@ -159,3 +159,48 @@ describe('TreeView keyboard', () => {
         expect(node('Child Z1')).toHaveFocus();
     });
 });
+
+// Spreads its props but does not forward its ref, like the tree rows of jContent
+const ItemWithoutRef = ({ children, ...props }: React.HTMLAttributes<HTMLLIElement>) => <li {...props}>{children}</li>;
+
+describe('TreeView keyboard with an itemComponent that does not forward its ref', () => {
+    it('enters and leaves the tree with Tab, on the selected node', async () => {
+        renderTree({ itemComponent: ItemWithoutRef, selectedItems: ['B'] });
+        screen.getByRole('button', { name: 'before' }).focus();
+        await userEvent.keyboard('{Tab}');
+        expect(node('Root B')).toHaveFocus();
+        await userEvent.keyboard('{Tab}');
+        expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
+        await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+        expect(node('Root B')).toHaveFocus();
+    });
+
+    it('moves focus with the arrow keys, Home and End', async () => {
+        renderTree({ itemComponent: ItemWithoutRef });
+        node('Root A').focus();
+        await userEvent.keyboard('{ArrowRight}');
+        expect(node('Child A1')).toHaveFocus();
+        await userEvent.keyboard('{ArrowLeft}');
+        expect(node('Root A')).toHaveFocus();
+        await userEvent.keyboard('{ArrowDown}');
+        expect(node('Child A1')).toHaveFocus();
+        await userEvent.keyboard('{ArrowUp}');
+        expect(node('Root A')).toHaveFocus();
+        await userEvent.keyboard('{End}');
+        expect(node('Root C')).toHaveFocus();
+        await userEvent.keyboard('{Home}');
+        expect(node('Root A')).toHaveFocus();
+    });
+});
+
+describe('TreeView keyboard with a disabled node', () => {
+    it('moves past the disabled node, even when it has the focus', async () => {
+        renderTree({ data: [{ id: 'A', label: 'Root A' }, { id: 'B', label: 'Root B', isDisabled: true }, { id: 'C', label: 'Root C' }] });
+        node('Root A').focus();
+        await userEvent.keyboard('{ArrowDown}');
+        expect(node('Root C')).toHaveFocus();
+        node('Root B').focus();
+        await userEvent.keyboard('{ArrowDown}');
+        expect(node('Root C')).toHaveFocus();
+    });
+});
