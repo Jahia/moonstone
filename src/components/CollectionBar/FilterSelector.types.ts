@@ -1,4 +1,4 @@
-import type { CollectionBarFilter } from './CollectionBar.types';
+import type { CollectionBarCloseReason, CollectionBarFilter } from './CollectionBar.types';
 
 export type FilterSelectorProps = {
     /**
@@ -12,12 +12,17 @@ export type FilterSelectorProps = {
     getAnchor: () => HTMLElement | null;
 
     /**
+     * Returns the root of the bar, whose controls close the selector themselves
+     */
+    getBar: () => HTMLElement | null;
+
+    /**
      * Label of the Close button
      */
     closeLabel: string;
 
     /**
-     * Function triggered by Escape, the Close button, a click outside, or the close of the function form
+     * Function triggered by Escape, the Close button, a click outside, or the close of the function form, with the reason
      */
-    onClose: () => void;
+    onClose: (reason: CollectionBarCloseReason) => void;
 };

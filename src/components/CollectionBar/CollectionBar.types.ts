@@ -12,6 +12,17 @@ export type CollectionBarSelectorContext = {
 };
 
 /**
+ * How a selector closed:
+ * - `escape`: Escape in the selector
+ * - `outsidePress`: a click outside the selector
+ * - `closeButton`: its Close button
+ * - `chip`: its chip, pressed again
+ * - `otherControl`: another control of the bar, which opens its own popup
+ * - `close`: the close of the function form
+ */
+export type CollectionBarCloseReason = 'escape' | 'outsidePress' | 'closeButton' | 'chip' | 'otherControl' | 'close';
+
+/**
  * A filter of the bar
  */
 export type CollectionBarFilter = {
@@ -55,15 +66,15 @@ export type CollectionBarFilter = {
     selector: React.ReactNode | ((context: CollectionBarSelectorContext) => React.ReactNode);
 
     /**
-     * Function triggered by the clear button of the chip, with its click event
+     * Function triggered by the clear button of the chip, with the event of the click or of the key
      */
-    onClear: (event: React.MouseEvent) => void;
+    onClear: (event: React.SyntheticEvent) => void;
 
     /**
-     * Function triggered on every close of the selector: Escape, the Close button, a click outside, the chip,
-     * or the close of the function form. A selector commits a typed draft value there
+     * Function triggered on every close of the selector, with the reason of the close.
+     * A selector commits a typed draft value there, or discards it on `escape`
      */
-    onClose?: () => void;
+    onClose?: (details: { reason: CollectionBarCloseReason }) => void;
 };
 
 /**
@@ -151,17 +162,23 @@ type ColumnChoiceProps
          */
         columns: ReadonlyArray<CollectionBarColumn>;
         /**
-         * Keys of the visible columns (controlled)
+         * Keys of the visible columns, in the controlled form. Leave it out for the uncontrolled form
          */
-        visibleColumns: ReadonlyArray<string>;
+        visibleColumns?: ReadonlyArray<string>;
+        /**
+         * Keys of the columns visible at first, in the uncontrolled form
+         * @default the keys of every column
+         */
+        defaultVisibleColumns?: ReadonlyArray<string>;
         /**
          * Callback when the user shows or hides a column, with the keys of the visible columns in the order of `columns`
          */
-        onVisibleColumnsChange: (visibleColumns: string[]) => void;
+        onVisibleColumnsChange?: (visibleColumns: string[]) => void;
     }
     | {
         columns?: never;
         visibleColumns?: never;
+        defaultVisibleColumns?: never;
         onVisibleColumnsChange?: never;
     };
 
@@ -173,10 +190,27 @@ export type CollectionBarProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'cl
     filters: ReadonlyArray<CollectionBarFilter>;
 
     /**
-     * Function triggered by the Clear all button, with its click event. The button shows when it is set and a filter has a value.
+     * Function triggered by the Clear all button, with the event of the click or of the key. The button shows when it is set and a filter has a value.
      * The bar calls no `onClear` then: this function clears every filter
      */
-    onClearAll?: (event: React.MouseEvent) => void;
+    onClearAll?: (event: React.SyntheticEvent) => void;
+
+    /**
+     * Key of the filter whose selector is open, or null when none is, in the controlled form. Leave it out for the uncontrolled form
+     */
+    openFilterKey?: string | null;
+
+    /**
+     * Key of the filter whose selector is open at first, in the uncontrolled form
+     * @default null
+     */
+    defaultOpenFilterKey?: string | null;
+
+    /**
+     * Callback when a selector opens or closes, with the key of the open filter, or null.
+     * The `onClose` of the filter gets the reason of a close
+     */
+    onOpenFilterChange?: (openFilterKey: string | null) => void;
 
     /**
      * Whether every control of the bar is disabled

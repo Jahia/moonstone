@@ -1,6 +1,6 @@
 import { Composite, CompositeItem } from '@floating-ui/react';
 import clsx from 'clsx';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useId, useLayoutEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 
 import { FilterSelector } from './FilterSelector';
@@ -8,10 +8,10 @@ import { Button } from '~/components/Button';
 import { Menu, MenuItem } from '~/components/Menu';
 import { Tooltip } from '~/components/Tooltip';
 import { layout } from '~/globals/css-utils.js';
-import { getInitialIndex, mergeHandlers, rovingItemProps, useRovingTabIndex } from '~/hooks';
+import { getInitialIndex, mergeHandlers, rovingItemProps, useControllableState, useRovingTabIndex } from '~/hooks';
 import { Add, CheckboxChecked, CheckboxUnchecked, ChevronDown, Close, ViewColumn } from '~/icons';
 
-import type { CollectionBarFilter, CollectionBarI18n, CollectionBarProps } from './CollectionBar.types';
+import type { CollectionBarCloseReason, CollectionBarFilter, CollectionBarI18n, CollectionBarProps } from './CollectionBar.types';
 
 import styles from './CollectionBar.module.scss';
 
@@ -54,6 +54,20 @@ const withName = (label: string, name: string) => label.split('{{name}}').join(n
 
 const hasValue = (filter: CollectionBarFilter) => Boolean(filter.valueLabel);
 
+// The dialog of a closed selector leaves the DOM with the focus, which then falls back to the body
+const isFocusLost = () => !document.activeElement || document.activeElement === document.body;
+
+const mapRef = (map: React.RefObject<Map<string, HTMLElement>>, key: string) => (element: HTMLElement | null) => {
+    if (element) {
+        map.current.set(key, element);
+    } else {
+        map.current.delete(key);
+    }
+};
+
+// The props that the bar gives each control. In a toolbar, CompositeItem takes the ref and adds its tab index and handlers
+type ControlProps = typeof rovingItemProps & { ref?: React.Ref<HTMLButtonElement> };
+
 /**
  * A toolbar of filters above a collection, also called a filter bar: filter chips, Add filter,
  * Clear all and the column choice, above a DataTable, a list or thumbnails
@@ -62,7 +76,11 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
     filters,
     columns,
     visibleColumns,
+    defaultVisibleColumns,
     onVisibleColumnsChange,
+    openFilterKey,
+    defaultOpenFilterKey,
+    onOpenFilterChange,
     onClearAll,
     isDisabled = false,
     i18n,
@@ -75,15 +93,31 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
     ) as Required<CollectionBarI18n>;
     // The filters that Add filter put in the bar, in the order of their chips
     const [addedKeys, setAddedKeys] = useState<string[]>([]);
-    const [openKey, setOpenKey] = useState<string | null>(null);
+    const [openKey, setOpenKey] = useControllableState({
+        value: openFilterKey,
+        defaultValue: defaultOpenFilterKey ?? null,
+        onChange: onOpenFilterChange,
+        name: 'CollectionBar openFilterKey',
+    });
+    const [shownColumns, setShownColumns] = useControllableState({
+        value: visibleColumns,
+        defaultValue: defaultVisibleColumns ?? columns?.map(column => column.key) ?? [],
+        onChange: next => onVisibleColumnsChange?.([...next]),
+        name: 'CollectionBar visibleColumns',
+    });
     const [isAddMenuOpen, setIsAddMenuOpen] = useState(false);
     const [isColumnMenuOpen, setIsColumnMenuOpen] = useState(false);
     const rovingTabIndex = useRovingTabIndex();
+    // Each item of the column menu takes an id, so it is found wherever the menu renders
+    const columnItemsId = useId();
+    const columnItemId = (key: string) => `${columnItemsId}${key}`;
 
     const rootRef = useRef<HTMLDivElement>(null);
-    const chipRefs = useRef(new Map<string, HTMLElement>());
-    const addFilterRef = useRef<HTMLElement>(null);
-    const columnButtonRef = useRef<HTMLElement>(null);
+    // The chip of each filter, which anchors its selector, and its edit button, which takes the focus
+    const chipElements = useRef(new Map<string, HTMLElement>());
+    const chipButtons = useRef(new Map<string, HTMLElement>());
+    const addFilterRef = useRef<HTMLButtonElement>(null);
+    const columnButtonRef = useRef<HTMLButtonElement>(null);
 
     // An added chip stays in the bar while it has a value or while its selector is open
     const addableFilters = filters.filter(filter => !filter.isDisplayedByDefault);
@@ -96,52 +130,43 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
     const openFilter = shownFilters.find(filter => filter.key === openKey);
     const hasClearAll = Boolean(onClearAll) && filters.some(hasValue);
 
-    // Each handler commits its change with flushSync first, so the control to focus is in the DOM.
     // A chip that leaves the bar gives the focus to Add filter, else to the first control
-    const focusChip = (key?: string) => {
-        const chip = key ? chipRefs.current.get(key) : null;
+    const focusChip = useCallback((key?: string) => {
+        const chip = key ? chipButtons.current.get(key) : null;
         const addFilter = addFilterRef.current?.hasAttribute('disabled') ? null : addFilterRef.current;
         const firstItem = rootRef.current?.querySelector<HTMLElement>('[data-roving-item]:not([disabled])');
         (chip ?? addFilter ?? firstItem)?.focus();
-    };
+    }, []);
 
-    const getChip = useCallback(
-        () => rootRef.current?.querySelector<HTMLElement>(`.moonstone-collectionBar_chip[data-filter="${CSS.escape(openKey ?? '')}"]`) ?? null,
-        [openKey],
-    );
+    const getChip = useCallback(() => chipElements.current.get(openKey ?? '') ?? null, [openKey]);
+    const getBar = useCallback(() => rootRef.current, []);
 
-    const setChipRef = (key: string) => (element: HTMLElement | null) => {
-        if (element) {
-            chipRefs.current.set(key, element);
-        } else {
-            chipRefs.current.delete(key);
+    // A selector that closes with the focus in it gives the focus back to its chip, once the close is in the DOM:
+    // the chip of an added filter may leave the bar with it, and the consumer may close a controlled selector
+    const lastOpenKey = useRef(openKey);
+    useLayoutEffect(() => {
+        const closedKey = lastOpenKey.current;
+        lastOpenKey.current = openKey;
+        if (closedKey !== null && openKey === null && isFocusLost()) {
+            focusChip(closedKey);
         }
-    };
+    }, [openKey, focusChip]);
 
-    // Every close of a selector calls its onClose, which commits a draft value
-    const closeSelector = (isFocusBack = true) => {
+    // Every close of a selector calls its onClose, which commits a draft value or discards it
+    const closeSelector = (reason: CollectionBarCloseReason) => {
         if (!openFilter) {
             return;
         }
 
-        const close = () => {
-            setOpenKey(null);
-            openFilter.onClose?.();
-        };
-        if (!isFocusBack) {
-            close();
-            return;
-        }
-
-        flushSync(close);
-        focusChip(openFilter.key);
+        setOpenKey(null);
+        openFilter.onClose?.({ reason });
     };
 
     const toggleSelector = (filter: CollectionBarFilter) => {
         if (openKey === filter.key) {
-            closeSelector();
+            closeSelector('chip');
         } else {
-            closeSelector(false);
+            closeSelector('otherControl');
             setIsAddMenuOpen(false);
             setIsColumnMenuOpen(false);
             setOpenKey(filter.key);
@@ -154,12 +179,13 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
         setOpenKey(filter.key);
     };
 
-    const clearFilter = (filter: CollectionBarFilter, event: React.MouseEvent) => {
+    // A clear commits its change with flushSync first, so the control to focus is in the DOM
+    const clearFilter = (filter: CollectionBarFilter, event: React.SyntheticEvent) => {
         flushSync(() => filter.onClear(event));
         focusChip(filter.key);
     };
 
-    const clearAll = (event: React.MouseEvent) => {
+    const clearAll = (event: React.SyntheticEvent) => {
         flushSync(() => {
             onClearAll(event);
             setAddedKeys([]);
@@ -168,10 +194,10 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
     };
 
     const toggleColumn = (key: string, isVisible: boolean) => {
-        const next = isVisible ? visibleColumns.filter(visible => visible !== key) : [...visibleColumns, key];
-        flushSync(() => onVisibleColumnsChange(columns.map(column => column.key).filter(column => next.includes(column))));
+        const next = isVisible ? shownColumns.filter(visible => visible !== key) : [...shownColumns, key];
+        flushSync(() => setShownColumns(columns.map(column => column.key).filter(column => next.includes(column))));
         // A column that moves to the other section of its menu keeps the focus
-        rootRef.current?.querySelector<HTMLElement>(`[data-column="${CSS.escape(key)}"]`)?.focus();
+        document.getElementById(columnItemId(key))?.focus();
     };
 
     // ---
@@ -182,12 +208,12 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
     const isToolbar = controlCount >= TOOLBAR_MIN_CONTROLS;
     const itemKeys: string[] = [];
     const itemStates: Array<{ isDisabled: boolean }> = [];
-    const control = (key: string, isItemDisabled: boolean, button: React.ReactElement, ref?: React.Ref<HTMLElement>) => {
+    const control = (key: string, isItemDisabled: boolean, renderButton: (props: ControlProps) => React.ReactElement, ref?: React.Ref<HTMLButtonElement>) => {
         itemKeys.push(key);
         itemStates.push({ isDisabled: isItemDisabled });
         return isToolbar
-            ? <CompositeItem {...rovingItemProps} ref={ref} render={button}/>
-            : React.cloneElement(button as React.ReactElement<{ ref?: React.Ref<HTMLElement> }>, {
+            ? <CompositeItem ref={ref} render={renderButton(rovingItemProps)}/>
+            : renderButton({
                     ...rovingItemProps,
                     ref,
                 });
@@ -196,8 +222,9 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
     const chips = shownFilters.map((filter) => {
         const isFilterDisabled = isDisabled || Boolean(filter.isDisabled);
         const name = withName(labels.filterName, filter.label);
-        const edit = control(`chip:${filter.key}`, isFilterDisabled, (
+        const edit = control(`chip:${filter.key}`, isFilterDisabled, itemProps => (
             <Button
+                {...itemProps}
                 isDisabled={isFilterDisabled}
                 aria-expanded={openKey === filter.key}
                 aria-haspopup="dialog"
@@ -207,15 +234,16 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
                 variant="outlined"
                 onClick={() => toggleSelector(filter)}
             />
-        ), setChipRef(filter.key));
+        ), mapRef(chipButtons, filter.key));
 
         let clear: React.ReactElement = null;
         if (hasValue(filter)) {
             const clearLabel = withName(labels.clearFilter, filter.label);
             clear = (
                 <Tooltip className={clsx('moonstone-collectionBar_chipClearTooltip', styles['moonstone-collectionBar_chipClearTooltip'])} label={clearLabel}>
-                    {control(`clear:${filter.key}`, isFilterDisabled, (
+                    {control(`clear:${filter.key}`, isFilterDisabled, itemProps => (
                         <Button
+                            {...itemProps}
                             isDisabled={isFilterDisabled}
                             aria-label={clearLabel}
                             className={clsx('moonstone-collectionBar_chipClear', styles['moonstone-collectionBar_chipClear'])}
@@ -246,6 +274,7 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
                 )}
                 data-filter={filter.key}
                 key={filter.key}
+                ref={mapRef(chipElements, filter.key)}
             >
                 {shownEdit}
                 {clear}
@@ -256,8 +285,9 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
     let addButton: React.ReactElement = null;
     if (addableFilters.length > 0) {
         const isAddDisabled = isDisabled || filtersToAdd.length === 0;
-        addButton = control('add', isAddDisabled, (
+        addButton = control('add', isAddDisabled, itemProps => (
             <Button
+                {...itemProps}
                 isDisabled={isAddDisabled}
                 aria-expanded={isAddMenuOpen}
                 aria-haspopup="menu"
@@ -267,7 +297,7 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
                 label={labels.addFilter}
                 variant="ghost"
                 onClick={() => {
-                    closeSelector(false);
+                    closeSelector('otherControl');
                     setIsAddMenuOpen(!isAddMenuOpen);
                 }}
             />
@@ -276,8 +306,9 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
 
     let clearAllButton: React.ReactElement = null;
     if (hasClearAll) {
-        clearAllButton = control('clearAll', isDisabled, (
+        clearAllButton = control('clearAll', isDisabled, itemProps => (
             <Button
+                {...itemProps}
                 isDisabled={isDisabled}
                 className={clsx('moonstone-collectionBar_clearAll', styles['moonstone-collectionBar_clearAll'])}
                 label={labels.clearAll}
@@ -292,8 +323,9 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
         columnButton = (
             <div className={clsx(['moonstone-collectionBar_end', styles['moonstone-collectionBar_end']], ['flexRow', layout.flexRow])}>
                 <Tooltip label={labels.columnButton}>
-                    {control('columns', isDisabled, (
+                    {control('columns', isDisabled, itemProps => (
                         <Button
+                            {...itemProps}
                             isDisabled={isDisabled}
                             aria-expanded={isColumnMenuOpen}
                             aria-haspopup="menu"
@@ -302,7 +334,7 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
                             icon={<ViewColumn/>}
                             variant="ghost"
                             onClick={() => {
-                                closeSelector(false);
+                                closeSelector('otherControl');
                                 setIsColumnMenuOpen(!isColumnMenuOpen);
                             }}
                         />
@@ -314,7 +346,7 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
 
     // Menu filters a flat list of children by their label, so the two sections stay flat titles
     const columnSection = (title: string, isVisible: boolean) => {
-        const sectionColumns = columns.filter(column => visibleColumns.includes(column.key) === isVisible);
+        const sectionColumns = columns.filter(column => shownColumns.includes(column.key) === isVisible);
         if (sectionColumns.length === 0) {
             return [];
         }
@@ -327,6 +359,7 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
                     aria-checked={isVisible}
                     data-column={column.key}
                     iconStart={isVisible ? <CheckboxChecked color="blue"/> : <CheckboxUnchecked/>}
+                    id={columnItemId(column.key)}
                     key={`column:${column.key}`}
                     label={column.label}
                     role="menuitemcheckbox"
@@ -392,7 +425,8 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
                     closeLabel={labels.closeButton}
                     filter={openFilter}
                     getAnchor={getChip}
-                    onClose={() => closeSelector()}
+                    getBar={getBar}
+                    onClose={closeSelector}
                 />
             )}
             {isAddMenuOpen && filtersToAdd.length > 0 && (

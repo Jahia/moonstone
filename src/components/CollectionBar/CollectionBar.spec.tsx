@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
 
@@ -17,6 +17,9 @@ type BarProps = {
     onClearAll?: () => void;
     onValues?: (values: Record<string, string>) => void;
     onVisibleColumnsChange?: (visibleColumns: string[]) => void;
+    openFilterKey?: string | null;
+    defaultOpenFilterKey?: string | null;
+    onOpenFilterChange?: (openFilterKey: string | null) => void;
 };
 
 // The setup of the testable scenarios: 5 columns, 1 of them hidden, the filter Date displayed by default, User and Action not
@@ -91,10 +94,11 @@ describe('CollectionBar', () => {
         expect(screen.getByText('Action')).toBeInTheDocument();
 
         await user.click(screen.getByText('User'));
-        const toolbarButtons = within(screen.getByRole('toolbar')).getAllByRole('button');
+        // The modal selector hides the bar from assistive technologies
+        const toolbarButtons = within(screen.getByRole('toolbar', { hidden: true })).getAllByRole('button', { hidden: true });
         expect(toolbarButtons.map(button => button.textContent || button.getAttribute('aria-label'))).toEqual(['Date', 'User', 'Add filter', 'Choose the columns']);
         expect(screen.getByRole('dialog', { name: 'User' })).toBeInTheDocument();
-        expect(chip('User')).toHaveAttribute('aria-expanded', 'true');
+        expect(screen.getByRole('button', { name: 'User', hidden: true })).toHaveAttribute('aria-expanded', 'true');
     });
 
     it('removes an added chip whose selector closes with no value, and lists it again in Add filter (case 3)', async () => {
@@ -245,23 +249,93 @@ describe('CollectionBar', () => {
         expect(chip('Choisir les colonnes')).toBeInTheDocument();
     });
 
-    it('calls onClose of a filter when its selector closes', async () => {
+    const hidden = (name: string) => screen.getByRole('button', { name, hidden: true });
+
+    // The focus manager moves the focus into the dialog on the next frame
+    const waitForFocusInDialog = () => waitFor(() => expect(screen.getByRole('dialog')).toContainElement(document.activeElement as HTMLElement));
+
+    it.each([
+        ['escape', (user: ReturnType<typeof userEvent.setup>) => user.keyboard('{Escape}')],
+        ['closeButton', (user: ReturnType<typeof userEvent.setup>) => user.click(within(screen.getByRole('dialog')).getByRole('button', { name: 'Close' }))],
+        ['outsidePress', (user: ReturnType<typeof userEvent.setup>) => user.click(document.querySelector('.moonstone-collectionBar_overlay'))],
+        ['chip', (user: ReturnType<typeof userEvent.setup>) => user.click(hidden('Path'))],
+        ['otherControl', (user: ReturnType<typeof userEvent.setup>) => user.click(hidden('Add filter'))],
+        ['close', (user: ReturnType<typeof userEvent.setup>) => user.click(screen.getByRole('button', { name: 'Pick' }))],
+    ])('calls onClose of a filter once, with the reason %s', async (reason, closeSelector) => {
         const user = userEvent.setup();
         const onClose = vi.fn();
         const filters = [{
             key: 'path',
             label: 'Path',
             isDisplayedByDefault: true,
-            selector: <span>Selector</span>,
+            selector: ({ close }: { close: () => void }) => <button type="button" onClick={close}>Pick</button>,
             onClear: vi.fn(),
             onClose,
+        }, {
+            key: 'user',
+            label: 'User',
+            selector: <span>Selector</span>,
+            onClear: vi.fn(),
         }];
         render(<CollectionBar filters={filters}/>);
         await user.click(chip('Path'));
-        expect(screen.getByText('Selector')).toBeInTheDocument();
-        await user.click(chip('Path'));
+        await waitForFocusInDialog();
+        await closeSelector(user);
         expect(onClose).toHaveBeenCalledTimes(1);
+        expect(onClose).toHaveBeenCalledWith({ reason });
         expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+
+    it('hides the content outside the open selector from assistive technologies', async () => {
+        const user = userEvent.setup();
+        render(<Bar/>);
+        await user.click(chip('Date'));
+        expect(screen.queryByRole('toolbar')).not.toBeInTheDocument();
+        await waitForFocusInDialog();
+        await user.keyboard('{Escape}');
+        expect(screen.getByRole('toolbar')).toBeInTheDocument();
+    });
+
+    it('opens the selector of defaultOpenFilterKey, and reports each change to onOpenFilterChange', async () => {
+        const user = userEvent.setup();
+        const onOpenFilterChange = vi.fn();
+        render(<Bar defaultOpenFilterKey="date" onOpenFilterChange={onOpenFilterChange}/>);
+        expect(screen.getByRole('dialog', { name: 'Date' })).toBeInTheDocument();
+        await waitForFocusInDialog();
+        await user.keyboard('{Escape}');
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+        expect(onOpenFilterChange).toHaveBeenLastCalledWith(null);
+        await user.click(chip('Date'));
+        expect(onOpenFilterChange).toHaveBeenLastCalledWith('date');
+    });
+
+    it('keeps a controlled selector open until the consumer closes it', async () => {
+        const user = userEvent.setup();
+        const onOpenFilterChange = vi.fn();
+        const { rerender } = render(<Bar openFilterKey="date" onOpenFilterChange={onOpenFilterChange}/>);
+        await user.click(within(screen.getByRole('dialog')).getByRole('button', { name: 'Close' }));
+        expect(onOpenFilterChange).toHaveBeenCalledWith(null);
+        expect(screen.getByRole('dialog', { name: 'Date' })).toBeInTheDocument();
+        rerender(<Bar openFilterKey={null} onOpenFilterChange={onOpenFilterChange}/>);
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+
+    it('shows every column at first in the uncontrolled form, and keeps its changes', async () => {
+        const user = userEvent.setup();
+        const onVisibleColumnsChange = vi.fn();
+        render(<CollectionBar columns={collectionBarColumns} filters={[]} onVisibleColumnsChange={onVisibleColumnsChange}/>);
+        await user.click(chip('Choose the columns'));
+        expect(screen.getAllByRole('menuitemcheckbox').every(item => item.getAttribute('aria-checked') === 'true')).toBe(true);
+        await user.click(screen.getByRole('menuitemcheckbox', { name: 'User' }));
+        expect(screen.getByRole('menuitemcheckbox', { name: 'User' })).toHaveAttribute('aria-checked', 'false');
+        expect(onVisibleColumnsChange).toHaveBeenCalledWith(collectionBarColumns.map(column => column.key).filter(key => key !== 'user'));
+    });
+
+    it('starts on defaultVisibleColumns in the uncontrolled form', async () => {
+        const user = userEvent.setup();
+        render(<CollectionBar columns={collectionBarColumns} defaultVisibleColumns={['date']} filters={[]}/>);
+        await user.click(chip('Choose the columns'));
+        expect(screen.getAllByRole('menuitemcheckbox', { checked: true }).map(item => item.textContent)).toEqual(['Date']);
     });
 
     it('gives the function form of a selector a close', async () => {
@@ -294,24 +368,6 @@ describe('CollectionBar', () => {
         render(<Bar i18n={{ addFilter: '', toolbarLabel: undefined }}/>);
         expect(chip('Add filter')).toBeInTheDocument();
         expect(screen.getByRole('toolbar', { name: 'Collection options' })).toBeInTheDocument();
-    });
-
-    it('calls onClose of a filter when a click outside closes its selector', async () => {
-        const user = userEvent.setup();
-        const onClose = vi.fn();
-        const filters = [{
-            key: 'path',
-            label: 'Path',
-            isDisplayedByDefault: true,
-            selector: <span>Selector</span>,
-            onClear: vi.fn(),
-            onClose,
-        }];
-        const { container } = render(<CollectionBar filters={filters}/>);
-        await user.click(chip('Path'));
-        await user.click(container.querySelector('.moonstone-collectionBar_overlay'));
-        expect(onClose).toHaveBeenCalledTimes(1);
-        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     });
 
     it('passes the click event to onClear', async () => {

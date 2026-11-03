@@ -1,127 +1,125 @@
+import {
+    autoUpdate,
+    flip,
+    FloatingFocusManager,
+    FloatingOverlay,
+    FloatingPortal,
+    offset,
+    shift,
+    useDismiss,
+    useFloating,
+    useInteractions,
+} from '@floating-ui/react';
 import clsx from 'clsx';
-import React, { useEffect, useId, useLayoutEffect, useRef } from 'react';
+import React, { useId, useLayoutEffect } from 'react';
 
 import { Button } from '~/components/Button';
 import { Typography } from '~/components/Typography';
 import { layout } from '~/globals/css-utils.js';
-import { usePositioning } from '~/hooks';
 
 import type { FilterSelectorProps } from './FilterSelector.types';
 
 import styles from './CollectionBar.module.scss';
 
-const anchorPosition = {
-    top: 4,
-    left: 0,
-};
-
-const anchorElOrigin = {
-    horizontal: 'left',
-    vertical: 'bottom',
-} as const;
-
-const transformElOrigin = {
-    horizontal: 'left',
-    vertical: 'top',
-} as const;
-
-const FOCUSABLE = 'input:not([disabled], [type="hidden"]), textarea:not([disabled]), select:not([disabled]), button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])';
-
-/** The selector of a filter: a modal dialog anchored below its chip, with the look of a Menu */
+/**
+ * The selector of a filter: a modal dialog anchored below its chip, with the look of a Menu.
+ * It renders in a portal, so a transformed or clipping ancestor of the bar, such as an open Drawer, does not move it
+ */
 export const FilterSelector = ({
     filter,
     getAnchor,
+    getBar,
     closeLabel,
     onClose,
 }: FilterSelectorProps) => {
     const titleId = useId();
-    const anchorRef = useRef<HTMLElement>(null);
-    const [stylePosition, dialogRef] = usePositioning(true, anchorPosition, anchorRef, anchorElOrigin, transformElOrigin, 'fixed');
-    // As in Menu: the first position of the hook is an offset with no position, which leaves the dialog in the row of the bar
-    const style: React.CSSProperties = {
-        position: 'fixed',
-        ...stylePosition,
-    };
+    const { refs, floatingStyles, context } = useFloating({
+        open: true,
+        onOpenChange: (isOpen, _event, reason) => {
+            if (!isOpen && reason === 'outside-press') {
+                onClose('outsidePress');
+            }
+        },
+        placement: 'bottom-start',
+        strategy: 'fixed',
+        // A transform would become the containing block of a fixed Menu in the selector, such as the menu of a Dropdown
+        transform: false,
+        middleware: [offset(4), flip({ padding: 8 }), shift({ padding: 8 })],
+        whileElementsMounted: autoUpdate,
+    });
+    // Escape is handled on the dialog, not by the listener of floating-ui on the document, which a Modal around the bar also uses.
+    // 'click' closes on the up-event, so a press outside can still be cancelled by dragging away (WCAG 2.5.2)
+    const dismiss = useDismiss(context, {
+        escapeKey: false,
+        // A control of the bar closes the selector itself, with its own reason. A press in a popup of the selector, such as
+        // the calendar of a DateTimeInput, passes through the dialog in the React tree, so it counts as inside
+        outsidePress: event => !getBar()?.contains(event.target as Node),
+        outsidePressEvent: 'click',
+    });
+    const { getFloatingProps } = useInteractions([dismiss]);
 
-    // Before the effect of usePositioning, which reads the anchor
+    // The chip of an added filter mounts in the same commit as its selector, so the anchor is read once the chip is in the DOM
     useLayoutEffect(() => {
-        anchorRef.current = getAnchor();
-    }, [getAnchor]);
+        refs.setReference(getAnchor());
+    }, [getAnchor, refs]);
 
-    // After the layout effects: a Menu that closes in the same render gives the focus back to its button first
-    useEffect(() => {
-        const dialog = dialogRef.current;
-        const body = dialog?.querySelector<HTMLElement>('[data-selector-body]');
-        (body?.querySelector<HTMLElement>(FOCUSABLE) ?? dialog?.querySelector<HTMLElement>(FOCUSABLE))?.focus({ preventScroll: true });
-    }, [dialogRef]);
-
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-        if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.altKey) {
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+        if (e.defaultPrevented || e.key !== 'Escape' || e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) {
             return;
         }
 
-        if (e.key === 'Escape' && !e.shiftKey) {
-            // Stops a Drawer or a Modal around the bar from closing on the same Escape
-            e.stopPropagation();
-            onClose();
-        } else if (e.key === 'Tab') {
-            // The overlay blocks the page, so Tab and Shift+Tab cycle inside the dialog
-            const focusables = Array.from(e.currentTarget.querySelectorAll<HTMLElement>(FOCUSABLE));
-            const edge = e.shiftKey ? focusables[0] : focusables[focusables.length - 1];
-            if (document.activeElement === edge) {
-                e.preventDefault();
-                (e.shiftKey ? focusables[focusables.length - 1] : focusables[0])?.focus();
-            }
-        }
+        // React events bubble through the portal: this stops a Drawer or a Modal around the bar from closing on the same Escape
+        e.stopPropagation();
+        onClose('escape');
     };
 
     return (
-        <>
-            {/* oxlint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- Escape closes the dialog, and Tab stays in it */}
-            <div
-                aria-labelledby={titleId}
-                aria-modal="true"
-                className={clsx(
-                    ['moonstone-collectionBar_selector', styles['moonstone-collectionBar_selector']],
-                    ['flexCol_nowrap', layout.flexCol_nowrap],
-                )}
-                data-filter={filter.key}
-                ref={dialogRef}
-                role="dialog"
-                style={style}
-                onKeyDown={handleKeyDown}
-            >
-                <div className={clsx('moonstone-collectionBar_selectorTitle', styles['moonstone-collectionBar_selectorTitle'])}>
-                    <Typography id={titleId} variant="caption" weight="bold">
-                        {filter.label}
-                    </Typography>
-                </div>
-                <div
-                    className={clsx(
-                        ['moonstone-collectionBar_selectorBody', styles['moonstone-collectionBar_selectorBody']],
-                        ['flexCol_nowrap', layout.flexCol_nowrap],
-                        ['alignStart', layout.alignStart],
-                    )}
-                    data-selector-body=""
-                >
-                    {typeof filter.selector === 'function' ? filter.selector({ close: onClose }) : filter.selector}
-                </div>
-                <div
-                    className={clsx(
-                        ['moonstone-collectionBar_selectorFooter', styles['moonstone-collectionBar_selectorFooter']],
-                        ['flexRow', layout.flexRow],
-                        ['justifyEnd', layout.justifyEnd],
-                    )}
-                >
-                    <Button label={closeLabel} variant="ghost" onClick={onClose}/>
-                </div>
-            </div>
-            <div
+        <FloatingPortal>
+            <FloatingOverlay
                 aria-hidden="true"
                 className={clsx('moonstone-collectionBar_overlay', styles['moonstone-collectionBar_overlay'])}
-                onClick={onClose}
-                onContextMenu={onClose}
+                onContextMenu={() => onClose('outsidePress')}
             />
-        </>
+            {/* The focus manager keeps Tab and Shift+Tab in the dialog. The bar gives the focus back, as the chip may leave the bar */}
+            <FloatingFocusManager context={context} returnFocus={false}>
+                <div
+                    aria-labelledby={titleId}
+                    aria-modal="true"
+                    className={clsx(
+                        ['moonstone-collectionBar_selector', styles['moonstone-collectionBar_selector']],
+                        ['flexCol_nowrap', layout.flexCol_nowrap],
+                    )}
+                    data-filter={filter.key}
+                    ref={refs.setFloating}
+                    role="dialog"
+                    style={floatingStyles}
+                    {...getFloatingProps({ onKeyDown: handleKeyDown })}
+                >
+                    <div className={clsx('moonstone-collectionBar_selectorTitle', styles['moonstone-collectionBar_selectorTitle'])}>
+                        <Typography id={titleId} variant="caption" weight="bold">
+                            {filter.label}
+                        </Typography>
+                    </div>
+                    <div
+                        className={clsx(
+                            ['moonstone-collectionBar_selectorBody', styles['moonstone-collectionBar_selectorBody']],
+                            ['flexCol_nowrap', layout.flexCol_nowrap],
+                            ['alignStart', layout.alignStart],
+                        )}
+                    >
+                        {typeof filter.selector === 'function' ? filter.selector({ close: () => onClose('close') }) : filter.selector}
+                    </div>
+                    <div
+                        className={clsx(
+                            ['moonstone-collectionBar_selectorFooter', styles['moonstone-collectionBar_selectorFooter']],
+                            ['flexRow', layout.flexRow],
+                            ['justifyEnd', layout.justifyEnd],
+                        )}
+                    >
+                        <Button label={closeLabel} variant="ghost" onClick={() => onClose('closeButton')}/>
+                    </div>
+                </div>
+            </FloatingFocusManager>
+        </FloatingPortal>
     );
 };

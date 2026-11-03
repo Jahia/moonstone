@@ -7,6 +7,11 @@
 
 The bar holds no data and stores nothing. It shows the state that the consumer passes, and it reports each change through a callback, so it works with data on the server.
 
+The open selector and the visible columns each take a controlled and an uncontrolled form, as an `input` does:
+
+- **Controlled:** pass `openFilterKey` or `visibleColumns`, and update it in `onOpenFilterChange` or `onVisibleColumnsChange`.
+- **Uncontrolled:** pass `defaultOpenFilterKey` or `defaultVisibleColumns`, or nothing. The bar then keeps the state, and the callbacks still report each change. Every column is visible at first.
+
 ### When not to use it
 
 - One filter next to the title of a page, such as a status: use a `Dropdown` in the toolbar of `Header`.
@@ -17,7 +22,7 @@ The bar holds no data and stores nothing. It shows the state that the consumer p
 
 - A chip with no value shows the name of its filter, with a dashed border.
 - A chip with a value shows the name, the value and a clear button. A long value ends with an ellipsis, and the tooltip of the chip shows the full value.
-- A chip opens its selector in a dialog below the chip. Escape, the Close button or a click outside closes it, and the focus goes back to the chip. Each close calls the `onClose` of the filter.
+- A chip opens its selector in a dialog below the chip. Escape, the Close button or a click outside closes it, and the focus goes back to the chip. Each close calls the `onClose` of the filter, with its reason: `escape`, `outsidePress`, `closeButton`, `chip`, `otherControl` or `close`.
 - An added chip stays in the bar while it has a value or while its selector is open. Once it leaves the bar, the focus goes to **Add filter**.
 - **Add filter** is disabled when every filter is in the bar, and absent when every filter is displayed by default.
 - **Clear all** shows when the consumer passes `onClearAll` and at least one filter has a value.
@@ -37,8 +42,8 @@ const [draft, setDraft] = useState('');
         selector: ({ close }) => (
             <Input aria-label="Path" value={draft} onChange={e => setDraft(e.target.value)} onKeyUp={e => e.key === 'Enter' && close()}/>
         ),
-        // The typed draft becomes the value of the filter when the selector closes
-        onClose: () => setPath(draft),
+        // The typed draft becomes the value of the filter when the selector closes, and Escape discards it
+        onClose: ({ reason }) => (reason === 'escape' ? setDraft(path) : setPath(draft)),
         onClear: () => {
             setDraft('');
             setPath('');
@@ -51,7 +56,7 @@ const [draft, setDraft] = useState('');
 
 From 3 controls on, the bar is a toolbar: one Tab stop, and the arrow keys, Home and End move between the chips, their clear buttons, **Add filter**, **Clear all** and the column button. With fewer controls, the bar is a group, and each control is a Tab stop.
 
-In an open selector, Tab and Shift+Tab stay in the dialog until it closes.
+In an open selector, Tab and Shift+Tab stay in the dialog until it closes. The selector is modal: the page behind it is hidden from assistive technologies.
 
 ## Content
 

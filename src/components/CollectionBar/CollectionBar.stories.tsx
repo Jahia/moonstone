@@ -28,7 +28,11 @@ const meta = {
         filters: { control: false },
         columns: { control: false },
         visibleColumns: { control: false },
+        defaultVisibleColumns: { control: false },
         onVisibleColumnsChange: { control: false },
+        openFilterKey: { control: false },
+        defaultOpenFilterKey: { control: false },
+        onOpenFilterChange: { control: false },
         onClearAll: { control: false },
     },
 } satisfies Meta<typeof CollectionBar>;
