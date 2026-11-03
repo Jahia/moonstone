@@ -1,3 +1,5 @@
+@use "../../../../utils/mixins" as *;
+
 .tableHeadCell {
     font-weight: bold;
 }
@@ -24,6 +26,10 @@
     border: 0;
     background: none;
     cursor: inherit;
+
+    &:focus-visible {
+        @extend %is-focused;
+    }
 }
 
 .sortable {
