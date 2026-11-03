@@ -1,9 +1,8 @@
 import clsx from 'clsx';
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React from 'react';
 
 import { Loader } from '~/components';
 import { layout } from '~/globals/css-utils.js';
-import { FOCUSABLE } from '~/utils/helpers';
 
 import type { LayoutContentProps } from './LayoutContent.types';
 import type { ForwardedRef } from 'react';
@@ -21,22 +20,6 @@ export const LayoutContent = React.forwardRef(({
     i18n,
     ...props
 }: LayoutContentProps, ref: ForwardedRef<HTMLDivElement>) => {
-    const sectionRef = useRef<HTMLElement>(null);
-    const [isTabStop, setIsTabStop] = useState(true);
-
-    useLayoutEffect(() => {
-        const section = sectionRef.current!;
-        const update = () => setIsTabStop(!section.querySelector(FOCUSABLE));
-        update();
-        const observer = new MutationObserver(update);
-        observer.observe(section, {
-            childList: true,
-            subtree: true,
-            attributeFilter: ['disabled'],
-        });
-        return () => observer.disconnect();
-    }, []);
-
     const classNameProps = clsx(
         ['flexFluid', layout.flexFluid],
         ['moonstone-layoutContent', styles['moonstone-layoutContent']],
@@ -60,11 +43,6 @@ export const LayoutContent = React.forwardRef(({
                 aria-busy={isLoading ? 'true' : undefined}
                 aria-label={i18n?.contentLabel || 'Page content'}
                 className={classNameProps}
-                ref={sectionRef}
-                // A Tab stop only while nothing inside is focusable (axe scrollable-region-focusable): otherwise a click inside
-                // focuses the area and the next Tab restarts from its top
-                // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-                tabIndex={isTabStop ? 0 : undefined}
             >
                 {
                     isLoading

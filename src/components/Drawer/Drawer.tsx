@@ -4,7 +4,6 @@ import React, { useEffect, useRef } from 'react';
 
 import { Paper } from '~/components/Paper';
 import { mergeHandlers, usePresence } from '~/hooks';
-import { FOCUSABLE } from '~/utils/helpers';
 
 import type { BasicDrawerProps, DrawerProps } from './Drawer.types';
 import type { BasicPaperProps, PaperProps } from '~/components/Paper/Paper.types';
@@ -15,6 +14,9 @@ import styles from './Drawer.module.scss';
 // Duration of the slide animation, in ms.
 // Feeds both the usePresence unmount delay and the CSS (via the --drawer-animation-duration custom property)
 const ANIMATION_DURATION = 400;
+
+// The elements Tab reaches: `tabindex="-1"` leaves out the inactive items of a tab list, menu or tree
+const FOCUSABLE = ':is(a[href], button, input:not([type="hidden"]), select, textarea, [tabindex]):not(:disabled, [tabindex="-1"])';
 
 export const Drawer = React.forwardRef(<C extends React.ElementType = 'aside'>({
     className,
