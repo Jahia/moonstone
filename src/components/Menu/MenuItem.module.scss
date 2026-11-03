@@ -42,9 +42,9 @@
     }
 
     &.moonstone-highlighted {
-        color: var(--moon-color-light);
+        color: var(--moon-color-accent_dark_contrast);
 
-        background-color: var(--moon-color-gray60);
+        background-color: var(--moon-color-gray_light);
     }
 
     &.moonstone-disabled {

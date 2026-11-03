@@ -45,7 +45,7 @@
     }
 
     &:not([disabled]):hover {
-        color: var(--moon-color-accent);
+        color: var(--moon-color-accent_dark);
 
         background-color: var(--moon-color-gray_light60);
     }
