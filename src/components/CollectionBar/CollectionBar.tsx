@@ -393,7 +393,7 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
                     closeLabel={labels.closeButton}
                     filter={openFilter}
                     getAnchor={getChip}
-                    onClose={closeSelector}
+                    onClose={() => closeSelector()}
                 />
             )}
             {isAddMenuOpen && filtersToAdd.length > 0 && (

@@ -177,4 +177,24 @@ describe('CollectionBar keyboard', () => {
         expect(button('Clear the Date filter')).toHaveFocus();
         await waitFor(() => expect(screen.getByRole('tooltip')).toHaveTextContent('Clear the Date filter'));
     });
+
+    it('gives the focus back to the chip when the function form calls close with an argument', async () => {
+        render(
+            <CollectionBar
+                filters={[{
+                    key: 'user',
+                    label: 'User',
+                    isDisplayedByDefault: true,
+                    selector: ({ close }) => <button type="button" onClick={() => (close as (arg: unknown) => void)(false)}>Done</button>,
+                    onClear: () => undefined,
+                }]}
+            />,
+        );
+        button('User').focus();
+        await userEvent.keyboard('{Enter}');
+        await waitFor(() => expect(button('Done')).toHaveFocus());
+        await userEvent.keyboard('{Enter}');
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+        await waitFor(() => expect(button('User')).toHaveFocus());
+    });
 });

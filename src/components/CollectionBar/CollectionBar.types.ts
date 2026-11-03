@@ -82,7 +82,8 @@ export type CollectionBarColumn = {
 };
 
 /**
- * Labels of the bar. A label that holds `{{name}}` gets the name of the filter there
+ * Labels of the bar. A label that holds `{{name}}` gets the name of the filter there.
+ * An empty label falls back to its default
  */
 export type CollectionBarI18n = {
     /**
@@ -152,7 +153,7 @@ type ColumnChoiceProps
         /**
          * Keys of the visible columns (controlled)
          */
-        visibleColumns: string[];
+        visibleColumns: ReadonlyArray<string>;
         /**
          * Callback when the user shows or hides a column, with the keys of the visible columns in the order of `columns`
          */
@@ -172,7 +173,8 @@ export type CollectionBarProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'cl
     filters: ReadonlyArray<CollectionBarFilter>;
 
     /**
-     * Function triggered by the Clear all button, with its click event. The button shows when it is set and a filter has a value
+     * Function triggered by the Clear all button, with its click event. The button shows when it is set and a filter has a value.
+     * The bar calls no `onClear` then: this function clears every filter
      */
     onClearAll?: (event: React.MouseEvent) => void;
 
