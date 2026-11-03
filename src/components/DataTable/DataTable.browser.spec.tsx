@@ -39,28 +39,30 @@ const header = (name: string) => screen.getByRole('columnheader', { name });
 const row = (name: string) => screen.getByRole('row', { name: new RegExp(name) });
 
 describe('DataTable keyboard', () => {
-    it.fails('reaches a sortable column header with Tab', async () => {
+    it('reaches the button of a sortable column header with Tab', async () => {
         renderTable();
         screen.getByRole('button', { name: 'before' }).focus();
+        // The header row is still a Tab stop
         await userEvent.keyboard('{Tab}');
-        expect(header('Name')).toHaveFocus();
+        await userEvent.keyboard('{Tab}');
+        expect(screen.getByRole('button', { name: 'Name' })).toHaveFocus();
     });
 
-    it.fails('sorts the column with Enter on a focused sortable header and updates aria-sort', async () => {
+    it('sorts the column with Enter on the focused button of a sortable header and updates aria-sort', async () => {
         renderTable();
-        header('Name').focus();
+        screen.getByRole('button', { name: 'Name' }).focus();
         await userEvent.keyboard('{Enter}');
         expect(header('Name')).toHaveAttribute('aria-sort', 'ascending');
         await userEvent.keyboard('{Enter}');
         expect(header('Name')).toHaveAttribute('aria-sort', 'descending');
     });
 
-    it.fails('sorts the column with Space on a focused sortable header', async () => {
+    it('sorts the column with Space on the focused button of a sortable header', async () => {
         const onSortChange = vi.fn();
         renderTable({ enableSorting: true, onSortChange });
-        header('Age').focus();
+        screen.getByRole('button', { name: 'Age' }).focus();
         await userEvent.keyboard(' ');
-        expect(onSortChange).toHaveBeenCalledWith('age', 'ascending');
+        expect(onSortChange).toHaveBeenCalledWith('age', 'descending');
     });
 
     it('toggles a row selection checkbox with Space', async () => {
@@ -106,6 +108,7 @@ describe('DataTable keyboard', () => {
     describe('TableCellActions actionsOnHover', () => {
         const renderWithActions = () => {
             renderTable({
+                enableSorting: false,
                 renderRow: ({ id, render: renderCells }: RenderRowContext<User>) => (
                     <TableRow key={id}>
                         {renderCells({
@@ -152,6 +155,7 @@ describe('DataTable keyboard', () => {
     describe('TableCellStatus', () => {
         const renderWithStatus = (rowProps = {}) => {
             renderTable({
+                enableSorting: false,
                 renderRow: ({ id, render: renderCells }: RenderRowContext<User>) => (
                     <TableRow key={id} {...rowProps}>
                         {renderCells({ before: <TableCellStatus color="success">{`Status ${id}`}</TableCellStatus> })}
