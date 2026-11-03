@@ -262,6 +262,28 @@ describe('CollectionBar keyboard', () => {
         await waitFor(() => expect(button('User')).toHaveFocus());
     });
 
+    it('keeps the selector open when the Enter that opened it is released in it', async () => {
+        render(
+            <CollectionBar
+                filters={[{
+                    key: 'user',
+                    label: 'User',
+                    isDisplayedByDefault: true,
+                    selector: ({ close }) => <input aria-label="User" onKeyUp={event => event.key === 'Enter' && close()}/>,
+                    onClear: () => undefined,
+                }]}
+            />,
+        );
+        button('User').focus();
+        // A person releases the key after the focus has moved into the selector
+        await userEvent.keyboard('{Enter>}');
+        await waitFor(() => expect(screen.getByRole('textbox', { name: 'User' })).toHaveFocus());
+        await userEvent.keyboard('{/Enter}');
+        expect(screen.getByRole('dialog', { name: 'User' })).toBeInTheDocument();
+        await userEvent.keyboard('{Enter}');
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+
     it('gives the focus back to the chip when the consumer closes a controlled selector', async () => {
         const Controlled = () => {
             const [openFilterKey, setOpenFilterKey] = useState<string | null>(null);
@@ -416,7 +438,7 @@ describe('CollectionBar keyboard', () => {
 
     describe('with a DateTimeInput in a selector', () => {
         const openCalendar = async () => {
-            render(<CollectionBar filters={[{ key: 'date', label: 'Date', isDisplayedByDefault: true, selector: <DateTimeInput aria-label="Date" locale="en" type="date"/>, onClear: () => undefined }]}/>);
+            render(<CollectionBar filters={[{ key: 'date', label: 'Date', isDisplayedByDefault: true, selector: <DateTimeInput aria-label="Date" defaultValue="2026-03-30" locale="en" type="date"/>, onClear: () => undefined }]}/>);
             button('Date').focus();
             await userEvent.keyboard('{Enter}');
             await waitFor(() => expect(screen.getByRole('textbox', { name: 'Date' })).toHaveFocus());
@@ -436,6 +458,16 @@ describe('CollectionBar keyboard', () => {
             await userEvent.keyboard('{Escape}');
             expect(screen.queryByTestId('calendar')).not.toBeInTheDocument();
             expect(screen.getByRole('dialog', { name: 'Date' })).toBeInTheDocument();
+            await userEvent.keyboard('{Escape}');
+            expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+            await waitFor(() => expect(button('Date')).toHaveFocus());
+        });
+
+        it('closes the selector with Escape after a click on a day of the calendar', async () => {
+            const calendar = await openCalendar();
+            await userEvent.click(within(calendar).getByRole('button', { name: /^Tuesday, March 31st, 2026/ }));
+            await waitFor(() => expect(screen.queryByTestId('calendar')).not.toBeInTheDocument());
+            expect(screen.getByRole('textbox', { name: 'Date' })).toHaveFocus();
             await userEvent.keyboard('{Escape}');
             expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
             await waitFor(() => expect(button('Date')).toHaveFocus());

@@ -11,7 +11,7 @@ import {
     useInteractions,
 } from '@floating-ui/react';
 import clsx from 'clsx';
-import React, { useId, useLayoutEffect } from 'react';
+import React, { useId, useLayoutEffect, useRef } from 'react';
 
 import { Button } from '~/components/Button';
 import { Typography } from '~/components/Typography';
@@ -67,6 +67,19 @@ export const FilterSelector = ({
         }
     });
 
+    // The keys pressed down in the dialog. Enter opens the selector on its keydown, and the focus moves in before the key is released:
+    // the keyup of that Enter must not reach the first control of the selector, such as a field that closes the function form on Enter
+    const pressedKeys = useRef(new Set<string>());
+    const handleKeyDownCapture = (e: React.KeyboardEvent<HTMLElement>) => {
+        pressedKeys.current.add(e.key);
+    };
+
+    const handleKeyUpCapture = (e: React.KeyboardEvent<HTMLElement>) => {
+        if (!pressedKeys.current.delete(e.key)) {
+            e.stopPropagation();
+        }
+    };
+
     const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
         if (e.defaultPrevented || e.key !== 'Escape' || e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) {
             return;
@@ -97,7 +110,11 @@ export const FilterSelector = ({
                     ref={refs.setFloating}
                     role="dialog"
                     style={floatingStyles}
-                    {...getFloatingProps({ onKeyDown: handleKeyDown })}
+                    {...getFloatingProps({
+                        onKeyDown: handleKeyDown,
+                        onKeyDownCapture: handleKeyDownCapture,
+                        onKeyUpCapture: handleKeyUpCapture,
+                    })}
                 >
                     <div className={clsx('moonstone-collectionBar_selectorTitle', styles['moonstone-collectionBar_selectorTitle'])}>
                         <Typography id={titleId} variant="caption" weight="bold">
