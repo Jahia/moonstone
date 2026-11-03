@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-Share one modifier-key guard across the keyboard handlers, and leave an arrow key held with a modifier to the browser in `TimeInput` (#1554)
+Share one guard across the keyboard handlers, and leave a key held with a modifier to the browser in `TimeInput` and `DateTimeInput`: Shift+Space no longer opens the calendar, and Shift+Escape no longer closes it (#1554)

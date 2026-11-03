@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 
 import { Typography } from '~/components';
-import { hasModifierKey } from '~/hooks';
+import { shouldIgnoreKey } from '~/hooks';
 import { Close } from '~/icons';
 
 import type { TagProps } from './Tag.types';
@@ -25,7 +25,7 @@ export const Tag: React.FC<TagProps> = ({
             onKeyDown?.(e);
             // Delete and Backspace remove the tag: a native click keeps onClick's MouseEvent signature
             const isRemoveKey = e.key === 'Delete' || e.key === 'Backspace';
-            if (!e.defaultPrevented && isRemoveKey && !hasModifierKey(e) && !e.repeat) {
+            if (isRemoveKey && !shouldIgnoreKey(e) && !e.repeat) {
                 e.preventDefault();
                 e.currentTarget.click();
             }

@@ -3,7 +3,7 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { TableRowContext } from './TableRow.context';
 import { layout } from '~/globals/css-utils.js';
-import { hasModifierKey, mergeHandlers } from '~/hooks';
+import { mergeHandlers, shouldIgnoreKey } from '~/hooks';
 
 import type { TableRowProps } from './TableRow.types';
 
@@ -32,7 +32,7 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
     }), [isStatusDismissed, registerStatus]);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
-        if (e.target !== e.currentTarget || e.defaultPrevented || hasModifierKey(e)) {
+        if (e.target !== e.currentTarget || shouldIgnoreKey(e)) {
             return;
         }
 

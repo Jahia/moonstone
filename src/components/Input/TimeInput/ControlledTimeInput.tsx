@@ -17,7 +17,7 @@ import {
 import { Dropdown } from '~/components';
 import { WithoutField } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils';
-import { hasModifierKey } from '~/hooks';
+import { shouldIgnoreKey } from '~/hooks';
 import { Clock } from '~/icons';
 
 import type { ControlledTimeInputProps } from './TimeInput.types';
@@ -74,7 +74,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         const input = inputRef.current;
-        if (!input || isDisabled || isReadOnly || hasModifierKey(event)) {
+        if (!input || isDisabled || isReadOnly || shouldIgnoreKey(event)) {
             return;
         }
 

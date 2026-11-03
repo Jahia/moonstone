@@ -3,7 +3,7 @@ import React, { useCallback, useId, useMemo, useRef, useState } from 'react';
 
 import { PrimaryNavContext } from './PrimaryNav.context';
 import { layout } from '~/globals/css-utils.js';
-import { hasModifierKey, mergeHandlers } from '~/hooks';
+import { mergeHandlers, shouldIgnoreKey } from '~/hooks';
 import { ArrowLeft, MenuIcon } from '~/icons';
 
 import type { PrimaryNavButtonProps, PrimaryNavHeaderProps, PrimaryNavProps } from './PrimaryNav.types';
@@ -88,7 +88,7 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
     }), [isExpanded, collapse]);
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
-        if (event.defaultPrevented || hasModifierKey(event) || event.key !== 'Escape' || !isExpanded) {
+        if (shouldIgnoreKey(event) || event.key !== 'Escape' || !isExpanded) {
             return;
         }
 

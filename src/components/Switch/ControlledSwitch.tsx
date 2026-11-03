@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React from 'react';
 
-import { hasModifierKey, mergeHandlers } from '~/hooks';
+import { mergeHandlers, shouldIgnoreKey } from '~/hooks';
 
 import type { ControlledSwitchProps } from './Switch.types';
 
@@ -17,7 +17,7 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElemen
 }, ref) => {
     // A native checkbox toggles with Space only; the switch pattern allows Enter too
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.defaultPrevented || hasModifierKey(event) || event.key !== 'Enter') {
+        if (shouldIgnoreKey(event) || event.key !== 'Enter') {
             return;
         }
 

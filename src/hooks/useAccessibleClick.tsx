@@ -1,4 +1,4 @@
-import { hasModifierKey } from './hasModifierKey';
+import { shouldIgnoreKey } from './shouldIgnoreKey';
 
 type onClickProp = (e: React.KeyboardEvent | React.MouseEvent) => void;
 
@@ -18,7 +18,7 @@ const spacePressed = new WeakSet<EventTarget>();
 
 const handleKeyDown = (e: React.KeyboardEvent, onClick: onClickProp) => {
     // A nested link or button keeps its own keys
-    if (e.target !== e.currentTarget || e.defaultPrevented || hasModifierKey(e)) {
+    if (e.target !== e.currentTarget || shouldIgnoreKey(e)) {
         return;
     }
 

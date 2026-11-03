@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import React, { useEffect, useRef } from 'react';
 
 import { Paper } from '~/components/Paper';
-import { hasModifierKey, mergeHandlers, usePresence } from '~/hooks';
+import { mergeHandlers, shouldIgnoreKey, usePresence } from '~/hooks';
 
 import type { BasicDrawerProps, DrawerProps } from './Drawer.types';
 import type { BasicPaperProps, PaperProps } from '~/components/Paper/Paper.types';
@@ -52,7 +52,7 @@ export const Drawer = React.forwardRef(<C extends React.ElementType = 'aside'>({
     }, [isOpen]);
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
-        if (e.defaultPrevented || hasModifierKey(e) || e.key !== 'Escape' || !onOpenChange) {
+        if (shouldIgnoreKey(e) || e.key !== 'Escape' || !onOpenChange) {
             return;
         }
 

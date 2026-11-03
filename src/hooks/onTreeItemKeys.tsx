@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { hasModifierKey } from './hasModifierKey';
+import { shouldIgnoreKey } from './shouldIgnoreKey';
 
 type onToggleProp = (e: React.KeyboardEvent | React.MouseEvent) => void;
 
@@ -49,9 +49,8 @@ export const onTreeItemKeys = ({
     onExpandSiblings,
 }: onTreeItemKeysOptions): onTreeItemKeysProps => {
     const onKeyDown = (e: React.KeyboardEvent) => {
-        // A link or a button inside the node keeps its own keys.
-        // Shift may be what types `*`, so it only counts as a modifier for the named keys
-        if (e.target !== e.currentTarget || e.defaultPrevented || hasModifierKey(e, { shift: e.key !== '*' })) {
+        // A link or a button inside the node keeps its own keys
+        if (e.target !== e.currentTarget || shouldIgnoreKey(e)) {
             return;
         }
 

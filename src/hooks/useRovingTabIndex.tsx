@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { hasModifierKey } from './hasModifierKey';
+import { shouldIgnoreKey } from './shouldIgnoreKey';
 
 const ITEM_SELECTOR = '[data-roving-item]';
 
@@ -56,7 +56,7 @@ export const useRovingTabIndex = () => {
          */
         onKeyDown: (compositeKeyDown: React.KeyboardEventHandler<HTMLElement>) => (e: React.KeyboardEvent<HTMLElement>) => {
             // A key already handled, held with a modifier, or pressed in a nested control (the search box of a Menu) is left alone
-            if (e.defaultPrevented || hasModifierKey(e) || !(e.target as HTMLElement).matches(ITEM_SELECTOR)) {
+            if (shouldIgnoreKey(e) || !(e.target as HTMLElement).matches(ITEM_SELECTOR)) {
                 return;
             }
 
