@@ -18,9 +18,16 @@ describe('CollectionBar types', () => {
         expectTypeOf<Base & { onVisibleColumnsChange: OnChange }>().not.toExtend<CollectionBarProps>();
     });
 
+    it('takes the visible columns in one form only, and a controlled value with its callback', () => {
+        expectTypeOf<Base & Columns & { visibleColumns: string[]; defaultVisibleColumns: string[]; onVisibleColumnsChange: OnChange }>().not.toExtend<CollectionBarProps>();
+        expectTypeOf<Base & Columns & { visibleColumns: string[] }>().not.toExtend<CollectionBarProps>();
+    });
+
     it('takes the controlled and the uncontrolled form of the open selector', () => {
         expectTypeOf<Base & { openFilterKey: string | null; onOpenFilterChange: (key: string | null) => void }>().toExtend<CollectionBarProps>();
         expectTypeOf<Base & { defaultOpenFilterKey: string }>().toExtend<CollectionBarProps>();
+        expectTypeOf<Base & { openFilterKey: null; defaultOpenFilterKey: string; onOpenFilterChange: (key: string | null) => void }>().not.toExtend<CollectionBarProps>();
+        expectTypeOf<Base & { openFilterKey: string }>().not.toExtend<CollectionBarProps>();
         expectTypeOf<CollectionBarProps['onOpenFilterChange']>().toEqualTypeOf<((openFilterKey: string | null) => void) | undefined>();
     });
 

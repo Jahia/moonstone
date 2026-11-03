@@ -7,6 +7,11 @@ import { collectionBarColumns, useCollectionBarFilters } from '~/data/collection
 
 import type { CollectionBarI18n } from './index';
 
+// The two forms of the open selector, as CollectionBarProps types them
+type OpenProps
+    = | { openFilterKey: string | null; onOpenFilterChange: (openFilterKey: string | null) => void }
+        | { defaultOpenFilterKey?: string | null; onOpenFilterChange?: (openFilterKey: string | null) => void };
+
 type BarProps = {
     className?: string;
     i18n?: CollectionBarI18n;
@@ -17,9 +22,7 @@ type BarProps = {
     onClearAll?: () => void;
     onValues?: (values: Record<string, string>) => void;
     onVisibleColumnsChange?: (visibleColumns: string[]) => void;
-    openFilterKey?: string | null;
-    defaultOpenFilterKey?: string | null;
-    onOpenFilterChange?: (openFilterKey: string | null) => void;
+    open?: OpenProps;
 };
 
 // The setup of the testable scenarios: 5 columns, 1 of them hidden, the filter Date displayed by default, User and Action not
@@ -30,6 +33,7 @@ const Bar = ({
     onValues,
     onVisibleColumnsChange,
     onClearAll,
+    open,
     ...props
 }: BarProps) => {
     const { values, filters, clearAll } = useCollectionBarFilters({ isEveryFilterDisplayed, initialValues });
@@ -46,7 +50,15 @@ const Bar = ({
     });
 
     if (!hasColumns) {
-        return <CollectionBar data-testid="bar" filters={filters} onClearAll={handleClearAll} {...props}/>;
+        return (
+            <CollectionBar
+                data-testid="bar"
+                filters={filters}
+                onClearAll={handleClearAll}
+                {...props}
+                {...open}
+            />
+        );
     }
 
     return (
@@ -58,6 +70,7 @@ const Bar = ({
             onClearAll={handleClearAll}
             onVisibleColumnsChange={handleVisibleColumnsChange}
             {...props}
+            {...open}
         />
     );
 };
@@ -299,7 +312,7 @@ describe('CollectionBar', () => {
     it('opens the selector of defaultOpenFilterKey, and reports each change to onOpenFilterChange', async () => {
         const user = userEvent.setup();
         const onOpenFilterChange = vi.fn();
-        render(<Bar defaultOpenFilterKey="date" onOpenFilterChange={onOpenFilterChange}/>);
+        render(<Bar open={{ defaultOpenFilterKey: 'date', onOpenFilterChange }}/>);
         expect(screen.getByRole('dialog', { name: 'Date' })).toBeInTheDocument();
         await waitForFocusInDialog();
         await user.keyboard('{Escape}');
@@ -312,11 +325,11 @@ describe('CollectionBar', () => {
     it('keeps a controlled selector open until the consumer closes it', async () => {
         const user = userEvent.setup();
         const onOpenFilterChange = vi.fn();
-        const { rerender } = render(<Bar openFilterKey="date" onOpenFilterChange={onOpenFilterChange}/>);
+        const { rerender } = render(<Bar open={{ openFilterKey: 'date', onOpenFilterChange }}/>);
         await user.click(within(screen.getByRole('dialog')).getByRole('button', { name: 'Close' }));
         expect(onOpenFilterChange).toHaveBeenCalledWith(null);
         expect(screen.getByRole('dialog', { name: 'Date' })).toBeInTheDocument();
-        rerender(<Bar openFilterKey={null} onOpenFilterChange={onOpenFilterChange}/>);
+        rerender(<Bar open={{ openFilterKey: null, onOpenFilterChange }}/>);
         expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     });
 

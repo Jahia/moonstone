@@ -162,9 +162,21 @@ type ColumnChoiceProps
          */
         columns: ReadonlyArray<CollectionBarColumn>;
         /**
-         * Keys of the visible columns, in the controlled form. Leave it out for the uncontrolled form
+         * Keys of the visible columns, in the controlled form. Requires `onVisibleColumnsChange`
          */
-        visibleColumns?: ReadonlyArray<string>;
+        visibleColumns: ReadonlyArray<string>;
+        /**
+         * Callback when the user shows or hides a column, with the keys of the visible columns in the order of `columns`
+         */
+        onVisibleColumnsChange: (visibleColumns: string[]) => void;
+        defaultVisibleColumns?: never;
+    }
+    | {
+        /**
+         * Columns that the user shows or hides. Leave them out above a list or thumbnails: the bar then shows no column button
+         */
+        columns: ReadonlyArray<CollectionBarColumn>;
+        visibleColumns?: never;
         /**
          * Keys of the columns visible at first, in the uncontrolled form
          * @default the keys of every column
@@ -182,6 +194,33 @@ type ColumnChoiceProps
         onVisibleColumnsChange?: never;
     };
 
+type OpenFilterProps
+    = | {
+        /**
+         * Key of the filter whose selector is open, or null when none is, in the controlled form. Requires `onOpenFilterChange`
+         */
+        openFilterKey: string | null;
+        /**
+         * Callback when a selector opens or closes, with the key of the open filter, or null.
+         * The `onClose` of the filter gets the reason of a close
+         */
+        onOpenFilterChange: (openFilterKey: string | null) => void;
+        defaultOpenFilterKey?: never;
+    }
+    | {
+        openFilterKey?: never;
+        /**
+         * Key of the filter whose selector is open at first, in the uncontrolled form
+         * @default null
+         */
+        defaultOpenFilterKey?: string | null;
+        /**
+         * Callback when a selector opens or closes, with the key of the open filter, or null.
+         * The `onClose` of the filter gets the reason of a close
+         */
+        onOpenFilterChange?: (openFilterKey: string | null) => void;
+    };
+
 export type CollectionBarProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className' | 'children'> & {
     /**
      * Filters of the bar. The chips of the filters displayed by default come first, in this order,
@@ -194,23 +233,6 @@ export type CollectionBarProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'cl
      * The bar calls no `onClear` then: this function clears every filter
      */
     onClearAll?: (event: React.SyntheticEvent) => void;
-
-    /**
-     * Key of the filter whose selector is open, or null when none is, in the controlled form. Leave it out for the uncontrolled form
-     */
-    openFilterKey?: string | null;
-
-    /**
-     * Key of the filter whose selector is open at first, in the uncontrolled form
-     * @default null
-     */
-    defaultOpenFilterKey?: string | null;
-
-    /**
-     * Callback when a selector opens or closes, with the key of the open filter, or null.
-     * The `onClose` of the filter gets the reason of a close
-     */
-    onOpenFilterChange?: (openFilterKey: string | null) => void;
 
     /**
      * Whether every control of the bar is disabled
@@ -227,4 +249,4 @@ export type CollectionBarProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'cl
      * Additional classname
      */
     className?: string;
-} & ColumnChoiceProps;
+} & ColumnChoiceProps & OpenFilterProps;
