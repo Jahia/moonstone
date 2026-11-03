@@ -44,7 +44,8 @@ export const TableHeadCell = ({
                             />
                         </button>
                     )
-                : children}
+                // The fragment keeps a header with no label empty: TableCell prints '-' for undefined children
+                : <>{children}</>}
         </TableCell>
     );
 };
