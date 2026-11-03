@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Loader, Typography } from '~/components';
 import { icons, layout } from '~/globals/css-utils.js';
-import { getInitialIndex, mergeHandlers, onTreeItemKeys, rovingItemProps, useRovingTabIndex } from '~/hooks';
+import { getInitialIndex, getRovingItems, mergeHandlers, onTreeItemKeys, rovingItemProps, useRovingTabIndex } from '~/hooks';
 import { CheckboxChecked, CheckboxUnchecked, ChevronDown, ChevronRight } from '~/icons';
 
 import type { ControlledTreeViewProps, TreeViewData } from './TreeView.types';
@@ -61,10 +61,9 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
     // The rendered nodes, in the order of treeItems
     const visibleNodes: TreeViewData[] = [];
 
-    // The nodes are found in the DOM, in the order of visibleNodes, because a custom itemComponent may not forward its ref
-    const getNodes = (tree?: Element | null) => Array.from(tree?.querySelectorAll<HTMLElement>('[data-roving-item]') ?? []);
-    // Called from the keydown of the focused node
-    const focusNode = (id?: string) => getNodes(document.activeElement?.closest('[role="tree"]'))[visibleNodes.findIndex(node => node.id === id)]?.focus();
+    // Called from the keydown of the focused node. The nodes are found in the DOM, in the order of visibleNodes,
+    // because a custom itemComponent may not forward its ref
+    const focusNode = (id?: string) => getRovingItems(document.activeElement?.closest('[role="tree"]'))[visibleNodes.findIndex(node => node.id === id)]?.focus();
 
     function generateLevelJSX(nodeData: TreeViewData[], depth: number, parentHasIconStart: boolean, parentId?: string): React.ReactElement[] {
         const expandSiblings = (e: React.MouseEvent) => {
@@ -234,26 +233,6 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         });
     }
 
-    // ArrowUp and ArrowDown move to the previous or next enabled node
-    const moveFocus = (e: React.KeyboardEvent<HTMLElement>) => {
-        if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') {
-            return;
-        }
-
-        const step = e.key === 'ArrowDown' ? 1 : -1;
-        const nodes = getNodes(e.currentTarget);
-        let next = nodes.indexOf(e.target as HTMLElement) + step;
-        while (nodes[next]?.getAttribute('aria-disabled') === 'true') {
-            next += step;
-        }
-
-        if (nodes[next]) {
-            e.preventDefault();
-            e.stopPropagation();
-            nodes[next].focus();
-        }
-    };
-
     const treeItems = generateLevelJSX(data, 0, false);
     // Focus enters the tree on the first selected node, else on the first enabled one
     const initialIndex = getInitialIndex(visibleNodes.map(node => ({
@@ -262,7 +241,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
     })));
     const { activeIndex, onNavigate } = rovingTabIndex.getCompositeProps(initialIndex, visibleNodes.map(node => node.id));
 
-    // TreeView component. ArrowUp and ArrowDown (moveFocus), Home and End (useRovingTabIndex) move between the nodes;
+    // TreeView component. ArrowUp, ArrowDown, Home and End move between the nodes (useRovingTabIndex);
     // Enter, Space, ArrowLeft, ArrowRight and `*` act on the focused node (onTreeItemKeys)
     return React.createElement(component, {
         ref,
@@ -270,7 +249,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         'role': 'tree',
         'aria-multiselectable': showCheckbox,
         ...mergeHandlers(props, {
-            onKeyDown: rovingTabIndex.onKeyDown(moveFocus),
+            onKeyDown: rovingTabIndex.onKeyDown(),
             onBlur: rovingTabIndex.onBlur,
         }),
         'className': clsx(styles.treeView, className),

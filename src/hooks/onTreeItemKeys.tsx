@@ -32,7 +32,7 @@ type onTreeItemKeysProps = {
 const spacePressed = new WeakSet<EventTarget>();
 
 /**
- * Keys of a tree item. ArrowUp and ArrowDown move between the items in the tree, Home and End in `useRovingTabIndex`.
+ * Keys of a tree item. ArrowUp, ArrowDown, Home and End move between the items in `useRovingTabIndex`.
  * Enter acts on keydown and Space on keyup, once per press, like a native button.
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/treeview/#keyboardinteraction
  */
