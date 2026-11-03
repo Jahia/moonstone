@@ -7,11 +7,6 @@
 
 The bar holds no data and stores nothing. It shows the state that the consumer passes, and it reports each change through a callback, so it works with data on the server.
 
-The open selector and the visible columns each take a controlled and an uncontrolled form, as an `input` does:
-
-- **Controlled:** pass `openFilterKey` or `visibleColumns`, and update it in `onOpenFilterChange` or `onVisibleColumnsChange`.
-- **Uncontrolled:** pass `defaultOpenFilterKey` or `defaultVisibleColumns`, or nothing. The bar then keeps the state, and the callbacks still report each change. Every column is visible at first.
-
 ### When not to use it
 
 - One filter next to the title of a page, such as a status: use a `Dropdown` in the toolbar of `Header`.
@@ -50,6 +45,53 @@ const [draft, setDraft] = useState('');
         },
     }]}
 />
+```
+
+## Columns
+
+`columns` lists the columns that the user shows or hides, and `visibleColumns` holds the keys of the visible ones. `DataTable` has no visibility of its own, so give it the visible columns only:
+
+```tsx
+const tableColumns: DataTableColumn<Row>[] = [
+    { key: 'date', label: 'Date' },
+    { key: 'user', label: 'User' },
+    { key: 'path', label: 'Path' },
+];
+const [visibleColumns, setVisibleColumns] = useState(['date', 'path']);
+
+<CollectionBar
+    columns={tableColumns.map(({ key, label }) => ({ key, label }))}
+    filters={filters}
+    visibleColumns={visibleColumns}
+    onVisibleColumnsChange={setVisibleColumns}
+/>
+<DataTable
+    columns={tableColumns.filter(column => visibleColumns.includes(column.key))}
+    data={rows}
+    primaryKey="id"
+/>
+```
+
+## Controlled and uncontrolled
+
+The open selector and the visible columns each take two forms, as an `input` does.
+
+- **Controlled:** pass `openFilterKey` or `visibleColumns`, and update it in `onOpenFilterChange` or `onVisibleColumnsChange`. Use it when the page needs the state, as the `DataTable` above needs the visible columns.
+- **Uncontrolled:** pass `defaultOpenFilterKey` or `defaultVisibleColumns`, or nothing. The bar keeps the state, and the callbacks still report each change. Every column is visible at first.
+
+A page that opens a selector from elsewhere, such as an empty state, controls the open selector:
+
+```tsx
+const [openFilterKey, setOpenFilterKey] = useState<string | null>(null);
+
+<CollectionBar filters={filters} openFilterKey={openFilterKey} onOpenFilterChange={setOpenFilterKey}/>
+<Button label="Filter by user" onClick={() => setOpenFilterKey('user')}/>
+```
+
+A page that only opens a selector once, such as the target of a link "Filter by path", lets the bar own the state from there:
+
+```tsx
+<CollectionBar defaultOpenFilterKey="path" filters={filters}/>
 ```
 
 ## Keyboard
