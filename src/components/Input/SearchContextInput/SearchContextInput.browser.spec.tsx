@@ -4,6 +4,9 @@ import { userEvent } from 'vitest/browser';
 import { SearchContextInput } from './index';
 import { Dropdown } from '~/components';
 
+// The trigger of a Dropdown is a listbox too: its options are in the listbox that is a <menu>
+const popup = { name: (_name: string, element: Element) => element.tagName === 'MENU' };
+
 const contexts = [
     { label: 'Global users', value: 'globalUser' },
     { label: 'Media', value: 'media' },
@@ -25,7 +28,7 @@ const renderInput = () => {
 };
 
 const getTrigger = () => screen.getByRole('listbox', { name: 'Global users' });
-const findOption = (name: string) => screen.findByRole('list').then(list => within(list).getByRole('option', { name }));
+const findOption = (name: string) => screen.findByRole('listbox', popup).then(list => within(list).getByRole('option', { name }));
 
 describe('SearchContextInput keyboard', () => {
     it('reaches the context selector then the search box with Tab', async () => {
@@ -84,7 +87,7 @@ describe('SearchContextInput keyboard', () => {
         await userEvent.keyboard('{Enter}');
         expect(onContextChange).toHaveBeenCalledTimes(1);
         expect(onContextChange.mock.calls[0][1].value).toBe('media');
-        expect(screen.queryByRole('list')).toBeNull();
+        expect(screen.queryByRole('listbox', popup)).toBeNull();
     });
 
     it('closes the menu with Escape and returns focus to the context selector', async () => {
@@ -93,7 +96,7 @@ describe('SearchContextInput keyboard', () => {
         await userEvent.keyboard('{Enter}');
         (await findOption('Media')).focus();
         await userEvent.keyboard('{Escape}');
-        expect(screen.queryByRole('list')).toBeNull();
+        expect(screen.queryByRole('listbox', popup)).toBeNull();
         expect(getTrigger()).toHaveFocus();
     });
 

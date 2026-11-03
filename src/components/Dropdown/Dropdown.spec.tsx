@@ -8,6 +8,9 @@ import { dropdownDataGrouped } from '~/data/dropdownDataGrouped';
 import { dropdownDataTree } from '~/data/dropdownDataTree';
 import { Love } from '~/icons';
 
+// The trigger of a Dropdown is a listbox too: its options are in the listbox that is a <menu>
+const popup = { name: (_name: string, element: Element) => element.tagName === 'MENU' };
+
 describe('Dropdown', () => {
     it('should display', () => {
         render(
@@ -119,7 +122,7 @@ describe('Dropdown', () => {
                 onChange={() => 'testing'}
             />,
         );
-        expect(screen.queryByRole('list')).not.toBeInTheDocument();
+        expect(screen.queryByRole('listbox', popup)).not.toBeInTheDocument();
     });
 
     it('should display the menu dropdown when I click on the dropdown', async () => {
@@ -134,7 +137,7 @@ describe('Dropdown', () => {
         );
 
         await user.click(screen.getByRole('listbox'));
-        expect(screen.getByRole('list')).toBeInTheDocument();
+        expect(screen.getByRole('listbox', popup)).toBeInTheDocument();
     });
 
     it('should display the treeview menu dropdown when I click on the dropdown', async () => {
@@ -280,7 +283,7 @@ describe('Dropdown', () => {
 
         await user.click(screen.getByRole('listbox'));
         await user.click(screen.getAllByRole('option')[1]);
-        expect(screen.queryByRole('list')).not.toBeInTheDocument();
+        expect(screen.queryByRole('listbox', popup)).not.toBeInTheDocument();
     });
 
     it('should display nothing if data is not an array', () => {
@@ -338,7 +341,7 @@ describe('Dropdown', () => {
 
         render(<Dropdown data={dropdownData} imageSize="small" value=""/>);
         await user.click(screen.getByRole('listbox'));
-        expect(screen.getByRole('list')).toHaveStyle('max-width: 264px');
+        expect(screen.getByRole('listbox', popup).closest('.moonstone-menu')).toHaveStyle('max-width: 264px');
     });
 
     it('should display the images as big', async () => {
@@ -346,7 +349,7 @@ describe('Dropdown', () => {
 
         render(<Dropdown data={dropdownData} imageSize="big" value=""/>);
         await user.click(screen.getByRole('listbox'));
-        expect(screen.getByRole('list')).toHaveStyle('max-width: 400px');
+        expect(screen.getByRole('listbox', popup).closest('.moonstone-menu')).toHaveStyle('max-width: 400px');
     });
 
     it('should display tags for multiple values', () => {

@@ -3,6 +3,9 @@ import { userEvent } from 'vitest/browser';
 
 import { TimezoneSelector } from './index';
 
+// The trigger of a Dropdown is a listbox too: its options are in the listbox that is a <menu>
+const popup = { name: (_name: string, element: Element) => element.tagName === 'MENU' };
+
 const renderSelector = () => {
     const onChange = vi.fn();
     render(
@@ -19,7 +22,7 @@ const getOption = (label: RegExp) => screen.getByRole('option', { name: label })
 const openWithEnter = async (trigger: HTMLElement) => {
     trigger.focus();
     await userEvent.keyboard('{Enter}');
-    await screen.findByRole('list');
+    await screen.findByRole('listbox', popup);
 };
 
 const openAndSearch = async (trigger: HTMLElement) => {
@@ -40,7 +43,7 @@ describe('TimezoneSelector keyboard', () => {
         const { trigger } = renderSelector();
         trigger.focus();
         await userEvent.keyboard('{Enter}');
-        await screen.findByRole('list');
+        await screen.findByRole('listbox', popup);
         expect(screen.getByRole('searchbox')).toHaveFocus();
     });
 
@@ -48,14 +51,14 @@ describe('TimezoneSelector keyboard', () => {
         const { trigger } = renderSelector();
         trigger.focus();
         await userEvent.keyboard(' ');
-        expect(await screen.findByRole('list')).toBeInTheDocument();
+        expect(await screen.findByRole('listbox', popup)).toBeInTheDocument();
     });
 
     it.fails('opens with ArrowDown', async () => {
         const { trigger } = renderSelector();
         trigger.focus();
         await userEvent.keyboard('{ArrowDown}');
-        expect(await screen.findByRole('list')).toBeInTheDocument();
+        expect(await screen.findByRole('listbox', popup)).toBeInTheDocument();
     });
 
     it('filters the options when typing', async () => {
@@ -88,14 +91,14 @@ describe('TimezoneSelector keyboard', () => {
         getOption(/^Santiago/).focus();
         await userEvent.keyboard('{Enter}');
         expect(onChange).toHaveBeenCalledWith(expect.anything(), 'America/Santiago');
-        await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByRole('listbox', popup)).not.toBeInTheDocument());
     });
 
     it('closes with Escape and returns focus to the trigger', async () => {
         const { trigger } = renderSelector();
         await openAndSearch(trigger);
         await userEvent.keyboard('{Escape}');
-        await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByRole('listbox', popup)).not.toBeInTheDocument());
         expect(trigger).toHaveFocus();
     });
 });

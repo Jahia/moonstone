@@ -324,6 +324,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     isDisplayed
                     anchorEl={anchorEl}
                     anchorPosition={anchorPosition}
+                    // The listbox takes the name of the Dropdown: its labelledby, else the label of the Field, else the trigger
+                    aria-labelledby={ariaLabelledBy ?? fieldAria['aria-labelledby'] ?? triggerId}
                     autoAddSearchLimit={autoAddSearchLimit}
                     data={data}
                     handleKeyPress={handleKeyPress}

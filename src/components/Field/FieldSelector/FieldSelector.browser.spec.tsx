@@ -6,6 +6,9 @@ import { Button } from '~/components';
 import { Dropdown } from '~/components/Dropdown';
 import { Close, MoreVert } from '~/icons';
 
+// The trigger of a Dropdown is a listbox too: its options are in the listbox that is a <menu>
+const popup = { name: (_name: string, element: Element) => element.tagName === 'MENU' };
+
 const options = [
     { label: 'Option 1', value: '1' },
     { label: 'Option 2', value: '2' },
@@ -32,7 +35,7 @@ const renderField = () => {
 };
 
 const getSelector = () => screen.getByRole('listbox', { name: 'Choose' });
-const findOption = (name: string) => screen.findByRole('list').then(list => within(list).getByRole('option', { name }));
+const findOption = (name: string) => screen.findByRole('listbox', popup).then(list => within(list).getByRole('option', { name }));
 
 describe('FieldSelector keyboard', () => {
     it('reaches the selector control with Tab', async () => {

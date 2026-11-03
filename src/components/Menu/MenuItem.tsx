@@ -1,7 +1,8 @@
 import { CompositeItem } from '@floating-ui/react';
 import clsx from 'clsx';
-import React from 'react';
+import React, { useContext } from 'react';
 
+import { MenuItemRoleContext } from './Menu.context';
 import { ListItem } from '~/components';
 import { mergeHandlers, onAccessibleClick, rovingItemProps } from '~/hooks';
 
@@ -28,6 +29,9 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     onKeyUp,
     ...props
 }) => {
+    const itemRole = useContext(MenuItemRoleContext);
+    const isTitle = variant === 'title';
+
     // Enter and Space click the item, so `onClick` keeps its MouseEvent
     const keys = onAccessibleClick({
         onClick: e => (e.currentTarget as HTMLElement).click(),
@@ -36,14 +40,15 @@ export const MenuItem: React.FC<MenuItemProps> = ({
 
     const listItem = (
         <ListItem
-            aria-disabled={isDisabled}
+            // A global ARIA attribute would cancel the presentational role of a title
+            aria-disabled={isTitle && itemRole ? undefined : isDisabled}
             className={clsx(
                 ['moonstone-menuItem', styles['moonstone-menuItem']],
                 isHover && ['moonstone-hover', styles['moonstone-hover']],
                 isSelected && ['moonstone-selected', styles['moonstone-selected']],
                 isDisabled && ['moonstone-disabled', styles['moonstone-disabled']],
                 isHighlighted && !isSelected && ['moonstone-highlighted', styles['moonstone-highlighted']],
-                variant === 'title' && ['moonstone-title', styles['moonstone-title']],
+                isTitle && ['moonstone-title', styles['moonstone-title']],
                 image && ['moonstone-menuItem-image', styles['moonstone-menuItem-image']],
                 className,
             )}
@@ -53,6 +58,8 @@ export const MenuItem: React.FC<MenuItemProps> = ({
             iconStart={iconStart}
             image={image}
             imageSize={imageSize}
+            // In a Menu, a title is presentational: a menu or a listbox holds no list item
+            role={isTitle ? itemRole && 'presentation' : itemRole}
             onClick={isDisabled ? undefined : onClick}
             {...mergeHandlers({
                 ...props,
@@ -72,7 +79,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     );
 
     // A title, or an item the consumer takes out of the Tab sequence, is no item of the Menu
-    if (variant === 'title' || props.tabIndex === -1) {
+    if (isTitle || props.tabIndex === -1) {
         return listItem;
     }
 

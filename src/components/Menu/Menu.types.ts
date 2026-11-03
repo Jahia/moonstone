@@ -19,6 +19,17 @@ export type PositioningType = 'fixed' | 'absolute';
 
 export type MenuProps = {
     /**
+     * Accessible name of the list of items
+     */
+    'aria-label'?: string;
+
+    /**
+     * Id of the element that names the list of items
+     */
+    'aria-labelledby'?: string;
+    // The quoted keys stay in their own object, or quote-props quotes every key of the type
+} & {
+    /**
      * Maximum height of the Menu
      */
     maxHeight?: string;
@@ -37,6 +48,13 @@ export type MenuProps = {
      * Content of the dropdown
      */
     children: React.ReactNode;
+
+    /**
+     * Role of the list of items: `menu` for a menu of actions, `listbox` for a list of options to choose from, as in a `Dropdown`.
+     * A `MenuItem` takes `menuitem` in a menu and `option` in a listbox, unless it has a `role` of its own
+     * @default 'menu'
+     */
+    role?: 'menu' | 'listbox';
 
     /**
      * Menu is display
@@ -122,9 +140,9 @@ export type MenuProps = {
     onMouseLeave?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 
     /**
-     * Function triggered when the menu close: a click on the overlay, or Escape pressed inside the menu
+     * Function triggered when the menu close: a click on the overlay, Escape pressed inside the menu, or Tab moving the focus out of it
      */
-    onClose?: (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLMenuElement>) => void;
+    onClose?: (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>) => void;
 
     /**
      * Function triggered when the menu is going to be opened (before open)

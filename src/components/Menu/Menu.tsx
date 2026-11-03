@@ -2,6 +2,7 @@ import { Composite } from '@floating-ui/react';
 import clsx from 'clsx';
 import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 
+import { MenuItemRoleContext } from './Menu.context';
 import { MenuItem } from './MenuItem';
 import { WithoutField } from '~/components/Field/Field.context';
 import { SearchInput } from '~/components/Input';
@@ -86,6 +87,9 @@ const defaultAnchorPosition = {
 
 export const Menu: React.FC<MenuProps> = ({
     children,
+    role = 'menu',
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
     isDisplayed,
     position = 'fixed',
     minWidth,
@@ -146,7 +150,13 @@ export const Menu: React.FC<MenuProps> = ({
         }
     }, [isDisplayed, itemRef]);
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLMenuElement>) => {
+    // The Tab keydown waits for the blur that follows it, which tells whether the focus left the menu
+    const tabKeyDown = useRef<React.KeyboardEvent<HTMLDivElement> | null>(null);
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        // Shift+Tab leaves the menu too; Ctrl+Tab and Cmd+Tab leave the page, not the menu
+        tabKeyDown.current = e.key === 'Tab' && !e.defaultPrevented && !e.ctrlKey && !e.metaKey && !e.altKey ? e : null;
+
         const hasModifier = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
         if (e.defaultPrevented || hasModifier || e.key !== 'Escape' || !onClose) {
             return;
@@ -157,6 +167,15 @@ export const Menu: React.FC<MenuProps> = ({
         // Before onClose: a Dropdown unmounts its menu, which then cannot give the focus back
         returnFocusTo.current?.focus();
         onClose(e);
+    };
+
+    // Tab out of the menu closes it, and the focus stays where Tab moved it. Tab between the search box and the items does not
+    const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+        const tab = tabKeyDown.current;
+        tabKeyDown.current = null;
+        if (tab && onClose && !e.currentTarget.contains(e.relatedTarget as Node | null)) {
+            onClose(tab);
+        }
     };
 
     if (!children || React.Children.count(children) < 1) {
@@ -201,29 +220,21 @@ export const Menu: React.FC<MenuProps> = ({
     // ---
     return (
         <>
-            <Composite
-                {...rovingTabIndex.getCompositeProps(initialIndex)}
-                orientation="vertical"
-                ref={itemRef}
-                render={compositeProps => (
-                    <menu
-                        {...compositeProps}
-                        // A <menu> is a list, which takes no aria-orientation
-                        aria-orientation={undefined}
-                        className={clsx(
-                            ['moonstone-menu', styles['moonstone-menu']],
-                            className,
-                            (!isDisplayed || !stylePosition) && ['moonstone-hidden', styles['moonstone-hidden']],
-                        )}
-                        style={styleMenu}
-                        onMouseEnter={onMouseEnter}
-                        onMouseLeave={onMouseLeave}
-                        {...mergeHandlers(props, {
-                            onKeyDown: rovingTabIndex.onKeyDown(compositeProps.onKeyDown),
-                            onBlur: rovingTabIndex.onBlur,
-                        }, { onKeyDown: handleKeyDown })}
-                    />
+            {/* A menu or a listbox holds only items, groups and separators: the search box and the status sit beside the list, in the container */}
+            <div
+                className={clsx(
+                    ['moonstone-menu', styles['moonstone-menu']],
+                    className,
+                    (!isDisplayed || !stylePosition) && ['moonstone-hidden', styles['moonstone-hidden']],
                 )}
+                ref={itemRef}
+                style={styleMenu}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+                {...mergeHandlers(props, {
+                    onKeyDown: handleKeyDown,
+                    onBlur: handleBlur,
+                })}
             >
                 { hasAutoSearch && (
                     // The search box of a menu is not the control of a Field around it
@@ -247,7 +258,25 @@ export const Menu: React.FC<MenuProps> = ({
                         </div>
                     </WithoutField>
                 )}
-                {filteredChildren || children}
+                <Composite
+                    {...rovingTabIndex.getCompositeProps(initialIndex)}
+                    orientation="vertical"
+                    render={compositeProps => (
+                        <menu
+                            {...compositeProps}
+                            aria-label={ariaLabel}
+                            aria-labelledby={ariaLabelledBy}
+                            className={clsx('moonstone-menu_list', styles['moonstone-menu_list'])}
+                            role={role}
+                            onBlur={rovingTabIndex.onBlur}
+                            onKeyDown={rovingTabIndex.onKeyDown(compositeProps.onKeyDown)}
+                        />
+                    )}
+                >
+                    <MenuItemRoleContext.Provider value={role === 'listbox' ? 'option' : 'menuitem'}>
+                        {filteredChildren || children}
+                    </MenuItemRoleContext.Provider>
+                </Composite>
                 {/* Stays mounted while the search exists so the empty state is announced when it appears */}
                 {hasAutoSearch && (
                     <div role="status">
@@ -261,7 +290,7 @@ export const Menu: React.FC<MenuProps> = ({
                         )}
                     </div>
                 )}
-            </Composite>
+            </div>
             {
                 hasOverlay && isDisplayed && (
                     <div

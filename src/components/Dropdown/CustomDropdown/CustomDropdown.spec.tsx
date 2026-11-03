@@ -68,7 +68,7 @@ describe('CustomDropdown', () => {
                 <Typography>Dropdown children</Typography>
             </CustomDropdown>,
         );
-        expect(screen.queryByRole('list')).not.toBeInTheDocument();
+        expect(screen.queryByRole('menu')).not.toBeInTheDocument();
     });
 
     it('should display the menu dropdown when dropdown is clicked', async () => {
@@ -83,7 +83,7 @@ describe('CustomDropdown', () => {
         );
 
         await user.click(screen.getByRole('button'));
-        expect(screen.getByRole('list')).toBeInTheDocument();
+        expect(screen.getByRole('menu')).toBeInTheDocument();
     });
 
     it('should display the menu dropdown dropdown is focused and Enter is pressed', async () => {
@@ -99,6 +99,6 @@ describe('CustomDropdown', () => {
 
         await user.keyboard('[Tab]');
         await user.keyboard('[Enter]');
-        expect(screen.getByRole('list')).toBeInTheDocument();
+        expect(screen.getByRole('menu')).toBeInTheDocument();
     });
 });
