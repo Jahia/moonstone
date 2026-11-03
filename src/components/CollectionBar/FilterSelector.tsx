@@ -58,10 +58,14 @@ export const FilterSelector = ({
     });
     const { getFloatingProps } = useInteractions([dismiss]);
 
-    // The chip of an added filter mounts in the same commit as its selector, so the anchor is read once the chip is in the DOM
+    // The anchor is read once the chip is in the DOM, after each commit: the chip of an added filter mounts with its selector,
+    // and a chip remounts when the bar becomes a toolbar
     useLayoutEffect(() => {
-        refs.setReference(getAnchor());
-    }, [getAnchor, refs]);
+        const anchor = getAnchor();
+        if (anchor !== refs.domReference.current) {
+            refs.setReference(anchor);
+        }
+    });
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
         if (e.defaultPrevented || e.key !== 'Escape' || e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) {

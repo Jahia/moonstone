@@ -357,6 +357,24 @@ describe('CollectionBar keyboard', () => {
         window.scrollTo(0, 0);
     });
 
+    it('keeps the selector below its chip when the bar becomes a toolbar', async () => {
+        // Date and Add filter: the first value adds the clear button, the third control
+        const TwoControls = () => {
+            const { filters } = useCollectionBarFilters({});
+            return <CollectionBar filters={filters}/>;
+        };
+
+        render(<TwoControls/>);
+        expect(screen.queryByRole('toolbar')).not.toBeInTheDocument();
+        button('Date').focus();
+        await userEvent.keyboard('{Enter}');
+        const dialog = await screen.findByRole('dialog', { name: 'Date' });
+        await waitFor(() => expect(screen.getByRole('textbox', { name: 'Date' })).toHaveFocus());
+        await userEvent.keyboard('T');
+        const chip = screen.getByRole('button', { name: 'Date: T', hidden: true });
+        await waitFor(() => expect(dialog.getBoundingClientRect().top - chip.getBoundingClientRect().bottom).toBe(4));
+    });
+
     describe('in an open Drawer', () => {
         // The animation of the Drawer keeps a transform, which becomes the containing block of a fixed descendant
         const renderInDrawer = async () => {
