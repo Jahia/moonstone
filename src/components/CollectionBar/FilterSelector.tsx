@@ -86,14 +86,11 @@ export const FilterSelector = ({
                 style={stylePosition}
                 onKeyDown={handleKeyDown}
             >
-                <Typography
-                    className={clsx('moonstone-collectionBar_selectorTitle', styles['moonstone-collectionBar_selectorTitle'])}
-                    id={titleId}
-                    variant="caption"
-                    weight="bold"
-                >
-                    {filter.label}
-                </Typography>
+                <div className={clsx('moonstone-collectionBar_selectorTitle', styles['moonstone-collectionBar_selectorTitle'])}>
+                    <Typography id={titleId} variant="caption" weight="bold">
+                        {filter.label}
+                    </Typography>
+                </div>
                 <div
                     className={clsx(
                         ['moonstone-collectionBar_selectorBody', styles['moonstone-collectionBar_selectorBody']],

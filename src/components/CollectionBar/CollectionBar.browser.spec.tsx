@@ -178,6 +178,16 @@ describe('CollectionBar keyboard', () => {
         await waitFor(() => expect(screen.getByRole('tooltip')).toHaveTextContent('Clear the Date filter'));
     });
 
+    it('insets the title of the selector as a Menu title', async () => {
+        render(<Bar/>);
+        button('Date').focus();
+        await userEvent.keyboard('{Enter}');
+        const dialog = await screen.findByRole('dialog', { name: 'Date' });
+        const title = document.getElementById(dialog.getAttribute('aria-labelledby'));
+        expect(title.getBoundingClientRect().left - dialog.getBoundingClientRect().left).toBe(16);
+        expect(title.getBoundingClientRect().top - dialog.getBoundingClientRect().top).toBe(4);
+    });
+
     it('gives the focus back to the chip when the function form calls close with an argument', async () => {
         render(
             <CollectionBar

@@ -144,7 +144,8 @@ $chip-maxWidth: 400px;
     }
 }
 
-// The padding and the colour of a MenuItem title
+// The padding and the colour of a MenuItem title. The padding sits on a wrapper, as on the li of a MenuItem:
+// the reset of Typography outranks a class on the Typography itself
 .moonstone-collectionBar_selectorTitle {
     padding: var(--moon-spacing-nano) var(--moon-spacing-medium);
 
