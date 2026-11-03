@@ -23,23 +23,28 @@ export const TableHeadCell = ({
 
     return (
         <TableCell
+            aria-sort={isSortActive ? sorting?.direction : isSortable ? 'none' : undefined}
             {...props}
             align={align}
-            aria-sort={isSortActive ? sorting?.direction : undefined}
             className={clsx(styles.tableHeadCell, { [styles.sortable]: isSortable }, className)}
             component="th"
             width={width}
             onClick={onClick}
         >
-            {children}
-            {isSortable && (
-                <SortIcon
-                    className={clsx(
-                        { [styles.sort]: !isSortActive },
-                        { [styles.sortActive]: isSortActive },
-                    )}
-                />
-            )}
+            {isSortable
+                ? (
+                        // The click of the button bubbles to the onClick of the th, which sorts
+                        <button className={styles.sortButton} type="button">
+                            {children}
+                            <SortIcon
+                                className={clsx(
+                                    { [styles.sort]: !isSortActive },
+                                    { [styles.sortActive]: isSortActive },
+                                )}
+                            />
+                        </button>
+                    )
+                : children}
         </TableCell>
     );
 };
