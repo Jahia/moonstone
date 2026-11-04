@@ -1,3 +1,5 @@
+@use "../../../../utils/mixins" as *;
+
 $tree-offset: -20px; // chevron size (16px) + gap (4px)
 
 .tableStructuredCell {
@@ -14,6 +16,18 @@ $tree-offset: -20px; // chevron size (16px) + gap (4px)
 
     transform: translateX($tree-offset);
     cursor: pointer;
+}
+
+.toggle {
+    @include min-target-size;
+
+    position: relative;
+
+    display: flex;
+
+    &:focus-visible {
+        @extend %is-focused;
+    }
 }
 
 .scrollable {
