@@ -3,6 +3,9 @@ import { userEvent } from 'vitest/browser';
 
 import { Dropdown } from './index';
 
+// The trigger of a Dropdown is a listbox too: its options are in the listbox that is a <menu>
+const popup = { name: (_name: string, element: Element) => element.tagName === 'MENU' };
+
 const data = [
     { label: 'Apple', value: 'apple' },
     { label: 'Banana', value: 'banana' },
@@ -34,7 +37,7 @@ const getOption = (label: string) => screen.getByRole('option', { name: label })
 const openWithEnter = async (trigger: HTMLElement) => {
     trigger.focus();
     await userEvent.keyboard('{Enter}');
-    await screen.findByRole('list');
+    await screen.findByRole('listbox', popup);
 };
 
 describe('Dropdown keyboard', () => {
@@ -49,21 +52,21 @@ describe('Dropdown keyboard', () => {
         const { trigger } = renderDropdown();
         trigger.focus();
         await userEvent.keyboard('{Enter}');
-        expect(await screen.findByRole('list')).toBeInTheDocument();
+        expect(await screen.findByRole('listbox', popup)).toBeInTheDocument();
     });
 
     it.fails('opens with Space', async () => {
         const { trigger } = renderDropdown();
         trigger.focus();
         await userEvent.keyboard(' ');
-        expect(await screen.findByRole('list')).toBeInTheDocument();
+        expect(await screen.findByRole('listbox', popup)).toBeInTheDocument();
     });
 
     it.fails('opens with ArrowDown', async () => {
         const { trigger } = renderDropdown();
         trigger.focus();
         await userEvent.keyboard('{ArrowDown}');
-        expect(await screen.findByRole('list')).toBeInTheDocument();
+        expect(await screen.findByRole('listbox', popup)).toBeInTheDocument();
     });
 
     it('moves focus into the options when opened with the keyboard', async () => {
@@ -98,7 +101,7 @@ describe('Dropdown keyboard', () => {
         getOption('Banana').focus();
         await userEvent.keyboard('{Enter}');
         expect(onChange).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ value: 'banana' }));
-        await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByRole('listbox', popup)).not.toBeInTheDocument());
     });
 
     it('closes with Escape and returns focus to the trigger', async () => {
@@ -106,16 +109,16 @@ describe('Dropdown keyboard', () => {
         await openWithEnter(trigger);
         getOption('Apple').focus();
         await userEvent.keyboard('{Escape}');
-        await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByRole('listbox', popup)).not.toBeInTheDocument());
         expect(trigger).toHaveFocus();
     });
 
-    it.fails('closes when focus leaves the options with Tab', async () => {
+    it('closes when focus leaves the options with Tab', async () => {
         const { trigger } = renderDropdown();
         await openWithEnter(trigger);
         getOption('Date').focus();
         await userEvent.keyboard('{Tab}');
-        await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByRole('listbox', popup)).not.toBeInTheDocument());
     });
 
     it('filters the options when typing in the search', async () => {
@@ -142,6 +145,6 @@ describe('Dropdown keyboard', () => {
         getOption('Banana').focus();
         await userEvent.keyboard(' ');
         expect(onChange).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ value: 'banana' }));
-        expect(screen.getByRole('list')).toBeInTheDocument();
+        expect(screen.getByRole('listbox', popup)).toBeInTheDocument();
     });
 });

@@ -3,7 +3,10 @@ import { userEvent } from 'vitest/browser';
 
 import { TimeInput } from './index';
 
-const findOption = (name: string) => screen.findByRole('list').then(list => within(list).getByRole('option', { name }));
+// The trigger of a Dropdown is a listbox too: its options are in the listbox that is a <menu>
+const popup = { name: (_name: string, element: Element) => element.tagName === 'MENU' };
+
+const findOption = (name: string) => screen.findByRole('listbox', popup).then(list => within(list).getByRole('option', { name }));
 
 describe('TimeInput keyboard', () => {
     it('reaches the time field with Tab', async () => {
@@ -85,7 +88,7 @@ describe('TimeInput keyboard', () => {
         await userEvent.keyboard('{Enter}');
         (await findOption('AM')).focus();
         await userEvent.keyboard('{Escape}');
-        expect(screen.queryByRole('list')).toBeNull();
+        expect(screen.queryByRole('listbox', popup)).toBeNull();
         expect(screen.getByRole('listbox', { name: 'PM' })).toHaveFocus();
     });
 });

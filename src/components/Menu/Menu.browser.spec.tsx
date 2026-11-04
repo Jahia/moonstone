@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { userEvent } from 'vitest/browser';
 
 import { Menu, MenuItem } from './index';
@@ -16,6 +16,7 @@ const renderMenu = (props = {}) => {
                 <MenuItem isDisabled label="Disabled"/>
                 <MenuItem label="Last"/>
             </Menu>
+            <button type="button">after</button>
         </>,
     );
     return { onClose, onFirst };
@@ -24,9 +25,30 @@ const renderMenu = (props = {}) => {
 const item = (label: string) => screen.getByText(label).closest('li');
 
 describe('Menu keyboard', () => {
-    it.fails('exposes each item as a menuitem', () => {
-        renderMenu();
-        expect(screen.getByRole('menuitem', { name: 'First' })).toBeVisible();
+    it('exposes each item as a menuitem', () => {
+        renderMenu({ 'aria-label': 'Actions' });
+        const menu = screen.getByRole('menu', { name: 'Actions' });
+        expect(within(menu).getByRole('menuitem', { name: 'First' })).toBeVisible();
+    });
+
+    it('exposes each item as an option of a listbox', () => {
+        renderMenu({ 'aria-label': 'Fruits', 'role': 'listbox' });
+        const listbox = screen.getByRole('listbox', { name: 'Fruits' });
+        expect(within(listbox).getByRole('option', { name: 'First' })).toBeVisible();
+    });
+
+    it('keeps the search box and the titles out of the items of the menu', () => {
+        render(
+            <Menu hasSearch isDisplayed>
+                <MenuItem label="Section" variant="title"/>
+                <MenuItem label="First"/>
+            </Menu>,
+        );
+        const menu = screen.getByRole('menu');
+        expect(screen.getByRole('searchbox')).toBeVisible();
+        expect(within(menu).queryByRole('searchbox')).not.toBeInTheDocument();
+        expect(within(menu).queryByRole('listitem')).not.toBeInTheDocument();
+        expect(within(menu).getByText('Section')).toBeVisible();
     });
 
     it('reaches the first item with Tab', async () => {
@@ -116,6 +138,31 @@ describe('Menu keyboard', () => {
         item('First').focus();
         await userEvent.keyboard('{Escape}');
         expect(onClose).toHaveBeenCalledTimes(1);
+    });
+
+    it('closes when Tab moves the focus out of it, and leaves the focus there', async () => {
+        const { onClose } = renderMenu();
+        item('First').focus();
+        await userEvent.keyboard('{Tab}');
+        expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
+        expect(onClose).toHaveBeenCalledTimes(1);
+        expect(onClose).toHaveBeenCalledWith(expect.objectContaining({ key: 'Tab' }));
+    });
+
+    it('closes when Shift+Tab moves the focus out of it', async () => {
+        const { onClose } = renderMenu();
+        item('First').focus();
+        await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+        expect(screen.getByRole('button', { name: 'before' })).toHaveFocus();
+        expect(onClose).toHaveBeenCalledTimes(1);
+    });
+
+    it('stays open when Tab moves the focus from the search box to the items', async () => {
+        const { onClose } = renderMenu({ hasSearch: true });
+        expect(screen.getByRole('searchbox')).toHaveFocus();
+        await userEvent.keyboard('{Tab}');
+        expect(item('First')).toHaveFocus();
+        expect(onClose).not.toHaveBeenCalled();
     });
 
     it('moves focus to the selected item when it shows, and back when it hides', () => {

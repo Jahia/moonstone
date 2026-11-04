@@ -24,11 +24,11 @@ const getItem = (label: string) => screen.getByText(label).closest('li');
 const openWithEnter = async (trigger: HTMLElement) => {
     trigger.focus();
     await userEvent.keyboard('{Enter}');
-    await screen.findByRole('list');
+    await screen.findByRole('menu');
 };
 
 describe('CustomDropdown keyboard', () => {
-    it.fails('exposes each item as a menuitem', async () => {
+    it('exposes each item as a menuitem', async () => {
         const { trigger } = renderCustomDropdown();
         await openWithEnter(trigger);
         expect(screen.getByRole('menuitem', { name: 'First' })).toBeVisible();
@@ -45,21 +45,21 @@ describe('CustomDropdown keyboard', () => {
         const { trigger } = renderCustomDropdown();
         trigger.focus();
         await userEvent.keyboard('{Enter}');
-        expect(await screen.findByRole('list')).toBeInTheDocument();
+        expect(await screen.findByRole('menu')).toBeInTheDocument();
     });
 
     it('opens with Space', async () => {
         const { trigger } = renderCustomDropdown();
         trigger.focus();
         await userEvent.keyboard(' ');
-        expect(await screen.findByRole('list')).toBeInTheDocument();
+        expect(await screen.findByRole('menu')).toBeInTheDocument();
     });
 
     it.fails('opens with ArrowDown', async () => {
         const { trigger } = renderCustomDropdown();
         trigger.focus();
         await userEvent.keyboard('{ArrowDown}');
-        expect(await screen.findByRole('list')).toBeInTheDocument();
+        expect(await screen.findByRole('menu')).toBeInTheDocument();
     });
 
     it('moves focus to the first item when opened with the keyboard', async () => {
@@ -91,15 +91,15 @@ describe('CustomDropdown keyboard', () => {
         await openWithEnter(trigger);
         getItem('First').focus();
         await userEvent.keyboard('{Escape}');
-        await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByRole('menu')).not.toBeInTheDocument());
         expect(trigger).toHaveFocus();
     });
 
-    it.fails('closes when focus leaves the items with Tab', async () => {
+    it('closes when focus leaves the items with Tab', async () => {
         const { trigger } = renderCustomDropdown();
         await openWithEnter(trigger);
         getItem('Last').focus();
         await userEvent.keyboard('{Tab}');
-        await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByRole('menu')).not.toBeInTheDocument());
     });
 });
