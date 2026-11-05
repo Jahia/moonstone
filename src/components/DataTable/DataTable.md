@@ -48,6 +48,7 @@ const columns = [
 
 ## Accessibility
 - An icon-only [Button](?path=/docs/components-button--docs) in a custom cell must have an `aria-label` that describes the action. A [Tooltip](?path=/docs/components-tooltip--docs) doesn't replace it.
-- Enter or Space on a sortable header sorts the column (soon).
+- Enter or Space on a sortable header sorts the column.
+- Enter or Space on the toggle of an expandable row expands or collapses it.
 - Enter or Space activates a clickable row (soon).
 - A row with keyboard focus, or a control inside it, shows the `actionsOnHover` of its **TableCellActions**, as on hover.
