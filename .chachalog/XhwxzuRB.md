@@ -1,6 +1,8 @@
 ---
 # Allowed version bumps: patch, minor, major
-"@jahia/moonstone": patch
+"@jahia/moonstone": minor
 ---
 
-Hide a closed `Menu` and a collapsed `SecondaryNav` from the keyboard and screen readers, and no longer crash a `Menu` whose first child is `false`, `null` or text (#1596)
+Fixed Tab and screen readers reaching the items of a closed `Menu` or a collapsed `SecondaryNav` (#1596).
+Fixed a `Menu` crash when its first child is `false`, `null` or text.
+Tests that look for these items now need to open the `Menu` or expand the `SecondaryNav` first.
