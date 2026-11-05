@@ -4,7 +4,7 @@ import { iconArgType } from '~/__storybook__/iconArgType';
 import { Apps } from '~/icons';
 
 import type { ButtonToggleProps } from './ButtonToggle.types';
-import type { Meta, StoryContext, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof ButtonToggle> = {
     title: 'Components/ButtonToggle',
@@ -24,17 +24,12 @@ const meta: Meta<typeof ButtonToggle> = {
 export default meta;
 
 type Story = StoryObj<ButtonToggleProps>;
-const Template = (args: ButtonToggleProps, { globals }: StoryContext) => {
-    const theme = globals.theme;
-    return <ButtonToggle {...args} isReversed={theme === 'dark'}/>;
-};
 
 export const Default: Story = {
     args: {
         iconStart: <Apps/>,
         label: 'ButtonToggle',
     },
-    render: Template,
 };
 
 export const Pressed: Story = {
@@ -43,7 +38,6 @@ export const Pressed: Story = {
         label: 'ButtonToggle',
         isPressed: true,
     },
-    render: Template,
 };
 
 export const Disabled: Story = {
@@ -52,5 +46,4 @@ export const Disabled: Story = {
         label: 'ButtonToggle',
         isDisabled: true,
     },
-    render: Template,
 };

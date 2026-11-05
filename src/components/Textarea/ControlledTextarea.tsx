@@ -1,3 +1,4 @@
+import { useMergeRefs } from '@floating-ui/react';
 import clsx from 'clsx';
 import React from 'react';
 
@@ -21,7 +22,8 @@ export const ControlledTextarea = React.forwardRef<HTMLTextAreaElement, Controll
     ...props
 }, ref) => {
     const fieldAria = useFieldAria(props);
-    const controlId = useFieldControlId(id);
+    const { id: controlId, ref: fieldRef } = useFieldControlId(id);
+    const mergedRef = useMergeRefs([ref, fieldRef]);
 
     return (
         <textarea
@@ -34,7 +36,7 @@ export const ControlledTextarea = React.forwardRef<HTMLTextAreaElement, Controll
             )}
             id={controlId}
             placeholder={placeholder}
-            ref={ref}
+            ref={mergedRef}
             value={value}
             onBlur={(!isDisabled || !isReadOnly) && onBlur}
             onChange={(!isDisabled || !isReadOnly) && onChange}
