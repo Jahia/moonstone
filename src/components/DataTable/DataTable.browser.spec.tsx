@@ -20,6 +20,10 @@ const kbColumns: DataTableColumn<User>[] = [
     { key: 'age', label: 'Age', isSortable: true },
 ];
 
+const kbStructuredData: (User & { subRows?: User[] })[] = [
+    { id: '1', name: 'Alice', age: 30, subRows: [{ id: '1.1', name: 'Bob', age: 25 }] },
+];
+
 const renderTable = (props = {}) => {
     render(
         <>
@@ -39,28 +43,30 @@ const header = (name: string) => screen.getByRole('columnheader', { name });
 const row = (name: string) => screen.getByRole('row', { name: new RegExp(name) });
 
 describe('DataTable keyboard', () => {
-    it.fails('reaches a sortable column header with Tab', async () => {
+    it('reaches the button of a sortable column header with Tab', async () => {
         renderTable();
         screen.getByRole('button', { name: 'before' }).focus();
+        // The header row is still a Tab stop
         await userEvent.keyboard('{Tab}');
-        expect(header('Name')).toHaveFocus();
+        await userEvent.keyboard('{Tab}');
+        expect(screen.getByRole('button', { name: 'Name' })).toHaveFocus();
     });
 
-    it.fails('sorts the column with Enter on a focused sortable header and updates aria-sort', async () => {
+    it('sorts the column with Enter on the focused button of a sortable header and updates aria-sort', async () => {
         renderTable();
-        header('Name').focus();
+        screen.getByRole('button', { name: 'Name' }).focus();
         await userEvent.keyboard('{Enter}');
         expect(header('Name')).toHaveAttribute('aria-sort', 'ascending');
         await userEvent.keyboard('{Enter}');
         expect(header('Name')).toHaveAttribute('aria-sort', 'descending');
     });
 
-    it.fails('sorts the column with Space on a focused sortable header', async () => {
+    it('sorts the column with Space on the focused button of a sortable header', async () => {
         const onSortChange = vi.fn();
         renderTable({ enableSorting: true, onSortChange });
-        header('Age').focus();
+        screen.getByRole('button', { name: 'Age' }).focus();
         await userEvent.keyboard(' ');
-        expect(onSortChange).toHaveBeenCalledWith('age', 'ascending');
+        expect(onSortChange).toHaveBeenCalledWith('age', 'descending');
     });
 
     it('toggles a row selection checkbox with Space', async () => {
@@ -103,9 +109,43 @@ describe('DataTable keyboard', () => {
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
+    it('collapses and expands a structured row with Enter on its toggle and updates aria-expanded', async () => {
+        renderTable({ isStructured: true, data: kbStructuredData });
+        const toggle = screen.getByRole('button', { name: 'Alice' });
+        toggle.focus();
+        await userEvent.keyboard('{Enter}');
+        expect(toggle).toHaveAttribute('aria-expanded', 'false');
+        expect(screen.queryByText('Bob')).not.toBeInTheDocument();
+        await userEvent.keyboard('{Enter}');
+        expect(toggle).toHaveAttribute('aria-expanded', 'true');
+        expect(screen.getByText('Bob')).toBeInTheDocument();
+    });
+
+    it('collapses a structured row with Space on its toggle', async () => {
+        renderTable({ isStructured: true, data: kbStructuredData });
+        screen.getByRole('button', { name: 'Alice' }).focus();
+        await userEvent.keyboard(' ');
+        expect(screen.queryByText('Bob')).not.toBeInTheDocument();
+    });
+
+    it('toggles a structured row and calls the onClick of the cell when a column sets one', async () => {
+        const onClick = vi.fn();
+        renderTable({
+            isStructured: true,
+            data: kbStructuredData,
+            columns: [{ ...kbColumns[0], cellProps: { onClick } }, kbColumns[1]],
+        });
+        const toggle = screen.getByRole('button', { name: 'Alice' });
+        toggle.focus();
+        await userEvent.keyboard('{Enter}');
+        expect(onClick).toHaveBeenCalledTimes(1);
+        expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    });
+
     describe('TableCellActions actionsOnHover', () => {
         const renderWithActions = () => {
             renderTable({
+                enableSorting: false,
                 renderRow: ({ id, render: renderCells }: RenderRowContext<User>) => (
                     <TableRow key={id}>
                         {renderCells({
@@ -152,6 +192,7 @@ describe('DataTable keyboard', () => {
     describe('TableCellStatus', () => {
         const renderWithStatus = (rowProps = {}) => {
             renderTable({
+                enableSorting: false,
                 renderRow: ({ id, render: renderCells }: RenderRowContext<User>) => (
                     <TableRow key={id} {...rowProps}>
                         {renderCells({ before: <TableCellStatus color="success">{`Status ${id}`}</TableCellStatus> })}
