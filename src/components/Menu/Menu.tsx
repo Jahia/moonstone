@@ -6,7 +6,7 @@ import { MenuItem } from './MenuItem';
 import { WithoutField } from '~/components/Field/Field.context';
 import { SearchInput } from '~/components/Input';
 import { Typography } from '~/components/Typography';
-import { getInitialIndex, mergeHandlers, useEnterExitCallbacks, usePositioning, useRovingTabIndex } from '~/hooks';
+import { getInitialIndex, mergeHandlers, shouldIgnoreKey, useEnterExitCallbacks, usePositioning, useRovingTabIndex } from '~/hooks';
 
 import type { MenuProps } from './Menu.types';
 import type { MenuItemProps } from './MenuItem.types';
@@ -14,7 +14,8 @@ import type { MenuItemProps } from './MenuItem.types';
 import styles from './Menu.module.scss';
 
 const getFlatChildren = (children: [React.ReactElement]) => {
-    if (children[0].props['data-option-type'] === 'group') {
+    // The first child can be `false`, `null` or text, as in `{cond && <MenuItem/>}`
+    if (children[0]?.props?.['data-option-type'] === 'group') {
         return children.reduce((acc, curr) => {
             acc.push(...curr.props.children[2]);
             return acc;
@@ -26,7 +27,7 @@ const getFlatChildren = (children: [React.ReactElement]) => {
 
 // Filtering function
 const getFilteredChildren = (child: React.ReactElement, inputValue: string) => {
-    if (child.props && (child.props.label || child.props.description)) {
+    if (child?.props && (child.props.label || child.props.description)) {
         const containsLabel = child.props.label ? child.props.label.toLowerCase().includes(inputValue.toLowerCase()) : false;
         const containsDescription = child.props.description ? child.props.description.toLowerCase().includes(inputValue.toLowerCase()) : false;
         return (containsLabel || containsDescription) && child.props.variant !== 'title';
@@ -37,7 +38,7 @@ const getFilteredChildren = (child: React.ReactElement, inputValue: string) => {
 
 const getFilteredGroups = (children: [React.ReactElement], inputValue: string) => {
     // If group then filter each child by inputValue while keeping title & separator
-    if (children.length > 0 && children[0].props?.['data-option-type'] === 'group') {
+    if (children.length > 0 && children[0]?.props?.['data-option-type'] === 'group') {
         return children.reduce((acc, curr) => {
             const groupChildren = curr.props.children[2] || [];
             const filteredChildren = groupChildren.filter((child: React.ReactElement) => getFilteredChildren(child, inputValue));
@@ -146,8 +147,7 @@ export const Menu: React.FC<MenuProps> = ({
     }, [isDisplayed, itemRef]);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLMenuElement>) => {
-        const hasModifier = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
-        if (e.defaultPrevented || hasModifier || e.key !== 'Escape' || !onClose) {
+        if (shouldIgnoreKey(e) || e.key !== 'Escape' || !onClose) {
             return;
         }
 

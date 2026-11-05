@@ -139,7 +139,7 @@ describe('TreeView keyboard', () => {
     it('expands all sibling nodes with *', async () => {
         renderTree();
         node('Root C').focus();
-        await userEvent.keyboard('*');
+        await userEvent.keyboard('{Shift>}*{/Shift}');
         expect(node('Root A')).toHaveAttribute('aria-expanded', 'true');
         expect(node('Root B')).toHaveAttribute('aria-expanded', 'true');
         expect(await screen.findByText('Child B1')).toBeVisible();

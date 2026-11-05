@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { shouldIgnoreKey } from './shouldIgnoreKey';
+
 const ITEM_SELECTOR = '[data-roving-item]';
 
 /** Marks an item of the widget, for the keys of this hook and those of nested controls */
@@ -59,9 +61,8 @@ export const useRovingTabIndex = () => {
          * @param compositeKeyDown - the `onKeyDown` that `Composite` renders, if any
          */
         onKeyDown: (compositeKeyDown?: React.KeyboardEventHandler<HTMLElement>) => (e: React.KeyboardEvent<HTMLElement>) => {
-            const hasModifier = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
             // A key already handled, held with a modifier, or pressed in a nested control (the search box of a Menu) is left alone
-            if (e.defaultPrevented || hasModifier || !(e.target as HTMLElement).matches(ITEM_SELECTOR)) {
+            if (shouldIgnoreKey(e) || !(e.target as HTMLElement).matches(ITEM_SELECTOR)) {
                 return;
             }
 

@@ -155,7 +155,7 @@ export const DefaultOpened = {
     },
 };
 
-export const Controlled = () => {
+export const Controlled: StoryFn<AccordionProps> = (args) => {
     const [stateOpenedItems, setStateOpenedItem] = useState(accordionIds[1]);
 
     const onSetOpenedItem = (id: string) => {
@@ -181,6 +181,7 @@ export const Controlled = () => {
                 </button>
             </span>
             <Accordion
+                {...args}
                 openedItem={stateOpenedItems}
                 onSetOpenedItem={onSetOpenedItem}
             >

@@ -43,9 +43,6 @@ export const LayoutContent = React.forwardRef(({
                 aria-busy={isLoading ? 'true' : undefined}
                 aria-label={i18n?.contentLabel || 'Page content'}
                 className={classNameProps}
-                // Lets the keyboard scroll the area when it holds no focusable element (axe scrollable-region-focusable)
-                // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-                tabIndex={0}
             >
                 {
                     isLoading

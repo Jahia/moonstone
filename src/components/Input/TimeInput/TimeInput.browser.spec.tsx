@@ -88,4 +88,13 @@ describe('TimeInput keyboard', () => {
         expect(screen.queryByRole('list')).toBeNull();
         expect(screen.getByRole('listbox', { name: 'PM' })).toHaveFocus();
     });
+
+    it('extends the selection with Shift+ArrowLeft', async () => {
+        render(<TimeInput defaultValue="12:30"/>);
+        const input = screen.getByRole('textbox') as HTMLInputElement;
+        input.focus();
+        input.setSelectionRange(5, 5);
+        await userEvent.keyboard('{Shift>}{ArrowLeft}{ArrowLeft}{/Shift}');
+        expect([input.selectionStart, input.selectionEnd]).toEqual([3, 5]);
+    });
 });
