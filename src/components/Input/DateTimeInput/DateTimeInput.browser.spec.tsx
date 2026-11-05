@@ -45,6 +45,13 @@ describe('DateTimeInput keyboard', () => {
         expect(await screen.findByRole('grid', { name: 'March 2026' })).toBeVisible();
     });
 
+    it('leaves Shift+Space to the field', async () => {
+        renderInput();
+        getField().focus();
+        await userEvent.keyboard('{Shift>} {/Shift}');
+        expect(screen.queryByRole('grid')).not.toBeInTheDocument();
+    });
+
     it.fails('moves focus to the selected day when the calendar opens', async () => {
         renderInput();
         getField().focus();

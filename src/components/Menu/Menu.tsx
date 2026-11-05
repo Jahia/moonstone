@@ -6,7 +6,7 @@ import { MenuItem } from './MenuItem';
 import { WithoutField } from '~/components/Field/Field.context';
 import { SearchInput } from '~/components/Input';
 import { Typography } from '~/components/Typography';
-import { getInitialIndex, mergeHandlers, useEnterExitCallbacks, usePositioning, useRovingTabIndex } from '~/hooks';
+import { getInitialIndex, mergeHandlers, shouldIgnoreKey, useEnterExitCallbacks, usePositioning, useRovingTabIndex } from '~/hooks';
 
 import type { MenuProps } from './Menu.types';
 import type { MenuItemProps } from './MenuItem.types';
@@ -146,8 +146,7 @@ export const Menu: React.FC<MenuProps> = ({
     }, [isDisplayed, itemRef]);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLMenuElement>) => {
-        const hasModifier = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
-        if (e.defaultPrevented || hasModifier || e.key !== 'Escape' || !onClose) {
+        if (shouldIgnoreKey(e) || e.key !== 'Escape' || !onClose) {
             return;
         }
 

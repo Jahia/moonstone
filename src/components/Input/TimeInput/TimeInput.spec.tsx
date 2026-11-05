@@ -272,5 +272,19 @@ describe('TimeInput', () => {
 
             expect(emittedTime(handleChange)).toBe('14:29');
         });
+
+        it('should leave an arrow key held with a modifier to the browser', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(<TimeInput defaultValue="14:30" onChange={handleChange}/>);
+
+            const input = screen.getByDisplayValue('14:30') as HTMLInputElement;
+            input.focus();
+            input.setSelectionRange(0, 0);
+            await user.keyboard('{Shift>}{ArrowUp}{/Shift}');
+
+            expect(handleChange).not.toHaveBeenCalled();
+        });
     });
 });
