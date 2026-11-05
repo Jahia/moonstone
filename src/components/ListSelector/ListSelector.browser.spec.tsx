@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { userEvent } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 
 import { ListSelector } from './index';
 
@@ -29,6 +29,15 @@ const renderSelector = (props = {}) => {
 };
 
 const option = (label: string) => screen.getByText(label).closest('li');
+
+describe('ListSelector landmarks', () => {
+    it('creates no page landmark', async () => {
+        renderSelector();
+        await expect.element(page.getByRole('heading', { name: 'Available' })).toBeInTheDocument();
+        expect(page.getByRole('banner').elements()).toHaveLength(0);
+        expect(page.getByRole('contentinfo').elements()).toHaveLength(0);
+    });
+});
 
 describe('ListSelector keyboard', () => {
     it.fails('exposes each entry as an option', () => {

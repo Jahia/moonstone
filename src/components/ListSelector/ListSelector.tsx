@@ -62,7 +62,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
             )}
             {...props}
         >
-            <div
+            <section
                 className={clsx(
                     ['moonstone-listSelector_left', styles['moonstone-listSelector_left']],
                     ['flexCol_nowrap', layout.flexCol_nowrap],
@@ -71,7 +71,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
             >
                 {hasTitle
                     && (
-                        <div
+                        <header
                             className={clsx(
                                 ['moonstone-listSelector_title', styles['moonstone-listSelector_title']],
                                 ['flexRow', layout.flexRow],
@@ -79,7 +79,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                             )}
                         >
                             <Typography isNowrap component="h3" weight="bold">{label?.leftListTitle}</Typography>
-                        </div>
+                        </header>
                     )}
                 <ValueList
                     isReadOnly={isReadOnly}
@@ -135,7 +135,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                     }}
 
                 />
-            </div>
+            </section>
             <div
                 className={clsx(
                     ['moonstone-listSelector_buttons', styles['moonstone-listSelector_buttons']],
@@ -158,7 +158,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                     onClick={() => onChange(values.filter(v => !valuesRight.find(o => o.value === v)))}
                 />
             </div>
-            <div
+            <section
                 className={clsx(
                     ['moonstone-listSelector_right', styles['moonstone-listSelector_right']],
                     ['flexCol_nowrap', layout.flexCol_nowrap],
@@ -167,7 +167,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
             >
                 {hasTitle
                     && (
-                        <div
+                        <header
                             className={clsx(
                                 ['moonstone-listSelector_title', styles['moonstone-listSelector_title']],
                                 ['flexRow', layout.flexRow],
@@ -175,7 +175,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                             )}
                         >
                             <Typography isNowrap component="h3" weight="bold">{label?.rightListTitle}</Typography>
-                        </div>
+                        </header>
                     )}
                 <ValueList
                     isReadOnly={isReadOnly}
@@ -261,7 +261,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                         }
                     }}
                 />
-                <div
+                <footer
                     className={clsx(
                         ['moonstone-listSelector_footer', styles['moonstone-listSelector_footer']],
                         ['flexRow', layout.flexRow],
@@ -278,8 +278,8 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                             {selectedLabel}
                         </Typography>
                     </div>
-                </div>
-            </div>
+                </footer>
+            </section>
         </div>
     );
 };
