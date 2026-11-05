@@ -1,13 +1,14 @@
 import { useArgs } from 'storybook/preview-api';
 
 import { NumberInput } from './index';
+import markdownNotes from './NumberInput.md?raw';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import '~/__storybook__/storybook.scss';
 
 export default {
-    title: 'Components/Input/Numbers',
+    title: 'Components/NumberInput',
     component: NumberInput,
     tags: ['new'],
     decorators: [
@@ -19,6 +20,8 @@ export default {
     ],
     parameters: {
         layout: 'centered',
+        componentSubtitle: 'A number the user types or steps.',
+        docs: { description: { component: markdownNotes } },
     },
 } as Meta<typeof NumberInput>;
 

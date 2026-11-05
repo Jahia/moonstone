@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { action } from 'storybook/actions';
 
-import markdownNotes from './Dropdown.md';
+import markdownNotes from './Dropdown.md?raw';
 import { Dropdown } from './index';
-import { iconArgType } from '~/__storybook__/iconArgType';
 import { Pill } from '~/components';
 import {
     dropdownData,
@@ -15,6 +14,7 @@ import {
     dropdownDataTree,
     dropdownDataTreePill,
 } from '~/data';
+import { Love } from '~/icons';
 
 import type { DropdownDataOption, DropdownProps } from './Dropdown.types';
 
@@ -24,15 +24,13 @@ export default {
 
     parameters: {
         layout: 'centered',
-        notes: { markdown: markdownNotes },
+        componentSubtitle: 'A select that also handles multiple and nested values.',
         docs: {
+            description: { component: markdownNotes },
             // Fix issues in the doc tab with firefox
             inlineStories: false,
             IframeHeight: 500,
         },
-    },
-    argTypes: {
-        icon: iconArgType,
     },
 };
 export const FlatData = {
@@ -98,7 +96,7 @@ export const FlatData = {
     },
 
     args: {
-        icon: 'Love',
+        icon: <Love/>,
     },
 };
 
@@ -152,7 +150,7 @@ export const FlatDataMultiple = {
     },
 
     args: {
-        icon: 'Love',
+        icon: <Love/>,
     },
 };
 
@@ -213,7 +211,7 @@ export const GroupedData = {
     },
 
     args: {
-        icon: 'Love',
+        icon: <Love/>,
     },
 };
 
@@ -266,7 +264,7 @@ export const GroupedDataMultiple = {
     },
 
     args: {
-        icon: 'Love',
+        icon: <Love/>,
     },
 };
 
@@ -311,7 +309,7 @@ export const TreeData = {
     },
 
     args: {
-        icon: 'Love',
+        icon: <Love/>,
     },
 };
 
@@ -364,6 +362,6 @@ export const TreeDataMultiple = {
     },
 
     args: {
-        icon: 'Love',
+        icon: <Love/>,
     },
 };

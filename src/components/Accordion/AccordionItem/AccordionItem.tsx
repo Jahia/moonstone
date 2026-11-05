@@ -10,7 +10,7 @@ import type { AccordionItemProps } from './AccordionItem.types';
 import styles from './AccordionItem.module.scss';
 
 export const AccordionItem: React.FC<AccordionItemProps> = ({
-    id, label, icon = null, onClick, className, children, ...props
+    id, label, icon, onClick, className, children, ...props
 }) => {
     const context = React.useContext(AccordionContext);
     const open = context.currentItem === id;

@@ -11,6 +11,7 @@ export type ChipProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className'>
     color?: 'default' | 'accent' | 'success' | 'warning' | 'danger' | 'reassuring' | 'light';
     /**
      * Color variant
+     * @default 'default'
      */
     variant?: 'default' | 'bright';
     /**

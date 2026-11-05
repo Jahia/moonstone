@@ -3,7 +3,7 @@ import { userEvent, within } from 'storybook/test';
 import { Temporal } from 'temporal-polyfill';
 
 import { DateTimeInput } from './DateTimeInput';
-import markdownNotes from './DateTimeInput.md';
+import markdownNotes from './DateTimeInput.md?raw';
 import { Button } from '~/components';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
@@ -12,13 +12,14 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 const baseDate = Temporal.PlainDate.from('2026-03-30');
 
 export default {
-    title: 'Components/Input/DateTimeInput',
+    title: 'Components/DateTimeInput',
     component: DateTimeInput,
     tags: ['beta'],
     parameters: {
         layout: 'centered',
         actions: { argTypesRegex: '^on.*' },
-        notes: { markdown: markdownNotes },
+        componentSubtitle: 'A date to capture, with optional time and timezone.',
+        docs: { description: { component: markdownNotes } },
     },
     args: {
         'data-testid': 'dateTimeInput',

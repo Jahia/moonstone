@@ -8,7 +8,7 @@ import type { BreadcrumbItemProps } from './BreadcrumbItem.types';
 
 import styles from './BreadcrumbItem.module.scss';
 
-export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({ className = '', ...props }) => (
+export const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({ className, ...props }) => (
     <li className={clsx(
         ['moonstone-breadcrumbItem', styles['moonstone-breadcrumbItem']],
         ['flexRow_center', layout.flexRow_center],

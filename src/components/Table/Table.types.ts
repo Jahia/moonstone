@@ -3,6 +3,7 @@ import React from 'react';
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
     /**
      * Which html element to render the table as
+     * @default 'table'
      */
     component?: string;
 
@@ -12,7 +13,7 @@ export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children
     className?: string;
 
     /**
-     * The children elements to be provided to the Table (e.g., Table Rows, Headers, and Cells)
+     * The children elements to be provided to the Table, such as rows, headers, and cells
      */
     children?: React.ReactNode;
 };

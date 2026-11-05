@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React from 'react';
 
-import markdownNotes from './GlobalStyle_layout.md';
+import markdownNotes from './GlobalStyle_layout.md?raw';
 import { layout } from '~/globals/css-utils.js';
 import { capitalize } from '~/utils/helpers.js';
 
@@ -119,7 +119,7 @@ export default {
 
     parameters: {
         componentSubtitle: 'Layout',
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
 };
 

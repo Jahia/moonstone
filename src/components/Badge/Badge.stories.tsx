@@ -1,4 +1,4 @@
-import markdownNotes from './Badge.md';
+import markdownNotes from './Badge.md?raw';
 import { Badge } from './index';
 
 import type { Meta } from '@storybook/react-vite';
@@ -7,8 +7,9 @@ export default {
     title: 'Components/Badge',
     component: Badge,
     parameters: {
+        componentSubtitle: 'A count shown on another element.',
+        docs: { description: { component: markdownNotes } },
         layout: 'centered',
-        notes: { markdown: markdownNotes },
     },
 } as Meta<typeof Badge>;
 

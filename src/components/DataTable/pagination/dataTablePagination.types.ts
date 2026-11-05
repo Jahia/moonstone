@@ -3,7 +3,10 @@ import React from 'react';
 import type { PaginationProps as ComponentPaginationProps } from '~/components/Pagination';
 
 type PaginationBaseProps = {
-    /** Choices for items per page value */
+    /**
+     * Choices for items per page value
+     * @default [5, 10, 25]
+     */
     itemsPerPageOptions?: ComponentPaginationProps['itemsPerPageOptions'];
     /** Custom attributes for the Pagination element */
     paginationProps?: Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & Record<string, unknown>;
@@ -26,9 +29,15 @@ type PaginationControlledProps = {
 
 export type PaginationUncontrolledProps = {
     currentPage?: never;
-    /** Initial page 1-indexed (Uncontrolled) */
+    /**
+     * Initial page 1-indexed (Uncontrolled)
+     * @default 1
+     */
     defaultCurrentPage?: number;
-    /** Initial items per page (Uncontrolled) */
+    /**
+     * Initial items per page (Uncontrolled)
+     * @default the first of `itemsPerPageOptions`
+     */
     defaultItemsPerPage?: number;
     itemsPerPage?: never;
     totalItems?: never;
@@ -40,7 +49,10 @@ export type PaginationUncontrolledProps = {
 
 export type DataTablePaginationProps
     = | ({
-        /** Enable Table Pagination */
+        /**
+         * Enable Table Pagination
+         * @default `true`, or `false` when `isStructured`
+         */
         enablePagination: true;
     } & PaginationBaseProps & (PaginationControlledProps | PaginationUncontrolledProps))
     | {

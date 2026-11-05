@@ -8,7 +8,7 @@ import type { ImgWrapperProps } from './ImgWrapper.types';
 export const ImgWrapper: React.FC<ImgWrapperProps> = ({
     alt,
     size = 'default',
-    className = '',
+    className,
     ...props
 }) => {
     const classes = clsx(

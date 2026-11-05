@@ -10,7 +10,7 @@ type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'onC
     label?: React.ReactNode;
 
     /**
-     * Icon size
+     * Size of the button.
      */
     size?: ButtonToggleSize;
 

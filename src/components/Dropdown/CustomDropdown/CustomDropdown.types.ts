@@ -6,6 +6,10 @@ export type CustomDropdownProps = Omit<BaseDropdownProps,
     | 'searchEmptyText' | 'imageSize' | 'onChange'
     | 'label' | 'placeholder' | 'size'> & {
         label?: string;
+        /**
+         * Size of the trigger button.
+         * @default 'default'
+         */
         size?: ButtonSize;
         children: React.ReactElement | React.ReactElement[];
     };

@@ -20,7 +20,7 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
     align?: 'left' | 'center' | 'right';
 
     /**
-     * Define the width of the cell, if no width is set the column takes all space available. (e.g. '120px')
+     * Width of the cell, such as `'120px'`. Without it, the column takes all the space available.
      */
     width?: string;
 

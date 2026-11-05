@@ -2,7 +2,7 @@ import React from 'react';
 
 export type BaseTextareaProps = Omit<React.ComponentPropsWithRef<'textarea'>, 'id' | 'value' | 'defaultValue' | 'onChange' | 'onFocus' | 'onBlur' | 'className'> & {
     /**
-     * Required id
+     * Id of the textarea.
      */
     id?: string;
     /**

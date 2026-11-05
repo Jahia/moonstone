@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
 import { Separator } from './index';
-import markdownNotes from './Separator.md';
+import markdownNotes from './Separator.md?raw';
 import { Typography } from '~/components';
 import { layout } from '~/globals/css-utils.js';
 
@@ -15,7 +15,8 @@ export default {
     component: Separator,
     parameters: {
         layout: 'centered',
-        notes: { markdown: markdownNotes },
+        componentSubtitle: 'Visually divides sections of content.',
+        docs: { description: { component: markdownNotes } },
     },
 };
 
