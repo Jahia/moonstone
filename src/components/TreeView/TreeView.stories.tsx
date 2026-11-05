@@ -24,16 +24,14 @@ export default {
 };
 
 export const Default = {
-    render: (args: TreeViewProps, { globals }: { globals: { theme: string } }) => {
-        const theme = globals.theme;
-        return <TreeView {...args} isReversed={theme === 'dark'} data={treeData}/>;
+    render: (args: TreeViewProps) => {
+        return <TreeView {...args} data={treeData}/>;
     },
 };
 
 export const ClosableRoot = {
-    render: (args: TreeViewProps, { globals }: { globals: { theme: string } }) => {
-        const theme = globals.theme;
-        return <TreeView {...args} isReversed={theme === 'dark'} data={treeDataRootClosable}/>;
+    render: (args: TreeViewProps) => {
+        return <TreeView {...args} data={treeDataRootClosable}/>;
     },
 };
 
@@ -52,14 +50,13 @@ export const ClosableRoot = {
 // };
 
 export const Flat = {
-    render: (args: TreeViewProps, { globals: { theme } }: { globals: { theme: string } }) => (
-        <TreeView {...args} isReversed={theme === 'dark'} data={treeDataFlat}/>
+    render: (args: TreeViewProps) => (
+        <TreeView {...args} data={treeDataFlat}/>
     ),
 };
 
 export const Selection = {
-    render: (args: TreeViewProps, { globals }: { globals: { theme: string } }) => {
-        const theme = globals.theme;
+    render: (args: TreeViewProps) => {
         const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
         const handleClick = (node: TreeViewData) => {
@@ -72,7 +69,6 @@ export const Selection = {
 
         return (
             <TreeView
-                isReversed={theme === 'dark'}
                 data={treeData}
                 selectedItems={selectedItems}
                 onClickItem={handleClick}
@@ -82,14 +78,13 @@ export const Selection = {
     },
 };
 export const Highlight = {
-    render: (args: TreeViewProps, { globals: { theme } }: { globals: { theme: string } }) => (
-        <TreeView isReversed={theme === 'dark'} data={treeData} highlightedItems={['A']} {...args}/>
+    render: (args: TreeViewProps) => (
+        <TreeView data={treeData} highlightedItems={['A']} {...args}/>
     ),
 };
 
 export const Controlled = {
-    render: (args: TreeViewProps, { globals }: { globals: { theme: string } }) => {
-        const theme = globals.theme;
+    render: (args: TreeViewProps) => {
         const [openedItems, setOpenedItems] = useState<string[]>([]);
 
         const handleOpen = (node: TreeViewData) => {
@@ -113,7 +108,6 @@ export const Controlled = {
                 </span>
                 <TreeView
                     {...args}
-                    isReversed={theme === 'dark'}
                     data={treeData}
                     openedItems={openedItems}
                     onCloseItem={handleClose}
@@ -125,8 +119,7 @@ export const Controlled = {
 };
 
 export const ControlledWithLoading = {
-    render: (args: TreeViewProps, { globals }: { globals: { theme: string } }) => {
-        const theme = globals.theme;
+    render: (args: TreeViewProps) => {
         const [openedItems, setOpenedItems] = useState<string[]>([]);
         const [treeDataState, setTreeDataState] = useState<TreeViewData[]>([
             { id: 'A1', label: 'A-1', hasChildren: true },
@@ -183,7 +176,7 @@ export const ControlledWithLoading = {
                     ))}
                 </span>
                 <TreeView
-                    isReversed={theme === 'dark'}
+                    {...args}
                     data={treeDataState}
                     openedItems={openedItems}
                     onCloseItem={handleClose}

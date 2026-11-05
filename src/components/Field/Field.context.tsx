@@ -1,4 +1,5 @@
-import React, { createContext, useContext } from 'react';
+import { useListItem } from '@floating-ui/react';
+import React, { createContext, useContext, useId } from 'react';
 
 type FieldContextProps = {
     labelId: string;
@@ -24,10 +25,19 @@ export const useFieldAria = (props: React.AriaAttributes = {}) => {
     };
 };
 
-// The id a labelable control (input, textarea) takes when the consumer passes none, so that a click on the label focuses it
+// The first control without an id takes the one the label points to, the next ones a unique id
 export const useFieldControlId = (id?: string) => {
     const field = useContext(FieldContext);
-    return id ?? field?.controlId;
+    const uniqueId = useId();
+    const { ref, index } = useListItem();
+    if (id || !field) {
+        return { id };
+    }
+
+    return {
+        id: index > 0 ? uniqueId : field.controlId,
+        ref,
+    };
 };
 
 // Wraps an input that is part of a control but is not the control of the Field, such as the search box of a menu
