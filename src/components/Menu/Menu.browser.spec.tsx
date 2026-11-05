@@ -36,6 +36,21 @@ describe('Menu keyboard', () => {
         expect(item('First')).toHaveFocus();
     });
 
+    it('skips a closed menu with Tab', async () => {
+        render(
+            <>
+                <button type="button">before</button>
+                <Menu isDisplayed={false}>
+                    <MenuItem label="First"/>
+                </Menu>
+                <button type="button">after</button>
+            </>,
+        );
+        screen.getByRole('button', { name: 'before' }).focus();
+        await userEvent.keyboard('{Tab}');
+        expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
+    });
+
     it('reaches the selected item with Tab', async () => {
         render(
             <>

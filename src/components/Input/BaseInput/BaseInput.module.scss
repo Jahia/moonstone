@@ -100,7 +100,7 @@ $min-width: 40px;
 
     &::placeholder {
         font-style: italic;
-        color: var(--moon-color-gray_dark60);
+        color: var(--moon-color-gray);
 
         opacity: 1;
     }
@@ -116,7 +116,7 @@ $min-width: 40px;
     // Check if the input is empty
     &:placeholder-shown {
         ~ .moonstone-baseInput_icon {
-            color: var(--moon-color-gray60);
+            color: var(--moon-color-gray);
         }
     }
 }

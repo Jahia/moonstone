@@ -13,11 +13,11 @@ describe('LayoutContent', () => {
         expect(screen.getByText('test-header')).toBeInTheDocument();
     });
 
-    it('should let the keyboard reach the "Page content" region with Tab', async () => {
+    it('should not take the focus on a click inside it', async () => {
         const user = userEvent.setup();
-        render(<LayoutContent {...requiredProps}/>);
-        await user.tab();
-        expect(screen.getByRole('region', { name: 'Page content' })).toHaveFocus();
+        render(<LayoutContent><p>text</p><button type="button">action</button></LayoutContent>);
+        await user.click(screen.getByText('text'));
+        expect(screen.getByRole('region', { name: 'Page content' })).not.toHaveFocus();
     });
 
     it('should name the content area with i18n.contentLabel', () => {

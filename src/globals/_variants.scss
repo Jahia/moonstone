@@ -73,6 +73,9 @@
     }
 
     &.moonstone-reverse {
+        // accent is too dark on reversed backgrounds
+        color: var(--moon-color-accent_light);
+
         &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
             color: var(--moon-color-white);
 

@@ -156,7 +156,7 @@ export const PositionAbsolute = () => {
                 style={{
                     height: '100%',
                     width: '100%',
-                    backgroundColor: 'var(--moon-color-accent)',
+                    backgroundColor: 'var(--moon-color-accent_light_plain40)',
                     cursor: 'pointer',
                     padding: '10px',
                 }}

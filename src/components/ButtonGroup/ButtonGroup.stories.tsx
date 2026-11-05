@@ -33,22 +33,39 @@ export const Default: StoryObj<ButtonGroupProps> = {
     },
 };
 
-export const ButtonWithActions = () => (
-    <ButtonGroup color="accent" size="big">
-        <Button label="Actions" onClick={() => null}/>
-        <Button aria-label="button with down arrow icon" icon={<ChevronDown/>} onClick={() => null}/>
-    </ButtonGroup>
-);
+export const ButtonWithActions: StoryObj<ButtonGroupProps> = {
+    render: args => (
+        <ButtonGroup {...args}>
+            <Button label="Actions" onClick={() => null}/>
+            <Button aria-label="button with down arrow icon" icon={<ChevronDown/>} onClick={() => null}/>
+        </ButtonGroup>
+    ),
 
-export const ButtonOutlinedWithActions = () => (
-    <ButtonGroup color="accent" size="big" variant="outlined">
-        <Button label="Actions" onClick={() => null}/>
-        <Button aria-label="button with down arrow icon" icon={<ChevronDown/>} onClick={() => null}/>
-    </ButtonGroup>
-);
+    args: {
+        color: 'accent',
+        size: 'big',
+    },
+};
 
-export const ButtonGroupWith1Button = () => (
-    <ButtonGroup color="accent" size="big">
-        <Button label="Actions" onClick={() => null}/>
-    </ButtonGroup>
-);
+export const ButtonOutlinedWithActions: StoryObj<ButtonGroupProps> = {
+    ...ButtonWithActions,
+
+    args: {
+        color: 'accent',
+        size: 'big',
+        variant: 'outlined',
+    },
+};
+
+export const ButtonGroupWith1Button: StoryObj<ButtonGroupProps> = {
+    render: args => (
+        <ButtonGroup {...args}>
+            <Button label="Actions" onClick={() => null}/>
+        </ButtonGroup>
+    ),
+
+    args: {
+        color: 'accent',
+        size: 'big',
+    },
+};
