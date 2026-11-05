@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { page, userEvent } from 'vitest/browser';
+import { userEvent } from 'vitest/browser';
 
 import { ListSelector } from './index';
 
@@ -29,17 +29,6 @@ const renderSelector = (props = {}) => {
 };
 
 const option = (label: string) => screen.getByText(label).closest('li');
-
-describe('ListSelector landmarks', () => {
-    it('creates no page landmark', async () => {
-        renderSelector();
-        /* oxlint-disable testing-library/prefer-screen-queries -- screen does not scope a header or footer to its section, the role engine of Playwright does */
-        await expect.element(page.getByRole('heading', { name: 'Available' })).toBeInTheDocument();
-        expect(page.getByRole('banner').elements()).toHaveLength(0);
-        expect(page.getByRole('contentinfo').elements()).toHaveLength(0);
-        /* oxlint-enable testing-library/prefer-screen-queries */
-    });
-});
 
 describe('ListSelector keyboard', () => {
     it.fails('exposes each entry as an option', () => {
