@@ -5,7 +5,7 @@
 }
 
 .sort {
-    color: var(--moon-color-gray_light);
+    color: var(--moon-color-gray);
 }
 
 .sortActive {
@@ -37,7 +37,7 @@
 
     &:hover {
         .sort {
-            color: var(--moon-color-gray);
+            color: var(--moon-color-gray_dark);
         }
 
         .sortActive {

@@ -33,12 +33,6 @@ $row-multiple-line-height: 64px;
             }
         }
 
-        .moonstone-chip {
-            color: var(--moon-color-light);
-
-            background-color: var(--moon-color-accent_light40);
-        }
-
         .moonstone-button:not(:hover, :focus-visible, [aria-pressed="true"]) {
             color: var(--moon-color-light);
         }

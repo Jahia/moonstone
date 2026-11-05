@@ -17,6 +17,10 @@
 
         background-color: var(--moon-color-accent_light_plain20);
 
+        &.reversed {
+            color: var(--moon-color-accent_dark);
+        }
+
         &:active:not(.moonstone-button_loading, [disabled]) {
             color: var(--moon-color-accent_dark_contrast);
 

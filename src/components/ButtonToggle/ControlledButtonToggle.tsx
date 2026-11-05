@@ -39,6 +39,7 @@ const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButto
             className={clsx(
                 ['moonstone-buttonToggle', styles['moonstone-buttonToggle']],
                 isPressed && ['moonstone-buttonToggle_pressed', styles['moonstone-buttonToggle_pressed']],
+                isReversed && styles['reversed'],
                 ['flexRow_center', layout.flexRow_center],
                 className,
             )}

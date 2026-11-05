@@ -105,7 +105,7 @@ $cardSelector-height: 58px;
 
     color: var(--moon-color-warning);
 
-    border: 1px solid var(--moon-color-warning_plain60);
+    border: 1px solid var(--moon-color-warning);
     border-radius: var(--moon-radius-selector);
     background-color: var(--moon-background-selector);
     cursor: pointer;
@@ -120,7 +120,7 @@ $cardSelector-height: 58px;
 
     &:not([disabled]) {
         &:hover {
-            border-color: var(--moon-color-warning);
+            border-color: var(--moon-color-warning_dark);
         }
 
         &:focus-visible {

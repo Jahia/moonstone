@@ -13,13 +13,13 @@
     --treeItem-color: inherit;
     --treeItem-color_hover: var(--moon-color-dark);
     --treeItem-color_selected: var(--moon-color-light);
-    --treeItem-color_highlighted: var(--moon-color-light);
+    --treeItem-color_highlighted: var(--moon-color-accent_dark_contrast);
     --treeItem-color_selected_hover: var(--moon-color-light);
     --treeItem-background: inherit;
     --treeItem-background_hover: var(--moon-color-gray_light40);
     --treeItem-background_selected: var(--moon-color-accent);
     --treeItem-background_selected_hover: var(--moon-color-accent);
-    --treeItem-background_highlighted: var(--moon-color-gray60);
+    --treeItem-background_highlighted: var(--moon-color-gray_light);
 
     &:focus-visible {
         @extend %is-focused;
@@ -71,6 +71,7 @@
         --treeItem-color: var(--moon-color-gray_light);
         --treeItem-color_hover: var(--moon-color-light);
         --treeItem-background_hover: var(--moon-color-gray40);
+        --treeItem-color_highlighted: var(--moon-color-light);
         --treeItem-background_highlighted: var(--moon-color-gray_light40);
     }
 
