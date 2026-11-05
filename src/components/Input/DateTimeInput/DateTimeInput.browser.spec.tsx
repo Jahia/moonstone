@@ -63,13 +63,23 @@ describe('DateTimeInput keyboard', () => {
         expect(getField()).toHaveFocus();
     });
 
-    it.fails('closes the calendar with Escape from a day and returns focus to the date field', async () => {
+    it('closes the calendar with Escape from a day and returns focus to the date field', async () => {
         renderInput();
         getField().focus();
         await userEvent.keyboard('{Enter}');
         await screen.findByRole('grid', { name: 'March 2026' });
         getDay('Monday, March 30th, 2026').focus();
         await userEvent.keyboard('{Escape}');
+        expect(screen.queryByRole('grid')).toBeNull();
+        expect(getField()).toHaveFocus();
+    });
+
+    it('returns focus to the date field when a click on a day closes the calendar', async () => {
+        renderInput();
+        getField().focus();
+        await userEvent.keyboard('{Enter}');
+        await screen.findByRole('grid', { name: 'March 2026' });
+        await userEvent.click(getDay('Tuesday, March 31st, 2026'));
         expect(screen.queryByRole('grid')).toBeNull();
         expect(getField()).toHaveFocus();
     });
@@ -113,7 +123,7 @@ describe('DateTimeInput keyboard', () => {
         expect(screen.queryByRole('grid')).toBeNull();
     });
 
-    it.fails('returns focus to the date field after selecting a day with Enter', async () => {
+    it('returns focus to the date field after selecting a day with Enter', async () => {
         renderInput();
         getField().focus();
         await userEvent.keyboard('{Enter}');
