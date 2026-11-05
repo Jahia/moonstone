@@ -39,7 +39,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
 }, ref) => {
     const isFilled = value !== '';
     const fieldAria = useFieldAria(props);
-    const controlId = useFieldControlId(id);
+    const { id: controlId, ref: fieldRef } = useFieldControlId(id);
     const classNameProps = clsx(
         ['moonstone-baseInput', styles['moonstone-baseInput']],
         [`moonstone-${size}`, size === 'big' && styles[`moonstone-${size}`]],
@@ -64,7 +64,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
 
     // DateTimeInput forwards a callback ref, so the input is reached through an inner one
     const inputRef = useRef<HTMLInputElement>(null);
-    const mergedRef = useMergeRefs([inputRef, ref]);
+    const mergedRef = useMergeRefs([inputRef, ref, fieldRef]);
     const pressedKeys = useRef(new Set<string>());
 
     const handleClear: React.MouseEventHandler = (e) => {
