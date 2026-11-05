@@ -14,7 +14,8 @@ import type { MenuItemProps } from './MenuItem.types';
 import styles from './Menu.module.scss';
 
 const getFlatChildren = (children: [React.ReactElement]) => {
-    if (children[0].props['data-option-type'] === 'group') {
+    // The first child can be `false`, `null` or text, as in `{cond && <MenuItem/>}`
+    if (children[0]?.props?.['data-option-type'] === 'group') {
         return children.reduce((acc, curr) => {
             acc.push(...curr.props.children[2]);
             return acc;
@@ -26,7 +27,7 @@ const getFlatChildren = (children: [React.ReactElement]) => {
 
 // Filtering function
 const getFilteredChildren = (child: React.ReactElement, inputValue: string) => {
-    if (child.props && (child.props.label || child.props.description)) {
+    if (child?.props && (child.props.label || child.props.description)) {
         const containsLabel = child.props.label ? child.props.label.toLowerCase().includes(inputValue.toLowerCase()) : false;
         const containsDescription = child.props.description ? child.props.description.toLowerCase().includes(inputValue.toLowerCase()) : false;
         return (containsLabel || containsDescription) && child.props.variant !== 'title';
@@ -37,7 +38,7 @@ const getFilteredChildren = (child: React.ReactElement, inputValue: string) => {
 
 const getFilteredGroups = (children: [React.ReactElement], inputValue: string) => {
     // If group then filter each child by inputValue while keeping title & separator
-    if (children.length > 0 && children[0].props?.['data-option-type'] === 'group') {
+    if (children.length > 0 && children[0]?.props?.['data-option-type'] === 'group') {
         return children.reduce((acc, curr) => {
             const groupChildren = curr.props.children[2] || [];
             const filteredChildren = groupChildren.filter((child: React.ReactElement) => getFilteredChildren(child, inputValue));
