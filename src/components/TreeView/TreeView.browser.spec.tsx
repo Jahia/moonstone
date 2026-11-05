@@ -139,7 +139,7 @@ describe('TreeView keyboard', () => {
     it('expands all sibling nodes with *', async () => {
         renderTree();
         node('Root C').focus();
-        await userEvent.keyboard('*');
+        await userEvent.keyboard('{Shift>}*{/Shift}');
         expect(node('Root A')).toHaveAttribute('aria-expanded', 'true');
         expect(node('Root B')).toHaveAttribute('aria-expanded', 'true');
         expect(await screen.findByText('Child B1')).toBeVisible();
@@ -157,5 +157,42 @@ describe('TreeView keyboard', () => {
         await userEvent.keyboard('*');
         await userEvent.keyboard('{ArrowDown}');
         expect(node('Child Z1')).toHaveFocus();
+    });
+});
+
+// Spreads its props but does not forward its ref, like the tree rows of jContent
+const ItemWithoutRef = ({ children, ...props }: React.HTMLAttributes<HTMLLIElement>) => <li {...props}>{children}</li>;
+
+describe('TreeView keyboard with an itemComponent that does not forward its ref', () => {
+    it('enters the tree with Tab on the selected node, and leaves it with Shift+Tab from another node', async () => {
+        renderTree({ itemComponent: ItemWithoutRef, selectedItems: ['B'] });
+        screen.getByRole('button', { name: 'before' }).focus();
+        await userEvent.keyboard('{Tab}');
+        expect(node('Root B')).toHaveFocus();
+        await userEvent.keyboard('{ArrowDown}{Shift>}{Tab}{/Shift}');
+        expect(screen.getByRole('button', { name: 'before' })).toHaveFocus();
+    });
+
+    it('moves focus with the arrow keys', async () => {
+        renderTree({ itemComponent: ItemWithoutRef });
+        node('Root A').focus();
+        await userEvent.keyboard('{ArrowRight}');
+        expect(node('Child A1')).toHaveFocus();
+        await userEvent.keyboard('{ArrowLeft}');
+        expect(node('Root A')).toHaveFocus();
+        await userEvent.keyboard('{ArrowDown}');
+        expect(node('Child A1')).toHaveFocus();
+        await userEvent.keyboard('{ArrowUp}');
+        expect(node('Root A')).toHaveFocus();
+    });
+
+    it('moves past a disabled node, even when it has the focus', async () => {
+        renderTree({ itemComponent: ItemWithoutRef, data: [{ id: 'A', label: 'Root A' }, { id: 'B', label: 'Root B', isDisabled: true }, { id: 'C', label: 'Root C' }] });
+        node('Root A').focus();
+        await userEvent.keyboard('{ArrowDown}');
+        expect(node('Root C')).toHaveFocus();
+        node('Root B').focus();
+        await userEvent.keyboard('{ArrowDown}');
+        expect(node('Root C')).toHaveFocus();
     });
 });

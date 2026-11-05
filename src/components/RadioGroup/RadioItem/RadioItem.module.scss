@@ -9,13 +9,17 @@ $radio-sizeDefault: 16px;
         margin-top: var(--moon-spacing-medium);
     }
 
-    &[aria-disabled="true"],
-    &[aria-readonly="true"] {
+    &.moonstone-readonly,
+    &:has(.moonstone-radio_input:disabled) {
         cursor: default;
         opacity: 0.4;
 
         // Prevent :hover on disabled and read-only
         pointer-events: none;
+
+        &:has(.moonstone-radio_input:focus-visible) {
+            opacity: 1;
+        }
     }
 
     .radioItem_wrapper {
@@ -88,10 +92,10 @@ $radio-sizeDefault: 16px;
         &:hover ~ .moonstone-radio_icon {
             fill: var(--moon-color-accent_dark);
         }
+    }
 
-        &:focus-visible:not([aria-disabled="true"], [aria-readonly="true"]) ~ .moonstone-radio_icon {
-            fill: var(--moon-color-accent_dark_contrast);
-        }
+    .moonstone-radio_input:focus-visible ~ .moonstone-radio_icon {
+        fill: var(--moon-color-accent_dark_contrast);
     }
 }
 

@@ -14,6 +14,19 @@ describe('Menu', () => {
         expect(screen.queryByTestId('moonstone-menu')).not.toBeInTheDocument();
     });
 
+    it.each([false, null])('should render and search when the first child is %s', async (empty) => {
+        const user = userEvent.setup();
+
+        render(
+            <Menu hasSearch isDisplayed>
+                {empty}
+                <MenuItem label="Item1"/>
+            </Menu>,
+        );
+        await user.type(screen.getByRole('searchbox'), 'Item');
+        expect(screen.getByText('Item1')).toBeInTheDocument();
+    });
+
     describe('search functionality', () => {
         it('should name the search input', () => {
             render(

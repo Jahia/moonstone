@@ -1,4 +1,5 @@
 @use "../../utils/motion" as *;
+@use "../../utils/mixins" as *;
 
 .moonstone-switch_icon {
     @include transition(all 0.2s ease-out);
@@ -53,6 +54,8 @@
 }
 
 .moonstone-switch_input {
+    @include min-target-size;
+
     position: absolute;
     top: 2px;
 

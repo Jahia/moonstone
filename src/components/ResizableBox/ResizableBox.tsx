@@ -4,6 +4,7 @@ import React, { useId, useLayoutEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 
 import { zones } from './ResizableBox.types';
+import { shouldIgnoreKey } from '~/hooks';
 import { HandleResize } from '~/icons';
 
 import type { EnableZonesProps, ResizableBoxProps } from './ResizableBox.types';
@@ -52,8 +53,7 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
     }, [size?.width]);
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
-        const hasModifier = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
-        if (e.defaultPrevented || hasModifier) {
+        if (shouldIgnoreKey(e)) {
             return;
         }
 

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { shouldIgnoreKey } from './shouldIgnoreKey';
+
 type onArrowIncrementationProps = {
     onKeyUp?: React.KeyboardEventHandler;
     ref: React.RefObject<HTMLInputElement>;
@@ -28,10 +30,9 @@ onArrowIncrementationProps) => {
 
         if (e.key === 'Home' || e.key === 'End') {
             const bound = e.key === 'Home' ? min : max;
-            const hasModifier = e.shiftKey || e.ctrlKey || e.metaKey || e.altKey;
 
             // Without that bound, or with a modifier (Shift+Home selects), Home and End keep editing the text box
-            if (!Number.isFinite(bound) || hasModifier || element.readOnly) {
+            if (!Number.isFinite(bound) || shouldIgnoreKey(e) || element.readOnly) {
                 return;
             }
 

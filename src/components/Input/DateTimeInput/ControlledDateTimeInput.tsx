@@ -31,15 +31,16 @@ import {
 import { Button, Dropdown, Typography } from '~/components';
 import { WithoutField } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils';
+import { shouldIgnoreKey } from '~/hooks';
 import { Calendar } from '~/icons';
 
 import type { ControlledDateTimeInputProps } from './DateTimeInput.types';
 import type { DropdownProps } from '@daypicker/react';
 import type { Temporal } from 'temporal-polyfill';
 
+import dayPickerClassNames from '@daypicker/react/style.module.css';
 import baseInputStyles from '../BaseInput/BaseInput.module.scss';
 import styles from './DateTimeInput.module.scss';
-import dayPickerClassNames from '@daypicker/react/style.module.css';
 
 // Options outside `startMonth`/`endMonth` arrive already flagged as disabled.
 const toDropdownData = (options: DropdownProps['options']) => (options ?? []).map(option => ({
@@ -237,7 +238,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
             <div
                 className={styles.fieldsRow}
                 onKeyDown={(event) => {
-                    if (event.key === 'Escape' && isCalendarOpen) {
+                    if (event.key === 'Escape' && isCalendarOpen && !shouldIgnoreKey(event)) {
                         event.stopPropagation();
                         setIsCalendarOpen(false);
                     }
@@ -267,7 +268,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     onClick={openCalendar}
                     onKeyDown={(event) => {
                         // Only on an untouched field — once a draft exists Space is a character; keydown runs before insertion.
-                        if (event.key === ' ' && draft === null) {
+                        if (event.key === ' ' && draft === null && !shouldIgnoreKey(event)) {
                             event.preventDefault();
                             openCalendar();
                         }

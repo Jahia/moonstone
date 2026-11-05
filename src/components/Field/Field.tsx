@@ -1,5 +1,6 @@
+import { FloatingList } from '@floating-ui/react';
 import clsx from 'clsx';
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 
 import { FieldContext } from './Field.context';
 import { Typography } from '~/components';
@@ -22,6 +23,7 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
     ...props
 }, ref) => {
     const hasErrorMessage = Boolean(hasError && errorMessage);
+    const controlsRef = useRef<HTMLElement[]>([]);
     const field = useMemo(() => ({
         labelId: `${id}-label`,
         controlId: `${id}-control`,
@@ -109,7 +111,7 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
                 )}
             >
                 <FieldContext.Provider value={field}>
-                    {children}
+                    <FloatingList elementsRef={controlsRef}>{children}</FloatingList>
                 </FieldContext.Provider>
                 {hasErrorMessage
                     && <Typography className={clsx('moonstome-field_errorMessage', styles['moonstome-field_errorMessage'])} id={`${id}-error`} role="alert" variant="caption">{errorMessage}</Typography>}
