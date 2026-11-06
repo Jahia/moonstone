@@ -41,7 +41,7 @@ export const LayoutContent = React.forwardRef(({
             {header}
             <section
                 aria-busy={isLoading ? 'true' : undefined}
-                aria-label={i18n?.contentLabel || 'Page content'}
+                aria-label={i18n?.contentLabel}
                 className={classNameProps}
             >
                 {
