@@ -1,5 +1,9 @@
 # @jahia/moonstone Changelog
 
+## 2.21.1
+
+* Fixed `Drawer` ignoring the width its consumer sets, and `Pill` stretching to the full width of its container.
+
 ## 2.21.0
 
 ### New Features
