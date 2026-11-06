@@ -121,6 +121,9 @@
     }
 
     &.moonstone-reverse {
+        // danger is too dark on reversed backgrounds
+        color: var(--moon-color-danger_plain60);
+
         &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
             color: var(--moon-color-white);
 
