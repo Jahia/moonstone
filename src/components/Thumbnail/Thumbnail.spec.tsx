@@ -18,6 +18,16 @@ describe('Thumbnail', () => {
         expect(img).toHaveAttribute('alt', 'Test image');
     });
 
+    it('should warn when alt is missing on an image, not when it is empty or there is no image', () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+        render(<Thumbnail alt="" src="https://example.com/image.jpg"/>);
+        render(<Thumbnail/>);
+        expect(warn).not.toHaveBeenCalled();
+        render(<Thumbnail src="https://example.com/image.jpg"/>);
+        expect(warn).toHaveBeenCalledWith(expect.stringContaining('`alt`'));
+        warn.mockRestore();
+    });
+
     it('should render React element when src is an element', () => {
         render(<Thumbnail alt="" src={<Love data-testid="custom-icon"/>}/>);
         expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
