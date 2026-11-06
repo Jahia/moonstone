@@ -4,6 +4,7 @@ import React from 'react';
 
 import { ListItem } from '~/components';
 import { mergeHandlers, onAccessibleClick, rovingItemProps } from '~/hooks';
+import { warnOnce } from '~/utils/warnOnce';
 
 import type { MenuItemProps } from './MenuItem.types';
 import type { ListItemProps } from '~/components/ListItem/ListItem.types';
@@ -58,7 +59,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
                 ...props,
                 onKeyUp: (e: React.KeyboardEvent<HTMLLIElement>) => {
                     if (onKeyPress) {
-                        console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
+                        warnOnce('MenuItem.onKeyPress', 'onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
                         onKeyPress(e);
                     }
 

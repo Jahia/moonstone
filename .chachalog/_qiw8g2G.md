@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-Show the warning for an icon-only `Button` with no name once, and only in development, instead of on every render in production too (#1636)
+Fixed warnings that filled the console on every render: each one now shows once, and only in development (#1636)

@@ -52,8 +52,8 @@ export default defineConfig({
         'typescript/no-empty-object-type': 'error',
         'typescript/no-unsafe-function-type': 'error',
         'typescript/no-unnecessary-type-constraint': 'error',
-        // Deprecation messages go through console.warn
-        'no-console': ['warn', { allow: ['warn'] }],
+        // A warning goes through warnOnce, the one file allowed below
+        'no-console': 'error',
         'eqeqeq': ['error', 'smart'],
         'array-callback-return': 'error',
         'radix': 'error',
@@ -171,6 +171,19 @@ export default defineConfig({
                 'prefer-const': 'error',
                 'prefer-rest-params': 'error',
                 'prefer-spread': 'error',
+            },
+        },
+        {
+            files: ['src/utils/warnOnce.ts'],
+            rules: {
+                'no-console': 'off',
+            },
+        },
+        {
+            // Node scripts of the repository, not shipped: their console is their output
+            files: ['scripts/**'],
+            rules: {
+                'no-console': 'off',
             },
         },
         {
