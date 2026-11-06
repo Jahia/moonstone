@@ -72,6 +72,7 @@
     "start": "storybook dev -p 6006",
     "tdd": "vitest watch",
     "test": "vitest run --coverage --project unit --project browser",
+    "test:a11y": "vitest run --project storybook-light --project storybook-dark",
     "test:visual": "vitest --project visual --reporter verbose",
     "a11y:report": "node scripts/a11y-report.mjs",
     "tsc": "tsc --build tsconfig.json && cp ./dist/index.d.ts ./dist/index.d.cts"
