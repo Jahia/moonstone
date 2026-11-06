@@ -44,6 +44,8 @@ export default defineConfig({
         'typescript/no-inferrable-types': 'error',
         // Off: tsgolint disagrees with tsc here and its autofix removes load-bearing, breaking the build.
         'typescript/no-unnecessary-type-assertion': 'off',
+        // Off while strictNullChecks is off: it reads a possibly-undefined value as never undefined (#1508)
+        'typescript/no-useless-default-assignment': 'off',
         // From tseslint "recommended"; missing from oxlint's correctness category
         'typescript/ban-ts-comment': 'error',
         'typescript/no-explicit-any': 'warn',
@@ -180,7 +182,6 @@ export default defineConfig({
                 ...storybook.configs['flat/recommended'][1].rules,
                 // Fixture objects read better with several properties per line
                 '@stylistic/object-property-newline': 'off',
-                'typescript/no-useless-default-assignment': 'off',
             },
         },
         {
