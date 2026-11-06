@@ -43,7 +43,7 @@ describe('ListSelector keyboard', () => {
         await waitFor(() => expect(screen.getAllByRole('searchbox')[0]).toHaveFocus());
     });
 
-    it.fails('reaches the options of the left list with Tab', async () => {
+    it('reaches the options of the left list with Tab', async () => {
         renderSelector();
         screen.getAllByRole('searchbox')[0].focus();
         await userEvent.keyboard('{Tab}');
@@ -64,7 +64,7 @@ describe('ListSelector keyboard', () => {
         expect(onChange).toHaveBeenCalledWith(['1', '3', '4']);
     });
 
-    it.fails('reaches the options of the right list with Tab', async () => {
+    it('reaches the options of the right list with Tab', async () => {
         renderSelector();
         screen.getAllByRole('searchbox')[1].focus();
         await userEvent.keyboard('{Tab}');
