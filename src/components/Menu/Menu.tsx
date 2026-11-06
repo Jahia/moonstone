@@ -214,6 +214,8 @@ export const Menu: React.FC<MenuProps> = ({
                             className,
                             (!isDisplayed || !stylePosition) && ['moonstone-hidden', styles['moonstone-hidden']],
                         )}
+                        // oxlint-disable-next-line jsx-a11y/no-redundant-roles -- consumers select the menu by [role="list"], as jContent does
+                        role="list"
                         style={styleMenu}
                         onMouseEnter={onMouseEnter}
                         onMouseLeave={onMouseLeave}

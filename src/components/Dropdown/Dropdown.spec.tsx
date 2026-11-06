@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Dropdown, DropdownMenu, TreeViewMenu } from './index';
@@ -556,5 +556,29 @@ describe('TreeViewMenu', () => {
             />,
         );
         expect(screen.getByRole('list')).toHaveStyle(props);
+    });
+
+    it('should not call onBlur when no onFocus was delivered', () => {
+        const onBlur = vi.fn();
+        render(<Dropdown data={dropdownData} value="" onBlur={onBlur}/>);
+        const trigger = screen.getByRole('listbox');
+
+        act(() => trigger.focus());
+        act(() => trigger.blur());
+
+        expect(onBlur).not.toHaveBeenCalled();
+    });
+
+    it('should call onFocus once, then onBlur once', () => {
+        const onFocus = vi.fn();
+        const onBlur = vi.fn();
+        render(<Dropdown data={dropdownData} value="" onBlur={onBlur} onFocus={onFocus}/>);
+        const trigger = screen.getByRole('listbox');
+
+        act(() => trigger.focus());
+        act(() => trigger.blur());
+
+        expect(onFocus).toHaveBeenCalledTimes(1);
+        expect(onBlur).toHaveBeenCalledTimes(1);
     });
 });
