@@ -6,7 +6,7 @@ import type { UncontrolledTextareaProps } from './Textarea.types';
 import type { ChangeEvent } from 'react';
 
 export const UncontrolledTextarea = React.forwardRef<HTMLTextAreaElement, UncontrolledTextareaProps>(({ defaultValue, onChange, ...props }, ref) => {
-    const [textareaValue, setTextareaValue] = useState(defaultValue);
+    const [textareaValue, setTextareaValue] = useState(defaultValue ?? '');
 
     const handleOnChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         setTextareaValue(event.target.value);
