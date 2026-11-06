@@ -6,6 +6,7 @@ import { Button } from '~/components';
 import { useFieldAria, useFieldControlId } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils.js';
 import { Cancel } from '~/icons';
+import { warnOnce } from '~/utils/warnOnce';
 
 import type { ControlledBaseInputProps } from './BaseInput.types';
 
@@ -124,7 +125,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                         }
 
                         if (onKeyPress) {
-                            console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
+                            warnOnce('BaseInput.onKeyPress', 'onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
                             onKeyPress(e);
                         }
 
