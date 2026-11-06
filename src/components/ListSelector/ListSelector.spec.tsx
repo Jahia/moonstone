@@ -167,4 +167,9 @@ describe('MultipleLeftRightSelector', () => {
 
         expect(screen.getByText('test left')).toBeInTheDocument();
     });
+
+    it('should show no list title when the label is not given', () => {
+        render(<ListSelector onChange={() => ({})}/>);
+        expect(screen.queryByRole('heading')).not.toBeInTheDocument();
+    });
 });
