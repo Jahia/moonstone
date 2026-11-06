@@ -37,8 +37,10 @@ onArrowIncrementationProps) => {
             }
 
             e.preventDefault();
-            element.value = bound.toString().replace('.', separator ?? '.');
+            // The prototype setter bypasses the value tracker of React, so the input event reaches onChange
+            Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(element, bound.toString().replace('.', separator ?? '.'));
             element.defaultValue = element.value;
+            element.dispatchEvent(new Event('input', { bubbles: true }));
             return;
         }
 

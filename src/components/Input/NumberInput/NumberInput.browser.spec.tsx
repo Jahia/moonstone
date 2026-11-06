@@ -67,6 +67,15 @@ describe('NumberInput keyboard', () => {
         expect(screen.getByRole('textbox')).toHaveValue('10');
     });
 
+    it('calls onChange with the bound on Home and End', async () => {
+        const onChange = vi.fn((e: React.ChangeEvent<HTMLInputElement>) => e.target.value);
+        render(<NumberInput defaultValue="5" max={10} min={0} onChange={onChange}/>);
+        screen.getByRole('textbox').focus();
+        await userEvent.keyboard('{Home}');
+        await userEvent.keyboard('{End}');
+        expect(onChange.mock.results.map(r => r.value)).toEqual(['0', '10']);
+    });
+
     it('moves the caret with Home and End when no bound is set', async () => {
         render(<NumberInput defaultValue="123"/>);
         const input = screen.getByRole<HTMLInputElement>('textbox');
