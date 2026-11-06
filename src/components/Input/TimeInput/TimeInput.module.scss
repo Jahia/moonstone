@@ -2,7 +2,8 @@
     gap: var(--moon-spacing-nano);
 }
 
-.field_12h {
+// The parent class lifts specificity above BaseInput's global class, whose width the legacy global bundle loads later.
+.timeInput .field_12h {
     width: 80px;
 }
 
