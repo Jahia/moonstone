@@ -2,7 +2,7 @@ const warned = new Set<string>();
 
 // The one place of the library that writes to the console
 export const warnOnce = (key: string, message: string): void => {
-    if (process.env.NODE_ENV === 'production' || warned.has(key)) {
+    if (warned.has(key)) {
         return;
     }
 

@@ -117,22 +117,13 @@ describe('Button', () => {
         warn.mockRestore();
     });
 
-    it('should warn once in development when an icon-only button with no name renders several times', () => {
+    it('should warn once when an icon-only button with no name renders several times', () => {
         const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
         const { rerender } = render(<Button icon={<Love/>}/>);
         rerender(<Button icon={<Love/>} size="small"/>);
         rerender(<Button icon={<Love/>} size="big"/>);
         expect(warn).toHaveBeenCalledTimes(1);
         warn.mockRestore();
-    });
-
-    it('should not warn in production when an icon-only button has no name', () => {
-        vi.stubEnv('NODE_ENV', 'production');
-        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
-        render(<Button icon={<Love/>}/>);
-        expect(warn).not.toHaveBeenCalled();
-        warn.mockRestore();
-        vi.unstubAllEnvs();
     });
 
     it('should display loader when an icon is provided', () => {

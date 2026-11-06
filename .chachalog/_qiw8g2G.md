@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-Fixed warnings that filled the console on every render: each one now shows once, and only in development (#1636)
+Fixed warnings that filled the console on every render: each one now shows only once (#1636)
