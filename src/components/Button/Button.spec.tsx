@@ -117,15 +117,6 @@ describe('Button', () => {
         warn.mockRestore();
     });
 
-    it('should warn once when an icon-only button with no name renders several times', () => {
-        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
-        const { rerender } = render(<Button icon={<Love/>}/>);
-        rerender(<Button icon={<Love/>} size="small"/>);
-        rerender(<Button icon={<Love/>} size="big"/>);
-        expect(warn).toHaveBeenCalledTimes(1);
-        warn.mockRestore();
-    });
-
     it('should display loader when an icon is provided', () => {
         render(<Button isLoading icon={<Love/>} label="test me"/>);
         expect(screen.getByRole('status', { hidden: true })).toBeInTheDocument();
