@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Typography } from '../Typography';
 import { Loader } from '~/components/Loader';
@@ -40,9 +40,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
         onClick?.(e);
     };
 
-    if (!label && !props['aria-label'] && !props['aria-labelledby'] && !props.title) {
-        console.warn('Button: add a label, an aria-label, an aria-labelledby or a title to name a button that only shows an icon');
-    }
+    const isUnnamed = !label && !props['aria-label'] && !props['aria-labelledby'] && !props.title;
+    useEffect(() => {
+        if (process.env.NODE_ENV !== 'production' && isUnnamed) {
+            console.warn('Button: add a label, an aria-label, an aria-labelledby or a title to name a button that only shows an icon');
+        }
+    }, [isUnnamed]);
 
     const LoaderReversed = Boolean(variant === 'default' && (color === 'accent' || color === 'danger'));
 
