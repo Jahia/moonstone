@@ -1,4 +1,5 @@
 import { getTodayPlainDate, plainDateToDate, toPlainDate } from '../utils/temporal';
+import { warnOnce } from '~/utils/warnOnce';
 
 import type { CalendarDate, DateFormat, DayOfWeek, DisabledDateRange } from './DateTimeInput.types';
 import type { Matcher } from '@daypicker/react';
@@ -84,9 +85,7 @@ export const formatPlainDate = (value: Temporal.PlainDate | null, locale?: strin
             return formatWithPattern(value, locale, dateFormat);
         }
 
-        // Warns on every render by design: an invalid `dateFormat` is a consumer mistake, and it's
-        // the consumer's job to fix it. Kept simple — no dedup state.
-        console.warn(`Ignoring invalid \`dateFormat\` "${dateFormat}": expected LDML tokens such as \`dd/MM/yyyy\`. Falling back to the locale format.`);
+        warnOnce(`calendar.dateFormat.${dateFormat}`, `Ignoring invalid \`dateFormat\` "${dateFormat}": expected LDML tokens such as \`dd/MM/yyyy\`. Falling back to the locale format.`);
     }
 
     return new Intl.DateTimeFormat(locale || undefined).format(plainDateToDate(value));
