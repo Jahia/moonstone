@@ -44,6 +44,8 @@ export default defineConfig({
         'typescript/no-inferrable-types': 'error',
         // Off: tsgolint disagrees with tsc here and its autofix removes load-bearing, breaking the build.
         'typescript/no-unnecessary-type-assertion': 'off',
+        // Off while strictNullChecks is off: it reads a possibly-undefined value as never undefined (#1508)
+        'typescript/no-useless-default-assignment': 'off',
         // From tseslint "recommended"; missing from oxlint's correctness category
         'typescript/ban-ts-comment': 'error',
         'typescript/no-explicit-any': 'warn',
@@ -52,8 +54,8 @@ export default defineConfig({
         'typescript/no-empty-object-type': 'error',
         'typescript/no-unsafe-function-type': 'error',
         'typescript/no-unnecessary-type-constraint': 'error',
-        // Deprecation messages go through console.warn
-        'no-console': ['warn', { allow: ['warn'] }],
+        // A warning goes through warnOnce, the one file allowed below
+        'no-console': 'error',
         'eqeqeq': ['error', 'smart'],
         'array-callback-return': 'error',
         'radix': 'error',
@@ -174,13 +176,25 @@ export default defineConfig({
             },
         },
         {
+            files: ['src/utils/warnOnce.ts'],
+            rules: {
+                'no-console': 'off',
+            },
+        },
+        {
+            // Node scripts of the repository, not shipped: their console is their output
+            files: ['scripts/**'],
+            rules: {
+                'no-console': 'off',
+            },
+        },
+        {
             files: ['**/*.stories.{ts,tsx,js,jsx}'],
             jsPlugins: ['eslint-plugin-storybook'],
             rules: {
                 ...storybook.configs['flat/recommended'][1].rules,
                 // Fixture objects read better with several properties per line
                 '@stylistic/object-property-newline': 'off',
-                'typescript/no-useless-default-assignment': 'off',
             },
         },
         {

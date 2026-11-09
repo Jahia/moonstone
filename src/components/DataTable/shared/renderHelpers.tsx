@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Typography } from '~/components';
+import { warnOnce } from '~/utils/warnOnce';
 
 type LocaleProp = string | string[];
 
@@ -16,7 +17,7 @@ export type LocaleOptions = {
 
 export const renderString = (value: string): React.ReactNode => {
     if (typeof value !== 'string') {
-        console.warn('renderString expects a string, received:', typeof value, value);
+        warnOnce('renderString', `renderString expects a string, received: ${typeof value}`);
         return null;
     }
 
@@ -31,7 +32,7 @@ export const renderNumber = (
     }
 
     if (typeof value !== 'number' && typeof value !== 'bigint') {
-        console.warn('renderNumber expects a number or bigint, received:', typeof value, value);
+        warnOnce('renderNumber', `renderNumber expects a number or bigint, received: ${typeof value}`);
         return null;
     }
 
@@ -50,7 +51,7 @@ export const renderDate = (
     }
 
     if (!(value instanceof Date)) {
-        console.warn('renderDate expects a Date object, received:', typeof value, value);
+        warnOnce('renderDate', `renderDate expects a Date object, received: ${typeof value}`);
         return null;
     }
 

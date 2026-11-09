@@ -2,6 +2,7 @@ import React, { useImperativeHandle, useRef } from 'react';
 
 import { BaseInput } from './BaseInput';
 import { SearchInput } from './SearchInput';
+import { warnOnce } from '~/utils/warnOnce';
 
 import type { InputProps } from './Input.types';
 
@@ -10,7 +11,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({ ...props 
     useImperativeHandle(ref, () => inputRef.current!, []);
 
     if (props.variant === 'search') {
-        console.warn(
+        warnOnce(
+            'Input.variant',
             'The prop `variant` of the Input component is deprecated, and it will be removed in a next release. If you need the `search` variant, please use the dedicated component `SearchInput`',
         );
         return <SearchInput ref={inputRef} {...props} variant="outlined"/>;

@@ -48,6 +48,15 @@ describe('TableHeadCell', () => {
         expect(handleClick).toHaveBeenCalledTimes(1);
     });
 
+    it('should stay empty without children', () => {
+        render(
+            <TableWrapper>
+                <TableHeadCell data-testid="moonstone-TableHeadCell"/>
+            </TableWrapper>,
+        );
+        expect(screen.getByTestId('moonstone-TableHeadCell')).toBeEmptyDOMElement();
+    });
+
     describe('sorting', () => {
         it('should sort descending direction', () => {
             render(

@@ -15,6 +15,7 @@ import React, { useEffect, useMemo } from 'react';
 
 import { ModalContext } from './Modal.context';
 import { layout } from '~/globals/css-utils.js';
+import { warnOnce } from '~/utils/warnOnce';
 
 import type { ModalProps } from './Modal.types';
 
@@ -54,7 +55,7 @@ const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps
     // The portal mounts the dialog one render after isOpen, so the check waits for the dialog element
     useEffect(() => {
         if (elements.floating && !ariaLabel && !ariaLabelledBy && !document.getElementById(titleId)) {
-            console.warn('Modal: add a ModalHeader with a title, or an aria-label, to name the dialog');
+            warnOnce('Modal.name', 'Modal: add a ModalHeader with a title, or an aria-label, to name the dialog');
         }
     }, [elements.floating, ariaLabel, ariaLabelledBy, titleId]);
 

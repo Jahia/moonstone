@@ -75,3 +75,11 @@ describe('Drawer keyboard', () => {
         expect(screen.getByRole('button', { name: 'Inside action' })).not.toHaveFocus();
     });
 });
+
+// The 2.21.1 fix was lost once on main (app-shell#409)
+describe('Drawer styles', () => {
+    it('lets its consumer set its width, with no min-width of 100%', () => {
+        render(<Drawer isOpen aria-label="Side panel"><p>Drawer content</p></Drawer>);
+        expect(getComputedStyle(screen.getByRole('complementary', { name: 'Side panel' })).minWidth).not.toBe('100%');
+    });
+});

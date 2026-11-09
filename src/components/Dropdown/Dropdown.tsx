@@ -1,5 +1,5 @@
-/* eslint-disable complexity */
 import clsx from 'clsx';
+/* eslint-disable complexity */
 import React, { useEffect, useId, useMemo, useRef, useState } from 'react';
 
 import { Tag } from '../Tag';
@@ -8,6 +8,7 @@ import { DropdownMenu, TreeViewMenu } from '~/components/Dropdown';
 import { useFieldAria } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils.js';
 import { Cancel, ChevronDown } from '~/icons';
+import { warnOnce } from '~/utils/warnOnce';
 
 import type {
     DropdownData,
@@ -83,15 +84,15 @@ export const Dropdown: React.FC<DropdownProps> = ({
     ...props
 }) => {
     if (value !== undefined && values !== undefined) {
-        console.warn('The Dropdown component cannot receive both `value` and `values` props.');
+        warnOnce('Dropdown.value-values', 'The Dropdown component cannot receive both `value` and `values` props.');
     }
 
     if (data !== undefined && treeData !== undefined) {
-        console.warn('The Dropdown component cannot receive both `data` and `treeData` props.');
+        warnOnce('Dropdown.data-treeData', 'The Dropdown component cannot receive both `data` and `treeData` props.');
     }
 
     if (label !== undefined) {
-        console.warn('The property `label` is deprecated in the Dropdown component. Use `placeholder` to show text when no value is selected; otherwise, the label for the selected value is automatically displayed.');
+        warnOnce('Dropdown.label', 'The property `label` is deprecated in the Dropdown component. Use `placeholder` to show text when no value is selected; otherwise, the label for the selected value is automatically displayed.');
     }
 
     const [isOpened, setIsOpened] = useState(false);

@@ -3,6 +3,7 @@ import React from 'react';
 
 import { Separator, Typography } from '~/components';
 import { layout } from '~/globals/css-utils.js';
+import { warnOnce } from '~/utils/warnOnce';
 
 import type { HeaderProps } from './Header.types';
 
@@ -26,7 +27,7 @@ export const Header: React.FC<HeaderProps> = ({
     const hasToolbar = Boolean(toolbarLeft || toolbarRight);
 
     if (backButton !== null) {
-        console.warn('backButton is deprecated and will be removed in a future release.');
+        warnOnce('Header.backButton', 'backButton is deprecated and will be removed in a future release.');
     }
 
     return (
