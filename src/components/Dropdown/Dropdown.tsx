@@ -268,6 +268,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                             isDisabled={isDisabled}
                                             key={item.value}
                                             label={item.label}
+                                            // oxlint-disable-next-line jsx-a11y/role-has-required-aria-props -- #1604
                                             role="option"
                                             size={size}
                                             value={item.value}
@@ -291,6 +292,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                     ['moonstone-dropdown_label', styles['moonstone-dropdown_label']],
                                 )}
                                 component="span"
+                                // oxlint-disable-next-line jsx-a11y/role-has-required-aria-props -- #1604
                                 role="option"
                                 title={label}
                                 variant={size === 'small' ? 'caption' : 'body'}
