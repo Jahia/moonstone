@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { userEvent } from 'vitest/browser';
 
 import { Drawer } from './index';
-import { Button, Tab, TabItem } from '~/components';
+import { Button, Menu, MenuItem, Tab, TabItem, TreeView } from '~/components';
 
 const Harness = () => {
     const [open, setOpen] = useState(false);
@@ -73,6 +73,25 @@ describe('Drawer keyboard', () => {
         const { rerender } = render(<Drawer aria-label="Side panel">{content}</Drawer>);
         rerender(<Drawer isOpen aria-label="Side panel">{content}</Drawer>);
         await waitFor(() => expect(screen.getByRole('tab', { name: 'Second' })).toHaveFocus());
+    });
+
+    it('moves focus to the selected item of a Menu placed first when it opens', async () => {
+        const content = (
+            <Menu isDisplayed>
+                <MenuItem label="First"/>
+                <MenuItem isSelected label="Second"/>
+            </Menu>
+        );
+        const { rerender } = render(<Drawer aria-label="Side panel">{content}</Drawer>);
+        rerender(<Drawer isOpen aria-label="Side panel">{content}</Drawer>);
+        await waitFor(() => expect(screen.getByText('Second').closest('li')).toHaveFocus());
+    });
+
+    it('moves focus to the selected node of a TreeView placed first when it opens', async () => {
+        const content = <TreeView data={[{ id: 'a', label: 'Node A' }, { id: 'b', label: 'Node B' }]} selectedItems={['b']}/>;
+        const { rerender } = render(<Drawer aria-label="Side panel">{content}</Drawer>);
+        rerender(<Drawer isOpen aria-label="Side panel">{content}</Drawer>);
+        await waitFor(() => expect(screen.getByRole('treeitem', { name: 'Node B' })).toHaveFocus());
     });
 
     it('closes with Escape when nothing inside can take focus', async () => {
