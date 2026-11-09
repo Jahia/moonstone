@@ -28,6 +28,14 @@ describe('Thumbnail', () => {
         warn.mockRestore();
     });
 
+    it('should not warn when alt is missing and src is a React element', () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+        render(<Thumbnail src={<Love data-testid="custom-icon"/>}/>);
+        expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
+        expect(warn).not.toHaveBeenCalled();
+        warn.mockRestore();
+    });
+
     it('should render React element when src is an element', () => {
         render(<Thumbnail alt="" src={<Love data-testid="custom-icon"/>}/>);
         expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
