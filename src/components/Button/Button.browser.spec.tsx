@@ -92,13 +92,17 @@ describe.each([
         await userEvent.keyboard('[/Space]');
     });
 
-    it('at rest', () => {
-        expectContrast(reversedButton());
+    it('at rest', async () => {
+        const button = reversedButton();
+        await userEvent.hover(screen.getByRole('button', { name: 'away' }));
+        expect(button.matches(':hover')).toBe(false);
+        expectContrast(button);
     });
 
     it('on hover', async () => {
         const button = reversedButton();
         await userEvent.hover(button);
+        expect(button.matches(':hover')).toBe(true);
         expectContrast(button);
     });
 
@@ -107,6 +111,7 @@ describe.each([
         await userEvent.hover(button);
         button.focus();
         await userEvent.keyboard('[Space>]');
+        expect(button.matches(':hover')).toBe(true);
         expect(button.matches(':active')).toBe(true);
         expectContrast(button);
     });
@@ -116,6 +121,7 @@ describe.each([
         await userEvent.hover(screen.getByRole('button', { name: 'away' }));
         button.focus();
         await userEvent.keyboard('[Space>]');
+        expect(button.matches(':hover')).toBe(false);
         expect(button.matches(':active')).toBe(true);
         expectContrast(button);
     });
