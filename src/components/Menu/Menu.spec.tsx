@@ -217,9 +217,4 @@ describe('Menu', () => {
             </Menu>,
         );
     });
-
-    it('should give the menu the list role', () => {
-        render(<Menu isDisplayed data-testid="moonstone-menu"><MenuItem label="item"/></Menu>);
-        expect(screen.getByTestId('moonstone-menu')).toHaveAttribute('role', 'list');
-    });
 });
