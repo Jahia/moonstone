@@ -182,7 +182,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 }
 
                 if (canClose !== false) {
-                    // The menu unmounts with the focus inside it, unless onChange moved the focus
+                    // Unless onChange moved it, focus goes back to the trigger: the menu unmounts with it inside
                     if (document.activeElement === focusedOption) {
                         ref.current.focus();
                     }
