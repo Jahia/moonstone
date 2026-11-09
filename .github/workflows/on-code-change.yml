@@ -18,6 +18,8 @@ jobs:
       - run: yarn build
       - run: yarn playwright install chromium --only-shell
       - run: yarn test
+      - name: Accessibility test (axe on every story)
+        run: yarn test:a11y
       - name: Run visual tests
         id: visual-tests
         if: (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'test:visual')) || (github.event_name == 'workflow_dispatch' && github.ref_name == 'release')
