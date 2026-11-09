@@ -39,6 +39,8 @@
         }
 
         &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
+            color: var(--moon-color-white);
+
             border-color: transparent;
             background-color: var(--moon-color-gray_light40);
         }

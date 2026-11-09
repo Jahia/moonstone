@@ -46,7 +46,7 @@
         border-color: var(--moon-color-light);
 
         // accent is too dark on reversed backgrounds
-        &:hover:not(:disabled) {
+        &:hover:not(:disabled, :active) {
             color: var(--moon-color-accent_light);
 
             border-color: var(--moon-color-accent_light);
