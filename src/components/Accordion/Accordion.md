@@ -15,3 +15,7 @@ The accordion component must use the full width and full height available.
 When an AccordionItem is open it use the full height available.
 All AccordionItem's header must be always visisble.
 The Accordion component isn't scrollable, this is the content of each AccordionItem which is it.
+
+## Accessibility
+
+Each header is a button and a Tab stop. Enter or Space opens and closes its item. ArrowDown and ArrowUp move the focus to the next and the previous header.
