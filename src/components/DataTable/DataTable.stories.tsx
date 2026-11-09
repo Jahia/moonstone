@@ -164,6 +164,7 @@ export const InsertCells: Story = {
         columns: dataColumnsUser,
         primaryKey: 'id',
         enableSelection: true,
+        customColumnLabels: { before: ['Status'], after: ['Actions'] },
     },
     name: 'Insert custom cells (renderRow)',
 };
