@@ -159,6 +159,7 @@ describe('DateTimeInput keyboard', () => {
         await userEvent.keyboard('{Enter}');
         await screen.findByRole('grid', { name: 'March 2026' });
         await userEvent.keyboard('{Tab}');
+        await waitFor(() => expect(screen.getByRole('button', { name: 'Today' })).toHaveFocus());
         await userEvent.keyboard('{Tab}');
         await waitFor(() => expect(screen.getByRole('button', { name: 'after' })).toHaveFocus());
     });
