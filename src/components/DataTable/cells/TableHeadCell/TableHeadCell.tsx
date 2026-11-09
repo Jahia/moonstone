@@ -23,7 +23,7 @@ export const TableHeadCell = ({
 
     return (
         <TableCell
-            aria-sort={isSortActive ? sorting?.direction : isSortable ? 'none' : undefined}
+            aria-sort={isSortActive ? sorting?.direction : undefined}
             {...props}
             align={align}
             className={clsx(styles.tableHeadCell, { [styles.sortable]: isSortable }, className)}
