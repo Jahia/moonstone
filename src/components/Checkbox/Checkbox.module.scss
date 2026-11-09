@@ -6,13 +6,6 @@ $checkbox-sizeBig: 20px;
 
 .moonstone-checkbox {
     position: relative;
-
-    border-radius: var(--moon-radius_small);
-
-    // An input holds no ::before: the wrapper draws the ring
-    &:has(> .moonstone-checkbox_input:focus-visible) {
-        @extend %is-focused;
-    }
 }
 
 .moonstone-checkbox_sizeDefault {
@@ -68,6 +61,14 @@ $checkbox-sizeBig: 20px;
     &:hover {
         --shadow-color: var(--moon-color-gray);
         --shadow-size: 2px;
+    }
+
+    // Only triggered when the input is focus with tab
+    &:focus-visible {
+        @extend %is-focused;
+
+        // The border of the box is an inset box-shadow
+        box-shadow: inset 0 0 0 var(--shadow-size) var(--shadow-color), 0 0 0 2px $focus-ring-inner;
     }
 
     &:checked,

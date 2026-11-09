@@ -42,13 +42,6 @@ $radio-sizeDefault: 16px;
 
         width: $radio-sizeDefault;
         height: $radio-sizeDefault;
-
-        border-radius: 50%;
-
-        // An input holds no ::before: the wrapper draws the ring
-        &:has(> .moonstone-radio_input:focus-visible) {
-            @extend %is-focused;
-        }
     }
 
     .moonstone-radio_icon {
@@ -78,10 +71,15 @@ $radio-sizeDefault: 16px;
         appearance: none;
 
         border: none;
+        border-radius: 50%;
         outline: none;
         background: transparent;
 
         cursor: pointer;
+
+        &:focus-visible {
+            @extend %is-focused;
+        }
 
         &:checked ~ .moonstone-radio_iconUnchecked,
         &:not(:checked) ~ .moonstone-radio_iconChecked {

@@ -38,9 +38,8 @@ $minHeight-size: 50px;
             border: var(--moon-border-selector_hover);
         }
 
-        // A textarea holds no ::before, and it has no wrapper
         &:focus-visible {
-            @extend %is-focused-element;
+            @extend %is-focused;
         }
     }
 

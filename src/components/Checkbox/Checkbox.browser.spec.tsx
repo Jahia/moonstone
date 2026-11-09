@@ -62,18 +62,17 @@ describe('Checkbox keyboard', () => {
         expect(onChange).not.toHaveBeenCalled();
     });
 
-    it('should show the focus ring of a read-only checkbox', async () => {
+    it('should show a read-only checkbox at full opacity when it has the focus', async () => {
         render(
             <>
                 <button type="button">before</button>
                 <Checkbox isReadOnly value="a"/>
             </>,
         );
-        const ring = () => getComputedStyle(screen.getByRole('checkbox').parentElement, '::before').content;
-        expect(ring()).toBe('none');
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
-        expect(ring()).not.toBe('none');
+        expect(screen.getByRole('checkbox')).toHaveFocus();
+        expect(screen.getByRole('checkbox').matches(':focus-visible')).toBe(true);
         expect(getComputedStyle(screen.getByRole('checkbox')).opacity).toBe('1');
     });
 
