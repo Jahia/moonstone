@@ -49,7 +49,9 @@ describe('SearchContextInput', () => {
                 <SearchContextInput {...requiredProps}/>
             </Field>,
         );
-        expect(screen.getByRole('listbox')).not.toHaveAttribute('aria-describedby');
+        const dropdown = screen.getByRole('listbox');
+        expect(dropdown).not.toHaveAttribute('aria-labelledby');
+        expect(dropdown).not.toHaveAttribute('aria-describedby');
     });
 });
 

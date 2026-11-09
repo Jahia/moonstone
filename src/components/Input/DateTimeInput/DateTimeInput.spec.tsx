@@ -1509,8 +1509,15 @@ describe('DateTimeInput', () => {
         );
         await user.click(dateField());
 
-        const dropdowns = screen.getAllByRole('listbox');
-        expect(dropdowns).toHaveLength(3);
-        dropdowns.forEach(dropdown => expect(dropdown).not.toHaveAttribute('aria-describedby'));
+        // Each trigger is named after its selected label, so a missing wrapper fails on its own query
+        const month = screen.getByRole('listbox', { name: 'March' });
+        expect(month).not.toHaveAttribute('aria-labelledby');
+        expect(month).not.toHaveAttribute('aria-describedby');
+        const year = screen.getByRole('listbox', { name: '2026' });
+        expect(year).not.toHaveAttribute('aria-labelledby');
+        expect(year).not.toHaveAttribute('aria-describedby');
+        const timezone = screen.getByRole('listbox', { name: 'Paris (UTC +02:00)' });
+        expect(timezone).not.toHaveAttribute('aria-labelledby');
+        expect(timezone).not.toHaveAttribute('aria-describedby');
     });
 });

@@ -295,6 +295,8 @@ describe('TimeInput', () => {
                 <TimeInput defaultValue="14:30" timeFormat="12h" onChange={() => null}/>
             </Field>,
         );
-        expect(screen.getByRole('listbox')).not.toHaveAttribute('aria-describedby');
+        const dropdown = screen.getByRole('listbox');
+        expect(dropdown).not.toHaveAttribute('aria-labelledby');
+        expect(dropdown).not.toHaveAttribute('aria-describedby');
     });
 });
