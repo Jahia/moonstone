@@ -2,6 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 
+import { getTodayPlainDate } from '../utils/temporal';
 import { DateTimeInput } from './index';
 import { Modal } from '~/components/Modal';
 
@@ -61,6 +62,24 @@ describe('DateTimeInput keyboard', () => {
         expect(getDay('Monday, March 30th, 2026')).toHaveFocus();
     });
 
+    it('should move focus to today when Enter opens the calendar of an empty field', async () => {
+        render(<DateTimeInput locale="en" type="date"/>);
+        getField().focus();
+        await userEvent.keyboard('{Enter}');
+        await screen.findByRole('grid');
+        expect(screen.getByRole('button', { name: /^Today, / })).toHaveFocus();
+    });
+
+    it('should move focus to the first enabled day when today is disabled', async () => {
+        const today = getTodayPlainDate();
+        const firstEnabledDay = today.day === 1 ? today.with({ day: 2 }) : today.with({ day: 1 });
+        render(<DateTimeInput disabledDates={[today]} locale="en" type="date"/>);
+        getField().focus();
+        await userEvent.keyboard('{Enter}');
+        await screen.findByRole('grid');
+        expect(document.activeElement).toHaveTextContent(String(firstEnabledDay.day));
+    });
+
     it('closes the calendar with Escape and keeps focus on the date field', async () => {
         renderInput();
         getField().focus();
@@ -82,7 +101,7 @@ describe('DateTimeInput keyboard', () => {
         expect(getField()).toHaveFocus();
     });
 
-    it('closes the calendar from a day before closing a Modal around it with Escape', async () => {
+    it('should close the calendar from a day before closing a Modal around it with Escape', async () => {
         const onOpenChange = vi.fn();
         render(
             <Modal isOpen aria-label="Dates" onOpenChange={onOpenChange}>
@@ -153,6 +172,19 @@ describe('DateTimeInput keyboard', () => {
         expect(getField()).toHaveFocus();
     });
 
+    it('should keep the calendar closed when the Enter that selects a day is released on the date field', async () => {
+        renderInput();
+        getField().focus();
+        await userEvent.keyboard('{Enter}');
+        await screen.findByRole('grid', { name: 'March 2026' });
+        getDay('Monday, March 30th, 2026').focus();
+        // A real key press releases Enter after the focus is back on the date field
+        await userEvent.keyboard('{Enter>}');
+        await waitFor(() => expect(getField()).toHaveFocus());
+        await userEvent.keyboard('{/Enter}');
+        expect(screen.queryByRole('grid')).toBeNull();
+    });
+
     it('does not trap focus with Tab while the calendar is open', async () => {
         renderInput();
         getField().focus();
@@ -164,7 +196,35 @@ describe('DateTimeInput keyboard', () => {
         await waitFor(() => expect(screen.getByRole('button', { name: 'after' })).toHaveFocus());
     });
 
-    it('reaches the calendar with Tab after a click opens it', async () => {
+    it('should return focus to the date field after clicking a day', async () => {
+        renderInput();
+        await userEvent.click(getField());
+        await userEvent.click(getDay('Tuesday, March 31st, 2026'));
+        expect(screen.queryByRole('grid')).toBeNull();
+        expect(getField()).toHaveFocus();
+    });
+
+    it('should return focus to the date field after clicking Today', async () => {
+        renderInput();
+        await userEvent.click(getField());
+        await userEvent.click(screen.getByRole('button', { name: 'Today' }));
+        expect(screen.queryByRole('grid')).toBeNull();
+        expect(getField()).toHaveFocus();
+    });
+
+    it('should reach the time field with Tab from Today while the calendar stays open', async () => {
+        render(<DateTimeInput defaultValue="2026-03-30T10:00" locale="en" type="dateTime"/>);
+        screen.getAllByRole('textbox')[0].focus();
+        await userEvent.keyboard('{Enter}');
+        await screen.findByRole('grid', { name: 'March 2026' });
+        await userEvent.keyboard('{Tab}');
+        await waitFor(() => expect(screen.getByRole('button', { name: 'Today' })).toHaveFocus());
+        await userEvent.keyboard('{Tab}');
+        await waitFor(() => expect(screen.getByPlaceholderText('hh:mm')).toHaveFocus());
+        expect(screen.getByRole('grid')).toBeVisible();
+    });
+
+    it('should reach the calendar with Tab after a click opens it', async () => {
         renderInput();
         await userEvent.click(getField());
         await screen.findByRole('grid', { name: 'March 2026' });
