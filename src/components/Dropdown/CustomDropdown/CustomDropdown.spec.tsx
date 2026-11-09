@@ -137,6 +137,7 @@ describe('CustomDropdown', () => {
 
         await user.click(trigger);
         expect(screen.getByRole('list')).toBeInTheDocument();
+        expect(trigger).not.toHaveFocus();
         await user.keyboard('{Escape}');
         expect(trigger).toHaveFocus();
         expect(screen.queryByRole('list')).not.toBeInTheDocument();

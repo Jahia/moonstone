@@ -101,7 +101,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     // must not trigger a render, and the event object has to survive until the menu closes:
     // `onBlur` takes the original FocusEvent, and there is none left at that point.
     const pendingBlurEventRef = useRef<React.FocusEvent | null>(null);
-    // The 2.21.1 contract: onFocus fires once when focus enters, and onBlur only follows a delivered onFocus
+    // The contract of the published 2.21.1 (ddf86190): onFocus fires once when focus enters, and onBlur only follows a delivered onFocus
     const isFocusSentRef = useRef(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);

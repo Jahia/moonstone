@@ -475,6 +475,7 @@ describe('Dropdown', () => {
         await user.click(screen.getByRole('listbox'));
         expect(screen.getByRole('search')).toBeInTheDocument();
     });
+
     it('should not call onBlur when no onFocus was delivered', async () => {
         const user = userEvent.setup();
         const onBlur = vi.fn();
@@ -496,8 +497,10 @@ describe('Dropdown', () => {
 
         await user.click(trigger);
         expect(screen.getByRole('list')).toBeInTheDocument();
+        expect(trigger).not.toHaveFocus();
         await user.keyboard('{Escape}');
         expect(trigger).toHaveFocus();
+        expect(screen.queryByRole('list')).not.toBeInTheDocument();
         await user.tab();
 
         expect(onFocus).toHaveBeenCalledTimes(1);
