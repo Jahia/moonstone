@@ -4,7 +4,7 @@ import { userEvent } from 'vitest/browser';
 
 import { NumberInput } from './index';
 
-const ControlledNumberInput = ({ onChange, ...props }: { readonly onChange: (value: string) => void; readonly min?: number; readonly max?: number }) => {
+const ControlledNumberInput = ({ onChange, ...props }: { readonly onChange: (value: string) => void; readonly min?: number; readonly max?: number; readonly step?: number }) => {
     const [value, setValue] = useState('5');
     return (
         <NumberInput
@@ -98,6 +98,33 @@ describe('NumberInput keyboard', () => {
         await userEvent.keyboard('{End}');
         expect(onChange).toHaveBeenCalledExactlyOnceWith('10');
         expect(screen.getByRole('textbox')).toHaveValue('10');
+    });
+
+    it('should increment a controlled value and call onChange with ArrowUp', async () => {
+        const onChange = vi.fn();
+        render(<ControlledNumberInput onChange={onChange}/>);
+        screen.getByRole('textbox').focus();
+        await userEvent.keyboard('{ArrowUp}');
+        expect(onChange).toHaveBeenCalledExactlyOnceWith('6');
+        expect(screen.getByRole('textbox')).toHaveValue('6');
+    });
+
+    it('should decrement a controlled value and call onChange with ArrowDown', async () => {
+        const onChange = vi.fn();
+        render(<ControlledNumberInput onChange={onChange}/>);
+        screen.getByRole('textbox').focus();
+        await userEvent.keyboard('{ArrowDown}');
+        expect(onChange).toHaveBeenCalledExactlyOnceWith('4');
+        expect(screen.getByRole('textbox')).toHaveValue('4');
+    });
+
+    it('should clamp a controlled value to max and call onChange with ArrowUp', async () => {
+        const onChange = vi.fn();
+        render(<ControlledNumberInput max={6} step={2} onChange={onChange}/>);
+        screen.getByRole('textbox').focus();
+        await userEvent.keyboard('{ArrowUp}');
+        expect(onChange).toHaveBeenCalledExactlyOnceWith('6');
+        expect(screen.getByRole('textbox')).toHaveValue('6');
     });
 
     it('should set min with Home and leave End alone when only min is set', async () => {

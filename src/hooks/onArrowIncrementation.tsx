@@ -12,6 +12,14 @@ type onArrowIncrementationProps = {
     max?: number;
 };
 
+// The prototype setter bypasses the value tracker of React, so the input event reaches onChange
+const writeValue = (element: HTMLInputElement, value: string) => {
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(element, value);
+    // Update uncontrolled input's value in the DOM
+    element.defaultValue = value;
+    element.dispatchEvent(new Event('input', { bubbles: true }));
+};
+
 export const onArrowIncrementation = ({
     ref,
     step,
@@ -37,10 +45,7 @@ onArrowIncrementationProps) => {
             }
 
             e.preventDefault();
-            // The prototype setter bypasses the value tracker of React, so the input event reaches onChange
-            Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(element, bound.toString().replace('.', separator ?? '.'));
-            element.defaultValue = element.value;
-            element.dispatchEvent(new Event('input', { bubbles: true }));
+            writeValue(element, bound.toString().replace('.', separator ?? '.'));
             return;
         }
 
@@ -83,9 +88,7 @@ onArrowIncrementationProps) => {
 
         // Trim final value to have same digits after separator as initial value
         const fixedValue = (decimalsLeft && decimalsLeft.length > 0) ? `${newValue}${separator}${decimalsLeft}` : newValue.toString();
-        element.value = Number.isNaN(newValue) ? '' : fixedValue;
-        // Update uncontrolled input's value in the DOM
-        element.defaultValue = element.value;
+        writeValue(element, Number.isNaN(newValue) ? '' : fixedValue);
     };
 
     return {
