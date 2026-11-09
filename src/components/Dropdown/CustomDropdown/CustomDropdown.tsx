@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { Button, Menu } from '~/components';
+import { mergeHandlers, shouldIgnoreKey } from '~/hooks';
 import { ChevronDown } from '~/icons';
 
 import type { CustomDropdownProps } from './CustomDropdown.types';
@@ -111,12 +112,15 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                         onFocus(event);
                     }
                 }}
-                onKeyUp={(e) => {
-                    if (e.key === 'Enter' && !isDisabled && !isLoading) {
-                        handleOpenMenu(e);
-                    }
-                }}
-                {...props}
+                // The native button opens on Enter and Space; ArrowDown opens too, as in a native select
+                {...mergeHandlers(props, {
+                    onKeyDown: (e: React.KeyboardEvent) => {
+                        if (e.key === 'ArrowDown' && !isDisabled && !isLoading && !shouldIgnoreKey(e)) {
+                            e.preventDefault();
+                            handleOpenMenu(e);
+                        }
+                    },
+                })}
             />
 
             {isOpened && (

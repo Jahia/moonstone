@@ -55,7 +55,7 @@ describe('CustomDropdown keyboard', () => {
         expect(await screen.findByRole('list')).toBeInTheDocument();
     });
 
-    it.fails('opens with ArrowDown', async () => {
+    it('opens with ArrowDown', async () => {
         const { trigger } = renderCustomDropdown();
         trigger.focus();
         await userEvent.keyboard('{ArrowDown}');

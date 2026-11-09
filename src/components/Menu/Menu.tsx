@@ -234,12 +234,19 @@ export const Menu: React.FC<MenuProps> = ({
                                 value={inputValue}
                                 onChange={e => setInputValue(e.target.value)}
                                 onClear={() => setInputValue('')}
-                                onKeyUp={(e) => {
-                                    if (e.key === 'Enter') {
-                                        const list = React.Children.toArray(filteredChildren);
-                                        if (list.length > 0) {
-                                            (list[0] as React.ReactElement).props.onClick(e);
-                                        }
+                                onKeyDown={(e) => {
+                                    if (shouldIgnoreKey(e)) {
+                                        return;
+                                    }
+
+                                    // The first enabled item, found in the DOM so that a group title is skipped
+                                    const firstItem = itemRef.current?.querySelector<HTMLElement>('[data-roving-item]:not([aria-disabled="true"])');
+                                    if (e.key === 'ArrowDown') {
+                                        e.preventDefault();
+                                        firstItem?.focus();
+                                    } else if (e.key === 'Enter' && !e.repeat && filteredChildren) {
+                                        e.preventDefault();
+                                        firstItem?.click();
                                     }
                                 }}
                             />

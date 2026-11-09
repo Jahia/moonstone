@@ -54,14 +54,14 @@ describe('Dropdown keyboard', () => {
         expect(await screen.findByRole('list')).toBeInTheDocument();
     });
 
-    it.fails('opens with Space', async () => {
+    it('opens with Space', async () => {
         const { trigger } = renderDropdown();
         trigger.focus();
         await userEvent.keyboard(' ');
         expect(await screen.findByRole('list')).toBeInTheDocument();
     });
 
-    it.fails('opens with ArrowDown', async () => {
+    it('opens with ArrowDown', async () => {
         const { trigger } = renderDropdown();
         trigger.focus();
         await userEvent.keyboard('{ArrowDown}');
@@ -202,6 +202,16 @@ describe('Dropdown keyboard', () => {
         await userEvent.keyboard('Ban');
         await waitFor(() => expect(screen.queryByText('Apple')).not.toBeInTheDocument());
         expect(getOption('Banana')).toBeInTheDocument();
+    });
+
+    it('selects the first result with Enter in the search of a grouped Dropdown', async () => {
+        const { trigger, onChange } = renderDropdown({ hasSearch: true, data: [{ groupLabel: 'Fruits', options: data }] });
+        await openWithEnter(trigger);
+        await userEvent.keyboard('Ban');
+        await waitFor(() => expect(screen.queryByText('Apple')).not.toBeInTheDocument());
+        await userEvent.keyboard('{Enter}');
+        expect(onChange).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ value: 'banana' }));
+        expect(trigger).toHaveFocus();
     });
 
     it('toggles the focused option with Space in the multiple variant', async () => {
