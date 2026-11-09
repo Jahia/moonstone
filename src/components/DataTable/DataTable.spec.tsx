@@ -726,6 +726,25 @@ describe('DataTable', () => {
         expect(within(rows[3]).getByText('Alice')).toBeInTheDocument();
     });
 
+    it('should set `aria-sort` on the sorted header only', () => {
+        render(
+            <DataTable<TestData>
+                enableSorting
+                columns={sortableColumns}
+                data={data}
+                primaryKey="id"
+                sortBy="name"
+                sortDirection="descending"
+                onSortChange={() => { }}
+            />,
+        );
+
+        const sortedHeaders = screen.getAllByRole('columnheader').filter(header => header.hasAttribute('aria-sort'));
+        expect(sortedHeaders).toHaveLength(1);
+        expect(sortedHeaders[0]).toHaveAttribute('aria-sort', 'descending');
+        expect(sortedHeaders[0]).toHaveTextContent('Name');
+    });
+
     it('should respect controlled pagination', () => {
         // Controlled (server-side) pagination: the caller provides only the current page's items.
         // With manualPagination=true TanStack renders data as-is without client-side slicing.

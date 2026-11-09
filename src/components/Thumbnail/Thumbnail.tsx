@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 
 import { Image } from '~/icons';
+import { warnOnce } from '~/utils/warnOnce';
 
 import type { ThumbnailProps } from './Thumbnail.types';
 
@@ -31,6 +32,10 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({
     }
 
     if (typeof src === 'string') {
+        if (alt === undefined) {
+            warnOnce('Thumbnail.alt', 'The Thumbnail component needs an `alt` prop when `src` is a URL: a text alternative, or an empty string for a decorative image.');
+        }
+
         return (
             <div className={rootClassName} {...props}>
                 <img
