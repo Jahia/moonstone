@@ -235,7 +235,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 aria-disabled={isDisabled || isEmpty}
                 aria-invalid={fieldAria['aria-invalid']}
                 aria-label={ariaLabel ?? (label || getDataItem(flatData, value)?.label || placeholder)}
-                // The name from the consumer or the Field, then the value, such as "Language French". With an aria-label, the trigger reads its own aria-label first
+                // The consumer or Field name, then the value: "Language French"
                 aria-labelledby={nameIds && `${nameIds} ${valueId}`}
                 className={clsx(cssDropdown)}
                 id={triggerId}
