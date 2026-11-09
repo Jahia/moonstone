@@ -4,6 +4,7 @@ import React, { useId } from 'react';
 import { AccordionContext } from '~/components/Accordion/Accordion.context';
 import { Typography } from '~/components/Typography';
 import { icons, layout } from '~/globals/css-utils.js';
+import { shouldIgnoreKey } from '~/hooks';
 
 import type { AccordionItemProps } from './AccordionItem.types';
 
@@ -19,6 +20,20 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         onClick?.(e, !open);
         context.onSetOpenedItem(id);
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+        if (shouldIgnoreKey(e) || (e.key !== 'ArrowDown' && e.key !== 'ArrowUp')) {
+            return;
+        }
+
+        const accordion = e.currentTarget.closest('.moonstone-accordion');
+        const headers = Array.from(accordion?.querySelectorAll<HTMLButtonElement>('.moonstone-accordionItem_header') ?? []);
+        const next = headers[headers.indexOf(e.currentTarget) + (e.key === 'ArrowDown' ? 1 : -1)];
+        if (next) {
+            e.preventDefault();
+            next.focus();
+        }
     };
 
     return (
@@ -48,6 +63,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
                     id={buttonId}
                     type="button"
                     onClick={handleClick}
+                    onKeyDown={handleKeyDown}
                 >
                     {icon && (
                         <icon.type
