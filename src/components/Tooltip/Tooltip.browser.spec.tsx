@@ -17,7 +17,7 @@ const renderTooltip = () => {
 };
 
 describe('Tooltip keyboard', () => {
-    it('appears when the trigger receives keyboard focus', async () => {
+    it('should appear when the trigger receives keyboard focus', async () => {
         const { trigger } = renderTooltip();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
@@ -25,7 +25,7 @@ describe('Tooltip keyboard', () => {
         expect(await screen.findByRole('tooltip')).toHaveTextContent('Go home');
     });
 
-    it('disappears when the trigger loses focus', async () => {
+    it('should disappear when the trigger loses focus', async () => {
         renderTooltip();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
@@ -34,7 +34,7 @@ describe('Tooltip keyboard', () => {
         await waitFor(() => expect(screen.queryByRole('tooltip')).not.toBeInTheDocument());
     });
 
-    it('dismisses with Escape while the trigger keeps focus', async () => {
+    it('should dismiss with Escape while the trigger keeps focus', async () => {
         const { trigger } = renderTooltip();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
@@ -46,7 +46,7 @@ describe('Tooltip keyboard', () => {
 });
 
 describe('Tooltip pointer', () => {
-    it('stays open while the pointer moves from the trigger onto it', async () => {
+    it('should stay open while the pointer moves from the trigger onto it', async () => {
         const { trigger } = renderTooltip();
         await userEvent.hover(trigger);
         const tooltip = await screen.findByRole('tooltip');

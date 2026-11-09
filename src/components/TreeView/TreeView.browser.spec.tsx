@@ -33,7 +33,7 @@ const renderTree = (props = {}) => {
 const node = (label: string) => screen.getByRole('treeitem', { name: new RegExp(`^${label}`) });
 
 describe('TreeView keyboard', () => {
-    it('exposes a single Tab stop: Tab enters the tree and the next Tab leaves it', async () => {
+    it('should expose a single Tab stop: Tab enters the tree and the next Tab leaves it', async () => {
         renderTree();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
@@ -42,14 +42,14 @@ describe('TreeView keyboard', () => {
         expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
     });
 
-    it('exposes aria-expanded on parent nodes only', () => {
+    it('should expose aria-expanded on parent nodes only', () => {
         renderTree();
         expect(node('Root A')).toHaveAttribute('aria-expanded', 'true');
         expect(node('Root B')).toHaveAttribute('aria-expanded', 'false');
         expect(node('Root C')).not.toHaveAttribute('aria-expanded');
     });
 
-    it('moves focus to the next visible node with ArrowDown', async () => {
+    it('should move focus to the next visible node with ArrowDown', async () => {
         renderTree();
         node('Root A').focus();
         await userEvent.keyboard('{ArrowDown}');
@@ -59,14 +59,14 @@ describe('TreeView keyboard', () => {
         expect(node('Root B')).toHaveFocus();
     });
 
-    it('moves focus to the previous visible node with ArrowUp', async () => {
+    it('should move focus to the previous visible node with ArrowUp', async () => {
         renderTree();
         node('Root B').focus();
         await userEvent.keyboard('{ArrowUp}');
         expect(node('Child A2')).toHaveFocus();
     });
 
-    it('expands a closed node with ArrowRight and keeps focus on it', async () => {
+    it('should expand a closed node with ArrowRight and keep focus on it', async () => {
         renderTree();
         node('Root B').focus();
         await userEvent.keyboard('{ArrowRight}');
@@ -75,7 +75,7 @@ describe('TreeView keyboard', () => {
         expect(node('Root B')).toHaveFocus();
     });
 
-    it('moves focus to the first child with ArrowRight on an open node', async () => {
+    it('should move focus to the first child with ArrowRight on an open node', async () => {
         renderTree();
         node('Root A').focus();
         await userEvent.keyboard('{ArrowRight}');
@@ -83,7 +83,7 @@ describe('TreeView keyboard', () => {
         expect(node('Child A1')).toHaveFocus();
     });
 
-    it('collapses an open node with ArrowLeft and keeps focus on it', async () => {
+    it('should collapse an open node with ArrowLeft and keep focus on it', async () => {
         renderTree();
         node('Root A').focus();
         await userEvent.keyboard('{ArrowLeft}');
@@ -92,7 +92,7 @@ describe('TreeView keyboard', () => {
         expect(node('Root A')).toHaveFocus();
     });
 
-    it('moves focus to the parent with ArrowLeft on a child node', async () => {
+    it('should move focus to the parent with ArrowLeft on a child node', async () => {
         renderTree();
         node('Child A1').focus();
         await userEvent.keyboard('{ArrowLeft}');
@@ -100,7 +100,7 @@ describe('TreeView keyboard', () => {
         expect(node('Root A')).toHaveAttribute('aria-expanded', 'true');
     });
 
-    it('keeps the tree keys when treeItemProps has an onKeyDown', async () => {
+    it('should keep the tree keys when treeItemProps has an onKeyDown', async () => {
         const onKeyDown = vi.fn();
         const treeItemProps = { onKeyDown } as TreeViewData['treeItemProps'];
         renderTree({ data: [{ id: 'A', label: 'Root A', treeItemProps, children: [{ id: 'A1', label: 'Child A1' }] }] });
@@ -110,7 +110,7 @@ describe('TreeView keyboard', () => {
         expect(node('Child A1')).toHaveFocus();
     });
 
-    it('selects the focused node with Enter', async () => {
+    it('should select the focused node with Enter', async () => {
         const { onClickItem } = renderTree();
         node('Child A1').focus();
         await userEvent.keyboard('{Enter}');
@@ -118,7 +118,7 @@ describe('TreeView keyboard', () => {
         expect(onClickItem.mock.calls[0][0]).toMatchObject({ id: 'A1' });
     });
 
-    it('opens and closes the focused node with Space', async () => {
+    it('should open and close the focused node with Space', async () => {
         renderTree();
         node('Root B').focus();
         await userEvent.keyboard(' ');
@@ -127,7 +127,7 @@ describe('TreeView keyboard', () => {
         expect(node('Root B')).toHaveAttribute('aria-expanded', 'false');
     });
 
-    it('moves focus to the first and last visible nodes with Home and End', async () => {
+    it('should move focus to the first and last visible nodes with Home and End', async () => {
         renderTree();
         node('Child A1').focus();
         await userEvent.keyboard('{End}');
@@ -136,7 +136,7 @@ describe('TreeView keyboard', () => {
         expect(node('Root A')).toHaveFocus();
     });
 
-    it('expands all sibling nodes with *', async () => {
+    it('should expand all sibling nodes with *', async () => {
         renderTree();
         node('Root C').focus();
         await userEvent.keyboard('{Shift>}*{/Shift}');
@@ -146,7 +146,7 @@ describe('TreeView keyboard', () => {
         expect(node('Root C')).toHaveFocus();
     });
 
-    it('moves from the focused node after nodes open above it', async () => {
+    it('should move from the focused node after nodes open above it', async () => {
         const shiftedData: TreeViewData[] = [
             { id: 'X', label: 'Root X', children: [{ id: 'X1', label: 'Child X1' }, { id: 'X2', label: 'Child X2' }] },
             { id: 'Y', label: 'Root Y', children: [{ id: 'Y1', label: 'Child Y1' }] },
@@ -164,7 +164,7 @@ describe('TreeView keyboard', () => {
 const ItemWithoutRef = ({ children, ...props }: React.HTMLAttributes<HTMLLIElement>) => <li {...props}>{children}</li>;
 
 describe('TreeView keyboard with an itemComponent that does not forward its ref', () => {
-    it('enters the tree with Tab on the selected node, and leaves it with Shift+Tab from another node', async () => {
+    it('should enter the tree with Tab on the selected node, and leave it with Shift+Tab from another node', async () => {
         renderTree({ itemComponent: ItemWithoutRef, selectedItems: ['B'] });
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
@@ -173,7 +173,7 @@ describe('TreeView keyboard with an itemComponent that does not forward its ref'
         expect(screen.getByRole('button', { name: 'before' })).toHaveFocus();
     });
 
-    it('moves focus with the arrow keys', async () => {
+    it('should move focus with the arrow keys', async () => {
         renderTree({ itemComponent: ItemWithoutRef });
         node('Root A').focus();
         await userEvent.keyboard('{ArrowRight}');
@@ -186,7 +186,7 @@ describe('TreeView keyboard with an itemComponent that does not forward its ref'
         expect(node('Root A')).toHaveFocus();
     });
 
-    it('moves past a disabled node, even when it has the focus', async () => {
+    it('should move past a disabled node, even when it has the focus', async () => {
         renderTree({ itemComponent: ItemWithoutRef, data: [{ id: 'A', label: 'Root A' }, { id: 'B', label: 'Root B', isDisabled: true }, { id: 'C', label: 'Root C' }] });
         node('Root A').focus();
         await userEvent.keyboard('{ArrowDown}');

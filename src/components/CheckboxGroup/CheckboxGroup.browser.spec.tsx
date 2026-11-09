@@ -21,7 +21,7 @@ const renderGroup = (props = {}) => {
 };
 
 describe('CheckboxGroup keyboard', () => {
-    it('reaches every item in turn with Tab', async () => {
+    it('should reach every item in turn with Tab', async () => {
         renderGroup();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
@@ -34,7 +34,7 @@ describe('CheckboxGroup keyboard', () => {
         expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
     });
 
-    it('toggles the focused item with Space and calls the group onChange', async () => {
+    it('should toggle the focused item with Space and call the group onChange', async () => {
         const { onChange } = renderGroup();
         screen.getByRole('checkbox', { name: 'Banana' }).focus();
         await userEvent.keyboard(' ');
@@ -44,7 +44,7 @@ describe('CheckboxGroup keyboard', () => {
         expect(onChange).toHaveBeenCalledWith(expect.anything(), 'banana', true);
     });
 
-    it('calls the item onChange when toggled with Space', async () => {
+    it('should call the item onChange when toggled with Space', async () => {
         const onItemChange = vi.fn();
         render(
             <CheckboxGroup name="fruits">
@@ -57,7 +57,7 @@ describe('CheckboxGroup keyboard', () => {
         expect(onItemChange).toHaveBeenCalledWith(expect.anything(), 'apple', true);
     });
 
-    it.fails('skips a disabled item in the tab sequence', async () => {
+    it.fails('should skip a disabled item in the tab sequence', async () => {
         render(
             <>
                 <button type="button">before</button>
@@ -74,7 +74,7 @@ describe('CheckboxGroup keyboard', () => {
         expect(screen.getByRole('checkbox', { name: 'Cherry' })).toHaveFocus();
     });
 
-    it('removes every item from the tab sequence when the group is disabled', async () => {
+    it('should remove every item from the tab sequence when the group is disabled', async () => {
         renderGroup({ isDisabled: true });
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
@@ -89,7 +89,7 @@ describe('CheckboxItem dimmed style', () => {
         ['an enabled item', {}, '1'],
         ['a disabled item', { isDisabled: true }, '0.4'],
         ['a read-only item', { isReadOnly: true }, '0.4'],
-    ])('gives %s an opacity of %s', (_case, props, opacity) => {
+    ])('should give %s an opacity of %s', (_case, props, opacity) => {
         render(<CheckboxItem id="apple" label="Apple" value="apple" {...props}/>);
         expect(opacityOf('Apple')).toBe(opacity);
     });
@@ -97,12 +97,12 @@ describe('CheckboxItem dimmed style', () => {
     it.each([
         ['a disabled group', { isDisabled: true }],
         ['a read-only group', { isReadOnly: true }],
-    ])('dims the items of %s', (_case, props) => {
+    ])('should dim the items of %s', (_case, props) => {
         renderGroup(props);
         expect(opacityOf('Apple')).toBe('0.4');
     });
 
-    it('shows the focused item of a read-only group at full opacity', async () => {
+    it('should show the focused item of a read-only group at full opacity', async () => {
         renderGroup({ isReadOnly: true });
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');

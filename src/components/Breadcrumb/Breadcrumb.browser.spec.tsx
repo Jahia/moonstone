@@ -21,7 +21,7 @@ const renderBreadcrumb = () => {
 const item = (name: string) => screen.getByRole('button', { name });
 
 describe('Breadcrumb keyboard', () => {
-    it('reaches each item in order with Tab', async () => {
+    it('should reach each item in order with Tab', async () => {
         renderBreadcrumb();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
@@ -32,20 +32,20 @@ describe('Breadcrumb keyboard', () => {
         expect(item('Last')).toHaveFocus();
     });
 
-    it('marks the last item as the current page', () => {
+    it('should mark the last item as the current page', () => {
         renderBreadcrumb();
         expect(item('Last')).toHaveAttribute('aria-current', 'page');
         expect(item('First')).not.toHaveAttribute('aria-current');
     });
 
-    it('activates the focused item with Enter', async () => {
+    it('should activate the focused item with Enter', async () => {
         const { onFirst } = renderBreadcrumb();
         item('First').focus();
         await userEvent.keyboard('{Enter}');
         expect(onFirst).toHaveBeenCalledTimes(1);
     });
 
-    it('activates the focused item with Space', async () => {
+    it('should activate the focused item with Space', async () => {
         const { onFirst } = renderBreadcrumb();
         item('First').focus();
         await userEvent.keyboard(' ');

@@ -16,14 +16,14 @@ const renderTag = (props = {}) => {
 };
 
 describe('Tag keyboard', () => {
-    it('reaches the tag with Tab', async () => {
+    it('should reach the tag with Tab', async () => {
         renderTag();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(screen.getByRole('button', { name: 'Alpha' })).toHaveFocus();
     });
 
-    it('activates the focused tag with Enter and passes its value', async () => {
+    it('should activate the focused tag with Enter and pass its value', async () => {
         const { onClick } = renderTag();
         screen.getByRole('button', { name: 'Alpha' }).focus();
         await userEvent.keyboard('{Enter}');
@@ -31,28 +31,28 @@ describe('Tag keyboard', () => {
         expect(onClick.mock.calls[0][1]).toBe('alpha');
     });
 
-    it('activates the focused tag with Space', async () => {
+    it('should activate the focused tag with Space', async () => {
         const { onClick } = renderTag();
         screen.getByRole('button', { name: 'Alpha' }).focus();
         await userEvent.keyboard(' ');
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it('removes the focused tag with Delete', async () => {
+    it('should remove the focused tag with Delete', async () => {
         const { onClick } = renderTag();
         screen.getByRole('button', { name: 'Alpha' }).focus();
         await userEvent.keyboard('{Delete}');
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it('removes the focused tag with Backspace', async () => {
+    it('should remove the focused tag with Backspace', async () => {
         const { onClick } = renderTag();
         screen.getByRole('button', { name: 'Alpha' }).focus();
         await userEvent.keyboard('{Backspace}');
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it('skips a disabled tag in the tab sequence and does not activate it', async () => {
+    it('should skip a disabled tag in the tab sequence and not activate it', async () => {
         const { onClick } = renderTag({ isDisabled: true });
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');

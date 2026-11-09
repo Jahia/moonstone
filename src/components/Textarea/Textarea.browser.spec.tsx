@@ -4,7 +4,7 @@ import { userEvent } from 'vitest/browser';
 import { Textarea } from './index';
 
 describe('Textarea keyboard', () => {
-    it('reaches the textarea with Tab', async () => {
+    it('should reach the textarea with Tab', async () => {
         render(
             <>
                 <button type="button">before</button>
@@ -16,7 +16,7 @@ describe('Textarea keyboard', () => {
         expect(screen.getByRole('textbox')).toHaveFocus();
     });
 
-    it('updates the value and calls onChange when typing', async () => {
+    it('should update the value and call onChange when typing', async () => {
         const onChange = vi.fn();
         render(<Textarea onChange={onChange}/>);
         screen.getByRole('textbox').focus();
@@ -25,7 +25,7 @@ describe('Textarea keyboard', () => {
         expect(onChange).toHaveBeenCalledTimes(3);
     });
 
-    it('inserts a new line with Enter instead of submitting the form', async () => {
+    it('should insert a new line with Enter instead of submitting the form', async () => {
         const onSubmit = vi.fn(event => event.preventDefault());
         render(
             <form onSubmit={onSubmit}>
@@ -41,7 +41,7 @@ describe('Textarea keyboard', () => {
         expect(onSubmit).not.toHaveBeenCalled();
     });
 
-    it('skips a disabled textarea in the tab sequence', async () => {
+    it('should skip a disabled textarea in the tab sequence', async () => {
         render(
             <>
                 <button type="button">before</button>

@@ -22,13 +22,13 @@ const renderAccordion = () => {
 const header = (label: string) => screen.getByRole('button', { name: label });
 
 describe('Accordion keyboard', () => {
-    it('exposes each header as a button', () => {
+    it('should expose each header as a button', () => {
         renderAccordion();
         expect(screen.getByRole('button', { name: 'First' })).toBeVisible();
         expect(screen.getByRole('button', { name: 'Second' })).toBeVisible();
     });
 
-    it('reaches each header with Tab', async () => {
+    it('should reach each header with Tab', async () => {
         renderAccordion();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
@@ -37,7 +37,7 @@ describe('Accordion keyboard', () => {
         expect(header('Second')).toHaveFocus();
     });
 
-    it('expands the focused header with Enter and reports it with aria-expanded', async () => {
+    it('should expand the focused header with Enter and report it with aria-expanded', async () => {
         const { onFirst } = renderAccordion();
         header('First').focus();
         expect(header('First')).toHaveAttribute('aria-expanded', 'false');
@@ -47,7 +47,7 @@ describe('Accordion keyboard', () => {
         expect(await screen.findByText('Content first')).toBeVisible();
     });
 
-    it('expands the focused header with Space', async () => {
+    it('should expand the focused header with Space', async () => {
         const { onFirst } = renderAccordion();
         header('First').focus();
         await userEvent.keyboard(' ');
@@ -55,7 +55,7 @@ describe('Accordion keyboard', () => {
         expect(header('First')).toHaveAttribute('aria-expanded', 'true');
     });
 
-    it('collapses an expanded header with a second Enter', async () => {
+    it('should collapse an expanded header with a second Enter', async () => {
         renderAccordion();
         header('First').focus();
         await userEvent.keyboard('{Enter}');
@@ -65,21 +65,21 @@ describe('Accordion keyboard', () => {
         expect(screen.queryByText('Content first')).not.toBeInTheDocument();
     });
 
-    it.fails('moves focus to the next header with ArrowDown', async () => {
+    it.fails('should move focus to the next header with ArrowDown', async () => {
         renderAccordion();
         header('First').focus();
         await userEvent.keyboard('{ArrowDown}');
         expect(header('Second')).toHaveFocus();
     });
 
-    it.fails('moves focus to the previous header with ArrowUp', async () => {
+    it.fails('should move focus to the previous header with ArrowUp', async () => {
         renderAccordion();
         header('Second').focus();
         await userEvent.keyboard('{ArrowUp}');
         expect(header('First')).toHaveFocus();
     });
 
-    it.fails('moves focus to the first and last headers with Home and End', async () => {
+    it.fails('should move focus to the first and last headers with Home and End', async () => {
         renderAccordion();
         header('Second').focus();
         await userEvent.keyboard('{End}');

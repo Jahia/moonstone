@@ -29,33 +29,33 @@ const renderBox = (props: Partial<ResizableBoxProps> = {}) => {
 };
 
 describe('ResizableBox keyboard', () => {
-    it('reaches the resize handle with Tab', async () => {
+    it('should reach the resize handle with Tab', async () => {
         const { handle } = renderBox();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(handle).toHaveFocus();
     });
 
-    it('exposes the resize handle as a named separator with the width of the box', () => {
+    it('should expose the resize handle as a named separator with the width of the box', () => {
         const { handle } = renderBox();
         expect(handle).toHaveAccessibleName('Side panel');
         expect(handle).toHaveAttribute('aria-valuenow', '100');
         expect(handle).toHaveAttribute('aria-valuetext', '100 pixels');
     });
 
-    it('names the resize handle after the box it resizes, and points to it', () => {
+    it('should name the resize handle after the box it resizes, and point to it', () => {
         render(<ResizableBox aria-label="Side panel" id="side-panel"><div>content</div></ResizableBox>);
         const handle = screen.getByRole('separator');
         expect(handle).toHaveAccessibleName('Side panel');
         expect(handle).toHaveAttribute('aria-controls', 'side-panel');
     });
 
-    it('names the resize handle "Resize" when the box has no name', () => {
+    it('should name the resize handle "Resize" when the box has no name', () => {
         render(<ResizableBox><div>content</div></ResizableBox>);
         expect(screen.getByRole('separator')).toHaveAccessibleName('Resize');
     });
 
-    it('widens the box with ArrowRight on the focused handle', async () => {
+    it('should widen the box with ArrowRight on the focused handle', async () => {
         const { handle, width } = renderBox();
         const initial = width();
         handle.focus();
@@ -63,7 +63,7 @@ describe('ResizableBox keyboard', () => {
         expect(width()).toBeGreaterThan(initial);
     });
 
-    it('narrows the box with ArrowLeft on the focused handle', async () => {
+    it('should narrow the box with ArrowLeft on the focused handle', async () => {
         const { handle, width } = renderBox();
         const initial = width();
         handle.focus();
@@ -71,21 +71,21 @@ describe('ResizableBox keyboard', () => {
         expect(width()).toBeLessThan(initial);
     });
 
-    it('shrinks the box to its minimum width with Home', async () => {
+    it('should shrink the box to its minimum width with Home', async () => {
         const { handle, width } = renderBox();
         handle.focus();
         await userEvent.keyboard('{Home}');
         expect(width()).toBe(50);
     });
 
-    it('grows the box to its maximum width with End', async () => {
+    it('should grow the box to its maximum width with End', async () => {
         const { handle, width } = renderBox();
         handle.focus();
         await userEvent.keyboard('{End}');
         expect(width()).toBe(200);
     });
 
-    it('calls onResizeStop with the keyboard event and the delta after a key press', async () => {
+    it('should call onResizeStop with the keyboard event and the delta after a key press', async () => {
         const onResizeStop = vi.fn();
         const { box, handle } = renderBox({ onResizeStop });
         handle.focus();
@@ -93,7 +93,7 @@ describe('ResizableBox keyboard', () => {
         expect(onResizeStop).toHaveBeenCalledWith(expect.any(KeyboardEvent), 'right', box, { width: 10, height: 0 });
     });
 
-    it('reads the new width of an uncontrolled box in onResizeStop', async () => {
+    it('should read the new width of an uncontrolled box in onResizeStop', async () => {
         const onResizeStop = vi.fn((_e: KeyboardEvent, _dir: string, ref: HTMLElement) => ref.offsetWidth);
         const { handle } = renderBox({ onResizeStop });
         handle.focus();
@@ -101,14 +101,14 @@ describe('ResizableBox keyboard', () => {
         expect(onResizeStop).toHaveReturnedWith(110);
     });
 
-    it('keeps the width of a controlled box until the consumer updates its size', async () => {
+    it('should keep the width of a controlled box until the consumer updates its size', async () => {
         const { handle } = renderBox({ size: { width: 100, height: 100 } });
         handle.focus();
         await userEvent.keyboard('{ArrowRight}');
         expect(handle).toHaveAttribute('aria-valuenow', '100');
     });
 
-    it('resizes a controlled box once the consumer updates its size', async () => {
+    it('should resize a controlled box once the consumer updates its size', async () => {
         const ControlledBox = () => {
             const [size, setSize] = useState({ width: 100, height: 100 });
             return (

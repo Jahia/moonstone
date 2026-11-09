@@ -19,7 +19,7 @@ const getField = () => screen.getByRole('textbox');
 const getDay = (name: string) => screen.getByRole('button', { name: new RegExp(`^${name}`) });
 
 describe('DateTimeInput keyboard', () => {
-    it('reaches the date field with Tab', async () => {
+    it('should reach the date field with Tab', async () => {
         render(
             <>
                 <button type="button">before</button>
@@ -31,28 +31,28 @@ describe('DateTimeInput keyboard', () => {
         await waitFor(() => expect(getField()).toHaveFocus());
     });
 
-    it('opens the calendar with Enter', async () => {
+    it('should open the calendar with Enter', async () => {
         renderInput();
         getField().focus();
         await userEvent.keyboard('{Enter}');
         expect(await screen.findByRole('grid', { name: 'March 2026' })).toBeVisible();
     });
 
-    it('opens the calendar with Space', async () => {
+    it('should open the calendar with Space', async () => {
         renderInput();
         getField().focus();
         await userEvent.keyboard(' ');
         expect(await screen.findByRole('grid', { name: 'March 2026' })).toBeVisible();
     });
 
-    it('leaves Shift+Space to the field', async () => {
+    it('should leave Shift+Space to the field', async () => {
         renderInput();
         getField().focus();
         await userEvent.keyboard('{Shift>} {/Shift}');
         expect(screen.queryByRole('grid')).not.toBeInTheDocument();
     });
 
-    it.fails('moves focus to the selected day when the calendar opens', async () => {
+    it.fails('should move focus to the selected day when the calendar opens', async () => {
         renderInput();
         getField().focus();
         await userEvent.keyboard('{Enter}');
@@ -60,7 +60,7 @@ describe('DateTimeInput keyboard', () => {
         expect(getDay('Monday, March 30th, 2026')).toHaveFocus();
     });
 
-    it('closes the calendar with Escape and keeps focus on the date field', async () => {
+    it('should close the calendar with Escape and keep focus on the date field', async () => {
         renderInput();
         getField().focus();
         await userEvent.keyboard('{Enter}');
@@ -70,7 +70,7 @@ describe('DateTimeInput keyboard', () => {
         expect(getField()).toHaveFocus();
     });
 
-    it.fails('closes the calendar with Escape from a day and returns focus to the date field', async () => {
+    it.fails('should close the calendar with Escape from a day and return focus to the date field', async () => {
         renderInput();
         getField().focus();
         await userEvent.keyboard('{Enter}');
@@ -81,7 +81,7 @@ describe('DateTimeInput keyboard', () => {
         expect(getField()).toHaveFocus();
     });
 
-    it('moves between days with ArrowRight and ArrowLeft', async () => {
+    it('should move between days with ArrowRight and ArrowLeft', async () => {
         renderInput();
         getField().focus();
         await userEvent.keyboard('{Enter}');
@@ -94,7 +94,7 @@ describe('DateTimeInput keyboard', () => {
         await waitFor(() => expect(getDay('Sunday, March 29th, 2026')).toHaveFocus());
     });
 
-    it('moves between weeks with ArrowDown and ArrowUp', async () => {
+    it('should move between weeks with ArrowDown and ArrowUp', async () => {
         renderInput();
         getField().focus();
         await userEvent.keyboard('{Enter}');
@@ -107,7 +107,7 @@ describe('DateTimeInput keyboard', () => {
         await waitFor(async () => expect(await screen.findByRole('button', { name: /^Monday, April 6th, 2026/ })).toHaveFocus());
     });
 
-    it('selects the focused day with Enter and closes the calendar', async () => {
+    it('should select the focused day with Enter and close the calendar', async () => {
         const { onChange } = renderInput();
         getField().focus();
         await userEvent.keyboard('{Enter}');
@@ -120,7 +120,7 @@ describe('DateTimeInput keyboard', () => {
         expect(screen.queryByRole('grid')).toBeNull();
     });
 
-    it.fails('returns focus to the date field after selecting a day with Enter', async () => {
+    it.fails('should return focus to the date field after selecting a day with Enter', async () => {
         renderInput();
         getField().focus();
         await userEvent.keyboard('{Enter}');
@@ -132,7 +132,7 @@ describe('DateTimeInput keyboard', () => {
         expect(getField()).toHaveFocus();
     });
 
-    it('does not trap focus with Tab while the calendar is open', async () => {
+    it('should not trap focus with Tab while the calendar is open', async () => {
         renderInput();
         getField().focus();
         await userEvent.keyboard('{Enter}');
@@ -142,7 +142,7 @@ describe('DateTimeInput keyboard', () => {
         await waitFor(() => expect(screen.getByRole('button', { name: 'after' })).toHaveFocus());
     });
 
-    it('returns focus to the date field after clearing it with Enter', async () => {
+    it('should return focus to the date field after clearing it with Enter', async () => {
         renderInput();
         screen.getByRole('button', { name: 'Reset' }).focus();
         await userEvent.keyboard('{Enter}');

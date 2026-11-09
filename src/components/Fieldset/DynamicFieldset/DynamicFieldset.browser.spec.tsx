@@ -28,14 +28,14 @@ const renderFieldset = (props = {}) => {
 const getSwitch = () => screen.getByRole('switch');
 
 describe('DynamicFieldset keyboard', () => {
-    it('reaches the switch with Tab', async () => {
+    it('should reach the switch with Tab', async () => {
         renderFieldset();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(getSwitch()).toHaveFocus();
     });
 
-    it('reveals the fields with Space on the switch and calls onChange', async () => {
+    it('should reveal the fields with Space on the switch and call onChange', async () => {
         const { onChange } = renderFieldset();
         expect(screen.queryByRole('textbox')).toBeNull();
         getSwitch().focus();
@@ -44,7 +44,7 @@ describe('DynamicFieldset keyboard', () => {
         expect(onChange).toHaveBeenCalledTimes(1);
     });
 
-    it('hides the fields with Space on the switch and keeps focus on the switch', async () => {
+    it('should hide the fields with Space on the switch and keep focus on the switch', async () => {
         renderFieldset({ defaultChecked: true });
         getSwitch().focus();
         await userEvent.keyboard(' ');
@@ -52,7 +52,7 @@ describe('DynamicFieldset keyboard', () => {
         expect(getSwitch()).toHaveFocus();
     });
 
-    it('reaches the action button then the revealed fields with Tab after the switch', async () => {
+    it('should reach the action button then the revealed fields with Tab after the switch', async () => {
         renderFieldset({ defaultChecked: true });
         getSwitch().focus();
         await userEvent.keyboard('{Tab}');
@@ -61,14 +61,14 @@ describe('DynamicFieldset keyboard', () => {
         expect(screen.getByRole('textbox')).toHaveFocus();
     });
 
-    it('activates the action button with Enter', async () => {
+    it('should activate the action button with Enter', async () => {
         const { onMore } = renderFieldset();
         screen.getByRole('button', { name: 'More' }).focus();
         await userEvent.keyboard('{Enter}');
         expect(onMore).toHaveBeenCalledTimes(1);
     });
 
-    it('activates the action button with Space', async () => {
+    it('should activate the action button with Space', async () => {
         const { onMore } = renderFieldset();
         screen.getByRole('button', { name: 'More' }).focus();
         await userEvent.keyboard(' ');

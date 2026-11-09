@@ -16,28 +16,28 @@ const renderCard = (props = {}) => {
 };
 
 describe('EmptyCardSelector keyboard', () => {
-    it('reaches the card with Tab', async () => {
+    it('should reach the card with Tab', async () => {
         renderCard();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(screen.getByRole('button', { name: 'No item selected' })).toHaveFocus();
     });
 
-    it('activates the focused card with Enter', async () => {
+    it('should activate the focused card with Enter', async () => {
         const { onClick } = renderCard();
         screen.getByRole('button', { name: 'No item selected' }).focus();
         await userEvent.keyboard('{Enter}');
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it('activates the focused card with Space', async () => {
+    it('should activate the focused card with Space', async () => {
         const { onClick } = renderCard();
         screen.getByRole('button', { name: 'No item selected' }).focus();
         await userEvent.keyboard(' ');
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it('keeps focus on the card after it is activated with the keyboard', async () => {
+    it('should keep focus on the card after it is activated with the keyboard', async () => {
         renderCard();
         const card = screen.getByRole('button', { name: 'No item selected' });
         card.focus();
@@ -45,7 +45,7 @@ describe('EmptyCardSelector keyboard', () => {
         expect(card).toHaveFocus();
     });
 
-    it('skips a disabled card in the tab sequence and does not activate it', async () => {
+    it('should skip a disabled card in the tab sequence and not activate it', async () => {
         const { onClick } = renderCard({ isDisabled: true });
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');

@@ -35,7 +35,7 @@ const item = (label: string) => screen.getByRole('button', { name: label });
 const toggle = () => screen.getByRole('button', { name: 'Toggle primary navigation' });
 
 describe('PrimaryNav keyboard', () => {
-    it('reaches the toggle button then each item with Tab', async () => {
+    it('should reach the toggle button then each item with Tab', async () => {
         renderNav();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
@@ -46,7 +46,7 @@ describe('PrimaryNav keyboard', () => {
         expect(item('Second')).toHaveFocus();
     });
 
-    it('exposes a link item as a single Tab stop', async () => {
+    it('should expose a link item as a single Tab stop', async () => {
         renderNav();
         item('Second').focus();
         await userEvent.keyboard('{Tab}');
@@ -55,21 +55,21 @@ describe('PrimaryNav keyboard', () => {
         expect(item('Bottom')).toHaveFocus();
     });
 
-    it('activates the focused item with Enter', async () => {
+    it('should activate the focused item with Enter', async () => {
         const { onFirst } = renderNav();
         item('First').focus();
         await userEvent.keyboard('{Enter}');
         expect(onFirst).toHaveBeenCalledTimes(1);
     });
 
-    it('activates the focused item with Space', async () => {
+    it('should activate the focused item with Space', async () => {
         const { onFirst } = renderNav();
         item('First').focus();
         await userEvent.keyboard(' ');
         expect(onFirst).toHaveBeenCalledTimes(1);
     });
 
-    it('expands the nav with Enter on the toggle button and reports it with aria-expanded', async () => {
+    it('should expand the nav with Enter on the toggle button and report it with aria-expanded', async () => {
         renderNav();
         expect(toggle()).toHaveAttribute('aria-expanded', 'false');
         toggle().focus();
@@ -77,14 +77,14 @@ describe('PrimaryNav keyboard', () => {
         expect(toggle()).toHaveAttribute('aria-expanded', 'true');
     });
 
-    it('expands the nav with Space on the toggle button', async () => {
+    it('should expand the nav with Space on the toggle button', async () => {
         renderNav();
         toggle().focus();
         await userEvent.keyboard(' ');
         expect(toggle()).toHaveAttribute('aria-expanded', 'true');
     });
 
-    it('collapses an expanded nav with Escape and returns focus to the toggle button', async () => {
+    it('should collapse an expanded nav with Escape and return focus to the toggle button', async () => {
         renderNav();
         toggle().focus();
         await userEvent.keyboard('{Enter}');
@@ -95,7 +95,7 @@ describe('PrimaryNav keyboard', () => {
         expect(toggle()).toHaveFocus();
     });
 
-    it('collapses the nav on the first Escape and lets the second close a Modal around it', async () => {
+    it('should collapse the nav on the first Escape and let the second close a Modal around it', async () => {
         const onOpenChange = vi.fn();
         render(
             <Modal isOpen aria-label="Navigation" onOpenChange={onOpenChange}>

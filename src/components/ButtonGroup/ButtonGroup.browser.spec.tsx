@@ -22,7 +22,7 @@ const renderGroup = () => {
 };
 
 describe('ButtonGroup keyboard', () => {
-    it('reaches every button of the group in order with Tab', async () => {
+    it('should reach every button of the group in order with Tab', async () => {
         renderGroup();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
@@ -33,7 +33,7 @@ describe('ButtonGroup keyboard', () => {
         expect(screen.getByRole('button', { name: 'three' })).toHaveFocus();
     });
 
-    it('activates only the focused button with Enter', async () => {
+    it('should activate only the focused button with Enter', async () => {
         const { onOne, onTwo, onThree } = renderGroup();
         screen.getByRole('button', { name: 'two' }).focus();
         await userEvent.keyboard('{Enter}');
@@ -42,7 +42,7 @@ describe('ButtonGroup keyboard', () => {
         expect(onThree).not.toHaveBeenCalled();
     });
 
-    it('activates the focused button with Space', async () => {
+    it('should activate the focused button with Space', async () => {
         const { onThree } = renderGroup();
         screen.getByRole('button', { name: 'three' }).focus();
         await userEvent.keyboard(' ');

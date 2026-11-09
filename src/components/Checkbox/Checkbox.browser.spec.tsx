@@ -22,7 +22,7 @@ const IndeterminateCheckbox = ({ onChange }: { readonly onChange: (checked: bool
 };
 
 describe('Checkbox keyboard', () => {
-    it('reaches the checkbox with Tab', async () => {
+    it('should reach the checkbox with Tab', async () => {
         render(
             <>
                 <button type="button">before</button>
@@ -34,7 +34,7 @@ describe('Checkbox keyboard', () => {
         expect(screen.getByRole('checkbox')).toHaveFocus();
     });
 
-    it('checks the focused checkbox with Space and calls onChange', async () => {
+    it('should check the focused checkbox with Space and call onChange', async () => {
         const onChange = vi.fn();
         render(<Checkbox value="a" onChange={onChange}/>);
         screen.getByRole('checkbox').focus();
@@ -44,7 +44,7 @@ describe('Checkbox keyboard', () => {
         expect(onChange).toHaveBeenCalledWith(expect.anything(), 'a', true);
     });
 
-    it('unchecks a checked checkbox with Space', async () => {
+    it('should uncheck a checked checkbox with Space', async () => {
         const onChange = vi.fn();
         render(<Checkbox defaultChecked value="a" onChange={onChange}/>);
         screen.getByRole('checkbox').focus();
@@ -53,7 +53,7 @@ describe('Checkbox keyboard', () => {
         expect(onChange).toHaveBeenCalledWith(expect.anything(), 'a', false);
     });
 
-    it('keeps a read-only checkbox unchecked with Space', async () => {
+    it('should keep a read-only checkbox unchecked with Space', async () => {
         const onChange = vi.fn();
         render(<Checkbox isReadOnly value="a" onChange={onChange}/>);
         screen.getByRole('checkbox').focus();
@@ -62,7 +62,7 @@ describe('Checkbox keyboard', () => {
         expect(onChange).not.toHaveBeenCalled();
     });
 
-    it('shows the focus of a read-only checkbox', async () => {
+    it('should show the focus of a read-only checkbox', async () => {
         // The colour of the focus ring is a global token, which the tests do not load
         render(
             <div style={{ '--moon-color-accent_light': 'blue' } as React.CSSProperties}>
@@ -76,7 +76,7 @@ describe('Checkbox keyboard', () => {
         expect(getComputedStyle(screen.getByRole('checkbox')).opacity).toBe('1');
     });
 
-    it('skips a disabled checkbox in the tab sequence', async () => {
+    it('should skip a disabled checkbox in the tab sequence', async () => {
         render(
             <>
                 <button type="button">before</button>
@@ -89,7 +89,7 @@ describe('Checkbox keyboard', () => {
         expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
     });
 
-    it('becomes checked with Space when indeterminate', async () => {
+    it('should become checked with Space when indeterminate', async () => {
         const onChange = vi.fn();
         render(<IndeterminateCheckbox onChange={onChange}/>);
         expect(screen.getByRole('checkbox')).toBePartiallyChecked();
@@ -101,7 +101,7 @@ describe('Checkbox keyboard', () => {
 });
 
 describe('Checkbox pointer', () => {
-    it.each(['default', 'big'] as const)('checks with a click 1px inside the 24px target around a %s box', async (size) => {
+    it.each(['default', 'big'] as const)('should check with a click 1px inside the 24px target around a %s box', async (size) => {
         render(<div style={{ padding: 8 }}><Checkbox aria-label="Accept" size={size} value="a"/></div>);
         const checkbox = screen.getByRole('checkbox');
         const { width, height } = checkbox.getBoundingClientRect();

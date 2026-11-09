@@ -234,6 +234,12 @@ export default defineConfig({
                 // Not in the correctness category
                 'vitest/no-commented-out-tests': 'error',
                 'vitest/no-identical-title': 'error',
+                'vitest/valid-title': ['error', {
+                    mustMatch: {
+                        it: '^should ',
+                        test: '^should ',
+                    },
+                }],
                 // tsc already type-checks mocks at their call sites
                 'vitest/require-mock-type-parameters': 'off',
                 // Re-render cost is irrelevant in tests

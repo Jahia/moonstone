@@ -43,12 +43,12 @@ const renderAndOpen = async () => {
 };
 
 describe('Modal keyboard', () => {
-    it('moves focus inside the modal when it opens', async () => {
+    it('should move focus inside the modal when it opens', async () => {
         const { dialog } = await renderAndOpen();
         await waitFor(() => expect(dialog).toContainElement(document.activeElement as HTMLElement));
     });
 
-    it('keeps Tab inside the modal', async () => {
+    it('should keep Tab inside the modal', async () => {
         await renderAndOpen();
         screen.getByRole('button', { name: 'First action' }).focus();
         await userEvent.keyboard('{Tab}');
@@ -60,14 +60,14 @@ describe('Modal keyboard', () => {
         await waitFor(() => expect(screen.getByRole('button', { name: 'First action' })).toHaveFocus());
     });
 
-    it('keeps Shift+Tab inside the modal', async () => {
+    it('should keep Shift+Tab inside the modal', async () => {
         await renderAndOpen();
         screen.getByRole('button', { name: 'First action' }).focus();
         await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
         await waitFor(() => expect(screen.getByRole('button', { name: 'Close' })).toHaveFocus());
     });
 
-    it('closes with Escape', async () => {
+    it('should close with Escape', async () => {
         const { onOpenChange } = await renderAndOpen();
         screen.getByRole('button', { name: 'First action' }).focus();
         await userEvent.keyboard('{Escape}');
@@ -75,7 +75,7 @@ describe('Modal keyboard', () => {
         await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
     });
 
-    it('reaches the close button with Tab and activates it with Enter', async () => {
+    it('should reach the close button with Tab and activate it with Enter', async () => {
         await renderAndOpen();
         screen.getByRole('button', { name: 'First action' }).focus();
         await userEvent.keyboard('{Tab}');
@@ -85,7 +85,7 @@ describe('Modal keyboard', () => {
         await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
     });
 
-    it('returns focus to the trigger when closed', async () => {
+    it('should return focus to the trigger when closed', async () => {
         const { trigger } = await renderAndOpen();
         screen.getByRole('button', { name: 'First action' }).focus();
         await userEvent.keyboard('{Escape}');

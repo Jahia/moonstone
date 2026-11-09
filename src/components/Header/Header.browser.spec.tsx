@@ -25,7 +25,7 @@ const renderHeader = () => {
 const action = (name: string) => screen.getByRole('button', { name });
 
 describe('Header keyboard', () => {
-    it('reaches the main action then the toolbar with Tab', async () => {
+    it('should reach the main action then the toolbar with Tab', async () => {
         renderHeader();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
@@ -34,12 +34,12 @@ describe('Header keyboard', () => {
         expect(action('Action 01')).toHaveFocus();
     });
 
-    it('exposes the toolbar with role toolbar', () => {
+    it('should expose the toolbar with role toolbar', () => {
         renderHeader();
         expect(screen.getByRole('toolbar')).toBeVisible();
     });
 
-    it.fails('moves focus to the next toolbar button with ArrowRight', async () => {
+    it.fails('should move focus to the next toolbar button with ArrowRight', async () => {
         renderHeader();
         action('Action 01').focus();
         await userEvent.keyboard('{ArrowRight}');
@@ -48,14 +48,14 @@ describe('Header keyboard', () => {
         expect(action('View')).toHaveFocus();
     });
 
-    it.fails('moves focus to the previous toolbar button with ArrowLeft', async () => {
+    it.fails('should move focus to the previous toolbar button with ArrowLeft', async () => {
         renderHeader();
         action('Action 02').focus();
         await userEvent.keyboard('{ArrowLeft}');
         expect(action('Action 01')).toHaveFocus();
     });
 
-    it.fails('moves focus to the first and last toolbar buttons with Home and End', async () => {
+    it.fails('should move focus to the first and last toolbar buttons with Home and End', async () => {
         renderHeader();
         action('Action 02').focus();
         await userEvent.keyboard('{End}');
@@ -64,7 +64,7 @@ describe('Header keyboard', () => {
         expect(action('Action 01')).toHaveFocus();
     });
 
-    it('activates the focused toolbar button with Enter', async () => {
+    it('should activate the focused toolbar button with Enter', async () => {
         const { onAction } = renderHeader();
         action('Action 01').focus();
         await userEvent.keyboard('{Enter}');
