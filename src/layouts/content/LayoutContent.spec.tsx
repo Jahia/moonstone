@@ -25,6 +25,11 @@ describe('LayoutContent', () => {
         expect(screen.queryByRole('region')).not.toBeInTheDocument();
     });
 
+    it('should render no aria-label attribute when i18n.contentLabel is empty', () => {
+        render(<LayoutContent {...requiredProps} i18n={{ contentLabel: '' }}/>);
+        expect(screen.getByText(requiredProps.children)).not.toHaveAttribute('aria-label');
+    });
+
     it('should name the content area with i18n.contentLabel', () => {
         render(<LayoutContent {...requiredProps} i18n={{ contentLabel: 'Users' }}/>);
         expect(screen.getByRole('region', { name: 'Users' })).toBeInTheDocument();
