@@ -190,10 +190,10 @@ export const SelectableRows = {
                 {
                     id: 'selection',
                     Header: header => (
-                        <Checkbox {...header.getToggleAllRowsSelectedProps()}/>
+                        <Checkbox {...header.getToggleAllRowsSelectedProps()} aria-label="Select all rows"/>
                     ),
                     Cell: cellInfo => (
-                        <Checkbox {...cellInfo.row.getToggleRowSelectedProps()}/>
+                        <Checkbox {...cellInfo.row.getToggleRowSelectedProps()} aria-label="Select row"/>
                     ),
                     customWidth: columnsWidth.selection,
                 },
@@ -686,10 +686,10 @@ export const KitchenSinkFlat = {
                     id: 'selection',
                     customWidth: columnsWidth.selection,
                     Header: header => (
-                        <Checkbox {...header.getToggleAllRowsSelectedProps()}/>
+                        <Checkbox {...header.getToggleAllRowsSelectedProps()} aria-label="Select all rows"/>
                     ),
                     Cell: cellInfo => (
-                        <Checkbox {...cellInfo.row.getToggleRowSelectedProps()}/>
+                        <Checkbox {...cellInfo.row.getToggleRowSelectedProps()} aria-label="Select row"/>
                     ),
                 },
                 {
@@ -820,10 +820,10 @@ export const KitchenSinkNested = {
                     id: 'selection',
                     customWidth: columnsWidth.selection,
                     Header: header => (
-                        <Checkbox {...header.getToggleAllRowsSelectedProps()}/>
+                        <Checkbox {...header.getToggleAllRowsSelectedProps()} aria-label="Select all rows"/>
                     ),
                     Cell: cellInfo => (
-                        <Checkbox {...cellInfo.row.getToggleRowSelectedProps()}/>
+                        <Checkbox {...cellInfo.row.getToggleRowSelectedProps()} aria-label="Select row"/>
                     ),
                 },
                 {
