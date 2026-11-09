@@ -10,7 +10,7 @@
         max-width: 100%;
 
         &:focus-visible {
-            outline-offset: -2px;
+            --moon-focus-ring-inset: 0;
         }
     }
 }

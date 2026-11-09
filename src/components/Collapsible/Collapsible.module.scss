@@ -38,12 +38,17 @@
 }
 
 .moonstone-collapsible_button_sticky {
-    position: sticky;
     top: 0;
     z-index: 10;
 
     background: var(--moon-color-white);
     box-shadow: -4px 4px 4px -4px var(--moon-color-gray60);
+
+    // The ring sets position: relative on focus, and the button must stay sticky
+    &,
+    &:focus-visible {
+        position: sticky;
+    }
 }
 
 // Chevron icon animation

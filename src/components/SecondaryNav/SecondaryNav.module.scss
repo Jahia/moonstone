@@ -43,6 +43,9 @@
 
     &:focus-visible {
         @extend %is-focused;
+
+        // The ring sets position: relative on focus, and the toggle must stay where it is
+        position: absolute;
     }
 
     &:hover {

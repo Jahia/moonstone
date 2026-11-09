@@ -47,7 +47,7 @@ $accordionHeader_height: 48px;
     &:focus-visible {
         @extend %is-focused;
 
-        outline-offset: -2px;
+        --moon-focus-ring-inset: 0;
     }
 
     &:active {

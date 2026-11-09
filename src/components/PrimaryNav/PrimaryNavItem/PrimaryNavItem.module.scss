@@ -44,6 +44,9 @@
 
     &:focus-visible {
         @extend %is-focused;
+
+        // Its own overflow would clip a ring outside it
+        --moon-focus-ring-inset: 0;
     }
 }
 

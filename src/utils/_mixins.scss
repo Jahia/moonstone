@@ -45,15 +45,36 @@
     opacity: 0.8;
 }
 
+// The focus ring: an outer ring around an inner ring, the same on every background. Its colours live here only.
+$focus-ring-outer: var(--moon-color-accent);
+$focus-ring-inner: var(--moon-color-light);
+
+// On ::before, because ::after holds the target of min-target-size and other decorations.
+// `--moon-focus-ring-inset: 0` draws the ring inside an element that overflow clips.
 %is-focused {
-    outline: 2px solid var(--moon-color-accent);
+    position: relative;
+
+    outline: none;
+
+    &::before {
+        content: "";
+
+        position: absolute;
+        inset: var(--moon-focus-ring-inset, -4px);
+
+        border: 2px solid $focus-ring-outer;
+        border-radius: inherit;
+
+        box-shadow: inset 0 0 0 2px $focus-ring-inner;
+
+        pointer-events: none;
+    }
+}
+
+// The same ring on an element that holds no ::before, such as a textarea with no wrapper
+%is-focused-element {
+    outline: 2px solid $focus-ring-outer;
     outline-offset: 2px;
 
-    // accent is too dark on reversed backgrounds
-    &.moonstone-reverse,
-    &.moonstone-reversed,
-    .moonstone-reverse &,
-    .moonstone-reversed & {
-        outline-color: var(--moon-color-accent_light);
-    }
+    box-shadow: 0 0 0 2px $focus-ring-inner;
 }

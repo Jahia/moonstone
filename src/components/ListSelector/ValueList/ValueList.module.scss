@@ -35,7 +35,7 @@
     &:focus-visible {
         @extend %is-focused;
 
-        outline-offset: -1px;
+        --moon-focus-ring-inset: 0;
     }
 
     &.selected {

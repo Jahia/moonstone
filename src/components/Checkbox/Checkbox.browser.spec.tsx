@@ -62,17 +62,18 @@ describe('Checkbox keyboard', () => {
         expect(onChange).not.toHaveBeenCalled();
     });
 
-    it('shows the focus of a read-only checkbox', async () => {
-        // The colour of the focus ring is a global token, which the tests do not load
+    it('should show the focus ring of a read-only checkbox', async () => {
         render(
-            <div style={{ '--moon-color-accent_light': 'blue' } as React.CSSProperties}>
+            <>
                 <button type="button">before</button>
                 <Checkbox isReadOnly value="a"/>
-            </div>,
+            </>,
         );
+        const ring = () => getComputedStyle(screen.getByRole('checkbox').parentElement, '::before').content;
+        expect(ring()).toBe('none');
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
-        expect(getComputedStyle(screen.getByRole('checkbox')).outlineStyle).toBe('solid');
+        expect(ring()).not.toBe('none');
         expect(getComputedStyle(screen.getByRole('checkbox')).opacity).toBe('1');
     });
 

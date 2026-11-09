@@ -1,4 +1,5 @@
 @use "../../../utils/motion" as *;
+@use "../../../utils/mixins" as *;
 
 $radio-sizeDefault: 16px;
 
@@ -41,6 +42,13 @@ $radio-sizeDefault: 16px;
 
         width: $radio-sizeDefault;
         height: $radio-sizeDefault;
+
+        border-radius: 50%;
+
+        // An input holds no ::before: the wrapper draws the ring
+        &:has(> .moonstone-radio_input:focus-visible) {
+            @extend %is-focused;
+        }
     }
 
     .moonstone-radio_icon {
