@@ -216,6 +216,15 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
         }
     };
 
+    // A calendar that closes with the focus in it gives the focus back to the field first, or the focus falls to the body
+    const closeCalendar = () => {
+        if (refs.floating.current?.contains(document.activeElement)) {
+            (refs.domReference.current as HTMLElement | null)?.focus();
+        }
+
+        setIsCalendarOpen(false);
+    };
+
     const openCalendar = () => {
         if (!isDisabled && !isReadOnly) {
             refs.setPositionReference(refs.domReference.current?.closest(`.${baseInputStyles['moonstone-baseInput']}`) ?? null);
@@ -240,7 +249,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                 onKeyDown={(event) => {
                     if (event.key === 'Escape' && isCalendarOpen && !shouldIgnoreKey(event)) {
                         event.stopPropagation();
-                        setIsCalendarOpen(false);
+                        closeCalendar();
                     }
                 }}
             >
@@ -326,7 +335,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                         variant="ghost"
                                         onClick={(event) => {
                                             emitChange(event, { plainDate: getTodayPlainDate() });
-                                            setIsCalendarOpen(false);
+                                            closeCalendar();
                                         }}
                                     />
                                 )}
@@ -360,7 +369,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                                         emitChange(event, { plainDate: dateToPlainDate(date) });
                                     }
 
-                                    setIsCalendarOpen(false);
+                                    closeCalendar();
                                 }}
                             />
                         </div>

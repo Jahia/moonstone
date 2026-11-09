@@ -3,6 +3,7 @@ export * from './onArrowIncrementation';
 export * from './onTreeItemKeys';
 export * from './shouldIgnoreKey';
 export * from './useAccessibleClick';
+export * from './useControllableState';
 export * from './useEnterExitCallbacks';
 export * from './usePositioning';
 export * from './usePresence';
