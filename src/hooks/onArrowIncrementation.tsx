@@ -81,9 +81,10 @@ onArrowIncrementationProps) => {
 
         // Trim final value to have same digits after separator as initial value
         const fixedValue = (decimalsLeft && decimalsLeft.length > 0) ? `${newValue}${separator}${decimalsLeft}` : newValue.toString();
-        element.value = Number.isNaN(newValue) ? '' : fixedValue;
-        // Update uncontrolled input's value in the DOM
+        // The prototype setter bypasses the value tracker of React, so the input event reaches onChange
+        Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(element, Number.isNaN(newValue) ? '' : fixedValue);
         element.defaultValue = element.value;
+        element.dispatchEvent(new Event('input', { bubbles: true }));
     };
 
     return {
