@@ -15,9 +15,19 @@ describe('LayoutContent', () => {
 
     it('should not take the focus on a click inside it', async () => {
         const user = userEvent.setup();
-        render(<LayoutContent><p>text</p><button type="button">action</button></LayoutContent>);
+        render(<LayoutContent i18n={{ contentLabel: 'Users' }}><p>text</p><button type="button">action</button></LayoutContent>);
         await user.click(screen.getByText('text'));
-        expect(screen.getByRole('region', { name: 'Page content' })).not.toHaveFocus();
+        expect(screen.getByRole('region', { name: 'Users' })).not.toHaveFocus();
+    });
+
+    it('should expose no region landmark without i18n.contentLabel', () => {
+        render(<LayoutContent {...requiredProps}/>);
+        expect(screen.queryByRole('region')).not.toBeInTheDocument();
+    });
+
+    it('should render no aria-label attribute when i18n.contentLabel is empty', () => {
+        render(<LayoutContent {...requiredProps} i18n={{ contentLabel: '' }}/>);
+        expect(screen.getByText(requiredProps.children)).not.toHaveAttribute('aria-label');
     });
 
     it('should name the content area with i18n.contentLabel', () => {
