@@ -46,6 +46,14 @@
 }
 
 %is-focused {
-    outline: 2px solid var(--moon-color-accent_light);
+    outline: 2px solid var(--moon-color-accent);
     outline-offset: 2px;
+
+    // accent is too dark on reversed backgrounds
+    &.moonstone-reverse,
+    &.moonstone-reversed,
+    .moonstone-reverse &,
+    .moonstone-reversed & {
+        outline-color: var(--moon-color-accent_light);
+    }
 }

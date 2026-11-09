@@ -4,6 +4,8 @@ import { userEvent } from 'vitest/browser';
 import { Menu, MenuItem } from './index';
 import { Separator } from '~/components';
 
+import '~/tokens/colors/colors.scss';
+
 const renderMenu = (props = {}) => {
     const onClose = vi.fn();
     const onFirst = vi.fn();
@@ -65,6 +67,24 @@ describe('Menu keyboard', () => {
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(item('Second')).toHaveFocus();
+    });
+
+    it('marks the focus on the selected item with a light ring the selected state does not have', async () => {
+        render(
+            <>
+                <button type="button">before</button>
+                <Menu isDisplayed>
+                    <MenuItem label="First"/>
+                    <MenuItem isSelected label="Second"/>
+                </Menu>
+            </>,
+        );
+        const light = 'rgb(253, 253, 253)';
+        screen.getByRole('button', { name: 'before' }).focus();
+        expect(getComputedStyle(item('Second')).boxShadow).not.toContain(light);
+        await userEvent.keyboard('{Tab}');
+        expect(item('Second')).toHaveFocus();
+        expect(getComputedStyle(item('Second')).boxShadow).toContain(light);
     });
 
     it('skips disabled items when moving with the arrow keys', async () => {
