@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 
 import { SearchContextInput } from './index';
 import { Dropdown } from '~/components';
+import { Field } from '~/components/Field';
 import { dropdownData } from '~/data/dropdownData';
 
 const requiredProps = {
@@ -40,6 +41,15 @@ describe('SearchContextInput', () => {
             <SearchContextInput {...requiredProps}/>,
         );
         expect(screen.getByTestId('test-searchContext')).toBeInTheDocument();
+    });
+
+    it('should not link the search context to a Field around it', () => {
+        render(
+            <Field helper="Help" id="search" label="Search">
+                <SearchContextInput {...requiredProps}/>
+            </Field>,
+        );
+        expect(screen.getByRole('listbox')).not.toHaveAttribute('aria-describedby');
     });
 });
 

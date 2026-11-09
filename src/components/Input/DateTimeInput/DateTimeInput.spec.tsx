@@ -5,6 +5,7 @@ import { Temporal } from 'temporal-polyfill';
 import { type Mock, onTestFinished, vi } from 'vitest';
 
 import { DateTimeInput } from './index';
+import { Field } from '~/components/Field';
 
 const nextMonthLabel = 'Next month';
 const previousMonthLabel = 'Previous month';
@@ -1491,5 +1492,25 @@ describe('DateTimeInput', () => {
 
             expect(screen.getByText('Timezone:')).toBeInTheDocument();
         });
+    });
+
+    it('should not link the month, year and timezone dropdowns to a Field around it', async () => {
+        const user = userEvent.setup();
+        render(
+            <Field helper="Help" id="date" label="Date">
+                <DateTimeInput
+                    {...localeProps}
+                    defaultValue="2026-03-30T10:00:00Z"
+                    placeholder="Select a date"
+                    type="zonedDateTime"
+                    onChange={() => null}
+                />
+            </Field>,
+        );
+        await user.click(dateField());
+
+        const dropdowns = screen.getAllByRole('listbox');
+        expect(dropdowns).toHaveLength(3);
+        dropdowns.forEach(dropdown => expect(dropdown).not.toHaveAttribute('aria-describedby'));
     });
 });
