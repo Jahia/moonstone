@@ -12,7 +12,7 @@ const renderSortableTable = () => {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableHeadCell aria-sort="ascending" iconEnd={<SortIndicator isSorted direction="ascending"/>} onClick={onSort}>Name</TableHeadCell>
+                        <TableHeadCell iconEnd={<SortIndicator isSorted direction="ascending"/>} onClick={onSort}>Name</TableHeadCell>
                         <TableHeadCell>Type</TableHeadCell>
                     </TableRow>
                 </TableHead>

@@ -75,22 +75,32 @@ describe('TableCell', () => {
 describe('TableHeadCell sort state', () => {
     const renderHeader = (cell: React.ReactElement) => render(<table><thead><tr>{cell}</tr></thead></table>);
 
-    it('exposes the direction of a sorted SortIndicator child as aria-sort', () => {
+    it('should expose the direction of a sorted SortIndicator child as aria-sort', () => {
         renderHeader(<TableHeadCell>Name<SortIndicator isSorted direction="ascending"/></TableHeadCell>);
         expect(screen.getByRole('columnheader')).toHaveAttribute('aria-sort', 'ascending');
     });
 
-    it('exposes the direction of a sorted SortIndicator in iconEnd as aria-sort', () => {
+    it('should expose the direction of a sorted SortIndicator in iconEnd as aria-sort', () => {
         renderHeader(<TableHeadCell iconEnd={<SortIndicator isSorted direction="descending"/>}>Name</TableHeadCell>);
         expect(screen.getByRole('columnheader')).toHaveAttribute('aria-sort', 'descending');
     });
 
-    it('sets no aria-sort when the SortIndicator is not sorted', () => {
+    it('should expose the direction of a sorted SortIndicator in iconStart as aria-sort', () => {
+        renderHeader(<TableHeadCell iconStart={<SortIndicator isSorted direction="ascending"/>}>Name</TableHeadCell>);
+        expect(screen.getByRole('columnheader')).toHaveAttribute('aria-sort', 'ascending');
+    });
+
+    it('should expose descending, the default direction of SortIndicator, when the direction is missing', () => {
+        renderHeader(<TableHeadCell>Name<SortIndicator isSorted/></TableHeadCell>);
+        expect(screen.getByRole('columnheader')).toHaveAttribute('aria-sort', 'descending');
+    });
+
+    it('should set no aria-sort when the SortIndicator is not sorted', () => {
         renderHeader(<TableHeadCell>Name<SortIndicator direction="ascending"/></TableHeadCell>);
         expect(screen.getByRole('columnheader')).not.toHaveAttribute('aria-sort');
     });
 
-    it('lets the consumer override aria-sort', () => {
+    it('should let the consumer override aria-sort', () => {
         renderHeader(<TableHeadCell aria-sort="ascending" iconEnd={<SortIndicator isSorted direction="descending"/>}>Name</TableHeadCell>);
         expect(screen.getByRole('columnheader')).toHaveAttribute('aria-sort', 'ascending');
     });
