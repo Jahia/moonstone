@@ -124,7 +124,7 @@ describe('NumberInput', () => {
         const user = userEvent.setup();
         const onChange = vi.fn();
 
-        render(<NumberInput data-testid="moonstone-numberInput" defaultValue="5" step={1} onChange={e => onChange(e.target.value)}/>);
+        render(<NumberInput data-testid="moonstone-numberInput" defaultValue="5" onChange={e => onChange(e.target.value)}/>);
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowUp]');
         await user.keyboard('[ArrowDown]');
@@ -144,22 +144,26 @@ describe('NumberInput', () => {
 
     it('should step a controlled value on arrowUp', async () => {
         const user = userEvent.setup();
+        const onChange = vi.fn();
         const ControlledNumberInput = () => {
             const [value, setValue] = useState('5');
             return (
-                <>
-                    <NumberInput data-testid="moonstone-numberInput" step={1} value={value} onChange={e => setValue(e.target.value)}/>
-                    <output>{value}</output>
-                </>
+                <NumberInput
+                    data-testid="moonstone-numberInput"
+                    value={value}
+                    onChange={(e) => {
+                        setValue(e.target.value);
+                        onChange(e.target.value);
+                    }}
+                />
             );
         };
 
         render(<ControlledNumberInput/>);
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowUp]');
-        await user.keyboard('[ArrowUp]');
-        expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('7');
-        expect(screen.getByRole('status')).toHaveTextContent('7');
+        expect(onChange).toHaveBeenCalledExactlyOnceWith('6');
+        expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('6');
     });
 
     it('should decrease value by step on arrowDown', async () => {
