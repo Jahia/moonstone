@@ -92,13 +92,23 @@ describe('Dropdown keyboard', () => {
         expect(getOption('Apple')).toHaveFocus();
     });
 
-    it('selects the focused option with Enter and closes', async () => {
+    it('selects the focused option with Enter, closes and returns focus to the trigger', async () => {
         const { trigger, onChange } = renderDropdown();
         await openWithEnter(trigger);
         getOption('Banana').focus();
         await userEvent.keyboard('{Enter}');
         expect(onChange).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ value: 'banana' }));
         await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
+        expect(trigger).toHaveFocus();
+    });
+
+    it('keeps the focus where onChange moved it', async () => {
+        const { trigger } = renderDropdown({ onChange: () => screen.getByRole('button', { name: 'after' }).focus() });
+        await openWithEnter(trigger);
+        getOption('Banana').focus();
+        await userEvent.keyboard('{Enter}');
+        await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
+        expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
     });
 
     it('closes with Escape and returns focus to the trigger', async () => {
@@ -107,6 +117,20 @@ describe('Dropdown keyboard', () => {
         getOption('Apple').focus();
         await userEvent.keyboard('{Escape}');
         await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
+        expect(trigger).toHaveFocus();
+    });
+
+    it('keeps focus on the trigger after a clear with Enter, and keeps the menu closed', async () => {
+        const { trigger } = renderDropdown({ value: 'banana', onClear: vi.fn() });
+        screen.getByRole('button', { name: 'Reset' }).focus();
+        await userEvent.keyboard('{Enter}');
+        expect(trigger).toHaveFocus();
+        expect(screen.queryByRole('list')).not.toBeInTheDocument();
+    });
+
+    it('keeps focus on the trigger after a click on a Tag', async () => {
+        const { trigger } = renderDropdown({ value: undefined, values: ['apple', 'banana'] });
+        await userEvent.click(getOption('Apple'));
         expect(trigger).toHaveFocus();
     });
 

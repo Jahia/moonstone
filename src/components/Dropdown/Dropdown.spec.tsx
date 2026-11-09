@@ -166,6 +166,21 @@ describe('Dropdown', () => {
         expect(screen.getByRole('listbox')).toHaveAccessibleName('Language');
     });
 
+    it('should name the trigger with the aria-label of the consumer followed by the value', () => {
+        render(<Dropdown aria-label="Language" data={[{ label: 'French', value: 'fr' }]} value="fr" onChange={() => null}/>);
+        expect(screen.getByRole('listbox')).toHaveAccessibleName('Language French');
+    });
+
+    it('should name the trigger with the aria-labelledby of the consumer followed by the value', () => {
+        render(
+            <>
+                <span id="language-label">Language</span>
+                <Dropdown aria-labelledby="language-label" data={[{ label: 'French', value: 'fr' }]} value="fr" onChange={() => null}/>
+            </>,
+        );
+        expect(screen.getByRole('listbox')).toHaveAccessibleName('Language French');
+    });
+
     it('should name the search input of the menu with i18n.searchLabel', async () => {
         const user = userEvent.setup();
         render(
