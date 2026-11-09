@@ -6,7 +6,7 @@ import { Switch } from './index';
 const getSwitch = () => screen.getByRole('switch');
 
 describe('Switch keyboard', () => {
-    it('reaches the switch with Tab', async () => {
+    it('should reach the switch with Tab', async () => {
         render(
             <>
                 <button type="button">before</button>
@@ -18,7 +18,7 @@ describe('Switch keyboard', () => {
         expect(getSwitch()).toHaveFocus();
     });
 
-    it('turns on with Space and calls onChange once', async () => {
+    it('should turn on with Space and call onChange once', async () => {
         const onChange = vi.fn();
         render(<Switch value="a" onChange={onChange}/>);
         getSwitch().focus();
@@ -28,7 +28,7 @@ describe('Switch keyboard', () => {
         expect(onChange).toHaveBeenCalledWith(expect.anything(), 'a', true);
     });
 
-    it('turns off with Space when on', async () => {
+    it('should turn off with Space when on', async () => {
         const onChange = vi.fn();
         render(<Switch defaultChecked value="a" onChange={onChange}/>);
         getSwitch().focus();
@@ -38,7 +38,7 @@ describe('Switch keyboard', () => {
         expect(onChange).toHaveBeenCalledWith(expect.anything(), 'a', false);
     });
 
-    it('turns on with Enter and calls onChange once', async () => {
+    it('should turn on with Enter and call onChange once', async () => {
         const onChange = vi.fn();
         render(<Switch value="a" onChange={onChange}/>);
         getSwitch().focus();
@@ -47,7 +47,7 @@ describe('Switch keyboard', () => {
         expect(onChange).toHaveBeenCalledTimes(1);
     });
 
-    it('exposes its state through the native checked state', async () => {
+    it('should expose its state through the native checked state', async () => {
         render(<Switch value="a"/>);
         expect(getSwitch()).not.toBeChecked();
         getSwitch().focus();
@@ -55,7 +55,7 @@ describe('Switch keyboard', () => {
         expect(getSwitch()).toBeChecked();
     });
 
-    it('toggles once when Enter is held', async () => {
+    it('should toggle once when Enter is held', async () => {
         const onChange = vi.fn();
         render(<Switch value="a" onChange={onChange}/>);
         getSwitch().focus();
@@ -63,7 +63,7 @@ describe('Switch keyboard', () => {
         expect(onChange).toHaveBeenCalledTimes(1);
     });
 
-    it('skips a disabled switch in the tab sequence', async () => {
+    it('should skip a disabled switch in the tab sequence', async () => {
         render(
             <>
                 <button type="button">before</button>
@@ -78,7 +78,7 @@ describe('Switch keyboard', () => {
 });
 
 describe('Switch pointer', () => {
-    it('turns on with a click 1px inside the 24px target around its track', async () => {
+    it('should turn on with a click 1px inside the 24px target around its track', async () => {
         render(<div style={{ padding: 8 }}><Switch aria-label="Notifications" value="a"/></div>);
         const { height } = getSwitch().getBoundingClientRect();
         await userEvent.click(getSwitch(), { position: { x: 1, y: ((height - 24) / 2) + 1 }, force: true });

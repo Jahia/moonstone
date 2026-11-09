@@ -38,41 +38,41 @@ const openWithEnter = async (trigger: HTMLElement) => {
 };
 
 describe('Dropdown keyboard', () => {
-    it('reaches the trigger with Tab', async () => {
+    it('should reach the trigger with Tab', async () => {
         const { trigger } = renderDropdown();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(trigger).toHaveFocus();
     });
 
-    it('opens with Enter', async () => {
+    it('should open with Enter', async () => {
         const { trigger } = renderDropdown();
         trigger.focus();
         await userEvent.keyboard('{Enter}');
         expect(await screen.findByRole('list')).toBeInTheDocument();
     });
 
-    it.fails('opens with Space', async () => {
+    it.fails('should open with Space', async () => {
         const { trigger } = renderDropdown();
         trigger.focus();
         await userEvent.keyboard(' ');
         expect(await screen.findByRole('list')).toBeInTheDocument();
     });
 
-    it.fails('opens with ArrowDown', async () => {
+    it.fails('should open with ArrowDown', async () => {
         const { trigger } = renderDropdown();
         trigger.focus();
         await userEvent.keyboard('{ArrowDown}');
         expect(await screen.findByRole('list')).toBeInTheDocument();
     });
 
-    it('moves focus into the options when opened with the keyboard', async () => {
+    it('should move focus into the options when opened with the keyboard', async () => {
         const { trigger } = renderDropdown();
         await openWithEnter(trigger);
         expect(getOption('Apple')).toHaveFocus();
     });
 
-    it('moves focus between options with ArrowDown and ArrowUp', async () => {
+    it('should move focus between options with ArrowDown and ArrowUp', async () => {
         const { trigger } = renderDropdown();
         await openWithEnter(trigger);
         getOption('Apple').focus();
@@ -82,7 +82,7 @@ describe('Dropdown keyboard', () => {
         expect(getOption('Apple')).toHaveFocus();
     });
 
-    it('moves focus to the first and last options with Home and End', async () => {
+    it('should move focus to the first and last options with Home and End', async () => {
         const { trigger } = renderDropdown();
         await openWithEnter(trigger);
         getOption('Banana').focus();
@@ -92,7 +92,7 @@ describe('Dropdown keyboard', () => {
         expect(getOption('Apple')).toHaveFocus();
     });
 
-    it('selects the focused option with Enter and closes', async () => {
+    it('should select the focused option with Enter and close', async () => {
         const { trigger, onChange } = renderDropdown();
         await openWithEnter(trigger);
         getOption('Banana').focus();
@@ -101,7 +101,7 @@ describe('Dropdown keyboard', () => {
         await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
     });
 
-    it('closes with Escape and returns focus to the trigger', async () => {
+    it('should close with Escape and return focus to the trigger', async () => {
         const { trigger } = renderDropdown();
         await openWithEnter(trigger);
         getOption('Apple').focus();
@@ -110,7 +110,7 @@ describe('Dropdown keyboard', () => {
         expect(trigger).toHaveFocus();
     });
 
-    it.fails('closes when focus leaves the options with Tab', async () => {
+    it.fails('should close when focus leaves the options with Tab', async () => {
         const { trigger } = renderDropdown();
         await openWithEnter(trigger);
         getOption('Date').focus();
@@ -118,7 +118,7 @@ describe('Dropdown keyboard', () => {
         await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
     });
 
-    it('filters the options when typing in the search', async () => {
+    it('should filter the options when typing in the search', async () => {
         const { trigger } = renderDropdown({ hasSearch: true });
         await openWithEnter(trigger);
         expect(screen.getByRole('searchbox')).toHaveFocus();
@@ -127,7 +127,7 @@ describe('Dropdown keyboard', () => {
         expect(getOption('Banana')).toBeInTheDocument();
     });
 
-    it('toggles the focused option with Space in the multiple variant', async () => {
+    it('should toggle the focused option with Space in the multiple variant', async () => {
         const onChange = vi.fn();
         render(
             <Dropdown

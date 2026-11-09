@@ -35,35 +35,35 @@ const getSelector = () => screen.getByRole('listbox', { name: 'Choose' });
 const findOption = (name: string) => screen.findByRole('list').then(list => within(list).getByRole('option', { name }));
 
 describe('FieldSelector keyboard', () => {
-    it('reaches the selector control with Tab', async () => {
+    it('should reach the selector control with Tab', async () => {
         renderField();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(getSelector()).toHaveFocus();
     });
 
-    it('opens the selector with Enter', async () => {
+    it('should open the selector with Enter', async () => {
         renderField();
         getSelector().focus();
         await userEvent.keyboard('{Enter}');
         expect(await findOption('Option 2')).toBeVisible();
     });
 
-    it.fails('opens the selector with Space', async () => {
+    it.fails('should open the selector with Space', async () => {
         renderField();
         getSelector().focus();
         await userEvent.keyboard(' ');
         expect(await findOption('Option 2')).toBeVisible();
     });
 
-    it.fails('opens the selector with ArrowDown', async () => {
+    it.fails('should open the selector with ArrowDown', async () => {
         renderField();
         getSelector().focus();
         await userEvent.keyboard('{ArrowDown}');
         expect(await findOption('Option 2')).toBeVisible();
     });
 
-    it('reaches the action buttons with Tab after the selector', async () => {
+    it('should reach the action buttons with Tab after the selector', async () => {
         renderField();
         getSelector().focus();
         await userEvent.keyboard('{Tab}');
@@ -72,14 +72,14 @@ describe('FieldSelector keyboard', () => {
         expect(screen.getByRole('button', { name: 'Remove' })).toHaveFocus();
     });
 
-    it('activates an action button with Enter', async () => {
+    it('should activate an action button with Enter', async () => {
         const { onRemove } = renderField();
         screen.getByRole('button', { name: 'Remove' }).focus();
         await userEvent.keyboard('{Enter}');
         expect(onRemove).toHaveBeenCalledTimes(1);
     });
 
-    it('activates an action button with Space', async () => {
+    it('should activate an action button with Space', async () => {
         const { onRemove } = renderField();
         screen.getByRole('button', { name: 'Remove' }).focus();
         await userEvent.keyboard(' ');

@@ -16,35 +16,35 @@ const renderButton = (props = {}) => {
 };
 
 describe('Button keyboard', () => {
-    it('reaches the button with Tab', async () => {
+    it('should reach the button with Tab', async () => {
         renderButton();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(screen.getByRole('button', { name: 'Action' })).toHaveFocus();
     });
 
-    it('activates the focused button with Enter', async () => {
+    it('should activate the focused button with Enter', async () => {
         const { onClick } = renderButton();
         screen.getByRole('button', { name: 'Action' }).focus();
         await userEvent.keyboard('{Enter}');
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it('activates the focused button with Space', async () => {
+    it('should activate the focused button with Space', async () => {
         const { onClick } = renderButton();
         screen.getByRole('button', { name: 'Action' }).focus();
         await userEvent.keyboard(' ');
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it('skips a disabled button in the tab sequence', async () => {
+    it('should skip a disabled button in the tab sequence', async () => {
         renderButton({ isDisabled: true });
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
     });
 
-    it('does not activate a disabled button with Enter or Space', async () => {
+    it('should not activate a disabled button with Enter or Space', async () => {
         const { onClick } = renderButton({ isDisabled: true });
         screen.getByRole('button', { name: 'Action' }).focus();
         await userEvent.keyboard('{Enter}');

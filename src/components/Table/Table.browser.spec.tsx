@@ -50,21 +50,21 @@ const renderPagination = (currentPage: number) => {
 
 describe('Table keyboard', () => {
     describe('sortable header', () => {
-        it.fails('reaches a sortable column header with Tab', async () => {
+        it.fails('should reach a sortable column header with Tab', async () => {
             const { header } = renderSortableTable();
             screen.getByRole('button', { name: 'before' }).focus();
             await userEvent.keyboard('{Tab}');
             expect(header).toHaveFocus();
         });
 
-        it.fails('toggles sorting with Enter on a focused sortable header', async () => {
+        it.fails('should toggle sorting with Enter on a focused sortable header', async () => {
             const { onSort, header } = renderSortableTable();
             header.focus();
             await userEvent.keyboard('{Enter}');
             expect(onSort).toHaveBeenCalledTimes(1);
         });
 
-        it.fails('toggles sorting with Space on a focused sortable header', async () => {
+        it.fails('should toggle sorting with Space on a focused sortable header', async () => {
             const { onSort, header } = renderSortableTable();
             header.focus();
             await userEvent.keyboard(' ');
@@ -73,7 +73,7 @@ describe('Table keyboard', () => {
     });
 
     describe('pagination', () => {
-        it('reaches every pagination control with Tab', async () => {
+        it('should reach every pagination control with Tab', async () => {
             const { button } = renderPagination(2);
             screen.getByRole('button', { name: 'before' }).focus();
             await userEvent.keyboard('{Tab}');
@@ -88,42 +88,42 @@ describe('Table keyboard', () => {
             expect(button('last')).toHaveFocus();
         });
 
-        it('goes to the next page with Enter', async () => {
+        it('should go to the next page with Enter', async () => {
             const { onPageChange, button } = renderPagination(2);
             button('next').focus();
             await userEvent.keyboard('{Enter}');
             expect(onPageChange).toHaveBeenCalledWith(3);
         });
 
-        it('goes to the previous page with Space', async () => {
+        it('should go to the previous page with Space', async () => {
             const { onPageChange, button } = renderPagination(2);
             button('previous').focus();
             await userEvent.keyboard(' ');
             expect(onPageChange).toHaveBeenCalledWith(1);
         });
 
-        it('goes to the first page with Enter', async () => {
+        it('should go to the first page with Enter', async () => {
             const { onPageChange, button } = renderPagination(3);
             button('first').focus();
             await userEvent.keyboard('{Enter}');
             expect(onPageChange).toHaveBeenCalledWith(1);
         });
 
-        it('goes to the last page with Space', async () => {
+        it('should go to the last page with Space', async () => {
             const { onPageChange, button } = renderPagination(3);
             button('last').focus();
             await userEvent.keyboard(' ');
             expect(onPageChange).toHaveBeenCalledWith(5);
         });
 
-        it('skips the disabled first and previous buttons on the first page', async () => {
+        it('should skip the disabled first and previous buttons on the first page', async () => {
             const { button } = renderPagination(1);
             screen.getByRole('listbox').focus();
             await userEvent.keyboard('{Tab}');
             expect(button('next')).toHaveFocus();
         });
 
-        it('skips the disabled next and last buttons on the last page', async () => {
+        it('should skip the disabled next and last buttons on the last page', async () => {
             const { button } = renderPagination(5);
             button('previous').focus();
             await userEvent.keyboard('{Tab}');
@@ -131,14 +131,14 @@ describe('Table keyboard', () => {
             expect(button('last')).not.toHaveFocus();
         });
 
-        it('opens the rows-per-page options with Enter', async () => {
+        it('should open the rows-per-page options with Enter', async () => {
             renderPagination(2);
             screen.getByRole('listbox').focus();
             await userEvent.keyboard('{Enter}');
             expect(await screen.findByRole('option', { name: '25' })).toBeVisible();
         });
 
-        it('changes the rows per page with the keyboard', async () => {
+        it('should change the rows per page with the keyboard', async () => {
             const { onRowsPerPageChange } = renderPagination(2);
             screen.getByRole('listbox').focus();
             await userEvent.keyboard('{Enter}');

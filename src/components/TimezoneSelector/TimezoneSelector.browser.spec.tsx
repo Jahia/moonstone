@@ -29,14 +29,14 @@ const openAndSearch = async (trigger: HTMLElement) => {
 };
 
 describe('TimezoneSelector keyboard', () => {
-    it('reaches the trigger with Tab', async () => {
+    it('should reach the trigger with Tab', async () => {
         const { trigger } = renderSelector();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(trigger).toHaveFocus();
     });
 
-    it('opens with Enter and focuses the search input', async () => {
+    it('should open with Enter and focus the search input', async () => {
         const { trigger } = renderSelector();
         trigger.focus();
         await userEvent.keyboard('{Enter}');
@@ -44,35 +44,35 @@ describe('TimezoneSelector keyboard', () => {
         expect(screen.getByRole('searchbox')).toHaveFocus();
     });
 
-    it.fails('opens with Space', async () => {
+    it.fails('should open with Space', async () => {
         const { trigger } = renderSelector();
         trigger.focus();
         await userEvent.keyboard(' ');
         expect(await screen.findByRole('list')).toBeInTheDocument();
     });
 
-    it.fails('opens with ArrowDown', async () => {
+    it.fails('should open with ArrowDown', async () => {
         const { trigger } = renderSelector();
         trigger.focus();
         await userEvent.keyboard('{ArrowDown}');
         expect(await screen.findByRole('list')).toBeInTheDocument();
     });
 
-    it('filters the options when typing', async () => {
+    it('should filter the options when typing', async () => {
         const { trigger } = renderSelector();
         await openAndSearch(trigger);
         expect(getOption(/^Santiago/)).toBeInTheDocument();
         expect(screen.queryByText(/^Paris/)).not.toBeInTheDocument();
     });
 
-    it.fails('moves focus to the first option with ArrowDown from the search input', async () => {
+    it.fails('should move focus to the first option with ArrowDown from the search input', async () => {
         const { trigger } = renderSelector();
         await openAndSearch(trigger);
         await userEvent.keyboard('{ArrowDown}');
         expect(getOption(/^Santarem/)).toHaveFocus();
     });
 
-    it('moves focus between options with ArrowDown and ArrowUp', async () => {
+    it('should move focus between options with ArrowDown and ArrowUp', async () => {
         const { trigger } = renderSelector();
         await openAndSearch(trigger);
         getOption(/^Santarem/).focus();
@@ -82,7 +82,7 @@ describe('TimezoneSelector keyboard', () => {
         expect(getOption(/^Santarem/)).toHaveFocus();
     });
 
-    it('selects the focused option with Enter and closes', async () => {
+    it('should select the focused option with Enter and close', async () => {
         const { trigger, onChange } = renderSelector();
         await openAndSearch(trigger);
         getOption(/^Santiago/).focus();
@@ -91,7 +91,7 @@ describe('TimezoneSelector keyboard', () => {
         await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
     });
 
-    it('closes with Escape and returns focus to the trigger', async () => {
+    it('should close with Escape and return focus to the trigger', async () => {
         const { trigger } = renderSelector();
         await openAndSearch(trigger);
         await userEvent.keyboard('{Escape}');

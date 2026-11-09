@@ -30,19 +30,19 @@ const renderAndOpen = async () => {
 };
 
 describe('Drawer keyboard', () => {
-    it('moves focus inside the drawer when it opens', async () => {
+    it('should move focus inside the drawer when it opens', async () => {
         const { drawer } = await renderAndOpen();
         await waitFor(() => expect(drawer).toContainElement(document.activeElement as HTMLElement));
     });
 
-    it('reaches the drawer content with Tab', async () => {
+    it('should reach the drawer content with Tab', async () => {
         const { trigger } = await renderAndOpen();
         trigger.focus();
         await userEvent.keyboard('{Tab}');
         expect(screen.getByRole('button', { name: 'Inside action' })).toHaveFocus();
     });
 
-    it('closes with Escape', async () => {
+    it('should close with Escape', async () => {
         const { trigger } = await renderAndOpen();
         screen.getByRole('button', { name: 'Inside action' }).focus();
         await userEvent.keyboard('{Escape}');
@@ -50,7 +50,7 @@ describe('Drawer keyboard', () => {
         expect(trigger).toHaveFocus();
     });
 
-    it('moves focus to the first element that Tab reaches when it opens', () => {
+    it('should move focus to the first element that Tab reaches when it opens', () => {
         const content = (
             <>
                 <button tabIndex={-1} type="button">Inactive tab</button>
@@ -62,7 +62,7 @@ describe('Drawer keyboard', () => {
         expect(screen.getByRole('button', { name: 'Selected tab' })).toHaveFocus();
     });
 
-    it('returns focus to the trigger when closed from inside', async () => {
+    it('should return focus to the trigger when closed from inside', async () => {
         const { trigger } = await renderAndOpen();
         screen.getByRole('button', { name: 'Close' }).focus();
         await userEvent.keyboard('{Enter}');
@@ -70,7 +70,7 @@ describe('Drawer keyboard', () => {
         expect(trigger).toHaveFocus();
     });
 
-    it('does not take focus when it is rendered open', () => {
+    it('should not take focus when it is rendered open', () => {
         render(<Drawer isOpen aria-label="Side panel"><button type="button">Inside action</button></Drawer>);
         expect(screen.getByRole('button', { name: 'Inside action' })).not.toHaveFocus();
     });
@@ -78,7 +78,7 @@ describe('Drawer keyboard', () => {
 
 // The 2.21.1 fix was lost once on main (app-shell#409)
 describe('Drawer styles', () => {
-    it('lets its consumer set its width, with no min-width of 100%', () => {
+    it('should let its consumer set its width, with no min-width of 100%', () => {
         render(<Drawer isOpen aria-label="Side panel"><p>Drawer content</p></Drawer>);
         expect(getComputedStyle(screen.getByRole('complementary', { name: 'Side panel' })).minWidth).not.toBe('100%');
     });

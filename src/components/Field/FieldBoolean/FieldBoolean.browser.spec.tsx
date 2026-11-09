@@ -4,7 +4,7 @@ import { userEvent } from 'vitest/browser';
 import { FieldBoolean } from './index';
 
 describe('FieldBoolean keyboard', () => {
-    it('reaches the checkbox with Tab', async () => {
+    it('should reach the checkbox with Tab', async () => {
         render(
             <>
                 <button type="button">before</button>
@@ -16,7 +16,7 @@ describe('FieldBoolean keyboard', () => {
         expect(screen.getByRole('checkbox', { name: 'Enabled' })).toHaveFocus();
     });
 
-    it('toggles the checkbox with Space and calls onChange', async () => {
+    it('should toggle the checkbox with Space and call onChange', async () => {
         const onChange = vi.fn();
         render(<FieldBoolean checkboxAttributes={{ value: 'enabled', onChange }} id="field" label="Enabled"/>);
         screen.getByRole('checkbox', { name: 'Enabled' }).focus();
@@ -26,7 +26,7 @@ describe('FieldBoolean keyboard', () => {
         expect(onChange).toHaveBeenCalledWith(expect.anything(), 'enabled', true);
     });
 
-    it('skips a disabled checkbox in the tab sequence', async () => {
+    it('should skip a disabled checkbox in the tab sequence', async () => {
         render(
             <>
                 <button type="button">before</button>

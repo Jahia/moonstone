@@ -17,14 +17,14 @@ const renderNav = () => {
 const toggle = () => screen.getByRole('button', { name: 'Toggle secondary navigation' });
 
 describe('SecondaryNav keyboard', () => {
-    it('reaches the toggle button with Tab', async () => {
+    it('should reach the toggle button with Tab', async () => {
         renderNav();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(toggle()).toHaveFocus();
     });
 
-    it('collapses the nav with Enter and reports it with aria-expanded', async () => {
+    it('should collapse the nav with Enter and report it with aria-expanded', async () => {
         const { onToggled } = renderNav();
         expect(toggle()).toHaveAttribute('aria-expanded', 'true');
         toggle().focus();
@@ -33,7 +33,7 @@ describe('SecondaryNav keyboard', () => {
         expect(toggle()).toHaveAttribute('aria-expanded', 'false');
     });
 
-    it('collapses the nav with Space', async () => {
+    it('should collapse the nav with Space', async () => {
         const { onToggled } = renderNav();
         toggle().focus();
         await userEvent.keyboard(' ');
@@ -41,7 +41,7 @@ describe('SecondaryNav keyboard', () => {
         expect(toggle()).toHaveAttribute('aria-expanded', 'false');
     });
 
-    it('keeps the toggle button focusable once collapsed and expands again with Enter', async () => {
+    it('should keep the toggle button focusable once collapsed and expand again with Enter', async () => {
         renderNav();
         toggle().focus();
         await userEvent.keyboard('{Enter}');
@@ -50,7 +50,7 @@ describe('SecondaryNav keyboard', () => {
         expect(toggle()).toHaveAttribute('aria-expanded', 'true');
     });
 
-    it('skips the content of a collapsed nav with Tab', async () => {
+    it('should skip the content of a collapsed nav with Tab', async () => {
         render(
             <>
                 <SecondaryNav isDefaultVisible={false} header="Header">
@@ -64,7 +64,7 @@ describe('SecondaryNav keyboard', () => {
         expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
     });
 
-    it('keeps the content visible while the nav collapses, then hides it', async () => {
+    it('should keep the content visible while the nav collapses, then hide it', async () => {
         render(<SecondaryNav header="Header"><button type="button">inside</button></SecondaryNav>);
         toggle().focus();
         await userEvent.keyboard('{Enter}');
@@ -72,7 +72,7 @@ describe('SecondaryNav keyboard', () => {
         await expect.element(screen.getByText('inside')).not.toBeVisible();
     });
 
-    it('reads the width of a nav that starts collapsed once it is expanded', async () => {
+    it('should read the width of a nav that starts collapsed once it is expanded', async () => {
         render(<SecondaryNav isDefaultVisible={false} header="Header">Nav content</SecondaryNav>);
         await userEvent.click(toggle());
         expect(screen.getByRole('separator')).toHaveAttribute('aria-valuenow', '300');

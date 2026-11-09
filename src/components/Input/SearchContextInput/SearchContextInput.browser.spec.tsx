@@ -28,7 +28,7 @@ const getTrigger = () => screen.getByRole('listbox', { name: 'Global users' });
 const findOption = (name: string) => screen.findByRole('list').then(list => within(list).getByRole('option', { name }));
 
 describe('SearchContextInput keyboard', () => {
-    it('reaches the context selector then the search box with Tab', async () => {
+    it('should reach the context selector then the search box with Tab', async () => {
         renderInput();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
@@ -37,35 +37,35 @@ describe('SearchContextInput keyboard', () => {
         expect(screen.getByRole('searchbox')).toHaveFocus();
     });
 
-    it('opens the context menu with Enter', async () => {
+    it('should open the context menu with Enter', async () => {
         renderInput();
         getTrigger().focus();
         await userEvent.keyboard('{Enter}');
         expect(await findOption('Media')).toBeVisible();
     });
 
-    it.fails('opens the context menu with Space', async () => {
+    it.fails('should open the context menu with Space', async () => {
         renderInput();
         getTrigger().focus();
         await userEvent.keyboard(' ');
         expect(await findOption('Media')).toBeVisible();
     });
 
-    it.fails('opens the context menu with ArrowDown', async () => {
+    it.fails('should open the context menu with ArrowDown', async () => {
         renderInput();
         getTrigger().focus();
         await userEvent.keyboard('{ArrowDown}');
         expect(await findOption('Media')).toBeVisible();
     });
 
-    it('moves focus to the selected option when the menu opens', async () => {
+    it('should move focus to the selected option when the menu opens', async () => {
         renderInput();
         getTrigger().focus();
         await userEvent.keyboard('{Enter}');
         expect(await findOption('Global users')).toHaveFocus();
     });
 
-    it('moves focus between options with ArrowDown and ArrowUp', async () => {
+    it('should move focus between options with ArrowDown and ArrowUp', async () => {
         renderInput();
         getTrigger().focus();
         await userEvent.keyboard('{Enter}');
@@ -76,7 +76,7 @@ describe('SearchContextInput keyboard', () => {
         expect(await findOption('Media')).toHaveFocus();
     });
 
-    it('selects the focused option with Enter and closes the menu', async () => {
+    it('should select the focused option with Enter and close the menu', async () => {
         const { onContextChange } = renderInput();
         getTrigger().focus();
         await userEvent.keyboard('{Enter}');
@@ -87,7 +87,7 @@ describe('SearchContextInput keyboard', () => {
         expect(screen.queryByRole('list')).toBeNull();
     });
 
-    it('closes the menu with Escape and returns focus to the context selector', async () => {
+    it('should close the menu with Escape and return focus to the context selector', async () => {
         renderInput();
         getTrigger().focus();
         await userEvent.keyboard('{Enter}');
@@ -97,7 +97,7 @@ describe('SearchContextInput keyboard', () => {
         expect(getTrigger()).toHaveFocus();
     });
 
-    it('reaches the clear button with Tab after the search box', async () => {
+    it('should reach the clear button with Tab after the search box', async () => {
         renderInput();
         screen.getByRole('searchbox').focus();
         await userEvent.keyboard('{Tab}');

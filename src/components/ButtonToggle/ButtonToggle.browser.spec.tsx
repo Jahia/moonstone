@@ -15,14 +15,14 @@ const renderToggle = (props = {}) => {
 };
 
 describe('ButtonToggle keyboard', () => {
-    it('reaches the toggle button with Tab', async () => {
+    it('should reach the toggle button with Tab', async () => {
         renderToggle();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(screen.getByRole('button', { name: 'Bold' })).toHaveFocus();
     });
 
-    it('toggles the pressed state with Enter', async () => {
+    it('should toggle the pressed state with Enter', async () => {
         const { onClick } = renderToggle();
         const toggle = screen.getByRole('button', { name: 'Bold' });
         expect(toggle).toHaveAttribute('aria-pressed', 'false');
@@ -32,7 +32,7 @@ describe('ButtonToggle keyboard', () => {
         expect(toggle).toHaveAttribute('aria-pressed', 'true');
     });
 
-    it('toggles the pressed state with Space', async () => {
+    it('should toggle the pressed state with Space', async () => {
         const { onClick } = renderToggle({ defaultPressed: true });
         const toggle = screen.getByRole('button', { name: 'Bold' });
         expect(toggle).toHaveAttribute('aria-pressed', 'true');
@@ -42,7 +42,7 @@ describe('ButtonToggle keyboard', () => {
         expect(toggle).toHaveAttribute('aria-pressed', 'false');
     });
 
-    it('keeps focus on the toggle button after it is toggled with the keyboard', async () => {
+    it('should keep focus on the toggle button after it is toggled with the keyboard', async () => {
         renderToggle();
         const toggle = screen.getByRole('button', { name: 'Bold' });
         toggle.focus();
@@ -50,7 +50,7 @@ describe('ButtonToggle keyboard', () => {
         expect(toggle).toHaveFocus();
     });
 
-    it('skips a disabled toggle button in the tab sequence and does not toggle it', async () => {
+    it('should skip a disabled toggle button in the tab sequence and not toggle it', async () => {
         const { onClick } = renderToggle({ isDisabled: true });
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');

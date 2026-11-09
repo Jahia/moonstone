@@ -19,7 +19,7 @@ const ClearableInput = ({ onClear }: { readonly onClear: () => void }) => {
 };
 
 describe('Input keyboard', () => {
-    it('reaches the input with Tab', async () => {
+    it('should reach the input with Tab', async () => {
         render(
             <>
                 <button type="button">before</button>
@@ -31,7 +31,7 @@ describe('Input keyboard', () => {
         expect(screen.getByRole('textbox')).toHaveFocus();
     });
 
-    it('updates the value and calls onChange when typing', async () => {
+    it('should update the value and call onChange when typing', async () => {
         const onChange = vi.fn();
         render(<Input onChange={onChange}/>);
         screen.getByRole('textbox').focus();
@@ -40,7 +40,7 @@ describe('Input keyboard', () => {
         expect(onChange).toHaveBeenCalledTimes(3);
     });
 
-    it('skips a disabled input in the tab sequence', async () => {
+    it('should skip a disabled input in the tab sequence', async () => {
         render(
             <>
                 <button type="button">before</button>
@@ -53,14 +53,14 @@ describe('Input keyboard', () => {
         expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
     });
 
-    it('reaches the clear button with Tab after the input', async () => {
+    it('should reach the clear button with Tab after the input', async () => {
         render(<ClearableInput onClear={vi.fn()}/>);
         screen.getByRole('textbox').focus();
         await userEvent.keyboard('{Tab}');
         expect(screen.getByRole('button', { name: 'Reset' })).toHaveFocus();
     });
 
-    it('clears with Enter on the clear button and returns focus to the input', async () => {
+    it('should clear with Enter on the clear button and return focus to the input', async () => {
         const onClear = vi.fn();
         render(<ClearableInput onClear={onClear}/>);
         screen.getByRole('button', { name: 'Reset' }).focus();
@@ -70,7 +70,7 @@ describe('Input keyboard', () => {
         expect(screen.getByRole('textbox')).toHaveFocus();
     });
 
-    it('clears with Space on the clear button and returns focus to the input', async () => {
+    it('should clear with Space on the clear button and return focus to the input', async () => {
         const onClear = vi.fn();
         render(<ClearableInput onClear={onClear}/>);
         screen.getByRole('button', { name: 'Reset' }).focus();

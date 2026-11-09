@@ -17,14 +17,14 @@ const renderCollapsible = () => {
 const trigger = () => screen.getByRole('button', { name: 'Section' });
 
 describe('Collapsible keyboard', () => {
-    it('reaches the trigger with Tab', async () => {
+    it('should reach the trigger with Tab', async () => {
         renderCollapsible();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(trigger()).toHaveFocus();
     });
 
-    it('expands with Enter and reports it with aria-expanded', async () => {
+    it('should expand with Enter and report it with aria-expanded', async () => {
         const { onClick } = renderCollapsible();
         trigger().focus();
         expect(trigger()).toHaveAttribute('aria-expanded', 'false');
@@ -34,7 +34,7 @@ describe('Collapsible keyboard', () => {
         expect(await screen.findByText('Section content')).toBeVisible();
     });
 
-    it('expands with Space', async () => {
+    it('should expand with Space', async () => {
         const { onClick } = renderCollapsible();
         trigger().focus();
         await userEvent.keyboard(' ');
@@ -42,7 +42,7 @@ describe('Collapsible keyboard', () => {
         expect(trigger()).toHaveAttribute('aria-expanded', 'true');
     });
 
-    it('collapses again with a second Enter', async () => {
+    it('should collapse again with a second Enter', async () => {
         renderCollapsible();
         trigger().focus();
         await userEvent.keyboard('{Enter}');

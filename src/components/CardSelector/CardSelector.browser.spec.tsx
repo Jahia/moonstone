@@ -22,28 +22,28 @@ const renderCard = (props = {}) => {
 };
 
 describe('CardSelector keyboard', () => {
-    it('reaches the card with Tab', async () => {
+    it('should reach the card with Tab', async () => {
         renderCard();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(screen.getByRole('button', { name: 'Item name' })).toHaveFocus();
     });
 
-    it('activates the focused card with Enter', async () => {
+    it('should activate the focused card with Enter', async () => {
         const { onClick } = renderCard();
         screen.getByRole('button', { name: 'Item name' }).focus();
         await userEvent.keyboard('{Enter}');
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it('activates the focused card with Space', async () => {
+    it('should activate the focused card with Space', async () => {
         const { onClick } = renderCard();
         screen.getByRole('button', { name: 'Item name' }).focus();
         await userEvent.keyboard(' ');
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it('keeps focus on the card after it is activated with the keyboard', async () => {
+    it('should keep focus on the card after it is activated with the keyboard', async () => {
         renderCard();
         const card = screen.getByRole('button', { name: 'Item name' });
         card.focus();
@@ -51,14 +51,14 @@ describe('CardSelector keyboard', () => {
         expect(card).toHaveFocus();
     });
 
-    it('activates the error card with Enter', async () => {
+    it('should activate the error card with Enter', async () => {
         const { onClick } = renderCard({ hasError: true, errorMessage: 'Broken reference' });
         screen.getByRole('button', { name: 'Broken reference' }).focus();
         await userEvent.keyboard('{Enter}');
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it('skips a disabled card in the tab sequence and does not activate it', async () => {
+    it('should skip a disabled card in the tab sequence and not activate it', async () => {
         const { onClick } = renderCard({ isDisabled: true });
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
@@ -69,14 +69,14 @@ describe('CardSelector keyboard', () => {
         expect(onClick).not.toHaveBeenCalled();
     });
 
-    it('moves from the card to its action with Tab', async () => {
+    it('should move from the card to its action with Tab', async () => {
         renderCard({ cardAction: <button type="button">Remove</button> });
         screen.getByRole('button', { name: 'Item name' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(screen.getByRole('button', { name: 'Remove' })).toHaveFocus();
     });
 
-    it('does not activate the card when its action is activated', async () => {
+    it('should not activate the card when its action is activated', async () => {
         const onRemove = vi.fn();
         const { onClick } = renderCard({ cardAction: <button type="button" onClick={onRemove}>Remove</button> });
         screen.getByRole('button', { name: 'Remove' }).focus();
@@ -86,7 +86,7 @@ describe('CardSelector keyboard', () => {
         expect(onClick).not.toHaveBeenCalled();
     });
 
-    it('skips a read-only card in the tab sequence', async () => {
+    it('should skip a read-only card in the tab sequence', async () => {
         renderCard({ isReadOnly: true });
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');

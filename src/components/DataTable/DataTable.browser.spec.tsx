@@ -43,7 +43,7 @@ const header = (name: string) => screen.getByRole('columnheader', { name });
 const row = (name: string) => screen.getByRole('row', { name: new RegExp(name) });
 
 describe('DataTable keyboard', () => {
-    it('reaches the button of a sortable column header with Tab', async () => {
+    it('should reach the button of a sortable column header with Tab', async () => {
         renderTable();
         screen.getByRole('button', { name: 'before' }).focus();
         // The header row is still a Tab stop
@@ -52,7 +52,7 @@ describe('DataTable keyboard', () => {
         expect(screen.getByRole('button', { name: 'Name' })).toHaveFocus();
     });
 
-    it('sorts the column with Enter on the focused button of a sortable header and updates aria-sort', async () => {
+    it('should sort the column with Enter on the focused button of a sortable header and update aria-sort', async () => {
         renderTable();
         screen.getByRole('button', { name: 'Name' }).focus();
         await userEvent.keyboard('{Enter}');
@@ -61,7 +61,7 @@ describe('DataTable keyboard', () => {
         expect(header('Name')).toHaveAttribute('aria-sort', 'descending');
     });
 
-    it('sorts the column with Space on the focused button of a sortable header', async () => {
+    it('should sort the column with Space on the focused button of a sortable header', async () => {
         const onSortChange = vi.fn();
         renderTable({ enableSorting: true, onSortChange });
         screen.getByRole('button', { name: 'Age' }).focus();
@@ -69,7 +69,7 @@ describe('DataTable keyboard', () => {
         expect(onSortChange).toHaveBeenCalledWith('age', 'descending');
     });
 
-    it('toggles a row selection checkbox with Space', async () => {
+    it('should toggle a row selection checkbox with Space', async () => {
         const onChangeSelection = vi.fn();
         renderTable({ enableSelection: true, onChangeSelection });
         const checkbox = screen.getAllByRole('checkbox')[1];
@@ -79,7 +79,7 @@ describe('DataTable keyboard', () => {
         expect(onChangeSelection).toHaveBeenCalledWith(['1']);
     });
 
-    it('toggles the select-all checkbox with Space', async () => {
+    it('should toggle the select-all checkbox with Space', async () => {
         const onChangeSelection = vi.fn();
         renderTable({ enableSelection: true, onChangeSelection });
         screen.getAllByRole('checkbox')[0].focus();
@@ -87,13 +87,13 @@ describe('DataTable keyboard', () => {
         expect(onChangeSelection).toHaveBeenCalledWith(['1', '2', '3']);
     });
 
-    it('makes a row with an onClick focusable', () => {
+    it('should make a row with an onClick focusable', () => {
         renderTable({ rowProps: { onClick: vi.fn() } });
         row('Alice').focus();
         expect(row('Alice')).toHaveFocus();
     });
 
-    it.fails('activates a focused clickable row with Enter', async () => {
+    it.fails('should activate a focused clickable row with Enter', async () => {
         const onClick = vi.fn();
         renderTable({ rowProps: { onClick } });
         row('Alice').focus();
@@ -101,7 +101,7 @@ describe('DataTable keyboard', () => {
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it.fails('activates a focused clickable row with Space', async () => {
+    it.fails('should activate a focused clickable row with Space', async () => {
         const onClick = vi.fn();
         renderTable({ rowProps: { onClick } });
         row('Bob').focus();
@@ -109,7 +109,7 @@ describe('DataTable keyboard', () => {
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it('collapses and expands a structured row with Enter on its toggle and updates aria-expanded', async () => {
+    it('should collapse and expand a structured row with Enter on its toggle and update aria-expanded', async () => {
         renderTable({ isStructured: true, data: kbStructuredData });
         const toggle = screen.getByRole('button', { name: 'Alice' });
         toggle.focus();
@@ -121,14 +121,14 @@ describe('DataTable keyboard', () => {
         expect(screen.getByText('Bob')).toBeInTheDocument();
     });
 
-    it('collapses a structured row with Space on its toggle', async () => {
+    it('should collapse a structured row with Space on its toggle', async () => {
         renderTable({ isStructured: true, data: kbStructuredData });
         screen.getByRole('button', { name: 'Alice' }).focus();
         await userEvent.keyboard(' ');
         expect(screen.queryByText('Bob')).not.toBeInTheDocument();
     });
 
-    it('toggles a structured row and calls the onClick of the cell when a column sets one', async () => {
+    it('should toggle a structured row and call the onClick of the cell when a column sets one', async () => {
         const onClick = vi.fn();
         renderTable({
             isStructured: true,
@@ -161,7 +161,7 @@ describe('DataTable keyboard', () => {
             });
         };
 
-        it('shows the hover actions when the row itself receives keyboard focus', async () => {
+        it('should show the hover actions when the row itself receives keyboard focus', async () => {
             renderWithActions();
             screen.getByRole('button', { name: 'before' }).focus();
             await userEvent.keyboard('{Tab}');
@@ -170,7 +170,7 @@ describe('DataTable keyboard', () => {
             expect(screen.getByRole('button', { name: 'Edit 1' })).toBeVisible();
         });
 
-        it('shows the hover actions when a control inside the row receives focus', () => {
+        it('should show the hover actions when a control inside the row receives focus', () => {
             renderWithActions();
             const more = screen.getByRole('button', { name: 'More 1' });
             more.focus();
@@ -178,7 +178,7 @@ describe('DataTable keyboard', () => {
             expect(screen.getByRole('button', { name: 'Edit 1' })).toBeVisible();
         });
 
-        it('lets the keyboard reach the hover actions from the focused row with Tab', async () => {
+        it('should let the keyboard reach the hover actions from the focused row with Tab', async () => {
             renderWithActions();
             screen.getByRole('button', { name: 'before' }).focus();
             await userEvent.keyboard('{Tab}');
@@ -201,7 +201,7 @@ describe('DataTable keyboard', () => {
             });
         };
 
-        it('shows the status panel while its row has keyboard focus', async () => {
+        it('should show the status panel while its row has keyboard focus', async () => {
             renderWithStatus();
             screen.getByRole('button', { name: 'before' }).focus();
             await userEvent.keyboard('{Tab}');
@@ -210,7 +210,7 @@ describe('DataTable keyboard', () => {
             await waitFor(() => expect(screen.getByText('Status 1')).toBeVisible());
         });
 
-        it('hides the status panel with Escape until its row loses focus', async () => {
+        it('should hide the status panel with Escape until its row loses focus', async () => {
             renderWithStatus();
             screen.getByRole('button', { name: 'before' }).focus();
             await userEvent.keyboard('{Tab}');
@@ -224,7 +224,7 @@ describe('DataTable keyboard', () => {
             await waitFor(() => expect(screen.getByText('Status 1')).toBeVisible());
         });
 
-        it('passes the Escape that hides the status panel to the onKeyDown of the row', async () => {
+        it('should pass the Escape that hides the status panel to the onKeyDown of the row', async () => {
             const onKeyDown = vi.fn();
             renderWithStatus({ onKeyDown });
             screen.getByRole('button', { name: 'before' }).focus();
@@ -236,7 +236,7 @@ describe('DataTable keyboard', () => {
             await waitFor(() => expect(screen.getByText('Status 1')).not.toBeVisible());
         });
 
-        it('hides the status panel before closing a Modal around the table with Escape', async () => {
+        it('should hide the status panel before closing a Modal around the table with Escape', async () => {
             const onOpenChange = vi.fn();
             render(
                 <Modal isOpen aria-label="Users" onOpenChange={onOpenChange}>
@@ -266,7 +266,7 @@ describe('DataTable keyboard', () => {
             expect(onOpenChange).toHaveBeenCalledWith(false, expect.anything(), 'escape-key');
         });
 
-        it('closes a Modal around the table with the first Escape on a row without a status panel', async () => {
+        it('should close a Modal around the table with the first Escape on a row without a status panel', async () => {
             const onOpenChange = vi.fn();
             render(
                 <Modal isOpen aria-label="Users" onOpenChange={onOpenChange}>

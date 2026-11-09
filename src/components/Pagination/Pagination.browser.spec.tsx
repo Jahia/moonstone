@@ -26,7 +26,7 @@ const renderPagination = (props = {}) => {
 const control = (name: string) => screen.getByTestId(`pagination-button-${name}`);
 
 describe('Pagination keyboard', () => {
-    it('reaches the enabled controls in order with Tab', async () => {
+    it('should reach the enabled controls in order with Tab', async () => {
         renderPagination();
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
@@ -41,7 +41,7 @@ describe('Pagination keyboard', () => {
         expect(control('last-page')).toHaveFocus();
     });
 
-    it('does not let disabled controls take focus', async () => {
+    it('should not let disabled controls take focus', async () => {
         renderPagination({ currentPage: 1 });
         expect(control('first-page')).toBeDisabled();
         control('first-page').focus();
@@ -51,7 +51,7 @@ describe('Pagination keyboard', () => {
         expect(screen.getByRole('listbox')).toHaveFocus();
     });
 
-    it('activates the page controls with Enter', async () => {
+    it('should activate the page controls with Enter', async () => {
         const { onPageChange } = renderPagination();
         control('first-page').focus();
         await userEvent.keyboard('{Enter}');
@@ -64,7 +64,7 @@ describe('Pagination keyboard', () => {
         expect(onPageChange.mock.calls).toEqual([[1], [1], [3], [10]]);
     });
 
-    it('activates the page controls with Space', async () => {
+    it('should activate the page controls with Space', async () => {
         const { onPageChange } = renderPagination();
         control('previous-page').focus();
         await userEvent.keyboard(' ');
@@ -73,14 +73,14 @@ describe('Pagination keyboard', () => {
         expect(onPageChange.mock.calls).toEqual([[1], [3]]);
     });
 
-    it('opens the items-per-page selector with Enter', async () => {
+    it('should open the items-per-page selector with Enter', async () => {
         renderPagination();
         screen.getByRole('listbox').focus();
         await userEvent.keyboard('{Enter}');
         expect(await screen.findByRole('option', { name: '25' })).toBeVisible();
     });
 
-    it('moves focus into the options when the selector is opened with the keyboard', async () => {
+    it('should move focus into the options when the selector is opened with the keyboard', async () => {
         renderPagination();
         screen.getByRole('listbox').focus();
         await userEvent.keyboard('{Enter}');
@@ -89,7 +89,7 @@ describe('Pagination keyboard', () => {
         expect(document.activeElement).toHaveAttribute('role', 'option');
     });
 
-    it('selects a focused option with Enter', async () => {
+    it('should select a focused option with Enter', async () => {
         const { onItemsPerPageChange } = renderPagination();
         screen.getByRole('listbox').focus();
         await userEvent.keyboard('{Enter}');
