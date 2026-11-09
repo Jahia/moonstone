@@ -186,6 +186,42 @@ describe('DataTable', () => {
         });
     });
 
+    it('should set the scope of every header cell to its column', () => {
+        render(
+            <DataTable
+                enableSelection
+                columns={columns}
+                data={data}
+                primaryKey="id"
+            />,
+        );
+
+        screen.getAllByRole('columnheader').forEach((header) => {
+            expect(header).toHaveAttribute('scope', 'col');
+        });
+    });
+
+    it('should name the header cells of the selection column and of the custom columns', async () => {
+        render(
+            <DataTable
+                enableSelection
+                columns={columns}
+                customColumnLabels={{ before: ['Status'], after: ['Actions'] }}
+                data={data}
+                primaryKey="id"
+                renderRow={({ id, render: renderCells }) => (
+                    <TableRow key={id}>
+                        {renderCells({ before: <TableCell/>, after: <TableCell/> })}
+                    </TableRow>
+                )}
+            />,
+        );
+
+        expect(await screen.findByRole('columnheader', { name: 'Status' })).toBeInTheDocument();
+        expect(screen.getByRole('columnheader', { name: 'Actions' })).toBeInTheDocument();
+        expect(screen.getByRole('columnheader', { name: /^Selection/ })).toBeInTheDocument();
+    });
+
     it('should apply custom attribute via `rowProps`', () => {
         render(
             <DataTable

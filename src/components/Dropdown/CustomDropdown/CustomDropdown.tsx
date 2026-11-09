@@ -27,6 +27,8 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
     // must not trigger a render, and the event object has to survive until the menu closes:
     // `onBlur` takes the original FocusEvent, and there is none left at that point.
     const pendingBlurEventRef = useRef<React.FocusEvent | null>(null);
+    // The contract of the published 2.21.1 (ddf86190): onFocus fires once when focus enters, and onBlur only follows a delivered onFocus
+    const isFocusSentRef = useRef(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
 
@@ -42,7 +44,10 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
         const event = pendingBlurEventRef.current;
 
         pendingBlurEventRef.current = null;
-        onBlur?.(event);
+        if (isFocusSentRef.current) {
+            isFocusSentRef.current = false;
+            onBlur?.(event);
+        }
     }, [isFocused, isOpened, onBlur]);
 
     // ---
@@ -101,7 +106,10 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                     setIsFocused(true);
                     // Focus came back before the menu closed: the queued blur never happened.
                     pendingBlurEventRef.current = null;
-                    onFocus?.(event);
+                    if (onFocus && !isFocusSentRef.current) {
+                        isFocusSentRef.current = true;
+                        onFocus(event);
+                    }
                 }}
                 onKeyUp={(e) => {
                     if (e.key === 'Enter' && !isDisabled && !isLoading) {
