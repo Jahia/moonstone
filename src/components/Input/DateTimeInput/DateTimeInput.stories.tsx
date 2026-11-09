@@ -21,6 +21,7 @@ export default {
         notes: { markdown: markdownNotes },
     },
     args: {
+        'aria-label': 'Date',
         'data-testid': 'dateTimeInput',
         'locale': 'en',
         'defaultValue': baseDate, // Fixed (not the default "now") so the snapshot stays stable.
@@ -141,6 +142,7 @@ export const Controlled: Story = {
         return (
             <div>
                 <DateTimeInput
+                    aria-label="Date"
                     locale="en"
                     placeholder="Select a date"
                     type="date"
