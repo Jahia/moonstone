@@ -42,7 +42,7 @@ onArrowIncrementationProps) => {
             return;
         }
 
-        if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') {
+        if ((e.key !== 'ArrowUp' && e.key !== 'ArrowDown') || element.readOnly) {
             return;
         }
 

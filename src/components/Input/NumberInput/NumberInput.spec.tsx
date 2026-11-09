@@ -131,6 +131,17 @@ describe('NumberInput', () => {
         expect(onChange.mock.calls).toEqual([['6'], ['5']]);
     });
 
+    it('should not change a read-only value on arrowUp', async () => {
+        const user = userEvent.setup();
+        const onChange = vi.fn();
+
+        render(<NumberInput isReadOnly data-testid="moonstone-numberInput" defaultValue="5" onChange={onChange}/>);
+        await user.keyboard('[Tab]');
+        await user.keyboard('[ArrowUp]');
+        expect(onChange).not.toHaveBeenCalled();
+        expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('5');
+    });
+
     it('should step a controlled value on arrowUp', async () => {
         const user = userEvent.setup();
         const ControlledNumberInput = () => {
