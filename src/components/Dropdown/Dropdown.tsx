@@ -104,8 +104,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
     const ref: MutableRefObject<HTMLDivElement> = useRef();
-    // Enter opens on keyup: skip a keyup whose keydown was not on the trigger, such as the Enter that chose an option
-    const isEnterDownRef = useRef(false);
+    const pressedKeys = useRef(new Set<string>());
     const triggerId = useId();
     const valueId = `${triggerId}-value`;
     const fieldAria = useFieldAria({ 'aria-label': ariaLabel });
@@ -255,12 +254,18 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     onFocus?.(event);
                 }}
                 onKeyDown={(e) => {
-                    isEnterDownRef.current = e.key === 'Enter' && e.target === e.currentTarget;
+                    // A key of the Reset button or of a tag is not a key of the trigger
+                    if (e.target === e.currentTarget) {
+                        pressedKeys.current.add(e.key);
+                    }
                 }}
                 onKeyUp={(e) => {
-                    const isEnterDown = isEnterDownRef.current;
-                    isEnterDownRef.current = false;
-                    if (e.key === 'Enter' && isEnterDown && !isDisabled && !isLoading) {
+                    // Pressed elsewhere, e.g. Enter on an option, which moves focus here on keydown
+                    if (!pressedKeys.current.delete(e.key)) {
+                        return;
+                    }
+
+                    if (e.key === 'Enter' && !isDisabled && !isLoading) {
                         handleOpenMenu(e);
                     }
                 }}
