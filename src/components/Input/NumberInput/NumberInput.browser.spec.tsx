@@ -1,7 +1,22 @@
 import { render, screen } from '@testing-library/react';
+import { useState } from 'react';
 import { userEvent } from 'vitest/browser';
 
 import { NumberInput } from './index';
+
+const ControlledNumberInput = ({ onChange, ...props }: { readonly onChange: (value: string) => void; readonly min?: number; readonly max?: number }) => {
+    const [value, setValue] = useState('5');
+    return (
+        <NumberInput
+            {...props}
+            value={value}
+            onChange={(e) => {
+                setValue(e.target.value);
+                onChange(e.target.value);
+            }}
+        />
+    );
+};
 
 describe('NumberInput keyboard', () => {
     it('reaches the input with Tab', async () => {
@@ -67,17 +82,49 @@ describe('NumberInput keyboard', () => {
         expect(screen.getByRole('textbox')).toHaveValue('10');
     });
 
-    it('calls onChange with the bound on Home and End', async () => {
-        const onChange = vi.fn((e: React.ChangeEvent<HTMLInputElement>) => e.target.value);
-        render(<NumberInput defaultValue="5" max={10} min={0} onChange={onChange}/>);
+    it('should set a controlled value to min and call onChange with Home', async () => {
+        const onChange = vi.fn();
+        render(<ControlledNumberInput max={10} min={0} onChange={onChange}/>);
         screen.getByRole('textbox').focus();
         await userEvent.keyboard('{Home}');
+        expect(onChange).toHaveBeenCalledExactlyOnceWith('0');
+        expect(screen.getByRole('textbox')).toHaveValue('0');
+    });
+
+    it('should set a controlled value to max and call onChange with End', async () => {
+        const onChange = vi.fn();
+        render(<ControlledNumberInput max={10} min={0} onChange={onChange}/>);
+        screen.getByRole('textbox').focus();
         await userEvent.keyboard('{End}');
-        expect(onChange.mock.results.map(r => r.value)).toEqual(['0', '10']);
+        expect(onChange).toHaveBeenCalledExactlyOnceWith('10');
+        expect(screen.getByRole('textbox')).toHaveValue('10');
+    });
+
+    it('should set min with Home and leave End alone when only min is set', async () => {
+        const onChange = vi.fn();
+        render(<ControlledNumberInput min={2} onChange={onChange}/>);
+        screen.getByRole('textbox').focus();
+        await userEvent.keyboard('{End}');
+        expect(onChange).not.toHaveBeenCalled();
+        await userEvent.keyboard('{Home}');
+        expect(onChange).toHaveBeenCalledExactlyOnceWith('2');
+        expect(screen.getByRole('textbox')).toHaveValue('2');
+    });
+
+    it('should set max with End and leave Home alone when only max is set', async () => {
+        const onChange = vi.fn();
+        render(<ControlledNumberInput max={8} onChange={onChange}/>);
+        screen.getByRole('textbox').focus();
+        await userEvent.keyboard('{Home}');
+        expect(onChange).not.toHaveBeenCalled();
+        await userEvent.keyboard('{End}');
+        expect(onChange).toHaveBeenCalledExactlyOnceWith('8');
+        expect(screen.getByRole('textbox')).toHaveValue('8');
     });
 
     it('moves the caret with Home and End when no bound is set', async () => {
-        render(<NumberInput defaultValue="123"/>);
+        const onChange = vi.fn();
+        render(<NumberInput defaultValue="123" onChange={onChange}/>);
         const input = screen.getByRole<HTMLInputElement>('textbox');
         input.focus();
         await userEvent.keyboard('{Home}');
@@ -86,5 +133,6 @@ describe('NumberInput keyboard', () => {
         await userEvent.keyboard('{End}');
         expect(input).toHaveValue('123');
         expect(input.selectionStart).toBe(3);
+        expect(onChange).not.toHaveBeenCalled();
     });
 });
