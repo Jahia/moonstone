@@ -138,12 +138,11 @@ describe('Table keyboard', () => {
             expect(await screen.findByRole('option', { name: '25' })).toBeVisible();
         });
 
-        it.fails('changes the rows per page with the keyboard', async () => {
+        it('changes the rows per page with the keyboard', async () => {
             const { onRowsPerPageChange } = renderPagination(2);
             screen.getByRole('listbox').focus();
             await userEvent.keyboard('{Enter}');
             await screen.findByRole('option', { name: '25' });
-            await userEvent.keyboard('{ArrowDown}');
             await userEvent.keyboard('{ArrowDown}');
             await userEvent.keyboard('{Enter}');
             expect(onRowsPerPageChange).toHaveBeenCalledWith(25);
