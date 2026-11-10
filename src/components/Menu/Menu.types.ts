@@ -124,7 +124,8 @@ export type MenuProps = {
     /**
      * Function triggered when the menu close: a click on the overlay, or Escape pressed inside the menu
      */
-    onClose?: (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLMenuElement>) => void;
+    // Method syntax: TypeScript checks its parameter bivariantly, so a 2.21.1 handler that takes only the mouse event compiles
+    onClose?(this: void, event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLMenuElement>): void;
 
     /**
      * Function triggered when the menu is going to be opened (before open)

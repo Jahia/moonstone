@@ -19,10 +19,11 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
     isReadOnly,
     onChange,
     label = {
-        rightListTitle: 'Label for the right list',
-        leftListTitle: 'Label for the left list',
-        addAllTitle: 'Add all',
-        removeAllTitle: 'Remove all',
+        rightListTitle: '',
+        leftListTitle: '',
+        addAllTitle: '',
+        removeAllTitle: '',
+        selected: '',
     },
     ...props
 }) => {

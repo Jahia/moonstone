@@ -2,6 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { ListSelector } from './index';
+import { Field } from '~/components/Field';
 
 const requiredProps = {
     label: {
@@ -166,5 +167,20 @@ describe('MultipleLeftRightSelector', () => {
         );
 
         expect(screen.getByText('test left')).toBeInTheDocument();
+    });
+
+    it('should not link its search inputs to a Field around it', () => {
+        render(
+            <Field helper="Help" id="items" label="Items">
+                <ListSelector {...requiredProps}/>
+            </Field>,
+        );
+        expect(screen.getByRole('searchbox', { name: 'Available' })).not.toHaveAttribute('aria-describedby');
+        expect(screen.getByRole('searchbox', { name: 'Selected' })).not.toHaveAttribute('aria-describedby');
+    });
+
+    it('should show no list title when the label is not given', () => {
+        render(<ListSelector onChange={() => ({})}/>);
+        expect(screen.queryByRole('heading')).not.toBeInTheDocument();
     });
 });

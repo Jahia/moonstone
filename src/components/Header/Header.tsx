@@ -123,7 +123,7 @@ export const Header: React.FC<HeaderProps> = ({
                             ['alignCenter', layout.alignCenter],
                             ['moonstone-header_toolbar', styles['moonstone-header_toolbar']],
                         )}
-                        role="toolbar"
+                        role="group"
                     >
                         <div
                             className={clsx(

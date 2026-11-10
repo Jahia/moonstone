@@ -65,7 +65,7 @@ $checkbox-sizeBig: 20px;
 
     // Only triggered when the input is focus with tab
     &:focus-visible {
-        @extend %is-focused;
+        @include focus-ring(false, inset 0 0 0 var(--shadow-size) var(--shadow-color));
     }
 
     &:checked,
