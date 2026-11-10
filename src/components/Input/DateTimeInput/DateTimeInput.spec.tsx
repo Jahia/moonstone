@@ -210,6 +210,22 @@ describe('DateTimeInput', () => {
         expect(screen.getByRole('textbox', { name: 'Publication date Time' })).toHaveValue('11:56');
     });
 
+    it('should let the consumer name the time input and the timezone selector', () => {
+        render(
+            <Field id="publication" label="Publication date">
+                <DateTimeInput
+                    {...localeProps}
+                    defaultValue="2026-03-05T11:56:00Z"
+                    timeInputProps={{ 'aria-label': 'Publication time' }}
+                    timezoneSelectorProps={{ 'aria-label': 'Display zone' }}
+                    type="zonedDateTime"
+                />
+            </Field>,
+        );
+        expect(screen.getByRole('textbox', { name: 'Publication time' })).toBeInTheDocument();
+        expect(screen.getByRole('listbox', { name: 'Display zone Paris (UTC +01:00)' })).toBeInTheDocument();
+    });
+
     it('should name the time input and the AM/PM selector with the i18n labels', () => {
         render(
             <DateTimeInput

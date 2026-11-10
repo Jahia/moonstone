@@ -387,8 +387,9 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                 )}
                 {type !== 'date' && (
                     <TimeInput
-                        aria-label={props['aria-label'] ? `${props['aria-label']} ${timeLabel}` : timeLabel}
-                        aria-labelledby={dateNameIds && `${dateNameIds} ${timeId}`}
+                        aria-label={!dateNameIds && props['aria-label'] ? `${props['aria-label']} ${timeLabel}` : timeLabel}
+                        // A consumer aria-label in timeInputProps replaces the whole name
+                        aria-labelledby={dateNameIds && !timeInputProps?.['aria-label'] ? `${dateNameIds} ${timeId}` : undefined}
                         i18n={{ meridiemLabel: i18n?.meridiemLabel }}
                         // The label of a Field around it points to the date input, which takes the id of the Field control
                         id={timeInputId}
@@ -421,7 +422,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     </Typography>
                     <WithoutField>
                         <TimezoneSelector
-                            aria-labelledby={timezoneLabelId}
+                            aria-labelledby={timezoneSelectorProps?.['aria-label'] ? undefined : timezoneLabelId}
                             {...timezoneSelectorProps}
                             referenceDate={selectedDate}
                             size="small"
