@@ -25,17 +25,17 @@ describe('Header', () => {
 
     it('should not display toolbar area when toolbarRight or toolbarLeft is not provided', () => {
         render(<Header data-testid="test-header" title="title"/>);
-        expect(screen.queryByRole('toolbar')).not.toBeInTheDocument();
+        expect(screen.queryByRole('group', { name: 'Page actions' })).not.toBeInTheDocument();
     });
 
     it('should display the toolbar area when toolbarRight is provided', () => {
         render(<Header data-testid="test-header" title="title" toolbarRight="test"/>);
-        expect(screen.getByRole('toolbar')).toBeInTheDocument();
+        expect(screen.getByRole('group', { name: 'Page actions' })).toBeInTheDocument();
     });
 
     it('should display the toolbar area when toolbarLeft is provided', () => {
         render(<Header data-testid="test-header" title="title" toolbarLeft="test"/>);
-        expect(screen.getByRole('toolbar')).toBeInTheDocument();
+        expect(screen.getByRole('group', { name: 'Page actions' })).toBeInTheDocument();
     });
 
     it('should display the backButton when it\'s provided', () => {
@@ -89,11 +89,11 @@ describe('Header', () => {
 
     it('should name the toolbar', () => {
         render(<Header title="title" toolbarRight="test"/>);
-        expect(screen.getByRole('toolbar', { name: 'Page actions' })).toBeInTheDocument();
+        expect(screen.getByRole('group', { name: 'Page actions' })).toBeInTheDocument();
     });
 
     it('should name the toolbar with the given label', () => {
         render(<Header i18n={{ toolbarLabel: 'Actions de la page' }} title="title" toolbarRight="test"/>);
-        expect(screen.getByRole('toolbar', { name: 'Actions de la page' })).toBeInTheDocument();
+        expect(screen.getByRole('group', { name: 'Actions de la page' })).toBeInTheDocument();
     });
 });

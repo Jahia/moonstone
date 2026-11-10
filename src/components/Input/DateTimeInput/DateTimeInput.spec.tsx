@@ -5,7 +5,7 @@ import { Temporal } from 'temporal-polyfill';
 import { type Mock, onTestFinished, vi } from 'vitest';
 
 import { DateTimeInput } from './index';
-import { Field } from '~/components';
+import { Field } from '~/components/Field';
 
 const nextMonthLabel = 'Next month';
 const previousMonthLabel = 'Previous month';
@@ -1537,5 +1537,32 @@ describe('DateTimeInput', () => {
 
             expect(screen.getByText('Timezone:')).toBeInTheDocument();
         });
+    });
+
+    it('should not link the month, year and timezone dropdowns to a Field around it', async () => {
+        const user = userEvent.setup();
+        render(
+            <Field helper="Help" id="date" label="Date">
+                <DateTimeInput
+                    {...localeProps}
+                    defaultValue="2026-03-30T10:00:00Z"
+                    placeholder="Select a date"
+                    type="zonedDateTime"
+                    onChange={() => null}
+                />
+            </Field>,
+        );
+        await user.click(dateField());
+
+        // Each trigger is named after its selected label, so a missing wrapper fails on its own query
+        const month = screen.getByRole('listbox', { name: 'March' });
+        expect(month).not.toHaveAttribute('aria-labelledby');
+        expect(month).not.toHaveAttribute('aria-describedby');
+        const year = screen.getByRole('listbox', { name: '2026' });
+        expect(year).not.toHaveAttribute('aria-labelledby');
+        expect(year).not.toHaveAttribute('aria-describedby');
+        // The timezone selector is named by its own visible label, not by the Field
+        const timezone = screen.getByRole('listbox', { name: 'Timezone: Paris (UTC +02:00)' });
+        expect(timezone).not.toHaveAttribute('aria-describedby');
     });
 });

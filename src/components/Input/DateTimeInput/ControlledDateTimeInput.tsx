@@ -251,6 +251,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
 
     return (
         <div className={clsx(styles.dateTimeInput, className)}>
+            {/* oxlint-disable-next-line jsx-a11y/no-static-element-interactions -- catches the Escape that bubbles up from the fields */}
             <div
                 className={styles.fieldsRow}
                 onKeyDown={(event) => {

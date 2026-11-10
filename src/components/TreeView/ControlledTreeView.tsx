@@ -166,6 +166,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                 <div className={cssTreeViewItem}>
                     {/* Icon arrow */}
                     {isClosable && hasChild && (
+                        // oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- the treeitem takes the keyboard (onTreeItemKeys)
                         <div
                             className={clsx(
                                 ['flexRow', layout.flexRow],
@@ -199,6 +200,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
                         )}
 
                     {/* TreeViewItem */}
+                    {/* oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- the treeitem takes the keyboard (onTreeItemKeys) */}
                     <div
                         className={clsx(
                             ['flexRow_nowrap', layout.flexRow],
