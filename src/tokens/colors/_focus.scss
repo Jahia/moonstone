@@ -1,5 +1,6 @@
-// The dark mode of the Figma Semantic variables state/focus-outer and state/focus-inner. A mixin, so a module can use it with no copy of the tokens.
+@use "palette" as *;
+
 @mixin focus-reversed {
-    --moon-color-focus_outer: #cfe8fe;
-    --moon-color-focus_inner: #12171a;
+    --moon-color-focus_outer: #{$color-blue-20};
+    --moon-color-focus_inner: #{$color-neutral-90};
 }
