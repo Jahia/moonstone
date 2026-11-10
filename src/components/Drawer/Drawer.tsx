@@ -46,6 +46,11 @@ export const Drawer = React.forwardRef(<C extends React.ElementType = 'aside'>({
             returnFocusTo.current = document.activeElement as HTMLElement | null;
             // Waits a frame: a Tab gives `tabindex="0"` to its active item in a later render
             const frame = requestAnimationFrame(() => {
+                // A consumer, a Menu or a click already moved focus inside: keep it there
+                if (drawerRef.current?.contains(document.activeElement)) {
+                    return;
+                }
+
                 // With nothing focusable inside, the Drawer itself takes focus, so Escape still closes it.
                 // The Drawer is still off-screen at the start of its slide-in, so focus must not scroll to it
                 const target = drawerRef.current?.querySelector<HTMLElement>(FOCUSABLE) ?? drawerRef.current;

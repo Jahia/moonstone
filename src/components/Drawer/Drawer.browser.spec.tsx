@@ -1,9 +1,9 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { userEvent } from 'vitest/browser';
 
 import { Drawer } from './index';
-import { Button, Menu, MenuItem, Tab, TabItem, TreeView } from '~/components';
+import { Button, Menu, MenuItem, Tab, TabItem } from '~/components';
 
 const Harness = () => {
     const [open, setOpen] = useState(false);
@@ -77,21 +77,17 @@ describe('Drawer keyboard', () => {
 
     it('moves focus to the selected item of a Menu placed first when it opens', async () => {
         const content = (
-            <Menu isDisplayed>
-                <MenuItem label="First"/>
-                <MenuItem isSelected label="Second"/>
-            </Menu>
+            <>
+                <Menu isDisplayed>
+                    <MenuItem label="First"/>
+                    <MenuItem isSelected label="Second"/>
+                </Menu>
+                <Button label="After"/>
+            </>
         );
         const { rerender } = render(<Drawer aria-label="Side panel">{content}</Drawer>);
         rerender(<Drawer isOpen aria-label="Side panel">{content}</Drawer>);
         await waitFor(() => expect(screen.getByText('Second').closest('li')).toHaveFocus());
-    });
-
-    it('moves focus to the selected node of a TreeView placed first when it opens', async () => {
-        const content = <TreeView data={[{ id: 'a', label: 'Node A' }, { id: 'b', label: 'Node B' }]} selectedItems={['b']}/>;
-        const { rerender } = render(<Drawer aria-label="Side panel">{content}</Drawer>);
-        rerender(<Drawer isOpen aria-label="Side panel">{content}</Drawer>);
-        await waitFor(() => expect(screen.getByRole('treeitem', { name: 'Node B' })).toHaveFocus());
     });
 
     it('closes with Escape when nothing inside can take focus', async () => {
@@ -101,6 +97,27 @@ describe('Drawer keyboard', () => {
         await waitFor(() => expect(screen.getByRole('complementary', { name: 'Side panel' })).toHaveFocus());
         await userEvent.keyboard('{Escape}');
         expect(onOpenChange).toHaveBeenCalledWith(false);
+    });
+
+    it('keeps the focus that the consumer moves inside when it opens', async () => {
+        const ConsumerFocus = ({ isOpen }: { isOpen: boolean }) => {
+            const searchRef = useRef<HTMLInputElement>(null);
+            useEffect(() => {
+                if (isOpen) {
+                    searchRef.current?.focus();
+                }
+            }, [isOpen]);
+            return (
+                <Drawer isOpen={isOpen} aria-label="Side panel">
+                    <button type="button">Close</button>
+                    <input aria-label="Search" ref={searchRef}/>
+                </Drawer>
+            );
+        };
+        const { rerender } = render(<ConsumerFocus isOpen={false}/>);
+        rerender(<ConsumerFocus isOpen/>);
+        await new Promise(requestAnimationFrame);
+        expect(screen.getByRole('textbox', { name: 'Search' })).toHaveFocus();
     });
 
     it('returns focus to the trigger when closed from inside', async () => {

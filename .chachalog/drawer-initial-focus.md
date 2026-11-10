@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-Focus the active item of a `Tab`, `Menu` or `TreeView` when a `Drawer` opens, and the `Drawer` itself (now `tabindex="-1"`) when it holds nothing focusable (#1597)
+Focus the active item of a `Tab` or `Menu` when a `Drawer` opens, and the `Drawer` itself (now `tabindex="-1"`) when it holds nothing focusable (#1597)
