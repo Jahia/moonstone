@@ -186,6 +186,42 @@ describe('DataTable', () => {
         });
     });
 
+    it('should set the scope of every header cell to its column', () => {
+        render(
+            <DataTable
+                enableSelection
+                columns={columns}
+                data={data}
+                primaryKey="id"
+            />,
+        );
+
+        screen.getAllByRole('columnheader').forEach((header) => {
+            expect(header).toHaveAttribute('scope', 'col');
+        });
+    });
+
+    it('should name the header cells of the selection column and of the custom columns', async () => {
+        render(
+            <DataTable
+                enableSelection
+                columns={columns}
+                customColumnLabels={{ before: ['Status'], after: ['Actions'] }}
+                data={data}
+                primaryKey="id"
+                renderRow={({ id, render: renderCells }) => (
+                    <TableRow key={id}>
+                        {renderCells({ before: <TableCell/>, after: <TableCell/> })}
+                    </TableRow>
+                )}
+            />,
+        );
+
+        expect(await screen.findByRole('columnheader', { name: 'Status' })).toBeInTheDocument();
+        expect(screen.getByRole('columnheader', { name: 'Actions' })).toBeInTheDocument();
+        expect(screen.getByRole('columnheader', { name: /^Selection/ })).toBeInTheDocument();
+    });
+
     it('should apply custom attribute via `rowProps`', () => {
         render(
             <DataTable
@@ -688,6 +724,25 @@ describe('DataTable', () => {
         expect(within(rows[1]).getByText('Charlie')).toBeInTheDocument();
         expect(within(rows[2]).getByText('Bob')).toBeInTheDocument();
         expect(within(rows[3]).getByText('Alice')).toBeInTheDocument();
+    });
+
+    it('should set `aria-sort` on the sorted header only', () => {
+        render(
+            <DataTable<TestData>
+                enableSorting
+                columns={sortableColumns}
+                data={data}
+                primaryKey="id"
+                sortBy="name"
+                sortDirection="descending"
+                onSortChange={() => { }}
+            />,
+        );
+
+        const sortedHeaders = screen.getAllByRole('columnheader').filter(header => header.hasAttribute('aria-sort'));
+        expect(sortedHeaders).toHaveLength(1);
+        expect(sortedHeaders[0]).toHaveAttribute('aria-sort', 'descending');
+        expect(sortedHeaders[0]).toHaveTextContent('Name');
     });
 
     it('should respect controlled pagination', () => {

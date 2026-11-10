@@ -76,13 +76,13 @@ describe('TableHeadCell', () => {
             expect(screen.getByTestId('cell')).toHaveAttribute('aria-sort', 'ascending');
         });
 
-        it('should set `aria-sort` to `none` when `isActive` is `false`', () => {
+        it('should not set `aria-sort` when `isActive` is `false`', () => {
             render(
                 <TableWrapper>
                     <TableHeadCell data-testid="cell" sorting={{ direction: 'ascending', isActive: false }}>Header</TableHeadCell>
                 </TableWrapper>,
             );
-            expect(screen.getByTestId('cell')).toHaveAttribute('aria-sort', 'none');
+            expect(screen.getByTestId('cell')).not.toHaveAttribute('aria-sort');
         });
 
         it('should let the consumer override `aria-sort`', () => {
