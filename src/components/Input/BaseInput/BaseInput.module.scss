@@ -33,7 +33,7 @@ $min-width: 40px;
     }
 
     &:has(input:focus-visible):not(:has(input:disabled, input:read-only)) {
-        @extend %is-focused;
+        @include utils.focus-ring;
     }
 
     &.moonstone-outlined {

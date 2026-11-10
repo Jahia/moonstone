@@ -28,7 +28,7 @@
     cursor: inherit;
 
     &:focus-visible {
-        @extend %is-focused;
+        @include focus-ring;
     }
 }
 

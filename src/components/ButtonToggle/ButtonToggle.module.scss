@@ -1,3 +1,5 @@
+@use "../../utils/mixins" as *;
+
 .moonstone-buttonToggle {
     --shadow: none;
 
@@ -19,6 +21,11 @@
 
         &.reversed {
             color: var(--moon-color-accent_dark);
+        }
+
+        // Outranks the ring of the ghost Button, reversed included
+        &[aria-pressed="true"]:focus-visible:not(:disabled) {
+            @include focus-ring(false, var(--shadow));
         }
 
         &:active:not(.moonstone-button_loading, [disabled]) {
