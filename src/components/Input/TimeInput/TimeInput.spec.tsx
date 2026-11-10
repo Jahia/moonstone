@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { Temporal } from 'temporal-polyfill';
 
 import { TimeInput } from './index';
+import { Field } from '~/components/Field';
 
 const emittedTime = (handleChange: ReturnType<typeof vi.fn>) =>
     (handleChange.mock.lastCall?.[1] as Temporal.PlainTime | null)?.toString({ smallestUnit: 'minute' }) ?? null;
@@ -286,5 +287,16 @@ describe('TimeInput', () => {
 
             expect(handleChange).not.toHaveBeenCalled();
         });
+    });
+
+    it('should not link the meridiem dropdown to a Field around it', () => {
+        render(
+            <Field helper="Help" id="time" label="Time">
+                <TimeInput defaultValue="14:30" timeFormat="12h" onChange={() => null}/>
+            </Field>,
+        );
+        const dropdown = screen.getByRole('listbox');
+        expect(dropdown).not.toHaveAttribute('aria-labelledby');
+        expect(dropdown).not.toHaveAttribute('aria-describedby');
     });
 });
