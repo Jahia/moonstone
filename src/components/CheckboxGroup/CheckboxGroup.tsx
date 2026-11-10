@@ -24,7 +24,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
                 role="group"
                 {...props}
                 {...fieldAria}
-                // Keeps only the aria-invalid of the consumer: ARIA does not allow it on a group, so the Field error is in the description only
+                // oxlint-disable-next-line jsx-a11y/role-supports-aria-props -- keeps only the consumer's aria-invalid: ARIA does not allow it on a group, so the Field error is in the description only
                 aria-invalid={props['aria-invalid']}
                 className={clsx(
                     ['flexCol', layout.flexCol],

@@ -37,6 +37,7 @@ export const ValueList: React.FC<ValueListProps> = ({
             <WithoutField>
                 <SearchInput aria-label={listLabel || 'Search'} onChange={e => setFilter(e.target.value.trim())}/>
             </WithoutField>
+            {/* oxlint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- #1575 */}
             <ul
                 aria-label={listLabel}
                 className={clsx('moonstone-valueList', styles['moonstone-valueList'], ...listClasses)}
@@ -64,6 +65,7 @@ export const ValueList: React.FC<ValueListProps> = ({
                                         </div>
                                     )
                                 : (
+                                        // oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- #1575
                                         <div className={clsx('moonstone-iconContainer', styles['moonstone-iconContainer'])} onClick={(e: React.MouseEvent) => onClick(e, v)}>
                                             { iconEnd }
                                         </div>
