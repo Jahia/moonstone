@@ -1,4 +1,5 @@
 @use '../../utils/index' as *;
+@use '../../tokens/colors/focus' as *;
 
 $primaryNavExpanded: 300px;
 $primaryNav: 56px;
@@ -14,6 +15,9 @@ $primaryNav: 56px;
 
 .moonstone-primaryNav {
     @include transition(width 0.3s);
+
+    // Always dark, with no reversed class: the reversed class would restyle what it holds
+    @include focus-reversed;
 
     position: fixed;
     top: 0;
