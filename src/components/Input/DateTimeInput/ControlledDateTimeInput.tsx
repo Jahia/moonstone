@@ -1,7 +1,7 @@
 import { dateMatchModifiers, DayPicker, useDayPicker } from '@daypicker/react';
-import { autoUpdate, flip, FloatingPortal, offset, shift, useDismiss, useFloating, useInteractions, useMergeRefs } from '@floating-ui/react';
+import { autoUpdate, flip, FloatingFocusManager, FloatingPortal, offset, shift, useDismiss, useFloating, useInteractions, useMergeRefs } from '@floating-ui/react';
 import clsx from 'clsx';
-import React, { useId, useState } from 'react';
+import React, { useId, useLayoutEffect, useRef, useState } from 'react';
 
 import { TimezoneSelector } from '../../TimezoneSelector/TimezoneSelector';
 import { BaseInput } from '../BaseInput';
@@ -159,6 +159,15 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     const { getFloatingProps } = useInteractions([useDismiss(context, { escapeKey: false })]);
     const fieldRef = useMergeRefs([refs.setReference, ref]);
 
+    // A keyboard open moves focus to the day DayPicker makes tabbable: the selected day, else today,
+    // else the first enabled day. A click leaves focus in the field, to type a date.
+    const isOpenedByKeyboard = useRef(false);
+    useLayoutEffect(() => {
+        if (isOpenedByKeyboard.current) {
+            context.elements.floating?.querySelector<HTMLElement>('[role="grid"] [tabindex="0"]')?.focus({ preventScroll: true });
+        }
+    }, [context.elements.floating]);
+
     const minPlainDate = toPlainDate(minDate);
     const maxPlainDate = toPlainDate(maxDate);
     const calendarDisabledMatchers = getCalendarDisabledMatchers({
@@ -216,8 +225,9 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
         }
     };
 
-    const openCalendar = () => {
+    const openCalendar = (event: React.SyntheticEvent) => {
         if (!isDisabled && !isReadOnly) {
+            isOpenedByKeyboard.current = event.type !== 'click';
             refs.setPositionReference(refs.domReference.current?.closest(`.${baseInputStyles['moonstone-baseInput']}`) ?? null);
             setDisplayedMonth(getDisplayMonth(selectedDate));
             setIsCalendarOpen(true);
@@ -270,13 +280,13 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                         // Only on an untouched field — once a draft exists Space is a character; keydown runs before insertion.
                         if (event.key === ' ' && draft === null && !shouldIgnoreKey(event)) {
                             event.preventDefault();
-                            openCalendar();
+                            openCalendar(event);
                         }
                     }}
                     onKeyUp={(event) => {
                         if (event.key === 'Enter') {
                             if (draft === null) {
-                                openCalendar();
+                                openCalendar(event);
                             } else {
                                 commitDraft(event);
                                 setIsCalendarOpen(false);
@@ -286,84 +296,87 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                 />
                 {isCalendarOpen && (
                     <FloatingPortal>
-                        <div
-                            className={styles.calendarPopover}
-                            ref={refs.setFloating}
-                            style={floatingStyles}
-                            {...getFloatingProps()}
-                        >
-                            <DayPicker
-                                disabled={calendarDisabledMatchers}
-                                captionLayout={captionLayout}
-                                classNames={{
-                                    /* eslint-disable camelcase -- DayPicker classnames are its public API */
-                                    ...dayPickerClassNames,
-                                    root: clsx(dayPickerClassNames.root, styles.calendar),
-                                    month_caption: clsx(dayPickerClassNames.month_caption, styles.calendarHeader),
-                                    month_grid: clsx(dayPickerClassNames.month_grid, styles.calendarGrid),
-                                    dropdowns: clsx(dayPickerClassNames.dropdowns, styles.calendarDropdowns),
-                                    button_next: clsx(dayPickerClassNames.button_next, styles.calendarNextButton),
-                                    button_previous: clsx(dayPickerClassNames.button_previous, styles.calendarPreviousButton),
-                                    weekday: clsx(dayPickerClassNames.weekday, styles.calendarWeekday),
-                                    today: styles.calendarToday,
-                                    selected: styles.calendarSelectedDate,
-                                    disabled: styles.calendarDisabledDate,
-                                    day_button: clsx(dayPickerClassNames.day_button, styles.calendarDayButton),
-                                    footer: styles.calendarFooter,
-                                    /* eslint-enable camelcase */
-                                }}
-                                components={{
-                                    MonthsDropdown,
-                                    YearsDropdown,
-                                }}
-                                data-testid="calendar"
-                                endMonth={endMonth}
-                                footer={(
-                                    <Button
-                                        isDisabled={isTodayDisabled}
-                                        label={i18nLabels.todayButton}
-                                        size="default"
-                                        variant="ghost"
-                                        onClick={(event) => {
-                                            emitChange(event, { plainDate: getTodayPlainDate() });
-                                            setIsCalendarOpen(false);
-                                        }}
-                                    />
-                                )}
-                                formatters={{
-                                    formatCaption: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, {
-                                        month: 'long',
-                                        year: 'numeric',
-                                    }).format(date),
-                                    formatMonthDropdown: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, { month: 'long' }).format(date),
-                                    formatDay: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, { day: 'numeric' }).format(date),
-                                    formatWeekdayName: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, { weekday: 'short' }).format(date),
-                                }}
-                                labels={{
-                                    labelNext: () => i18nLabels.nextMonth,
-                                    labelPrevious: () => i18nLabels.previousMonth,
-                                }}
-                                mode="single"
-                                month={displayedMonth}
-                                navLayout="around"
-                                selected={selectedDate ? plainDateToDate(selectedDate) : undefined}
-                                startMonth={startMonth}
-                                weekStartsOn={weekStartsOn ?? getWeekStartsOn(resolvedLocale)}
-                                onMonthChange={handleMonthChange}
-                                onSelect={(date, _selectedDay, modifiers, event) => {
-                                    if (modifiers.disabled) {
-                                        return;
-                                    }
+                        {/* Keeps the calendar next to the field in the Tab order, and returns focus to the field when it closes with focus inside */}
+                        <FloatingFocusManager closeOnFocusOut={false} context={context} initialFocus={-1} modal={false}>
+                            <div
+                                className={styles.calendarPopover}
+                                ref={refs.setFloating}
+                                style={floatingStyles}
+                                {...getFloatingProps()}
+                            >
+                                <DayPicker
+                                    disabled={calendarDisabledMatchers}
+                                    captionLayout={captionLayout}
+                                    classNames={{
+                                        /* eslint-disable camelcase -- DayPicker classnames are its public API */
+                                        ...dayPickerClassNames,
+                                        root: clsx(dayPickerClassNames.root, styles.calendar),
+                                        month_caption: clsx(dayPickerClassNames.month_caption, styles.calendarHeader),
+                                        month_grid: clsx(dayPickerClassNames.month_grid, styles.calendarGrid),
+                                        dropdowns: clsx(dayPickerClassNames.dropdowns, styles.calendarDropdowns),
+                                        button_next: clsx(dayPickerClassNames.button_next, styles.calendarNextButton),
+                                        button_previous: clsx(dayPickerClassNames.button_previous, styles.calendarPreviousButton),
+                                        weekday: clsx(dayPickerClassNames.weekday, styles.calendarWeekday),
+                                        today: styles.calendarToday,
+                                        selected: styles.calendarSelectedDate,
+                                        disabled: styles.calendarDisabledDate,
+                                        day_button: clsx(dayPickerClassNames.day_button, styles.calendarDayButton),
+                                        footer: styles.calendarFooter,
+                                        /* eslint-enable camelcase */
+                                    }}
+                                    components={{
+                                        MonthsDropdown,
+                                        YearsDropdown,
+                                    }}
+                                    data-testid="calendar"
+                                    endMonth={endMonth}
+                                    footer={(
+                                        <Button
+                                            isDisabled={isTodayDisabled}
+                                            label={i18nLabels.todayButton}
+                                            size="default"
+                                            variant="ghost"
+                                            onClick={(event) => {
+                                                emitChange(event, { plainDate: getTodayPlainDate() });
+                                                setIsCalendarOpen(false);
+                                            }}
+                                        />
+                                    )}
+                                    formatters={{
+                                        formatCaption: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, {
+                                            month: 'long',
+                                            year: 'numeric',
+                                        }).format(date),
+                                        formatMonthDropdown: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, { month: 'long' }).format(date),
+                                        formatDay: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, { day: 'numeric' }).format(date),
+                                        formatWeekdayName: (date: Date) => new Intl.DateTimeFormat(resolvedLocale, { weekday: 'short' }).format(date),
+                                    }}
+                                    labels={{
+                                        labelNext: () => i18nLabels.nextMonth,
+                                        labelPrevious: () => i18nLabels.previousMonth,
+                                    }}
+                                    mode="single"
+                                    month={displayedMonth}
+                                    navLayout="around"
+                                    selected={selectedDate ? plainDateToDate(selectedDate) : undefined}
+                                    startMonth={startMonth}
+                                    weekStartsOn={weekStartsOn ?? getWeekStartsOn(resolvedLocale)}
+                                    onMonthChange={handleMonthChange}
+                                    onSelect={(date, _selectedDay, modifiers, event) => {
+                                        if (modifiers.disabled) {
+                                            return;
+                                        }
 
-                                    // Re-clicking the selected day is DayPicker's deselect; keep the value.
-                                    if (date) {
-                                        emitChange(event, { plainDate: dateToPlainDate(date) });
-                                    }
+                                        // Re-clicking the selected day is DayPicker's deselect; keep the value.
+                                        if (date) {
+                                            emitChange(event, { plainDate: dateToPlainDate(date) });
+                                        }
 
-                                    setIsCalendarOpen(false);
-                                }}
-                            />
-                        </div>
+                                        setIsCalendarOpen(false);
+                                    }}
+                                />
+                            </div>
+                        </FloatingFocusManager>
                     </FloatingPortal>
                 )}
                 {type !== 'date' && (
