@@ -4,6 +4,9 @@ import { userEvent } from 'vitest/browser';
 
 import { Checkbox } from './index';
 
+// The focus ring draws with the colour tokens, and an outline with no colour computes to none
+import '~/tokens/colors/colors.scss';
+
 const IndeterminateCheckbox = ({ onChange }: { readonly onChange: (checked: boolean) => void }) => {
     const [checked, setChecked] = useState(false);
     const [indeterminate, setIndeterminate] = useState(true);
@@ -62,7 +65,7 @@ describe('Checkbox keyboard', () => {
         expect(onChange).not.toHaveBeenCalled();
     });
 
-    it('should show a read-only checkbox at full opacity when it has the focus', async () => {
+    it('should show the focus ring of a read-only checkbox at full opacity', async () => {
         render(
             <>
                 <button type="button">before</button>
@@ -72,7 +75,8 @@ describe('Checkbox keyboard', () => {
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(screen.getByRole('checkbox')).toHaveFocus();
-        expect(screen.getByRole('checkbox').matches(':focus-visible')).toBe(true);
+        expect(getComputedStyle(screen.getByRole('checkbox')).outlineStyle).toBe('solid');
+        expect(getComputedStyle(screen.getByRole('checkbox')).outlineWidth).not.toBe('0px');
         expect(getComputedStyle(screen.getByRole('checkbox')).opacity).toBe('1');
     });
 
