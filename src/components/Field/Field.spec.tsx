@@ -146,6 +146,16 @@ describe('Field', () => {
         expect(screen.getByRole('listbox', { name: 'Language French' })).toBeInTheDocument();
     });
 
+    it('should name a multiple Dropdown inside with its label followed by its tags', () => {
+        const data = [{ label: 'French', value: 'fr' }, { label: 'German', value: 'de' }];
+        render(
+            <Field id="languages" label="Languages">
+                <Dropdown data={data} values={['fr', 'de']} onChange={() => null}/>
+            </Field>,
+        );
+        expect(screen.getByRole('listbox', { name: 'Languages French German' })).toBeInTheDocument();
+    });
+
     it('should name a Textarea inside with its label, and describe it with its helper', () => {
         render(<Field helper="Help" id="summary" label="Summary"><Textarea/></Field>);
         expect(screen.getByRole('textbox', { name: 'Summary' })).toHaveAccessibleDescription('Help');

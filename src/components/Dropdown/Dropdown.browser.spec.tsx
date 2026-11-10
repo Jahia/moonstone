@@ -1,4 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
+import { useState } from 'react';
+import { type Mock } from 'vitest';
 import { userEvent } from 'vitest/browser';
 
 import { Dropdown } from './index';
@@ -92,13 +94,23 @@ describe('Dropdown keyboard', () => {
         expect(getOption('Apple')).toHaveFocus();
     });
 
-    it('selects the focused option with Enter and closes', async () => {
+    it('should select the focused option with Enter, close and return focus to the trigger', async () => {
         const { trigger, onChange } = renderDropdown();
         await openWithEnter(trigger);
         getOption('Banana').focus();
         await userEvent.keyboard('{Enter}');
         expect(onChange).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ value: 'banana' }));
         await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
+        expect(trigger).toHaveFocus();
+    });
+
+    it('should keep the focus where onChange moved it', async () => {
+        const { trigger } = renderDropdown({ onChange: () => screen.getByRole('button', { name: 'after' }).focus() });
+        await openWithEnter(trigger);
+        getOption('Banana').focus();
+        await userEvent.keyboard('{Enter}');
+        await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
+        expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
     });
 
     it('closes with Escape and returns focus to the trigger', async () => {
@@ -108,6 +120,71 @@ describe('Dropdown keyboard', () => {
         await userEvent.keyboard('{Escape}');
         await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
         expect(trigger).toHaveFocus();
+    });
+
+    it('should keep focus on the trigger after a clear with Enter, and keep the menu closed', async () => {
+        const { trigger } = renderDropdown({ value: 'banana', onClear: vi.fn() });
+        screen.getByRole('button', { name: 'Reset' }).focus();
+        await userEvent.keyboard('{Enter}');
+        expect(trigger).toHaveFocus();
+        expect(screen.queryByRole('list')).not.toBeInTheDocument();
+    });
+
+    it('should keep focus on the trigger after a click on a Tag', async () => {
+        const { trigger } = renderDropdown({ value: undefined, values: ['apple', 'banana'] });
+        await userEvent.click(getOption('Apple'));
+        expect(trigger).toHaveFocus();
+    });
+
+    it('should keep the focus on the trigger after removing a Tag with Delete', async () => {
+        const MultipleDropdown = () => {
+            const [values, setValues] = useState(['apple', 'banana']);
+            return <Dropdown data={data} values={values} onChange={(_e, item) => setValues(values.filter(v => v !== item.value))}/>;
+        };
+        render(<MultipleDropdown/>);
+        getOption('Apple').focus();
+        await userEvent.keyboard('{Delete}');
+        await waitFor(() => expect(screen.queryByRole('option', { name: 'Apple' })).not.toBeInTheDocument());
+        expect(screen.getByRole('listbox')).toHaveFocus();
+    });
+
+    describe('onFocus and onBlur', () => {
+        const expectOneFocusAndOneBlurOnLeave = async (onFocus: Mock, onBlur: Mock) => {
+            expect(onBlur).not.toHaveBeenCalled();
+            screen.getByRole('button', { name: 'after' }).focus();
+            await waitFor(() => expect(onBlur).toHaveBeenCalledTimes(1));
+            expect(onFocus).toHaveBeenCalledTimes(1);
+        };
+
+        it('should fire onBlur only when the focus leaves, after a choice', async () => {
+            const onFocus = vi.fn();
+            const onBlur = vi.fn();
+            const { trigger } = renderDropdown({ onFocus, onBlur });
+            await openWithEnter(trigger);
+            getOption('Banana').focus();
+            await userEvent.keyboard('{Enter}');
+            await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
+            await expectOneFocusAndOneBlurOnLeave(onFocus, onBlur);
+        });
+
+        it('should fire onBlur only when the focus leaves, after a clear', async () => {
+            const onFocus = vi.fn();
+            const onBlur = vi.fn();
+            const { trigger } = renderDropdown({ onFocus, onBlur, value: 'banana', onClear: vi.fn() });
+            screen.getByRole('button', { name: 'Reset' }).focus();
+            await userEvent.keyboard('{Enter}');
+            expect(trigger).toHaveFocus();
+            await expectOneFocusAndOneBlurOnLeave(onFocus, onBlur);
+        });
+
+        it('should fire onBlur only when the focus leaves, after a click on a Tag', async () => {
+            const onFocus = vi.fn();
+            const onBlur = vi.fn();
+            const { trigger } = renderDropdown({ onFocus, onBlur, value: undefined, values: ['apple', 'banana'] });
+            await userEvent.click(getOption('Apple'));
+            expect(trigger).toHaveFocus();
+            await expectOneFocusAndOneBlurOnLeave(onFocus, onBlur);
+        });
     });
 
     it.fails('closes when focus leaves the options with Tab', async () => {
