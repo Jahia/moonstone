@@ -41,6 +41,18 @@ describe('CustomDropdown keyboard', () => {
         expect(trigger).toHaveFocus();
     });
 
+    it('should call the onClick of the consumer and still open the menu', async () => {
+        const onClick = vi.fn();
+        render(
+            <CustomDropdown label="Actions" onClick={onClick}>
+                <MenuItem label="First"/>
+            </CustomDropdown>,
+        );
+        await userEvent.click(screen.getByRole('button', { name: 'Actions' }));
+        expect(onClick).toHaveBeenCalledTimes(1);
+        expect(await screen.findByRole('list')).toBeInTheDocument();
+    });
+
     it('opens with Enter', async () => {
         const { trigger } = renderCustomDropdown();
         trigger.focus();
