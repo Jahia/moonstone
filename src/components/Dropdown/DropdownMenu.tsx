@@ -26,6 +26,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     handleSelect,
     onClose,
 }) => {
+    // oxlint-disable-next-line jsx-a11y/role-has-required-aria-props -- #1604, #1151
     const getIcon = (item: DropdownDataOption) => values?.indexOf(item.value) > -1 ? <CheckboxChecked color="blue" role="checkbox"/> : <CheckboxUnchecked role="checkbox"/>;
 
     // ---
