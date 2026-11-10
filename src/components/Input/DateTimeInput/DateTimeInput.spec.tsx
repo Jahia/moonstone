@@ -1,10 +1,11 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createRef, useState } from 'react';
 import { Temporal } from 'temporal-polyfill';
 import { type Mock, onTestFinished, vi } from 'vitest';
 
 import { DateTimeInput } from './index';
+import { Field } from '~/components/Field';
 
 const nextMonthLabel = 'Next month';
 const previousMonthLabel = 'Previous month';
@@ -887,8 +888,8 @@ describe('DateTimeInput', () => {
         await user.click(dateField());
         expect(screen.getByTestId('calendar')).toBeInTheDocument();
 
-        await user.tab();
-        expect(screen.getByPlaceholderText('hh:mm')).toHaveFocus();
+        // The calendar follows the date field in the Tab order
+        act(() => screen.getByPlaceholderText('hh:mm').focus());
         expect(screen.getByTestId('calendar')).toBeInTheDocument();
 
         const handleDocumentKeyDown = spyOnDocumentKeyDown();
@@ -1491,5 +1492,32 @@ describe('DateTimeInput', () => {
 
             expect(screen.getByText('Timezone:')).toBeInTheDocument();
         });
+    });
+
+    it('should not link the month, year and timezone dropdowns to a Field around it', async () => {
+        const user = userEvent.setup();
+        render(
+            <Field helper="Help" id="date" label="Date">
+                <DateTimeInput
+                    {...localeProps}
+                    defaultValue="2026-03-30T10:00:00Z"
+                    placeholder="Select a date"
+                    type="zonedDateTime"
+                    onChange={() => null}
+                />
+            </Field>,
+        );
+        await user.click(dateField());
+
+        // Each trigger is named after its selected label, so a missing wrapper fails on its own query
+        const month = screen.getByRole('listbox', { name: 'March' });
+        expect(month).not.toHaveAttribute('aria-labelledby');
+        expect(month).not.toHaveAttribute('aria-describedby');
+        const year = screen.getByRole('listbox', { name: '2026' });
+        expect(year).not.toHaveAttribute('aria-labelledby');
+        expect(year).not.toHaveAttribute('aria-describedby');
+        const timezone = screen.getByRole('listbox', { name: 'Paris (UTC +02:00)' });
+        expect(timezone).not.toHaveAttribute('aria-labelledby');
+        expect(timezone).not.toHaveAttribute('aria-describedby');
     });
 });
