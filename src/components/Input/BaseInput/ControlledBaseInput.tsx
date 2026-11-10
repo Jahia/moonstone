@@ -77,6 +77,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
     };
 
     return (
+        // oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- the consumer's onClick; the input inside takes the keyboard
         <div className={classNameProps} role={role} onClick={onClick}>
             {icon && (
                 <div

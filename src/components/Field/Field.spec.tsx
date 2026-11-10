@@ -225,13 +225,15 @@ describe('Field', () => {
         expect(screen.getByRole('textbox', { name: 'Title' })).toHaveAccessibleDescription('Hint Help');
     });
 
-    it('should not name the search box of a Dropdown inside with its label', async () => {
+    it('should not link the search box of a Dropdown inside to its label or helper', async () => {
         render(
-            <Field id="language" label="Language">
+            <Field helper="Help" id="language" label="Language">
                 <Dropdown hasSearch data={[{ label: 'French', value: 'fr' }]} value="fr" onChange={() => null}/>
             </Field>,
         );
         await userEvent.click(screen.getByRole('listbox', { name: 'Language French' }));
-        expect(screen.getByRole('searchbox')).not.toHaveAttribute('aria-labelledby');
+        const searchbox = screen.getByRole('searchbox');
+        expect(searchbox).not.toHaveAttribute('aria-labelledby');
+        expect(searchbox).not.toHaveAttribute('aria-describedby');
     });
 });
