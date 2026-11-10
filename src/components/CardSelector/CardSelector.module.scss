@@ -33,6 +33,10 @@ $cardSelector-height: 58px;
 
         &:has(> .cardSelector_button:focus-visible) {
             @include focus-ring;
+
+            &:hover {
+                @include focus-ring(false, 0 1px 6px var(--moon-color-gray20));
+            }
         }
     }
 

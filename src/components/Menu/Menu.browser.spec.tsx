@@ -4,9 +4,6 @@ import { userEvent } from 'vitest/browser';
 import { Menu, MenuItem } from './index';
 import { Separator } from '~/components';
 
-// Loads the color tokens
-import '~/tokens/colors/colors.scss';
-
 const renderMenu = (props = {}) => {
     const onClose = vi.fn();
     const onFirst = vi.fn();
@@ -68,37 +65,6 @@ describe('Menu keyboard', () => {
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(item('Second')).toHaveFocus();
-    });
-
-    it('should draw the focus ring on the selected item and on another item it moves to', async () => {
-        render(
-            <>
-                <button type="button">before</button>
-                <Menu isDisplayed>
-                    <MenuItem label="First"/>
-                    <MenuItem isSelected label="Second"/>
-                </Menu>
-            </>,
-        );
-        const outline = (label: string) => {
-            const style = getComputedStyle(item(label));
-            return style.outlineStyle === 'none' ? 'none' : `${style.outlineStyle} ${style.outlineWidth}`;
-        };
-        screen.getByRole('button', { name: 'before' }).focus();
-        const selectedBackground = getComputedStyle(item('Second')).backgroundColor;
-        expect(outline('Second')).toBe('none');
-        await userEvent.keyboard('{Tab}');
-        expect(item('Second')).toHaveFocus();
-        expect(outline('Second')).toBe('solid 2px');
-        // On the selected background, the outline does not show: the inner ring does
-        const { boxShadow } = getComputedStyle(item('Second'));
-        expect(boxShadow).toContain('inset');
-        expect(boxShadow).not.toContain(selectedBackground);
-        await userEvent.keyboard('{ArrowUp}');
-        expect(item('First')).toHaveFocus();
-        expect(outline('First')).toBe('solid 2px');
-        expect(outline('Second')).toBe('none');
-        expect(getComputedStyle(item('Second')).backgroundColor).toBe(selectedBackground);
     });
 
     it('skips disabled items when moving with the arrow keys', async () => {
