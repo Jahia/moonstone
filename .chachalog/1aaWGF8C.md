@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-Darkened the keyboard focus ring, so it shows clearly on light backgrounds (#1647)
+The keyboard focus ring is now a double ring, with colors that follow the light and the reversed themes, so it shows clearly on every background (#1647)

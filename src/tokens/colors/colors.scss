@@ -123,4 +123,15 @@ $color-purple-dark: #47168f;
     --moon-color-purple_plain40: #ceb1f9;
     --moon-color-purple_plain60: #b78cf8;
     --moon-color-purple_dark: #{$color-purple-dark};
+
+    // State: the Figma Semantic variables state/focus-outer and state/focus-inner
+    --moon-color-focus_outer: #{$color-blue};
+    --moon-color-focus_inner: #{$color-white};
+}
+
+// The dark mode of the State variables, for every element inside a reversed container
+.moonstone-reverse,
+.moonstone-reversed {
+    --moon-color-focus_outer: #cfe8fe;
+    --moon-color-focus_inner: #12171a;
 }
