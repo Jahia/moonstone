@@ -33,9 +33,7 @@
     }
 
     &:focus-visible {
-        @extend %is-focused;
-
-        outline-offset: -1px;
+        @include utils.focus-ring($inset: true);
     }
 
     &.selected {
@@ -70,6 +68,10 @@
     .moonstone-dragging {
         background-color: var(--moon-color-light);
         box-shadow: 0 4px 8px rgba(19, 28, 33, 0.2);
+
+        &:focus-visible {
+            @include utils.focus-ring(true, 0 4px 8px rgba(19, 28, 33, 0.2));
+        }
 
         & > div > div > .moonstone-displayNone {
             display: none;
