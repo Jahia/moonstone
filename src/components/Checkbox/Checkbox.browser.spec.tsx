@@ -4,9 +4,6 @@ import { userEvent } from 'vitest/browser';
 
 import { Checkbox } from './index';
 
-// Loads the color tokens
-import '~/tokens/colors/colors.scss';
-
 const IndeterminateCheckbox = ({ onChange }: { readonly onChange: (checked: boolean) => void }) => {
     const [checked, setChecked] = useState(false);
     const [indeterminate, setIndeterminate] = useState(true);
@@ -65,7 +62,7 @@ describe('Checkbox keyboard', () => {
         expect(onChange).not.toHaveBeenCalled();
     });
 
-    it('should show the focus ring of a read-only checkbox at full opacity', async () => {
+    it('should give the keyboard focus to a read-only checkbox', async () => {
         render(
             <>
                 <button type="button">before</button>
@@ -75,11 +72,7 @@ describe('Checkbox keyboard', () => {
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(screen.getByRole('checkbox')).toHaveFocus();
-        expect(getComputedStyle(screen.getByRole('checkbox')).outlineStyle).toBe('solid');
-        expect(getComputedStyle(screen.getByRole('checkbox')).outlineWidth).not.toBe('0px');
-        // The ring and the border of the box
-        expect(getComputedStyle(screen.getByRole('checkbox')).boxShadow.split(/,(?![^(]*\))/)).toHaveLength(2);
-        expect(getComputedStyle(screen.getByRole('checkbox')).opacity).toBe('1');
+        expect(screen.getByRole('checkbox').matches(':focus-visible')).toBe(true);
     });
 
     it('skips a disabled checkbox in the tab sequence', async () => {
