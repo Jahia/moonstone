@@ -26,7 +26,7 @@
     }
 
     &:focus-visible:not(:disabled) {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:active:not(:disabled) {
@@ -64,7 +64,7 @@
     }
 
     &:focus-visible:not(:disabled) {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:active:not(:disabled) {
@@ -96,7 +96,7 @@
     }
 
     &:focus-visible:not(:disabled) {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:active:not(:disabled) {
