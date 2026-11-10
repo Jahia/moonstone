@@ -491,6 +491,17 @@ describe('Dropdown', () => {
         expect(screen.getByRole('search')).toBeInTheDocument();
     });
 
+    it('should not link the search box of a tree to a Field around it', async () => {
+        const user = userEvent.setup();
+        render(
+            <Field helper="Help" id="page" label="Page">
+                <Dropdown hasSearch treeData={dropdownDataTree} value="" onChange={() => null}/>
+            </Field>,
+        );
+        await user.click(screen.getByRole('listbox'));
+        expect(screen.getByRole('searchbox')).not.toHaveAttribute('aria-describedby');
+    });
+
     it('should not call onBlur when no onFocus was delivered', async () => {
         const user = userEvent.setup();
         const onBlur = vi.fn();

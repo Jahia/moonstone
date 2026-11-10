@@ -10,7 +10,7 @@
     }
 
     &:focus-visible {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:has(input:disabled, input[aria-readonly="true"]) {

@@ -205,6 +205,7 @@ export const Menu: React.FC<MenuProps> = ({
                 orientation="vertical"
                 ref={itemRef}
                 render={compositeProps => (
+                    // oxlint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- #1604
                     <menu
                         {...compositeProps}
                         // A <menu> is a list, which takes no aria-orientation

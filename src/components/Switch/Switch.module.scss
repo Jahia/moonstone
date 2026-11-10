@@ -75,7 +75,7 @@
 
     // Only triggered when the input is focus with tab
     &:focus-visible {
-        border: 2px solid var(--moon-color-accent_light);
+        @include focus-ring;
     }
 }
 

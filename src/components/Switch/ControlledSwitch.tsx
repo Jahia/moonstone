@@ -42,6 +42,7 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElemen
                 checked={checked}
                 className={clsx('moonstone-switch_input', styles['moonstone-switch_input'])}
                 ref={ref}
+                // oxlint-disable-next-line jsx-a11y/role-has-required-aria-props -- the native checked gives aria-checked
                 role="switch"
                 type="checkbox"
                 value={value}

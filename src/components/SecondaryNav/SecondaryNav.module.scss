@@ -42,7 +42,7 @@
     cursor: pointer;
 
     &:focus-visible {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:hover {
