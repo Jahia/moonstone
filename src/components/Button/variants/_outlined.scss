@@ -45,7 +45,6 @@
 
         border-color: var(--moon-color-light);
 
-        // accent is too dark on reversed backgrounds
         &:hover:not(:disabled, :active) {
             color: var(--moon-color-accent_light);
 
@@ -81,7 +80,6 @@
         background-color: var(--moon-color-danger);
     }
 
-    // danger is too dark on reversed backgrounds
     &.moonstone-reverse:not(:disabled, :active) {
         color: var(--moon-color-danger_plain60);
 
