@@ -1,3 +1,5 @@
+@use "sass:list";
+
 // Hides an element visually and keeps it in the accessibility tree
 @mixin visually-hidden {
     position: absolute;
@@ -45,14 +47,16 @@
     opacity: 0.8;
 }
 
-// The focus ring: an outer ring around an inner ring. Its tokens follow the light and the reversed themes.
-$focus-ring-outer: var(--moon-color-focus_outer);
-$focus-ring-inner: var(--moon-color-focus_inner);
+// $inset draws the ring inside an element that overflow clips. $shadows keeps the element's own box-shadows.
+@mixin focus-ring($inset: false, $shadows...) {
+    @if $inset {
+        outline-offset: -2px;
+        box-shadow: list.join((inset 0 0 0 4px var(--moon-color-focus_inner),), $shadows, comma);
+    }
+    @else {
+        outline-offset: 2px;
+        box-shadow: list.join((0 0 0 2px var(--moon-color-focus_inner),), $shadows, comma);
+    }
 
-// An element that overflow clips draws the ring inside: `outline-offset: -2px; box-shadow: inset 0 0 0 4px $focus-ring-inner;`
-%is-focused {
-    outline: 2px solid $focus-ring-outer;
-    outline-offset: 2px;
-
-    box-shadow: 0 0 0 2px $focus-ring-inner;
+    outline: 2px solid var(--moon-color-focus_outer);
 }

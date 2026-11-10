@@ -32,7 +32,7 @@ $cardSelector-height: 58px;
         }
 
         &:has(> .cardSelector_button:focus-visible) {
-            @extend %is-focused;
+            @include focus-ring;
         }
     }
 
@@ -124,7 +124,7 @@ $cardSelector-height: 58px;
         }
 
         &:focus-visible {
-            @extend %is-focused;
+            @include focus-ring;
         }
     }
 }

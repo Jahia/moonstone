@@ -16,7 +16,7 @@ $primaryNav: 56px;
 .moonstone-primaryNav {
     @include transition(width 0.3s);
 
-    // Always dark, with no reversed class: the reversed class would restyle what it holds
+    // Dark with no reversed class, which would restyle its content
     @include focus-reversed;
 
     position: fixed;
@@ -94,7 +94,7 @@ $primaryNav: 56px;
     cursor: pointer;
 
     &:focus-visible {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:hover {

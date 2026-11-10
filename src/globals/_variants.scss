@@ -14,7 +14,7 @@
     }
 
     &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
@@ -28,7 +28,7 @@
         color: var(--moon-color-white);
 
         &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-            @extend %is-focused;
+            @include focus-ring;
         }
 
         &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
@@ -63,7 +63,7 @@
     }
 
     &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
@@ -83,7 +83,7 @@
         }
 
         &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-            @extend %is-focused;
+            @include focus-ring;
         }
 
         &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
@@ -111,7 +111,7 @@
     }
 
     &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
@@ -128,7 +128,7 @@
         }
 
         &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-            @extend %is-focused;
+            @include focus-ring;
         }
 
         &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {

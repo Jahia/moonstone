@@ -78,7 +78,7 @@ $radio-sizeDefault: 16px;
         cursor: pointer;
 
         &:focus-visible {
-            @extend %is-focused;
+            @include focus-ring;
         }
 
         &:checked ~ .moonstone-radio_iconUnchecked,

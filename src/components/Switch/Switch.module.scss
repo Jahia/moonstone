@@ -75,7 +75,7 @@
 
     // Only triggered when the input is focus with tab
     &:focus-visible {
-        @extend %is-focused;
+        @include focus-ring;
     }
 }
 
