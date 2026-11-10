@@ -5,6 +5,7 @@ import { Temporal } from 'temporal-polyfill';
 import { type Mock, onTestFinished, vi } from 'vitest';
 
 import { DateTimeInput } from './index';
+import { Field } from '~/components';
 
 const nextMonthLabel = 'Next month';
 const previousMonthLabel = 'Previous month';
@@ -182,16 +183,45 @@ describe('DateTimeInput', () => {
         expect(dateField()).not.toHaveValue('');
         expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
         expect(screen.getByText('Timezone:')).toBeInTheDocument();
-        expect(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' })).toBeInTheDocument();
+        expect(screen.getByRole('listbox', { name: 'Timezone: Paris (UTC +01:00)' })).toBeInTheDocument();
 
-        await user.click(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' }));
+        await user.click(screen.getByRole('listbox', { name: 'Timezone: Paris (UTC +01:00)' }));
         await user.type(screen.getByRole('searchbox'), 'toronto');
         await user.click(screen.getByText('Toronto (UTC -05:00)'));
 
         // Same instant, re-projected: 11:56 Paris is 05:56 Toronto. The stored UTC doesn't move, so nothing is emitted.
         expect(screen.getByDisplayValue('05:56')).toBeInTheDocument();
-        expect(screen.getByRole('listbox', { name: 'Toronto (UTC -05:00)' })).toBeInTheDocument();
+        expect(screen.getByRole('listbox', { name: 'Timezone: Toronto (UTC -05:00)' })).toBeInTheDocument();
         expect(handleChange).not.toHaveBeenCalled();
+    });
+
+    it('should name the time input "Time", after the name of the date input when it has one', () => {
+        const { rerender } = render(<DateTimeInput {...localeProps} defaultValue="2026-03-05T11:56" type="dateTime"/>);
+        expect(screen.getByRole('textbox', { name: 'Time' })).toHaveValue('11:56');
+
+        rerender(<DateTimeInput {...localeProps} aria-label="Publication date" defaultValue="2026-03-05T11:56" type="dateTime"/>);
+        expect(screen.getByRole('textbox', { name: 'Publication date Time' })).toHaveValue('11:56');
+
+        rerender(
+            <Field id="publication" label="Publication date">
+                <DateTimeInput {...localeProps} defaultValue="2026-03-05T11:56" type="dateTime"/>
+            </Field>,
+        );
+        expect(screen.getByRole('textbox', { name: 'Publication date Time' })).toHaveValue('11:56');
+    });
+
+    it('should name the time input and the AM/PM selector with the i18n labels', () => {
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-03-05T11:56"
+                i18n={{ timeLabel: 'Heure', meridiemLabel: 'Matin ou soir' }}
+                timeFormat="12h"
+                type="dateTime"
+            />,
+        );
+        expect(screen.getByRole('textbox', { name: 'Heure' })).toHaveValue('11:56');
+        expect(screen.getByRole('listbox', { name: 'Matin ou soir AM' })).toBeInTheDocument();
     });
 
     it('should reset the selected datetime to midnight when the time is cleared', async () => {
@@ -299,7 +329,7 @@ describe('DateTimeInput', () => {
 
         expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
         expect(screen.getByText('PM')).toBeInTheDocument();
-        expect(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' })).toBeInTheDocument();
+        expect(screen.getByRole('listbox', { name: 'Timezone: Paris (UTC +01:00)' })).toBeInTheDocument();
     });
 
     it('should let the user switch meridiem in 12h datetime mode and keep canonical output', async () => {
@@ -500,13 +530,13 @@ describe('DateTimeInput', () => {
             />,
         );
 
-        expect(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' })).toBeInTheDocument();
+        expect(screen.getByRole('listbox', { name: 'Timezone: Paris (UTC +01:00)' })).toBeInTheDocument();
 
         await user.click(dateField());
         await user.click(screen.getByRole('button', { name: nextMonthLabel }));
         await user.click(screen.getByRole('button', { name: 'Wednesday, April 15th, 2026' }));
 
-        expect(screen.getByRole('listbox', { name: 'Paris (UTC +02:00)' })).toBeInTheDocument();
+        expect(screen.getByRole('listbox', { name: 'Timezone: Paris (UTC +02:00)' })).toBeInTheDocument();
     });
 
     it('should keep a controlled value until the parent updates it', async () => {
@@ -996,7 +1026,7 @@ describe('DateTimeInput', () => {
             />,
         );
 
-        await user.click(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' }));
+        await user.click(screen.getByRole('listbox', { name: 'Timezone: Paris (UTC +01:00)' }));
 
         expect(screen.getByRole('searchbox')).toBeInTheDocument();
     });
@@ -1030,7 +1060,7 @@ describe('DateTimeInput', () => {
             />,
         );
 
-        await user.click(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' }));
+        await user.click(screen.getByRole('listbox', { name: 'Timezone: Paris (UTC +01:00)' }));
 
         expect(screen.getByRole('searchbox')).toBeInTheDocument();
     });
@@ -1301,7 +1331,7 @@ describe('DateTimeInput', () => {
             );
 
             expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
-            expect(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' })).toBeInTheDocument();
+            expect(screen.getByRole('listbox', { name: 'Timezone: Paris (UTC +01:00)' })).toBeInTheDocument();
         });
 
         it('should display an offset-annotated ISO string in the browser zone, not in its annotation', () => {
@@ -1317,7 +1347,7 @@ describe('DateTimeInput', () => {
 
             // 18:56 Tokyo (UTC+9) is 10:56 Paris (UTC+1)
             expect(screen.getByDisplayValue('10:56')).toBeInTheDocument();
-            expect(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' })).toBeInTheDocument();
+            expect(screen.getByRole('listbox', { name: 'Timezone: Paris (UTC +01:00)' })).toBeInTheDocument();
         });
 
         it('should display the value in defaultTimezone instead of the system zone', () => {
@@ -1333,7 +1363,7 @@ describe('DateTimeInput', () => {
             );
 
             expect(screen.getByDisplayValue('19:56')).toBeInTheDocument();
-            expect(screen.getByRole('listbox', { name: 'Tokyo (UTC +09:00)' })).toBeInTheDocument();
+            expect(screen.getByRole('listbox', { name: 'Timezone: Tokyo (UTC +09:00)' })).toBeInTheDocument();
         });
 
         it('should fall back to the system zone when defaultTimezone is not a valid IANA zone', () => {
@@ -1349,7 +1379,7 @@ describe('DateTimeInput', () => {
             );
 
             expect(screen.getByDisplayValue('11:56')).toBeInTheDocument();
-            expect(screen.getByRole('listbox', { name: 'Paris (UTC +01:00)' })).toBeInTheDocument();
+            expect(screen.getByRole('listbox', { name: 'Timezone: Paris (UTC +01:00)' })).toBeInTheDocument();
         });
 
         it('should re-project the date and time when the zone changes, across midnight', async () => {
@@ -1372,7 +1402,7 @@ describe('DateTimeInput', () => {
 
             // 2026-02-09T16:00 Paris (UTC+1) is 2026-02-10T00:00 Tokyo (UTC+9): same instant, nothing emitted.
             expect(screen.getByDisplayValue('00:00')).toBeInTheDocument();
-            expect(screen.getByRole('listbox', { name: 'Tokyo (UTC +09:00)' })).toBeInTheDocument();
+            expect(screen.getByRole('listbox', { name: 'Timezone: Tokyo (UTC +09:00)' })).toBeInTheDocument();
             expect(handleChange).not.toHaveBeenCalled();
         });
 
@@ -1430,7 +1460,7 @@ describe('DateTimeInput', () => {
             await user.type(timeField, '0900');
             await user.tab();
 
-            expect(screen.getByRole('listbox', { name: 'Tokyo (UTC +09:00)' })).toBeInTheDocument();
+            expect(screen.getByRole('listbox', { name: 'Timezone: Tokyo (UTC +09:00)' })).toBeInTheDocument();
             expect(screen.getByDisplayValue('09:00')).toBeInTheDocument();
         });
 
@@ -1456,7 +1486,7 @@ describe('DateTimeInput', () => {
             await user.click(dateField());
             await user.click(screen.getByText('Today'));
 
-            expect(screen.getByRole('listbox', { name: /^Tokyo \(UTC/ })).toBeInTheDocument();
+            expect(screen.getByRole('listbox', { name: /^Timezone: Tokyo \(UTC/ })).toBeInTheDocument();
         });
     });
 
