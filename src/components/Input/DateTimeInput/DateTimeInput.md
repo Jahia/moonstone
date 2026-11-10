@@ -36,6 +36,16 @@ clears the whole value, like the clear button.
 
 Provide `value` + `onChange` for controlled (`onChange` is required), or `defaultValue` for uncontrolled.
 
+## Accessibility
+
+- When `Enter` or `Space` in the date field opens the calendar, focus moves to the selected day, else
+  to today, else to the first enabled day. When a click opens it, focus stays in the field, to type a
+  date, and the calendar is reachable with Tab after the field.
+- The arrow keys move between the days. `Enter` selects the focused day, closes the calendar and
+  returns focus to the date field.
+- `Escape` closes the calendar and returns focus to the date field when focus was inside the
+  calendar. It stops there, so a `Modal` around the field stays open.
+
 ## Calendar constraints
 
 - `minDate` / `maxDate` — inclusive bounds; dates outside are disabled.

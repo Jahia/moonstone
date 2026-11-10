@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createRef, useState } from 'react';
 import { Temporal } from 'temporal-polyfill';
@@ -888,8 +888,8 @@ describe('DateTimeInput', () => {
         await user.click(dateField());
         expect(screen.getByTestId('calendar')).toBeInTheDocument();
 
-        await user.tab();
-        expect(screen.getByPlaceholderText('hh:mm')).toHaveFocus();
+        // The calendar follows the date field in the Tab order
+        act(() => screen.getByPlaceholderText('hh:mm').focus());
         expect(screen.getByTestId('calendar')).toBeInTheDocument();
 
         const handleDocumentKeyDown = spyOnDocumentKeyDown();

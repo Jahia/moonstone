@@ -77,7 +77,8 @@ export type ResizableBoxProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'chi
      * @param {node} ref - HTML element resized
      * @param {object} delta - delta between after resize
      */
-    onResizeStop?: (e: MouseEvent | TouchEvent | KeyboardEvent, dir: ResizeDirection, ref: HTMLElement, delta: NumberSize) => void;
+    // Method syntax: TypeScript checks its parameters bivariantly, so a 2.21.1 ResizeCallback compiles
+    onResizeStop?(this: void, e: MouseEvent | TouchEvent | KeyboardEvent, dir: ResizeDirection, ref: HTMLElement, delta: NumberSize): void;
     /**
      * ResizableBox labels
      */

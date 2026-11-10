@@ -178,4 +178,9 @@ describe('MultipleLeftRightSelector', () => {
         expect(screen.getByRole('searchbox', { name: 'Available' })).not.toHaveAttribute('aria-describedby');
         expect(screen.getByRole('searchbox', { name: 'Selected' })).not.toHaveAttribute('aria-describedby');
     });
+
+    it('should show no list title when the label is not given', () => {
+        render(<ListSelector onChange={() => ({})}/>);
+        expect(screen.queryByRole('heading')).not.toBeInTheDocument();
+    });
 });
