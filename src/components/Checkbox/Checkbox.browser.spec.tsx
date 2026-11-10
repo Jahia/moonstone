@@ -4,7 +4,7 @@ import { userEvent } from 'vitest/browser';
 
 import { Checkbox } from './index';
 
-// The focus ring draws with the colour tokens, and an outline with no colour computes to none
+// Loads the color tokens
 import '~/tokens/colors/colors.scss';
 
 const IndeterminateCheckbox = ({ onChange }: { readonly onChange: (checked: boolean) => void }) => {
@@ -77,6 +77,8 @@ describe('Checkbox keyboard', () => {
         expect(screen.getByRole('checkbox')).toHaveFocus();
         expect(getComputedStyle(screen.getByRole('checkbox')).outlineStyle).toBe('solid');
         expect(getComputedStyle(screen.getByRole('checkbox')).outlineWidth).not.toBe('0px');
+        // The ring and the border of the box
+        expect(getComputedStyle(screen.getByRole('checkbox')).boxShadow.split(/,(?![^(]*\))/)).toHaveLength(2);
         expect(getComputedStyle(screen.getByRole('checkbox')).opacity).toBe('1');
     });
 
