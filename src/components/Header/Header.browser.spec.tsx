@@ -34,13 +34,13 @@ describe('Header keyboard', () => {
         expect(action('Action 01')).toHaveFocus();
     });
 
-    it('should expose the toolbar as a named group, not a toolbar that promises arrow keys', () => {
+    it('exposes the toolbar as a named group, not a toolbar that promises arrow keys', () => {
         renderHeader();
         expect(screen.getByRole('group', { name: 'Page actions' })).toBeVisible();
         expect(screen.queryByRole('toolbar')).not.toBeInTheDocument();
     });
 
-    it('should move through the toolbar buttons with Tab', async () => {
+    it('moves through the toolbar buttons with Tab', async () => {
         renderHeader();
         action('Action 01').focus();
         await userEvent.keyboard('{Tab}');
