@@ -16,7 +16,6 @@ $primaryNav: 56px;
 .moonstone-primaryNav {
     @include transition(width 0.3s);
 
-    // Dark with no reversed class, which would restyle its content
     @include focus-reversed;
 
     position: fixed;

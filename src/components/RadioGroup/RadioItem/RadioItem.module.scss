@@ -99,10 +99,6 @@ $radio-sizeDefault: 16px;
             fill: var(--moon-color-accent_dark);
         }
     }
-
-    .moonstone-radio_input:focus-visible ~ .moonstone-radio_icon {
-        fill: var(--moon-color-accent_dark_contrast);
-    }
 }
 
 @keyframes radioBounce {

@@ -1,4 +1,5 @@
-@use "palette" as *;
+$color-blue-20: #cfe8fe;
+$color-neutral-90: #12171a;
 
 @mixin focus-reversed {
     --moon-color-focus_outer: #{$color-blue-20};
