@@ -68,7 +68,8 @@ years are not listed.
 When omitted, the browser locale is used. `dateFormat` (LDML, e.g. `'dd/MM/yyyy'`) overrides only the
 field's date order — name tokens still render localized via `locale`. `weekStartsOn` overrides the
 locale-derived first day. `i18n` overrides the calendar action labels (today / next / previous month),
-the timezone row label and the clear button name.
+the timezone row label, the clear button name, and the names of the time field (`timeLabel`, "Time") and
+of the AM/PM dropdown (`meridiemLabel`, "AM/PM").
 
 ## Zoned mode
 
