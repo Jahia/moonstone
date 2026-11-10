@@ -112,7 +112,6 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                         onFocus(event);
                     }
                 }}
-                // The native button opens on Enter and Space; ArrowDown opens too, as in a native select
                 {...mergeHandlers(props, {
                     onKeyDown: (e: React.KeyboardEvent) => {
                         if (e.key === 'ArrowDown' && !isDisabled && !isLoading && !shouldIgnoreKey(e)) {

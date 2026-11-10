@@ -209,7 +209,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
         }
     };
 
-    // Enter and Space open like a button; ArrowDown opens too, as in a native select
     const triggerKeys = onAccessibleClick({ onClick: handleOpenMenu });
     const handleTriggerKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'ArrowDown' && e.target === e.currentTarget && !shouldIgnoreKey(e)) {
