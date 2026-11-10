@@ -1492,4 +1492,23 @@ describe('DateTimeInput', () => {
             expect(screen.getByText('Timezone:')).toBeInTheDocument();
         });
     });
+
+    it('should call the onClick of the consumer and still open the calendar', async () => {
+        const user = userEvent.setup();
+        const onClick = vi.fn();
+        render(
+            <DateTimeInput
+                {...localeProps}
+                defaultValue="2026-03-05"
+                placeholder="Select a date"
+                type="date"
+                onClick={onClick}
+            />,
+        );
+
+        await user.click(dateField());
+
+        expect(onClick).toHaveBeenCalledTimes(1);
+        expect(screen.getByText(march2026)).toBeInTheDocument();
+    });
 });

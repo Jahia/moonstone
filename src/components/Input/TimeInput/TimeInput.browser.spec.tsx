@@ -97,4 +97,14 @@ describe('TimeInput keyboard', () => {
         await userEvent.keyboard('{Shift>}{ArrowLeft}{ArrowLeft}{/Shift}');
         expect([input.selectionStart, input.selectionEnd]).toEqual([3, 5]);
     });
+
+    it('calls the onKeyDown of the consumer and still steps the hour with ArrowUp', async () => {
+        const onKeyDown = vi.fn();
+        render(<TimeInput defaultValue="12:30" onKeyDown={onKeyDown}/>);
+        screen.getByRole('textbox').focus();
+        await userEvent.keyboard('{ArrowLeft}');
+        await userEvent.keyboard('{ArrowUp}');
+        expect(screen.getByRole('textbox')).toHaveValue('13:30');
+        expect(onKeyDown).toHaveBeenCalled();
+    });
 });
