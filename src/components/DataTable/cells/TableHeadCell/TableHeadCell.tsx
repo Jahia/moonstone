@@ -23,7 +23,8 @@ export const TableHeadCell = ({
 
     return (
         <TableCell
-            aria-sort={isSortActive ? sorting?.direction : isSortable ? 'none' : undefined}
+            aria-sort={isSortActive ? sorting?.direction : undefined}
+            scope="col"
             {...props}
             align={align}
             className={clsx(styles.tableHeadCell, { [styles.sortable]: isSortable }, className)}
@@ -44,7 +45,8 @@ export const TableHeadCell = ({
                             />
                         </button>
                     )
-                : children}
+                // The fragment keeps a header with no label empty: TableCell prints '-' for undefined children
+                : <>{children}</>}
         </TableCell>
     );
 };

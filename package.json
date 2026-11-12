@@ -1,6 +1,6 @@
 {
   "name": "@jahia/moonstone",
-  "version": "2.21.0",
+  "version": "2.21.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Jahia/moonstone.git"
@@ -72,6 +72,7 @@
     "start": "storybook dev -p 6006",
     "tdd": "vitest watch",
     "test": "vitest run --coverage --project unit --project browser",
+    "test:types": "tsc -p type-tests",
     "test:visual": "vitest --project visual --reporter verbose",
     "a11y:report": "node scripts/a11y-report.mjs",
     "tsc": "tsc --build tsconfig.json && cp ./dist/index.d.ts ./dist/index.d.cts"

@@ -177,6 +177,11 @@ export type DataTableI18n = NonNullable<PaginationProps['i18n']> & {
      * @default 'Select all rows'
      */
     selectAllRows?: string;
+    /**
+     * Visually hidden name of the header cell of the selection column
+     * @default 'Selection'
+     */
+    selectionColumnLabel?: string;
 };
 
 export type SelectionProps
@@ -240,6 +245,15 @@ type RenderRowProps<T extends NonNullable<unknown>> = {
      * @param context - Row context with id, data, meta, and render function.
      */
     renderRow?: (context: RenderRowContext<T>) => React.ReactNode;
+    /**
+     * Names of the custom columns that `renderRow` adds with `render({ before, after })`, in their order.
+     * Each name is visually hidden text in the header cell of its column.
+     * Each header stays empty when its name is missing.
+     */
+    customColumnLabels?: {
+        before?: string[];
+        after?: string[];
+    };
 };
 
 type StructuredProps

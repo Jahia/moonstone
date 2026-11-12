@@ -8,7 +8,7 @@ import type { ChangeEvent } from 'react';
 export const UncontrolledBaseInput = React.forwardRef<HTMLInputElement, UncontrolledBaseInputProps>(({
     defaultValue, onChange, filterFunction, allowNegative, allowDecimal, separator, ...props
 }, ref) => {
-    const [inputValue, setBaseInputValue] = useState(defaultValue);
+    const [inputValue, setBaseInputValue] = useState(defaultValue ?? '');
 
     const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
         let value = event.target.value;

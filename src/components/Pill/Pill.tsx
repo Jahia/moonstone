@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 
 import { Typography } from '~/components';
+import { warnOnce } from '~/utils/warnOnce';
 
 import type { PillProps } from './Pill.types';
 
@@ -15,7 +16,7 @@ export const Pill: React.FC<PillProps> = ({
     ...props
 }) => {
     if (label !== undefined) {
-        console.warn('The property `label` is deprecated in the Pill component. Use `children` instead.');
+        warnOnce('Pill.label', 'The property `label` is deprecated in the Pill component. Use `children` instead.');
     }
 
     return (

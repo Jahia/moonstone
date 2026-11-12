@@ -43,5 +43,4 @@ import {Accordion, AccordionItem} from '@jahia/moonstone';
 
 ## Accessibility
 
-- The Up and Down arrow keys move the focus between headers (soon).
-- Home and End move the focus to the first and last headers (soon).
+- The Up and Down arrow keys move the focus between headers.

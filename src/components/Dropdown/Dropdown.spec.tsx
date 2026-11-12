@@ -166,6 +166,21 @@ describe('Dropdown', () => {
         expect(screen.getByRole('listbox')).toHaveAccessibleName('Language');
     });
 
+    it('should name the trigger with the aria-label of the consumer followed by the value', () => {
+        render(<Dropdown aria-label="Language" data={[{ label: 'French', value: 'fr' }]} value="fr" onChange={() => null}/>);
+        expect(screen.getByRole('listbox')).toHaveAccessibleName('Language French');
+    });
+
+    it('should name the trigger with the aria-labelledby of the consumer followed by the value', () => {
+        render(
+            <>
+                <span id="language-label">Language</span>
+                <Dropdown aria-labelledby="language-label" data={[{ label: 'French', value: 'fr' }]} value="fr" onChange={() => null}/>
+            </>,
+        );
+        expect(screen.getByRole('listbox')).toHaveAccessibleName('Language French');
+    });
+
     it('should name the search input of the menu with i18n.searchLabel', async () => {
         const user = userEvent.setup();
         render(
@@ -474,6 +489,48 @@ describe('Dropdown', () => {
         );
         await user.click(screen.getByRole('listbox'));
         expect(screen.getByRole('search')).toBeInTheDocument();
+    });
+
+    it('should not link the search box of a tree to a Field around it', async () => {
+        const user = userEvent.setup();
+        render(
+            <Field helper="Help" id="page" label="Page">
+                <Dropdown hasSearch treeData={dropdownDataTree} value="" onChange={() => null}/>
+            </Field>,
+        );
+        await user.click(screen.getByRole('listbox'));
+        expect(screen.getByRole('searchbox')).not.toHaveAttribute('aria-describedby');
+    });
+
+    it('should not call onBlur when no onFocus was delivered', async () => {
+        const user = userEvent.setup();
+        const onBlur = vi.fn();
+        render(<><Dropdown data={dropdownData} value="" onBlur={onBlur}/><button type="button">after</button></>);
+
+        await user.tab();
+        await user.tab();
+
+        expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
+        expect(onBlur).not.toHaveBeenCalled();
+    });
+
+    it('should call onFocus once and onBlur once across a round trip through the menu', async () => {
+        const user = userEvent.setup();
+        const onFocus = vi.fn();
+        const onBlur = vi.fn();
+        render(<><Dropdown data={dropdownData} value="" onBlur={onBlur} onFocus={onFocus}/><button type="button">after</button></>);
+        const trigger = screen.getByRole('listbox');
+
+        await user.click(trigger);
+        expect(screen.getByRole('list')).toBeInTheDocument();
+        expect(trigger).not.toHaveFocus();
+        await user.keyboard('{Escape}');
+        expect(trigger).toHaveFocus();
+        expect(screen.queryByRole('list')).not.toBeInTheDocument();
+        await user.tab();
+
+        expect(onFocus).toHaveBeenCalledTimes(1);
+        expect(onBlur).toHaveBeenCalledTimes(1);
     });
 });
 

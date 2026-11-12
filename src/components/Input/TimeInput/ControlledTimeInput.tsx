@@ -36,6 +36,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
     className,
     isDisabled,
     isReadOnly,
+    i18n,
     ...props
 }, ref) => {
     const time = toPlainTime(value);
@@ -129,6 +130,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
             {meridiem && (
                 <WithoutField>
                     <Dropdown
+                        aria-label={i18n?.meridiemLabel || 'AM/PM'}
                         {...meridiemDropdownProps}
                         isDisabled={isDisabled || isReadOnly}
                         className={clsx(styles.meridiemDropdown, meridiemDropdownProps?.className)}

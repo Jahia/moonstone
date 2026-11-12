@@ -84,7 +84,8 @@ export type ResizableBoxProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'chi
      * @param elementRef - The resized element.
      * @param delta - The change of `width` and `height` since the resize began.
      */
-    onResizeStop?: (event: MouseEvent | TouchEvent | KeyboardEvent, direction: ResizeDirection, elementRef: HTMLElement, delta: NumberSize) => void;
+    // Method syntax: TypeScript checks its parameters bivariantly, so a 2.21.1 ResizeCallback compiles
+    onResizeStop?(this: void, event: MouseEvent | TouchEvent | KeyboardEvent, direction: ResizeDirection, elementRef: HTMLElement, delta: NumberSize): void;
     /**
      * Texts of the component, shown on screen or read by screen readers. Translate them with the rest of the UI.
      */

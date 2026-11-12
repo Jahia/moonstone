@@ -71,6 +71,7 @@ export const ContextualMenu = () => {
     };
 
     return (
+        // oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- a click anywhere opens the menu
         <div
             className={clsx('flexRow_center', 'alignCenter', layout.flexRow_center, layout.alignCenter)}
             style={{ transform: 'scale(1)', height: '100vh' }}

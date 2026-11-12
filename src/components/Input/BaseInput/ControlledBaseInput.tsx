@@ -6,6 +6,7 @@ import { Button } from '~/components';
 import { useFieldAria, useFieldControlId } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils.js';
 import { Cancel } from '~/icons';
+import { warnOnce } from '~/utils/warnOnce';
 
 import type { ControlledBaseInputProps } from './BaseInput.types';
 
@@ -76,6 +77,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
     };
 
     return (
+        // oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- the consumer's onClick; the input inside takes the keyboard
         <div className={classNameProps} role={role} onClick={onClick}>
             {icon && (
                 <div
@@ -124,7 +126,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                         }
 
                         if (onKeyPress) {
-                            console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
+                            warnOnce('BaseInput.onKeyPress', 'onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
                             onKeyPress(e);
                         }
 

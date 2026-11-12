@@ -18,6 +18,15 @@ describe('ImgWrapper', () => {
         expect(screen.getByTestId('imgwrapper')).toHaveClass('extra');
     });
 
+    it('should warn when alt is missing, not when it is empty', () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+        render(<ImgWrapper alt="" src="https://toto.jahia.com"/>);
+        expect(warn).not.toHaveBeenCalled();
+        render(<ImgWrapper src="https://toto.jahia.com"/>);
+        expect(warn).toHaveBeenCalledWith(expect.stringContaining('`alt`'));
+        warn.mockRestore();
+    });
+
     it('should add extra attribute', () => {
         render(<ImgWrapper alt="" data-custom="extra" data-testid="imgwrapper" src="https://toto.jahia.com"/>);
         expect(screen.getByTestId('imgwrapper')).toHaveAttribute('data-custom', 'extra');

@@ -11,6 +11,9 @@ export default {
     title: 'Components/NumberInput',
     component: NumberInput,
     tags: ['new'],
+    args: {
+        'aria-label': 'Quantity',
+    },
     decorators: [
         StoryCmp => (
             <div style={{ width: '50vw' }}>

@@ -1,3 +1,5 @@
+import { fn } from 'storybook/test';
+
 import markdownNotes from './Field.md?raw';
 import { FieldSelector } from './FieldSelector';
 import { Field } from './index';
@@ -114,7 +116,7 @@ export const WithListSelector: Story = {
     args: {
         ...Default.args,
         children:
-    <FieldSelector selector={<ListSelector label={{ addAllTitle: 'add', removeAllTitle: 'remove', selected: 'selected' }} options={listSelectorData} onChange={(v: string[]) => console.log(v)}/>}/>,
+    <FieldSelector selector={<ListSelector label={{ addAllTitle: 'add', removeAllTitle: 'remove', selected: 'selected' }} options={listSelectorData} onChange={fn()}/>}/>,
     },
 };
 

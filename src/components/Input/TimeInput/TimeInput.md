@@ -47,3 +47,4 @@ import {TimeInput} from '@jahia/moonstone';
 - With `timeFormat="12h"`, Enter opens the AM/PM dropdown. The Down arrow key opens it too (soon).
 - Enter selects the focused AM/PM option.
 - Escape closes the AM/PM dropdown and returns the focus to it.
+- Override `i18n.meridiemLabel` when translating; left unset, it defaults to English.

@@ -50,9 +50,9 @@ import {DateTimeInput} from '@jahia/moonstone';
 ## Accessibility
 - Add an `aria-label` when it is not in a [Field](?path=/docs/components-field--docs).
 - Enter or Space on the date field opens the calendar. Escape closes it.
-- Opening the calendar moves the focus to the selected day (soon).
+- Opening the calendar with Enter or Space moves the focus to the selected day, else to today, else to the first enabled day.
 - In the calendar, the Left and Right arrow keys move between days, and the Up and Down arrow
   keys between weeks. Enter selects the focused day and closes the calendar.
-- Selecting a day with Enter returns the focus to the date field (soon).
-- Escape on a day closes the calendar and returns the focus to the date field (soon).
-- Override `i18n`'s calendar, timezone, and clear button labels when translating.
+- Selecting a day with Enter returns the focus to the date field.
+- Escape on a day closes the calendar and returns the focus to the date field.
+- Override `i18n`'s calendar, timezone, clear button, time field, and AM/PM dropdown labels when translating.

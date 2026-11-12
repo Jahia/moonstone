@@ -14,7 +14,7 @@
     }
 
     &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
@@ -28,7 +28,7 @@
         color: var(--moon-color-white);
 
         &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-            @extend %is-focused;
+            @include focus-ring;
         }
 
         &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
@@ -39,6 +39,8 @@
         }
 
         &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
+            color: var(--moon-color-white);
+
             border-color: transparent;
             background-color: var(--moon-color-gray_light40);
         }
@@ -63,7 +65,7 @@
     }
 
     &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
@@ -83,7 +85,7 @@
         }
 
         &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-            @extend %is-focused;
+            @include focus-ring;
         }
 
         &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
@@ -111,7 +113,7 @@
     }
 
     &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
@@ -121,6 +123,8 @@
     }
 
     &.moonstone-reverse {
+        color: var(--moon-color-danger_plain60);
+
         &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
             color: var(--moon-color-white);
 
@@ -128,7 +132,7 @@
         }
 
         &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-            @extend %is-focused;
+            @include focus-ring;
         }
 
         &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {

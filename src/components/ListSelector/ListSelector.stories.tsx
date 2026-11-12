@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { fn } from 'storybook/test';
 
 import { ListSelector } from './index';
 import markdownNotes from './ListSelector.md?raw';
@@ -32,7 +33,7 @@ export const Basic = {
     args: {
         options: listSelectorData,
         values: ['1', '3', '5'],
-        onChange: (v: string[]) => console.log(v),
+        onChange: fn(),
     },
 };
 
@@ -41,7 +42,7 @@ export const ReadOnly = {
         isReadOnly: true,
         options: listSelectorData,
         values: ['1', '3', '5'],
-        onChange: (v: string[]) => console.log(v),
+        onChange: fn(),
     },
 };
 

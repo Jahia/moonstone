@@ -26,7 +26,7 @@
     }
 
     &:focus-visible:not(:disabled) {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:active:not(:disabled) {
@@ -44,6 +44,12 @@
         color: var(--moon-color-light);
 
         border-color: var(--moon-color-light);
+
+        &:hover:not(:disabled, :active) {
+            color: var(--moon-color-accent_light);
+
+            border-color: var(--moon-color-accent_light);
+        }
 
         &:disabled {
             @extend %outlined_disabled_reversed;
@@ -64,7 +70,7 @@
     }
 
     &:focus-visible:not(:disabled) {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:active:not(:disabled) {
@@ -72,6 +78,12 @@
 
         border-color: var(--moon-color-danger);
         background-color: var(--moon-color-danger);
+    }
+
+    &.moonstone-reverse:not(:disabled, :active) {
+        color: var(--moon-color-danger_plain60);
+
+        border-color: var(--moon-color-danger_plain60);
     }
 
     &:disabled {
@@ -96,7 +108,7 @@
     }
 
     &:focus-visible:not(:disabled) {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:active:not(:disabled) {
