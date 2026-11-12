@@ -39,7 +39,7 @@ $minHeight-size: 50px;
         }
 
         &:focus-visible {
-            @extend %is-focused;
+            @include utils.focus-ring;
         }
     }
 
