@@ -1,4 +1,5 @@
 @use '../../utils/index' as *;
+@use '../../tokens/colors/focus' as *;
 
 $primaryNavExpanded: 300px;
 $primaryNav: 56px;
@@ -14,6 +15,8 @@ $primaryNav: 56px;
 
 .moonstone-primaryNav {
     @include transition(width 0.3s);
+
+    @include focus-reversed;
 
     position: fixed;
     top: 0;
@@ -90,7 +93,7 @@ $primaryNav: 56px;
     cursor: pointer;
 
     &:focus-visible {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:hover {
