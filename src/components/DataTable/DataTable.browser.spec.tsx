@@ -93,7 +93,7 @@ describe('DataTable keyboard', () => {
         expect(row('Alice')).toHaveFocus();
     });
 
-    it.fails('activates a focused clickable row with Enter', async () => {
+    it('activates a focused clickable row with Enter', async () => {
         const onClick = vi.fn();
         renderTable({ rowProps: { onClick } });
         row('Alice').focus();
@@ -101,7 +101,7 @@ describe('DataTable keyboard', () => {
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it.fails('activates a focused clickable row with Space', async () => {
+    it('activates a focused clickable row with Space', async () => {
         const onClick = vi.fn();
         renderTable({ rowProps: { onClick } });
         row('Bob').focus();

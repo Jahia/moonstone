@@ -3,7 +3,7 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { TableRowContext } from './TableRow.context';
 import { layout } from '~/globals/css-utils.js';
-import { mergeHandlers, shouldIgnoreKey } from '~/hooks';
+import { mergeHandlers, onAccessibleClick, shouldIgnoreKey } from '~/hooks';
 
 import type { TableRowProps } from './TableRow.types';
 
@@ -30,6 +30,12 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
         isStatusDismissed,
         registerStatus,
     }), [isStatusDismissed, registerStatus]);
+
+    // Enter and Space click the row, so `onClick` keeps its MouseEvent
+    const keys = onAccessibleClick({
+        onClick: e => (e.currentTarget as HTMLElement).click(),
+        disabled: !props.onClick,
+    });
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
         if (e.target !== e.currentTarget || shouldIgnoreKey(e)) {
@@ -69,6 +75,9 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
             ...mergeHandlers(props, {
                 onKeyDown: handleKeyDown,
                 onBlur: handleBlur,
+            }, {
+                onKeyDown: keys.onKeyDown,
+                onKeyUp: keys.onKeyUp,
             }),
             ref,
         },
