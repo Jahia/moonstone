@@ -34,6 +34,7 @@ empty:** a section with nothing to say is omitted, whatever the section.
 ## Do
 ## Don't
 ## Appearance
+## Composition                ← ONLY if the component holds other components in a set order or place
 ## Voice and tone              ← ONLY if the component involves user-authored copy
 ## Accessibility
 ```
@@ -88,6 +89,13 @@ Per-section content (for phrasing, see `style.md`):
   To route between components of the same group (such as the selection components), apply
   `component-rules.md`, with its exact values.
 - **Appearance** — see the pattern below.
+- **Composition** — plain bullets, imperative: where to put the components the component holds,
+  and in what order, such as "Put the main action at the far right." A bullet may name the prop
+  that holds them, such as `mainActions`. When the screen order differs from the code order (a
+  container that shows its children from right to left), say which one comes first in the code.
+  Only positive bullets: say where a component goes, never where it doesn't. Never a "when to
+  use" statement: that stays in Do. In a family, the order of the sub-components goes on the
+  parent's page.
 - **Voice and tone** — include ONLY for components where the user writes copy (Button, Input,
   Field, EmptyData…); omit for components with no user copy (Typography, Table, Loader). When
   present, state the relevant rules of `ui-copy.md` **inline**, worded as `ui-copy.md` words
