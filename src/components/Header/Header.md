@@ -30,3 +30,4 @@ import {Header} from '@jahia/moonstone';
 ## Accessibility
 - The title is rendered as the page's main heading (`h1`). Use a single Header per page, and don't add another `h1` to the page.
 - An icon-only [Button](?path=/docs/components-button--docs) in the toolbar or in the main actions must have an `aria-label` that describes the action.
+- Override `i18n.toolbarLabel` when translating; left unset, it defaults to English.

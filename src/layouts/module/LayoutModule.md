@@ -15,4 +15,4 @@ import {LayoutModule} from '@jahia/moonstone';
 
 ## Accessibility
 - The content renders in a `<main>` landmark by default, and a page has only one. If the page already has a `<main>`, set `component` to another element, such as `section`.
-- While `isLoading` is `true`, the content region is marked busy and its content is replaced by a [Loader](?path=/docs/components-loader--docs). Set it back to `false` as soon as the content is ready, so assistive technology reads the new content.
+- While `isLoading` is `true`, the content area is marked busy and its content is replaced by a [Loader](?path=/docs/components-loader--docs). Set it back to `false` as soon as the content is ready, so assistive technology reads the new content.
