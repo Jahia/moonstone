@@ -50,7 +50,7 @@ onArrowIncrementationProps) => {
         // ParseFloat only works with '.' separator
         // Only keep the integer for incrementation to avoid floating point precsion
         const parsedValue = decimalsLeft ? parseFloat(element.value.replace(separator, '.').split('.')[0]) : parseFloat(element.value);
-        // An empty field counts as 0, as in a native number input
+        // An empty field counts as 0
         const isEmpty = Number.isNaN(parsedValue);
         let newValue = isEmpty ? 0 : parsedValue;
         const newStep = Number.isInteger(step) ? step : 1;
