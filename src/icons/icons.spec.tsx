@@ -13,6 +13,11 @@ describe('Icons', () => {
         expect(screen.getByTestId('moonstone-icon')).toHaveClass('moonstone-icon_purple');
     });
 
+    test.each(Object.entries(Icons))('should name the icon %s in data-icon', (name, Icon) => {
+        render(<Icon data-testid="moonstone-icon"/>);
+        expect(screen.getByTestId('moonstone-icon')).toHaveAttribute('data-icon', name);
+    });
+
     test.each(Object.values(Icons))('should be decorative by default', (Icon) => {
         render(<Icon data-testid="moonstone-icon"/>);
         const icon = screen.getByTestId('moonstone-icon');
