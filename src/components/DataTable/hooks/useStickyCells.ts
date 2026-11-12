@@ -98,23 +98,30 @@ export function useStickyCells(headRowRef: React.RefObject<HTMLElement>, isEnabl
         const startCells = cells.filter(cell => cell.style.left.includes(STICKY_START));
         const endCells = cells.filter(cell => cell.style.right.includes(STICKY_END)).reverse();
 
+        const widthOf = (sideCells: HTMLElement[]) => sideCells.reduce((sum, cell) => sum + cell.offsetWidth, 0);
+        let isSticking = true;
+
+        // An `auto` offset stops the cell from sticking
         const setOffsets = (side: StickySide, sideCells: HTMLElement[]) => {
             let offset = 0;
             sideCells.forEach((cell, rank) => {
-                table.style.setProperty(`--moon-sticky-${side}-${rank}`, `${offset}px`);
+                table.style.setProperty(`--moon-sticky-${side}-${rank}`, isSticking ? `${offset}px` : 'auto');
                 offset += cell.offsetWidth;
             });
-            // Keeps a cell that gets the focus out from under the sticky cells
-            table.style.setProperty(`--moon-sticky-${side}-width`, `${offset}px`);
+            const width = isSticking ? offset : 0;
+            // The scroll padding keeps a control that gets the focus out from under the sticky cells
+            table.style.setProperty(`--moon-sticky-${side}-width`, `${width}px`);
         };
 
         const updateScrollFlags = () => {
             const maxScrollLeft = table.scrollWidth - table.clientWidth;
-            table.toggleAttribute('data-scrolled-start', table.scrollLeft > 0);
-            table.toggleAttribute('data-scrolled-end', table.scrollLeft < maxScrollLeft - 1);
+            table.toggleAttribute('data-scrolled-start', isSticking && table.scrollLeft > 0);
+            table.toggleAttribute('data-scrolled-end', isSticking && table.scrollLeft < maxScrollLeft - 1);
         };
 
         const update = () => {
+            // At a narrow width or a high zoom, sticky cells would hide the cells that scroll (WCAG 1.4.10)
+            isSticking = widthOf(startCells) + widthOf(endCells) <= table.clientWidth / 2;
             setOffsets('start', startCells);
             setOffsets('end', endCells);
             updateScrollFlags();

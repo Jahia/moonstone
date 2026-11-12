@@ -21,6 +21,11 @@
 }
 
 // A sticky cell keeps room for the hover actions, so they never cover the cells scrolled under it
+.tableCellActions.sticky {
+    flex-shrink: 0;
+    min-width: max-content;
+}
+
 .sticky .displayHover {
     position: static;
 

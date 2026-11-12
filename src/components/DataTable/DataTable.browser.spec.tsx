@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 
-import { type DataTableColumn, type RenderRowContext, TableCellActions, TableCellStatus } from './index';
+import { type DataTableColumn, type RenderRowContext, TableCell, TableCellActions, TableCellStatus } from './index';
 import { Button } from '~/components/Button';
 import { DataTable, TableRow } from '~/components/DataTable';
 import { Modal } from '~/components/Modal';
@@ -297,7 +297,7 @@ describe('DataTable sticky columns', () => {
 
     const renderSticky = (props = {}) => {
         render(
-            <div style={{ width: '500px' }}>
+            <div style={{ width: '700px' }}>
                 <DataTable
                     columns={stickyColumns}
                     data={people}
@@ -351,6 +351,77 @@ describe('DataTable sticky columns', () => {
         const selectionCell = screen.getByRole('cell', { name: 'Select row' });
         await waitFor(() => expect(left(selectionCell)).toBeCloseTo(left(table), 0));
         expect(left(screen.getByRole('cell', { name: 'Alice' }))).toBeCloseTo(right(selectionCell), 0);
+    });
+
+    const renderFocusTable = (width: string, columns: DataTableColumn<Person>[], actionsOnHover?: React.ReactNode) => {
+        render(
+            <>
+                <button type="button">before</button>
+                <div style={{ width }}>
+                    <DataTable
+                        columns={columns}
+                        data={people}
+                        enablePagination={false}
+                        primaryKey="id"
+                        renderRow={({ id, render: renderCells }: RenderRowContext<Person>) => (
+                            <TableRow key={id}>
+                                {renderCells({
+                                    after: [
+                                        <TableCell key="more" width="100px"><Button label="More"/></TableCell>,
+                                        <TableCellActions isSticky actions={<Button label="Actions"/>} actionsOnHover={actionsOnHover} key="actions"/>,
+                                    ],
+                                })}
+                            </TableRow>
+                        )}
+                    />
+                </div>
+            </>,
+        );
+        return { table: screen.getByRole('table'), more: screen.getByRole('button', { name: 'More' }) };
+    };
+
+    const wideColumns: DataTableColumn<Person>[] = [
+        { key: 'name', label: 'Name', width: '150px', isSticky: true },
+        { key: 'city', label: 'City', width: '400px' },
+        { key: 'job', label: 'Job', width: '400px' },
+    ];
+
+    it('stops sticking when the sticky cells would take more than half of the table', async () => {
+        const { table } = renderFocusTable('300px', [
+            { key: 'name', label: 'Name', width: '200px', isSticky: true },
+            { key: 'city', label: 'City', width: '300px' },
+        ]);
+        table.scrollLeft = 100;
+        await waitFor(() => expect(left(screen.getByRole('cell', { name: 'Alice' }))).toBeLessThan(left(table) - 50));
+    });
+
+    it('keeps each focused hover action of a sticky actions cell inside it', async () => {
+        renderFocusTable('500px', [
+            { key: 'name', label: 'Name', minWidth: '150px', isSticky: true },
+            { key: 'city', label: 'City', minWidth: '300px' },
+            { key: 'job', label: 'Job', minWidth: '300px' },
+        ], [<Button key="view" label="View"/>, <Button key="edit" label="Edit"/>, <Button key="delete" label="Delete"/>]);
+        const cell = screen.getByRole('cell', { name: /Actions/ });
+        // The hover actions show while the focus is in the row
+        screen.getByRole('button', { name: 'Actions' }).focus();
+        for (const label of ['View', 'Edit', 'Delete']) {
+            const action = screen.getByRole('button', { name: label });
+            action.focus();
+            await waitFor(() => expect(left(action)).toBeGreaterThanOrEqual(left(cell) - 1));
+            expect(right(action)).toBeLessThanOrEqual(right(cell) + 1);
+        }
+    });
+
+    it('draws the ring of a focused row over its sticky cells', async () => {
+        // The color token of the ring comes from the global styles, which the specs do not load
+        document.documentElement.style.setProperty('--moon-color-focus_outer', 'rgb(9, 119, 186)');
+        renderFocusTable('600px', wideColumns);
+        screen.getByRole('button', { name: 'before' }).focus();
+        await userEvent.keyboard('{Tab}');
+        await userEvent.keyboard('{Tab}');
+        expect(screen.getByRole('row', { name: /Alice/ })).toHaveFocus();
+        expect(getComputedStyle(screen.getByRole('cell', { name: 'Alice' })).boxShadow).toContain('rgb(9, 119, 186)');
+        document.documentElement.style.removeProperty('--moon-color-focus_outer');
     });
 
     it('keeps the expand control on the first column of a structured table when another column sticks', () => {
