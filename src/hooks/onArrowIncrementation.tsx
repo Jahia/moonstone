@@ -14,6 +14,10 @@ type onArrowIncrementationProps = {
 
 // The prototype setter bypasses the value tracker of React, so the input event reaches onChange
 const writeValue = (element: HTMLInputElement, value: string) => {
+    if (element.value === value) {
+        return;
+    }
+
     Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(element, value);
     // Update uncontrolled input's value in the DOM
     element.defaultValue = value;
@@ -36,8 +40,11 @@ onArrowIncrementationProps) => {
             return;
         }
 
+        // Without allowNegative, the field cannot go below 0 even when min is not set
+        const lowest = Number.isFinite(min) || allowNegative ? min : 0;
+
         if (e.key === 'Home' || e.key === 'End') {
-            const bound = e.key === 'Home' ? min : max;
+            const bound = e.key === 'Home' ? lowest : max;
 
             // Without that bound, or with a modifier (Shift+Home selects), Home and End keep editing the text box
             if (!Number.isFinite(bound) || shouldIgnoreKey(e) || element.readOnly) {
@@ -49,7 +56,7 @@ onArrowIncrementationProps) => {
             return;
         }
 
-        if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') {
+        if ((e.key !== 'ArrowUp' && e.key !== 'ArrowDown') || element.readOnly) {
             return;
         }
 
@@ -62,11 +69,11 @@ onArrowIncrementationProps) => {
 
         if (e.key === 'ArrowDown' && (newValue > 0 || allowNegative)) {
             e.preventDefault();
-            if (Number.isFinite(min)) {
-                if (newValue - newStep > min) {
+            if (Number.isFinite(lowest)) {
+                if (newValue - newStep > lowest) {
                     newValue -= newStep;
                 } else {
-                    newValue = min;
+                    newValue = lowest;
                 }
             } else {
                 newValue -= newStep;

@@ -4,8 +4,8 @@ import { userEvent } from 'vitest/browser';
 
 import { NumberInput } from './index';
 
-const ControlledNumberInput = ({ onChange, ...props }: { readonly onChange: (value: string) => void; readonly min?: number; readonly max?: number; readonly step?: number }) => {
-    const [value, setValue] = useState('5');
+const ControlledNumberInput = ({ onChange, initialValue = '5', ...props }: { readonly onChange: (value: string) => void; readonly initialValue?: string; readonly min?: number; readonly max?: number; readonly step?: number; readonly allowNegative?: boolean; readonly isReadOnly?: boolean }) => {
+    const [value, setValue] = useState(initialValue);
     return (
         <NumberInput
             {...props}
@@ -140,7 +140,7 @@ describe('NumberInput keyboard', () => {
 
     it('should set max with End and leave Home alone when only max is set', async () => {
         const onChange = vi.fn();
-        render(<ControlledNumberInput max={8} onChange={onChange}/>);
+        render(<ControlledNumberInput allowNegative max={8} onChange={onChange}/>);
         screen.getByRole('textbox').focus();
         await userEvent.keyboard('{Home}');
         expect(onChange).not.toHaveBeenCalled();
@@ -149,9 +149,78 @@ describe('NumberInput keyboard', () => {
         expect(screen.getByRole('textbox')).toHaveValue('8');
     });
 
+    it('should set 0 with Home when min is not set and allowNegative is false', async () => {
+        const onChange = vi.fn();
+        render(<ControlledNumberInput onChange={onChange}/>);
+        screen.getByRole('textbox').focus();
+        await userEvent.keyboard('{Home}');
+        expect(onChange).toHaveBeenCalledExactlyOnceWith('0');
+        expect(screen.getByRole('textbox')).toHaveValue('0');
+    });
+
+    it('should leave the value alone with Home when min is not set and allowNegative is true', async () => {
+        const onChange = vi.fn();
+        render(<ControlledNumberInput allowNegative onChange={onChange}/>);
+        screen.getByRole('textbox').focus();
+        await userEvent.keyboard('{Home}');
+        expect(onChange).not.toHaveBeenCalled();
+        expect(screen.getByRole('textbox')).toHaveValue('5');
+    });
+
+    it('should stop at 0 with ArrowDown when min is not set and allowNegative is false', async () => {
+        const onChange = vi.fn();
+        render(<ControlledNumberInput step={8} onChange={onChange}/>);
+        screen.getByRole('textbox').focus();
+        await userEvent.keyboard('{ArrowDown}');
+        expect(onChange).toHaveBeenCalledExactlyOnceWith('0');
+        expect(screen.getByRole('textbox')).toHaveValue('0');
+    });
+
+    it('should leave a read-only value unchanged with ArrowUp', async () => {
+        const onChange = vi.fn();
+        render(<ControlledNumberInput isReadOnly onChange={onChange}/>);
+        screen.getByRole('textbox').focus();
+        await userEvent.keyboard('{ArrowUp}');
+        expect(onChange).not.toHaveBeenCalled();
+        expect(screen.getByRole('textbox')).toHaveValue('5');
+    });
+
+    it('should leave a read-only value unchanged with ArrowDown', async () => {
+        const onChange = vi.fn();
+        render(<ControlledNumberInput isReadOnly onChange={onChange}/>);
+        screen.getByRole('textbox').focus();
+        await userEvent.keyboard('{ArrowDown}');
+        expect(onChange).not.toHaveBeenCalled();
+        expect(screen.getByRole('textbox')).toHaveValue('5');
+    });
+
+    it('should not call onChange nor send an input event with ArrowDown at 0 when allowNegative is false', async () => {
+        const onChange = vi.fn();
+        const onInput = vi.fn();
+        render(<ControlledNumberInput initialValue="0" onChange={onChange}/>);
+        screen.getByRole('textbox').addEventListener('input', onInput);
+        screen.getByRole('textbox').focus();
+        await userEvent.keyboard('{ArrowDown}');
+        expect(onChange).not.toHaveBeenCalled();
+        expect(onInput).not.toHaveBeenCalled();
+        expect(screen.getByRole('textbox')).toHaveValue('0');
+    });
+
+    it('should not call onChange nor send an input event with ArrowUp on an empty field', async () => {
+        const onChange = vi.fn();
+        const onInput = vi.fn();
+        render(<ControlledNumberInput initialValue="" onChange={onChange}/>);
+        screen.getByRole('textbox').addEventListener('input', onInput);
+        screen.getByRole('textbox').focus();
+        await userEvent.keyboard('{ArrowUp}');
+        expect(onChange).not.toHaveBeenCalled();
+        expect(onInput).not.toHaveBeenCalled();
+        expect(screen.getByRole('textbox')).toHaveValue('');
+    });
+
     it('moves the caret with Home and End when no bound is set', async () => {
         const onChange = vi.fn();
-        render(<NumberInput defaultValue="123" onChange={onChange}/>);
+        render(<NumberInput allowNegative defaultValue="123" onChange={onChange}/>);
         const input = screen.getByRole<HTMLInputElement>('textbox');
         input.focus();
         await userEvent.keyboard('{Home}');
