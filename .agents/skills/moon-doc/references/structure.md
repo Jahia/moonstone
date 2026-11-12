@@ -57,8 +57,8 @@ Per-section content (for phrasing, see `style.md`):
   per variant, size, or state: the preview and the Controls already show every possibility.
   Labels follow `ui-copy.md` and come from a source (see *Every example must have a source* in
   `style.md`). Without one, use a neutral text that names the role, not a use case, such as
-  `label="Label"` or `placeholder="Select a value"`. Import the component from `@jahia/moonstone` and any
-  icons from `@jahia/moonstone/icons`. Placed first so it renders
+  `label="Label"` or `placeholder="Select a value"`. Import the component and any
+  icons from `@jahia/moonstone`. Placed first so it renders
   right after the Props table.
 - **Controlled** and **Uncontrolled** — two sections, included ONLY when the component supports
   both modes (a controlled prop such as `value` / `checked` / `isPressed`, plus an uncontrolled

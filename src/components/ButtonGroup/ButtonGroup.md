@@ -1,7 +1,6 @@
 ## Example
 ```jsx
-import {Button, ButtonGroup} from '@jahia/moonstone';
-import {ChevronDown} from '@jahia/moonstone/icons';
+import {Button, ButtonGroup, ChevronDown} from '@jahia/moonstone';
 
 <ButtonGroup>
     <Button label="Publish"/>
