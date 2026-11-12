@@ -45,9 +45,7 @@ $accordionHeader_height: 48px;
     }
 
     &:focus-visible {
-        @extend %is-focused;
-
-        outline-offset: -2px;
+        @include focus-ring($inset: true);
     }
 
     &:active {

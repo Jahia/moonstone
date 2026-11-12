@@ -103,6 +103,11 @@ const paletteColors = [
     'purple_dark',
 ];
 
+const paletteState = [
+    'focus_outer',
+    'focus_inner',
+];
+
 type Palettes = typeof paletteAccent;
 type ColorProps = {
     readonly color: string;
@@ -158,5 +163,14 @@ export const Support: Story = {
 export const Palette: Story = {
     render: () => (
         <section className="storyWrapper">{displayColors(paletteColors)}</section>
+    ),
+};
+
+export const State: Story = {
+    render: () => (
+        <>
+            <section className="storyWrapper">{displayColors(paletteState)}</section>
+            <section className="storyWrapper moonstone-reversed">{displayColors(paletteState)}</section>
+        </>
     ),
 };
