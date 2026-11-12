@@ -218,6 +218,13 @@ describe('NumberInput keyboard', () => {
         expect(screen.getByRole('textbox')).toHaveValue('');
     });
 
+    it('should keep a controlled value that has no onChange with ArrowUp', async () => {
+        render(<NumberInput value="5"/>);
+        screen.getByRole('textbox').focus();
+        await userEvent.keyboard('{ArrowUp}');
+        expect(screen.getByRole('textbox')).toHaveValue('5');
+    });
+
     it('moves the caret with Home and End when no bound is set', async () => {
         const onChange = vi.fn();
         render(<NumberInput allowNegative defaultValue="123" onChange={onChange}/>);
