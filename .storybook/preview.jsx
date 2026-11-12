@@ -20,7 +20,7 @@ export const decorators = [
     }) => {
         const themeReversed = globals.theme === 'dark' && tags.includes('dark-theme') && args.isReversed === undefined;
         // In docs, only the block that renders this style (several blocks can show the same story)
-        const selector = viewMode === 'docs' ? '.docs-story:has(style[data-reversed])' : '.sb-show-main';
+        const selector = viewMode === 'docs' ? '.docs-story:has(style[data-reversed])' : 'body';
         return (
             <>
                 {(args.isReversed || themeReversed) && <style data-reversed>{`${selector} { background: var(--moon-color-gray_dark); color: var(--moon-color-light); }`}</style>}
