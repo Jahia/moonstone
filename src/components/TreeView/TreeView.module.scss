@@ -22,7 +22,7 @@
     --treeItem-background_highlighted: var(--moon-color-gray_light);
 
     &:focus-visible {
-        @extend %is-focused;
+        @include focus-ring;
     }
 }
 

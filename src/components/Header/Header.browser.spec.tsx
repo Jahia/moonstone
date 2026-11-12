@@ -34,34 +34,19 @@ describe('Header keyboard', () => {
         expect(action('Action 01')).toHaveFocus();
     });
 
-    it('exposes the toolbar with role toolbar', () => {
+    it('exposes the toolbar as a named group, not a toolbar that promises arrow keys', () => {
         renderHeader();
-        expect(screen.getByRole('toolbar')).toBeVisible();
+        expect(screen.getByRole('group', { name: 'Page actions' })).toBeVisible();
+        expect(screen.queryByRole('toolbar')).not.toBeInTheDocument();
     });
 
-    it.fails('moves focus to the next toolbar button with ArrowRight', async () => {
+    it('moves through the toolbar buttons with Tab', async () => {
         renderHeader();
         action('Action 01').focus();
-        await userEvent.keyboard('{ArrowRight}');
+        await userEvent.keyboard('{Tab}');
         expect(action('Action 02')).toHaveFocus();
-        await userEvent.keyboard('{ArrowRight}');
+        await userEvent.keyboard('{Tab}');
         expect(action('View')).toHaveFocus();
-    });
-
-    it.fails('moves focus to the previous toolbar button with ArrowLeft', async () => {
-        renderHeader();
-        action('Action 02').focus();
-        await userEvent.keyboard('{ArrowLeft}');
-        expect(action('Action 01')).toHaveFocus();
-    });
-
-    it.fails('moves focus to the first and last toolbar buttons with Home and End', async () => {
-        renderHeader();
-        action('Action 02').focus();
-        await userEvent.keyboard('{End}');
-        expect(action('View')).toHaveFocus();
-        await userEvent.keyboard('{Home}');
-        expect(action('Action 01')).toHaveFocus();
     });
 
     it('activates the focused toolbar button with Enter', async () => {
