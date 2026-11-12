@@ -26,7 +26,7 @@ $tree-offset: -20px; // chevron size (16px) + gap (4px)
     display: flex;
 
     &:focus-visible {
-        @extend %is-focused;
+        @include focus-ring;
     }
 }
 

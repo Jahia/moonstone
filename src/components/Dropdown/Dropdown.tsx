@@ -106,8 +106,11 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
     const ref: MutableRefObject<HTMLDivElement> = useRef();
+    const pressedKeys = useRef(new Set<string>());
     const triggerId = useId();
+    const valueId = `${triggerId}-value`;
     const fieldAria = useFieldAria({ 'aria-label': ariaLabel });
+    const nameIds = ariaLabelledBy ?? fieldAria['aria-labelledby'] ?? (ariaLabel && triggerId);
 
     const isTree = Array.isArray(treeData);
     const flatData = useMemo(() => isTree ? flatten(treeData) : data, [treeData, data, isTree]);
@@ -177,12 +180,18 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 }
             } else {
                 let canClose: boolean | void = !item.isDisabled;
+                const focusedOption = document.activeElement;
                 if (!item.isDisabled && item.value !== value) {
                     e.stopPropagation();
                     canClose = (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: DropdownDataOption) => void)(e, item);
                 }
 
                 if (canClose !== false) {
+                    // Unless onChange moved it, focus goes back to the trigger: the menu unmounts with it inside
+                    if (document.activeElement === focusedOption) {
+                        ref.current.focus();
+                    }
+
                     setIsOpened(false);
                 }
             }
@@ -231,8 +240,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 aria-disabled={isDisabled || isEmpty}
                 aria-invalid={fieldAria['aria-invalid']}
                 aria-label={ariaLabel ?? (label || getDataItem(flatData, value)?.label || placeholder)}
-                // In a Field, the name is the Field label followed by the aria-label above, such as "Language French"
-                aria-labelledby={ariaLabelledBy ?? (fieldAria['aria-labelledby'] && `${fieldAria['aria-labelledby']} ${triggerId}`)}
+                // The consumer or Field name, then the value: "Language French"
+                aria-labelledby={nameIds && `${nameIds} ${valueId}`}
                 className={clsx(cssDropdown)}
                 id={triggerId}
                 ref={ref}
@@ -252,7 +261,18 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         onFocus(event);
                     }
                 }}
+                onKeyDown={(e) => {
+                    // A key of the Reset button or of a tag is not a key of the trigger
+                    if (e.target === e.currentTarget) {
+                        pressedKeys.current.add(e.key);
+                    }
+                }}
                 onKeyUp={(e) => {
+                    // Pressed elsewhere, e.g. Enter on an option, which moves focus here on keydown
+                    if (!pressedKeys.current.delete(e.key)) {
+                        return;
+                    }
+
                     if (e.key === 'Enter' && !isDisabled && !isLoading) {
                         handleOpenMenu(e);
                     }
@@ -268,6 +288,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                     ['flexFluid', layout.flexFluid],
                                     ['flexRow', layout.flexRow],
                                 )}
+                                id={valueId}
                             >
                                 {values.map((v) => {
                                     const item = getDataItem(flatData, v);
@@ -276,12 +297,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                             isDisabled={isDisabled}
                                             key={item.value}
                                             label={item.label}
+                                            // oxlint-disable-next-line jsx-a11y/role-has-required-aria-props -- #1604
                                             role="option"
                                             size={size}
                                             value={item.value}
                                             onClick={(e) => {
                                                 ref.current.focus();
-                                                ref.current.blur();
                                                 if (!isDisabled) {
                                                     handleSelect(e, item);
                                                 }
@@ -299,6 +320,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                     ['moonstone-dropdown_label', styles['moonstone-dropdown_label']],
                                 )}
                                 component="span"
+                                id={valueId}
+                                // oxlint-disable-next-line jsx-a11y/role-has-required-aria-props -- #1604
                                 role="option"
                                 title={label}
                                 variant={size === 'small' ? 'caption' : 'body'}
@@ -319,7 +342,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         onClick={(e) => {
                             e.stopPropagation();
                             ref.current.focus();
-                            ref.current.blur();
                             onClear(e);
                         }}
                     />

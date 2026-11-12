@@ -22,3 +22,9 @@ If you are using item groups then all items must be within a group.
 To use image dropdown options, ensure that the data passed into the Dropdown has an `image` property in addition to the `label` and any other properties you wish.
 
 The value of the `image` property should be an `img` HTML element.
+
+## Accessibility
+
+The name of the Dropdown is its `aria-label`, its `aria-labelledby` or the label of its `Field`, followed by the selected value, such as "Language French".
+
+The focus stays on the Dropdown after a choice, a clear or the removal of a tag.

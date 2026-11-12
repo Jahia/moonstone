@@ -65,7 +65,7 @@
     }
 
     &:focus-visible {
-        @extend %is-focused;
+        @include mixins.focus-ring;
     }
 
     &:active {
