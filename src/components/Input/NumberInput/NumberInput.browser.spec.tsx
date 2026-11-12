@@ -173,6 +173,7 @@ describe('NumberInput keyboard', () => {
         render(<NumberInput defaultValue="5" max={10} min={0} onChange={onChange}/>);
         const input = screen.getByRole<HTMLInputElement>('textbox');
         input.focus();
+        input.setSelectionRange(1, 1);
         await userEvent.keyboard('{Home}');
         expect(input).toHaveValue('5');
         expect(input.selectionStart).toBe(0);
