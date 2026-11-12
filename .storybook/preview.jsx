@@ -85,6 +85,11 @@ export const parameters = {
         // 'error' - fail CI on a11y violations
         // 'off' - skip a11y checks entirely
         test: 'todo',
+        context: {
+            // floating-ui focus guards: aria-hidden spans that pass the focus on at once
+            // (not aria-hidden on Safari, for VoiceOver)
+            exclude: ['[data-floating-ui-focus-guard]'],
+        },
         // WCAG 2.2 AA: axe tags are incremental, so every A/AA tag since 2.0 is needed
         options: {
             runOnly: {
