@@ -93,7 +93,7 @@ describe('DataTable keyboard', () => {
         expect(row('Alice')).toHaveFocus();
     });
 
-    it.fails('activates a focused clickable row with Enter', async () => {
+    it('activates a focused clickable row with Enter', async () => {
         const onClick = vi.fn();
         renderTable({ rowProps: { onClick } });
         row('Alice').focus();
@@ -101,12 +101,36 @@ describe('DataTable keyboard', () => {
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 
-    it.fails('activates a focused clickable row with Space', async () => {
+    it('activates a focused clickable row with Space', async () => {
         const onClick = vi.fn();
         renderTable({ rowProps: { onClick } });
         row('Bob').focus();
         await userEvent.keyboard(' ');
         expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('does not call the onClick of the row for a click on its selection checkbox', async () => {
+        const onClick = vi.fn();
+        renderTable({ enableSelection: true, rowProps: { onClick } });
+        const checkbox = screen.getAllByRole('checkbox')[1];
+        await userEvent.click(checkbox);
+        expect(checkbox).toBeChecked();
+        expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it('does not call the onClick of the row for a click on a row action', async () => {
+        const onClick = vi.fn();
+        const onAction = vi.fn();
+        renderTable({
+            renderRow: ({ id, render: renderCells }: RenderRowContext<User>) => (
+                <TableRow key={id} onClick={onClick}>
+                    {renderCells({ after: <TableCellActions actions={<Button label={`More ${id}`} variant="ghost" onClick={onAction}/>}/> })}
+                </TableRow>
+            ),
+        });
+        await userEvent.click(screen.getByRole('button', { name: 'More 1' }));
+        expect(onAction).toHaveBeenCalledTimes(1);
+        expect(onClick).not.toHaveBeenCalled();
     });
 
     it('collapses and expands a structured row with Enter on its toggle and updates aria-expanded', async () => {
