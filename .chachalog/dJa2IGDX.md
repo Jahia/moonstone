@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-Fixed `NumberInput` so ArrowDown stops at 0 and Home goes to 0 when `allowNegative` is false and `min` is not set
+Fixed `NumberInput` so Home and End move the caret again, and ArrowDown stops at 0 when `allowNegative` is false (#1510)
