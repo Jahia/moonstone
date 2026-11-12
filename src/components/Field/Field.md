@@ -17,6 +17,9 @@ import {Field, FieldSelector, Input} from '@jahia/moonstone';
 - Don't use a Field to group several fields under a heading. Use a [Fieldset](?path=/docs/components-fieldset--docs) instead.
 - Don't put a control directly in a Field. Wrap each control in a [FieldSelector](?path=/docs/components-fieldselector--docs).
 
+## Composition
+- Put the main action at the far right of `buttons`, and the less important actions to its left. A More actions button goes after them, always at the far right.
+
 ## Voice and tone
 - Write the `label` in sentence case, using a few words at most (3 maximum), such as "Title". Never write a full sentence.
 - Write the `helper` text and the chip labels in sentence case, such as a "Required" chip.

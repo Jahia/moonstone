@@ -10,6 +10,7 @@ import {Menu, MenuItem} from '@jahia/moonstone';
 
 ## Do
 - Use it to show a list of actions for an item.
+- Use it behind a More actions button to show the actions of an item that are not visible next to the button, such as in a table row, a [Field](?path=/docs/components-field--docs), or the toolbar of a [Header](?path=/docs/components-header--docs).
 - Use it for a context menu that opens where the user clicks.
 - Use it for a long list of actions that the user needs to filter.
 - Use it to split a list of actions into groups, each introduced by a title item.

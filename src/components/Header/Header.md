@@ -8,7 +8,7 @@ import {Header} from '@jahia/moonstone';
 ## Do
 - Use it at the top of a page to show the page title and the main actions of the page.
 - Use it to give the context of the item shown on the page, such as its location in a [Breadcrumb](?path=/docs/components-breadcrumb--docs), its content type, or its status with a [Chip](?path=/docs/components-chip--docs).
-- Use it to hold a toolbar: the actions on the item shown in the title on the left, and display controls, such as switching the view, on the right.
+- Use it to hold a toolbar with the actions on the item shown in the title and display controls, such as switching the view.
 - Use it as the header of a [LayoutContent](?path=/docs/layouts-layoutcontent--docs).
 
 ## Don't
@@ -16,6 +16,11 @@ import {Header} from '@jahia/moonstone';
 - Don't use it to title a section inside a page. Use [Typography](?path=/docs/components-typography--docs) instead.
 - Don't use it as the header of a modal. Use [ModalHeader](?path=/docs/components-modalheader--docs) instead.
 - Don't use it to title a secondary navigation panel. Use [SecondaryNavHeader](?path=/docs/components-secondarynavheader--docs) instead.
+
+## Composition
+- Put the main action at the far right of `mainActions`, and the less important actions to its left.
+- Put the actions on the item shown in the title in `toolbarLeft`, and display controls in `toolbarRight`. The toolbar actions all have the same importance, so their order doesn't rank them.
+- Put a More actions button at the far right of `toolbarLeft`.
 
 ## Voice and tone
 - Write the title in sentence case, using a few words at most (3 maximum). Never write a full sentence.

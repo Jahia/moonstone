@@ -34,6 +34,9 @@ import {Button, Modal, ModalFooter, ModalHeader} from '@jahia/moonstone';
 | `large` | _Pending design guidance_ <!-- designer: when should a modal use the large size, such as for a form? --> |
 | `full` | _Pending design guidance_ <!-- designer: when should a modal take the full width of the page? --> |
 
+## Composition
+- Put the [ModalHeader](?path=/docs/components-modalheader--docs) first, then the [ModalBody](?path=/docs/components-modalbody--docs), then the [ModalFooter](?path=/docs/components-modalfooter--docs) last.
+
 ## Accessibility
 - Keep `isOpen` in sync with `onOpenChange`. Escape and a click outside the modal only close it through that callback.
 - The focus moves into the modal when it opens, and Tab stays inside it until it closes. Make sure the modal holds at least one focusable control, such as a close or cancel [Button](?path=/docs/components-button--docs).

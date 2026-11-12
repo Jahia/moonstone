@@ -13,7 +13,7 @@ import {Button, Modal, ModalFooter, ModalHeader} from '@jahia/moonstone';
 ```
 
 ## Do
-- Use it for the title of a [Modal](?path=/docs/components-modal--docs), always first in the modal.
+- Use it for the title of a [Modal](?path=/docs/components-modal--docs).
 
 ## Don't
 - Don't use it outside a [Modal](?path=/docs/components-modal--docs). For the title of a page, use a [Header](?path=/docs/components-header--docs) instead.
