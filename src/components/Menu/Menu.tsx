@@ -239,14 +239,10 @@ export const Menu: React.FC<MenuProps> = ({
                                         return;
                                     }
 
-                                    // The first enabled item, found in the DOM so that a group title is skipped
-                                    const firstItem = itemRef.current?.querySelector<HTMLElement>('[data-roving-item]:not([aria-disabled="true"])');
                                     if (e.key === 'ArrowDown') {
                                         e.preventDefault();
-                                        firstItem?.focus();
-                                    } else if (e.key === 'Enter' && !e.repeat && filteredChildren) {
-                                        e.preventDefault();
-                                        firstItem?.click();
+                                        // The first enabled item, found in the DOM so that a group title is skipped
+                                        itemRef.current?.querySelector<HTMLElement>('[data-roving-item]:not([aria-disabled="true"])')?.focus();
                                     }
                                 }}
                             />

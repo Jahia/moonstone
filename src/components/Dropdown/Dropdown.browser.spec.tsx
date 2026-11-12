@@ -12,6 +12,11 @@ const data = [
     { label: 'Date', value: 'date' },
 ];
 
+const treeData = [
+    { id: 'fruits', label: 'Fruits', value: 'fruits', children: [{ id: 'apple', label: 'Apple', value: 'apple' }] },
+    { id: 'vegetables', label: 'Vegetables', value: 'vegetables', children: [{ id: 'carrot', label: 'Carrot', value: 'carrot' }] },
+];
+
 const renderDropdown = (props = {}) => {
     const onChange = vi.fn();
     render(
@@ -66,6 +71,23 @@ describe('Dropdown keyboard', () => {
         trigger.focus();
         await userEvent.keyboard('{ArrowDown}');
         expect(await screen.findByRole('list')).toBeInTheDocument();
+    });
+
+    it('opens on the keydown of Enter', async () => {
+        const { trigger } = renderDropdown();
+        trigger.focus();
+        await userEvent.keyboard('{Enter>}');
+        expect(await screen.findByRole('list')).toBeInTheDocument();
+        await userEvent.keyboard('{/Enter}');
+    });
+
+    it.each([{ isDisabled: true }, { isLoading: true }])('stays closed on Enter, Space and ArrowDown with %o', async (props) => {
+        const { trigger } = renderDropdown(props);
+        trigger.focus();
+        await userEvent.keyboard('{Enter}');
+        await userEvent.keyboard(' ');
+        await userEvent.keyboard('{ArrowDown}');
+        expect(screen.queryByRole('list')).not.toBeInTheDocument();
     });
 
     it('moves focus into the options when opened with the keyboard', async () => {
@@ -204,14 +226,46 @@ describe('Dropdown keyboard', () => {
         expect(getOption('Banana')).toBeInTheDocument();
     });
 
-    it('selects the first result with Enter in the search of a grouped Dropdown', async () => {
+    it('chooses nothing with Enter in the search', async () => {
         const { trigger, onChange } = renderDropdown({ hasSearch: true, data: [{ groupLabel: 'Fruits', options: data }] });
         await openWithEnter(trigger);
         await userEvent.keyboard('Ban');
         await waitFor(() => expect(screen.queryByText('Apple')).not.toBeInTheDocument());
         await userEvent.keyboard('{Enter}');
-        expect(onChange).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ value: 'banana' }));
-        expect(trigger).toHaveFocus();
+        expect(onChange).not.toHaveBeenCalled();
+        expect(screen.getByRole('searchbox')).toHaveFocus();
+    });
+
+    describe('tree', () => {
+        it('moves to the first option with ArrowDown in the search', async () => {
+            const { trigger } = renderDropdown({ data: undefined, treeData, hasSearch: true });
+            await openWithEnter(trigger);
+            screen.getByRole('searchbox').focus();
+            await userEvent.keyboard('{ArrowDown}');
+            expect(screen.getByRole('treeitem', { name: /^Fruits/ })).toHaveFocus();
+        });
+
+        it('announces the empty text when the search finds nothing', async () => {
+            const { trigger } = renderDropdown({ data: undefined, treeData, hasSearch: true });
+            await openWithEnter(trigger);
+            screen.getByRole('searchbox').focus();
+            await userEvent.keyboard('zzz');
+            await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('No results found.'));
+        });
+
+        it('opens and closes the nodes with ArrowRight, ArrowLeft and *', async () => {
+            const { trigger } = renderDropdown({ data: undefined, treeData });
+            await openWithEnter(trigger);
+            const fruits = screen.getByRole('treeitem', { name: /^Fruits/ });
+            fruits.focus();
+            await userEvent.keyboard('{ArrowRight}');
+            expect(fruits).toHaveAttribute('aria-expanded', 'true');
+            await userEvent.keyboard('{ArrowLeft}');
+            expect(fruits).toHaveAttribute('aria-expanded', 'false');
+            await userEvent.keyboard('*');
+            expect(fruits).toHaveAttribute('aria-expanded', 'true');
+            expect(screen.getByRole('treeitem', { name: /^Vegetables/ })).toHaveAttribute('aria-expanded', 'true');
+        });
     });
 
     it('toggles the focused option with Space in the multiple variant', async () => {

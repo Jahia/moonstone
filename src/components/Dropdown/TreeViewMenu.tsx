@@ -207,12 +207,6 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                                     if (e.key === 'ArrowDown') {
                                         e.preventDefault();
                                         itemRef.current?.querySelector<HTMLElement>('[data-roving-item]:not([aria-disabled="true"])')?.focus();
-                                    } else if (e.key === 'Enter' && !e.repeat && treeData.length > 0) {
-                                        e.preventDefault();
-                                        const item = find(data => !data.isDisabled, treeData[0]);
-                                        if (item) {
-                                            handleSelect(e, item);
-                                        }
                                     }
                                 }}
                             />
