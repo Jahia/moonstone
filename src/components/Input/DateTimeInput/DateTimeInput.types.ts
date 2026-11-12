@@ -69,6 +69,16 @@ export type DateTimeInputI18n = {
      * @default 'Reset'
      */
     clearButton?: string;
+    /**
+     * aria-label of the time input (`type='dateTime'` or `'zonedDateTime'`), after the name of the date input
+     * @default 'Time'
+     */
+    timeLabel?: string;
+    /**
+     * aria-label of the AM/PM dropdown (`timeFormat='12h'`)
+     * @default 'AM/PM'
+     */
+    meridiemLabel?: string;
 };
 
 export type DateTimeInputTimeInputProps = Omit<TimeInputProps,
@@ -81,6 +91,7 @@ export type DateTimeInputTimeInputProps = Omit<TimeInputProps,
     | 'isDisabled'
     | 'isReadOnly'
     | 'focusOnField'
+    | 'i18n'
 > & DataAttributes;
 
 export type DateTimeInputTimezoneSelectorProps = Omit<ControlledTimezoneSelectorProps,
