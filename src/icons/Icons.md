@@ -10,6 +10,17 @@ All icons use to our design system must be reference to this figma document : ht
 
 As we set icon fill to `currentColor`, set color property of the parent element to determine the color icon.
 
+## Import
+
+Import icons from `@jahia/moonstone/icons`, and components from `@jahia/moonstone`:
+
+```js
+import { Button } from '@jahia/moonstone';
+import { Add } from '@jahia/moonstone/icons';
+```
+
+Importing icons from `@jahia/moonstone` is deprecated and logs a warning: a component and an icon of the same name cannot both be exported from one place.
+
 ## Documentation
 The icon API allows for 3 sizes which map to the following values:  
 

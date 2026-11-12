@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 
 import * as Icons from './components/index';
+import { Add, Close } from './components/rootIcons';
 
 describe('Icons', () => {
     test.each(Object.values(Icons))('should display', (Icon) => {
@@ -35,5 +36,16 @@ describe('Icons', () => {
     test.each(Object.values(Icons))('should let the consumer force aria-hidden off', (Icon) => {
         render(<Icon aria-hidden={false} data-testid="moonstone-icon"/>);
         expect(screen.getByTestId('moonstone-icon')).toHaveAttribute('aria-hidden', 'false');
+    });
+});
+
+describe('Icons imported from @jahia/moonstone', () => {
+    it('should render the icons and warn once that the import path is deprecated', () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+        render(<><Add data-testid="moonstone-icon"/><Close data-testid="moonstone-icon"/></>);
+        expect(screen.getAllByTestId('moonstone-icon')).toHaveLength(2);
+        expect(warn).toHaveBeenCalledTimes(1);
+        expect(warn).toHaveBeenCalledWith(expect.stringContaining('@jahia/moonstone/icons'));
+        warn.mockRestore();
     });
 });
