@@ -10,7 +10,6 @@ export type MenuItemProps = Omit<ListItemProps, 'onClick' | 'onMouseEnter' | 'on
 
     /**
      * Whether the item is selected.
-     * @default false
      */
     isSelected?: boolean;
 
@@ -22,7 +21,6 @@ export type MenuItemProps = Omit<ListItemProps, 'onClick' | 'onMouseEnter' | 'on
 
     /**
      * Whether the item is highlighted. Ignored when `isSelected` is set.
-     * @default false
      */
     isHighlighted?: boolean;
 

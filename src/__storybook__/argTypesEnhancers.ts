@@ -106,7 +106,7 @@ export const controlArgs = ({ argTypes, initialArgs }: StoryContextForEnhancers)
     }
     return next;
 };
-// Run after Storybook infers the controls, so these aren't inferred again
+// Second pass: runs after the docgen argTypes, and before Storybook infers the remaining controls
 controlArgs.secondPass = true;
 
 // --- Categories -----------------------------------------------------------------------------

@@ -20,13 +20,16 @@ describe('controlArgs', () => {
     });
 
     it('should keep an argType the story set as is', () => {
-        const withOptions = prop('string', { options: ['a', 'b'] });
+        const withOptions = prop('ReactNode', { options: ['a', 'b'] });
         const withMapping = prop('ReactNode', { mapping: { a: 'A' } });
         const withControl = prop('ReactNode', { control: { type: 'select' } });
-        const result = controlArgs(context({ argTypes: { withOptions, withMapping, withControl } }));
+        // Storybook normalizes a story's `control: false` to this
+        const withoutControl = prop('ReactNode', { control: { disable: true } });
+        const result = controlArgs(context({ argTypes: { withOptions, withMapping, withControl, withoutControl } }));
         expect(result.withOptions).toBe(withOptions);
         expect(result.withMapping).toBe(withMapping);
         expect(result.withControl).toBe(withControl);
+        expect(result.withoutControl).toBe(withoutControl);
     });
 
     it('should give the icon select to an icon prop that takes an element or a node', () => {
@@ -94,6 +97,11 @@ describe('controlArgs', () => {
             argTypes: {},
             initialArgs: { children: <span/>, style: { color: 'red' }, label: 'Label', empty: null },
         }))).toEqual({ children: { control: false }, style: { control: false } });
+    });
+
+    it('should keep the argType of a prop the story sets to an object', () => {
+        const style = prop('CSSProperties');
+        expect(controlArgs(context({ argTypes: { style }, initialArgs: { style: { color: 'red' } } })).style).toBe(style);
     });
 });
 

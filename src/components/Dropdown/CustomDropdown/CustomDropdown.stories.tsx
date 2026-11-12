@@ -24,11 +24,6 @@ export default {
             IframeHeight: 500,
         },
     },
-    argTypes: {
-        icon: {
-            options: Object.keys(icons),
-        },
-    },
 };
 
 const TemplateSimple = (args: CustomDropdownProps & { ariaLabel?: string }) => {
@@ -49,7 +44,7 @@ const TemplateSimple = (args: CustomDropdownProps & { ariaLabel?: string }) => {
             isLoading={isLoading}
             aria-label={args.ariaLabel || label}
             className={className}
-            icon={typeof icon === 'string' && icons[icon] ? React.createElement(icons[icon]) : undefined}
+            icon={icon}
             label={label}
             size={size}
             variant={variant}
@@ -67,7 +62,7 @@ export const IconButtonWithText = {
 
     args: {
         label: '',
-        icon: 'Love',
+        icon: <icons.Love/>,
         size: 'default',
         variant: 'ghost',
         isDisabled: false,
@@ -210,7 +205,7 @@ export const WithButtons = (args: CustomDropdownProps) => {
     const [labelState, setLabelState] = useState(args.label);
     const {
         label = 'Dropdown with buttons',
-        icon = 'Widgets',
+        icon = <icons.Widgets/>,
         size = 'default',
         variant = 'ghost',
         isDisabled = false,
@@ -227,7 +222,7 @@ export const WithButtons = (args: CustomDropdownProps) => {
         <CustomDropdown
             isDisabled={isDisabled}
             isLoading={isLoading}
-            icon={React.createElement(icons[icon as keyof typeof icons])}
+            icon={icon}
             label={labelState || label}
             size={size}
             variant={variant}
@@ -243,7 +238,7 @@ export const MultipleChoices = (args: CustomDropdownProps) => {
     const [choices, setChoices] = useState([]);
     const {
         label = 'Dropdown with buttons',
-        icon = 'Widgets',
+        icon = <icons.Widgets/>,
         size = 'default',
         variant = 'ghost',
         isDisabled = false,
@@ -262,7 +257,7 @@ export const MultipleChoices = (args: CustomDropdownProps) => {
         <CustomDropdown
             isDisabled={isDisabled}
             isLoading={isLoading}
-            icon={React.createElement(icons[icon as keyof typeof icons])}
+            icon={icon}
             label={choices.length > 0 ? choices.toString() : label}
             size={size}
             variant={variant}
