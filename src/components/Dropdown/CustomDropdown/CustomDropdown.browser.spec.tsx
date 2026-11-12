@@ -53,6 +53,17 @@ describe('CustomDropdown keyboard', () => {
         expect(await screen.findByRole('list')).toBeInTheDocument();
     });
 
+    it('should keep the menu closed with Enter when the onClick of the consumer calls preventDefault', async () => {
+        render(
+            <CustomDropdown label="Actions" onClick={e => e.preventDefault()}>
+                <MenuItem label="First"/>
+            </CustomDropdown>,
+        );
+        screen.getByRole('button', { name: 'Actions' }).focus();
+        await userEvent.keyboard('{Enter}');
+        expect(screen.queryByRole('list')).not.toBeInTheDocument();
+    });
+
     it('opens with Enter', async () => {
         const { trigger } = renderCustomDropdown();
         trigger.focus();

@@ -13,7 +13,7 @@ export type CustomDropdownProps = Omit<BaseDropdownProps,
          */
         onClick?: React.MouseEventHandler<HTMLButtonElement>;
         /**
-         * Called on a key release on the trigger, before Enter opens the menu. `preventDefault()` keeps the menu closed
+         * Called on a key release on the trigger
          */
         onKeyUp?: React.KeyboardEventHandler<HTMLButtonElement>;
     };

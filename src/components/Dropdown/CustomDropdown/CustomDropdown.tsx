@@ -113,11 +113,6 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                 }}
                 {...mergeHandlers(props, {
                     onClick: (!isDisabled && !isLoading) ? handleOpenMenu : undefined,
-                    onKeyUp: (e: React.KeyboardEvent) => {
-                        if (e.key === 'Enter' && !isDisabled && !isLoading) {
-                            handleOpenMenu(e);
-                        }
-                    },
                 })}
             />
 
