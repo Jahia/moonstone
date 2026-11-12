@@ -3,3 +3,28 @@
 .dataTable_hiddenLabel {
     @include visually-hidden;
 }
+
+// Set on the table when a column has a minWidth or a cell is sticky
+.scrollable {
+    overflow: auto;
+    scroll-padding-inline: var(--moon-sticky-start-width, 0) var(--moon-sticky-end-width, 0);
+
+    // Rows: one line, as wide as the minimum widths of their cells
+    > * > * {
+        flex-wrap: nowrap;
+        min-width: max-content;
+    }
+}
+
+// The content of a data cell does not widen the table, only its width and minWidth do
+.columnCell {
+    contain: inline-size;
+}
+
+.scrollable[data-scrolled-start] .stickyEdgeStart {
+    box-shadow: 4px 0 4px -4px var(--moon-color-gray60);
+}
+
+.scrollable[data-scrolled-end] .stickyEdgeEnd {
+    box-shadow: -4px 0 4px -4px var(--moon-color-gray60);
+}

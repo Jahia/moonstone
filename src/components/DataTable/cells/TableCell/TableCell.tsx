@@ -15,6 +15,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
         align = 'left',
         width,
         isScrollable = false,
+        isSticky = false,
         style,
         component = 'td',
         ...props
@@ -31,6 +32,7 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
                 layout.alignCenter,
                 width ? undefined : layout.flexFluid,
                 isScrollable && styles.scrollable,
+                isSticky && styles.sticky,
                 className,
             )}
             component={component}

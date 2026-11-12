@@ -13,11 +13,18 @@ const TableCellActionsForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEl
         actions,
         actionsOnHover,
         className,
+        isSticky,
         ...props
     },
     ref,
 ) => (
-    <TableCell align="right" className={clsx(layout.flexRow_reverse, layout.alignCenter, style.tableCellActions, className)} ref={ref} {...props}>
+    <TableCell
+        isSticky={isSticky}
+        align="right"
+        className={clsx(layout.flexRow_reverse, layout.alignCenter, style.tableCellActions, isSticky && style.sticky, className)}
+        ref={ref}
+        {...props}
+    >
         {actionsOnHover && (
             <div className={clsx(layout.flexRow_nowrap, layout.alignCenter, style.displayHover)}>{actionsOnHover}</div>
         )}

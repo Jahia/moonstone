@@ -1,6 +1,9 @@
 .tableCellActions {
     position: relative;
-    overflow: visible;
+
+    // Beats the overflow of Typography's nowrap: in a narrow cell, the hover actions sit outside it
+    /* stylelint-disable-next-line declaration-no-important */
+    overflow: visible !important;
 
     gap: var(--moon-spacing-small);
 }
@@ -18,4 +21,11 @@
     background: var(--moon-row-background);
 
     visibility: var(--moon-cellAction-visibility, hidden);
+}
+
+// A sticky cell keeps room for the hover actions, so they never cover the cells scrolled under it
+.sticky .displayHover {
+    position: static;
+
+    padding: 0;
 }

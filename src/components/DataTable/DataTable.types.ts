@@ -82,6 +82,17 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
      */
     width?: string;
     /**
+     * Minimum width of the column as a CSS string (e.g., '240px').
+     * When the columns no longer fit, the table scrolls horizontally instead of shrinking them.
+     */
+    minWidth?: string;
+    /**
+     * Keeps the column on the left edge while the table scrolls horizontally.
+     * A sticky column moves before the other columns, and the cells before it stick too.
+     * @default false
+     */
+    isSticky?: boolean;
+    /**
      * Whether the cell content is scrollable on hover
      * @default false
      */

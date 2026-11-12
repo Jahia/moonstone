@@ -37,6 +37,9 @@
 
     &:hover,
     tr:focus-visible > &:not(.dismissed) {
+        // Opens the panel over the sticky cells that follow
+        z-index: 2;
+
         .panel {
             max-width: 500px;
 

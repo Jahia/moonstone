@@ -5,6 +5,7 @@ import { Button, Tooltip } from '~/components';
 import { dataColumnsUser, getStatus, tableFlat, tableStructured } from '~/data/dataTable';
 import { Delete, Edit, MoreVert, Visibility } from '~/icons';
 
+import type { DataTableColumn } from './index';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { DataUser, DataUserKeys } from '~/data/dataTable';
 
@@ -167,4 +168,77 @@ export const InsertCells: Story = {
         customColumnLabels: { before: ['Status'], after: ['Actions'] },
     },
     name: 'Insert custom cells (renderRow)',
+};
+
+type DataUserWithContact = DataUser & {
+    email: string;
+    city: string;
+    role: string;
+    company: string;
+};
+
+const cities = ['Paris', 'Geneva', 'Montreal', 'Brussels', 'Lyon'];
+const roles = ['Editor', 'Reviewer', 'Administrator', 'Contributor'];
+const companies = ['Jahia Solutions', 'Acme Corporation', 'Globex International', 'Initech'];
+
+const usersWithContact: DataUserWithContact[] = tableFlat.map((user, index) => ({
+    ...user,
+    email: `${user.firstName.toLowerCase().replace(/ /g, '.')}@example.com`,
+    city: cities[index % cities.length],
+    role: roles[index % roles.length],
+    company: companies[index % companies.length],
+}));
+
+const columnsWithContact: DataTableColumn<DataUserWithContact>[] = [
+    ...dataColumnsUser.map(column => ({
+        ...column,
+        minWidth: '160px',
+        isSticky: column.key === 'firstName',
+    })),
+    { key: 'email', label: 'Email', minWidth: '280px' },
+    { key: 'city', label: 'City', minWidth: '160px' },
+    { key: 'role', label: 'Role', minWidth: '160px' },
+    { key: 'company', label: 'Company', minWidth: '200px' },
+];
+
+export const StickyColumns: StoryObj<typeof DataTable<DataUserWithContact>> = {
+    render: args => (
+        <DataTable
+            {...args}
+            renderRow={({ id, data, render: renderCells }) => (
+                <TableRow key={id}>
+                    {renderCells({
+                        before: <TableCellStatus color={getStatus(data.status).color}>{getStatus(data.status).text}</TableCellStatus>,
+                        after: (
+                            <TableCellActions
+                                isSticky
+                                actions={<Button aria-label="Actions" icon={<MoreVert/>} variant="ghost"/>}
+                                actionsOnHover={(
+                                    <>
+                                        <Tooltip label="View">
+                                            <Button aria-label="View" icon={<Visibility/>} variant="ghost"/>
+                                        </Tooltip>
+                                        <Tooltip label="Edit">
+                                            <Button aria-label="Edit" icon={<Edit/>} variant="ghost"/>
+                                        </Tooltip>
+                                        <Tooltip label="Delete">
+                                            <Button aria-label="Delete" icon={<Delete/>} variant="ghost"/>
+                                        </Tooltip>
+                                    </>
+                                )}
+                            />
+                        ),
+                    })}
+                </TableRow>
+            )}
+        />
+    ),
+    args: {
+        data: usersWithContact,
+        columns: columnsWithContact,
+        primaryKey: 'id',
+        enableSelection: true,
+        customColumnLabels: { before: ['Status'], after: ['Actions'] },
+    },
+    name: 'Sticky columns',
 };

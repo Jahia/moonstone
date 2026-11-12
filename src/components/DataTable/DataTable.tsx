@@ -5,9 +5,20 @@ import {
     getSortedRowModel,
     useReactTable,
 } from '@tanstack/react-table';
-import React, { useCallback, useMemo } from 'react';
+import clsx from 'clsx';
+import React, { useCallback, useMemo, useRef } from 'react';
 
-import { useCustomCells, useExpansion, usePagination, useSelection, useSorting } from './hooks';
+import {
+    getStickyLayout,
+    isStickyElement,
+    useCustomCells,
+    useExpansion,
+    usePagination,
+    useSelection,
+    useSorting,
+    useStickyCells,
+    withStickyProps,
+} from './hooks';
 import { createTableColumns } from './shared';
 import { renderCell, renderHeadCell } from './utils';
 import { Checkbox } from '~/components';
@@ -23,7 +34,7 @@ import { Pagination } from '~/components/Pagination';
 import { toNodeArray } from '~/utils/helpers';
 
 import type { DataTableProps, RenderOptions } from './DataTable.types';
-import type { Row } from '@tanstack/react-table';
+import type { ColumnPinningState, Row } from '@tanstack/react-table';
 
 import styles from './DataTable.module.scss';
 
@@ -78,6 +89,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         customBeforeCount,
         customAfterCount,
         customHeaderWidths,
+        customStickyCells,
         registerCustomCellCounts,
         withCustomCellObserver,
     } = useCustomCells({
@@ -112,10 +124,27 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     const tableColumns = useMemo(() => createTableColumns(columns), [columns]);
 
+    // TanStack moves the pinned columns before the others
+    const columnPinning = useMemo((): ColumnPinningState => ({
+        left: columns.filter(col => col.isSticky).map(col => String(col.key)),
+        right: [],
+    }), [columns]);
+    const stickyColumnCount = columnPinning.left?.length ?? 0;
+    const hasStickyColumn = stickyColumnCount > 0;
+    const isSelectionSticky = enableSelection && (hasStickyColumn || Boolean(selectionCellProps?.isSticky));
+    const isScrollable = columns.some(col => col.minWidth || col.isSticky)
+        || isSelectionSticky
+        || customStickyCells.before.some(Boolean)
+        || customStickyCells.after.some(Boolean);
+
+    const headRowRef = useRef<HTMLElement>(null);
+    useStickyCells(headRowRef, isScrollable);
+
     const table = useReactTable({
         data,
         columns: tableColumns,
         state: {
+            columnPinning,
             expanded,
             rowSelection,
             sorting,
@@ -146,17 +175,34 @@ export const DataTable = <T extends NonNullable<unknown>>({
             const beforeCells = toNodeArray(options?.before);
             const afterCells = toNodeArray(options?.after);
             registerCustomCellCounts(beforeCells.length, afterCells.length);
+            const sticky = isScrollable
+                ? getStickyLayout({
+                        before: beforeCells.map(cell => hasStickyColumn || isStickyElement(cell)),
+                        isSelectionSticky,
+                        stickyColumnCount,
+                        after: afterCells.map(isStickyElement),
+                    })
+                : undefined;
 
             return (
                 <>
                     {beforeCells.map((cell, i) => (
                         <React.Fragment key={(cell as React.ReactElement).key}>
-                            {withCustomCellObserver(cell, row.index, 'before', i)}
+                            {withStickyProps(withCustomCellObserver(cell, row.index, 'before', i), sticky?.before[i])}
                         </React.Fragment>
                     ))}
 
                     {enableSelection && (
-                        <TableCell width="auto" {...selectionCellProps}>
+                        <TableCell
+                            width="auto"
+                            {...selectionCellProps}
+                            {...sticky?.selection}
+                            className={clsx(selectionCellProps?.className, sticky?.selection?.className)}
+                            style={{
+                                ...selectionCellProps?.style,
+                                ...sticky?.selection?.style,
+                            }}
+                        >
                             <Checkbox
                                 aria-label={i18n?.selectRow || 'Select row'}
                                 checked={row.getIsSelected()}
@@ -167,18 +213,39 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     {renderCell({
                         row,
                         isStructured,
+                        columnLayout: sticky?.columnLayout,
                     })}
 
                     {afterCells.map((cell, i) => (
                         <React.Fragment key={(cell as React.ReactElement).key}>
-                            {withCustomCellObserver(cell, row.index, 'after', i)}
+                            {withStickyProps(withCustomCellObserver(cell, row.index, 'after', i), sticky?.after[i])}
                         </React.Fragment>
                     ))}
                 </>
             );
         },
-        [enableSelection, isStructured, registerCustomCellCounts, selectionCellProps, i18n?.selectRow, withCustomCellObserver],
+        [
+            enableSelection,
+            isStructured,
+            registerCustomCellCounts,
+            selectionCellProps,
+            i18n?.selectRow,
+            withCustomCellObserver,
+            isScrollable,
+            hasStickyColumn,
+            isSelectionSticky,
+            stickyColumnCount,
+        ],
     );
+
+    const headerSticky = isScrollable
+        ? getStickyLayout({
+                before: Array.from({ length: customBeforeCount }, (_, i) => hasStickyColumn || Boolean(customStickyCells.before[i])),
+                isSelectionSticky,
+                stickyColumnCount,
+                after: Array.from({ length: customAfterCount }, (_, i) => Boolean(customStickyCells.after[i])),
+            })
+        : undefined;
 
     const renderRowWithCustomization = useCallback(
         (row: Row<T>) => {
@@ -220,15 +287,19 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     return (
         <>
-            <Table className={className} {...props}>
+            <Table className={clsx(className, isScrollable && styles.scrollable)} {...props}>
                 <TableHead>
                     {table.getHeaderGroups().map(headerGroup => (
-                        <TableRow key={headerGroup.id} type="head">
+                        <TableRow key={headerGroup.id} ref={headRowRef} type="head">
                             {/* Custom "before" column headers */}
                             {Array.from({ length: customBeforeCount }, (_, i) => (
                                 <TableHeadCell
                                     key={`custom-before-header-${i}`}
-                                    style={CUSTOM_HEADER_STYLE}
+                                    {...headerSticky?.before[i]}
+                                    style={{
+                                        ...CUSTOM_HEADER_STYLE,
+                                        ...headerSticky?.before[i]?.style,
+                                    }}
                                     width={customHeaderWidths.before[i]}
                                 >
                                     {customColumnLabels?.before?.[i] && <span className={styles.dataTable_hiddenLabel}>{customColumnLabels.before[i]}</span>}
@@ -237,7 +308,16 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
                             {/* Selection header */}
                             {enableSelection && (
-                                <TableHeadCell width="auto" {...selectionCellProps}>
+                                <TableHeadCell
+                                    width="auto"
+                                    {...selectionCellProps}
+                                    {...headerSticky?.selection}
+                                    className={clsx(selectionCellProps?.className, headerSticky?.selection?.className)}
+                                    style={{
+                                        ...selectionCellProps?.style,
+                                        ...headerSticky?.selection?.style,
+                                    }}
+                                >
                                     <span className={styles.dataTable_hiddenLabel}>{i18n?.selectionColumnLabel || 'Selection'}</span>
                                     <Checkbox
                                         aria-label={i18n?.selectAllRows || 'Select all rows'}
@@ -251,6 +331,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             {/* Data column headers */}
                             {renderHeadCell({
                                 headerGroup,
+                                columnLayout: headerSticky?.columnLayout,
                                 enableSorting,
                                 isStructured,
                                 onClickTableHeadCell,
@@ -260,7 +341,11 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             {Array.from({ length: customAfterCount }, (_, i) => (
                                 <TableHeadCell
                                     key={`custom-after-header-${i}`}
-                                    style={CUSTOM_HEADER_STYLE}
+                                    {...headerSticky?.after[i]}
+                                    style={{
+                                        ...CUSTOM_HEADER_STYLE,
+                                        ...headerSticky?.after[i]?.style,
+                                    }}
                                     width={customHeaderWidths.after[i]}
                                 >
                                     {customColumnLabels?.after?.[i] && <span className={styles.dataTable_hiddenLabel}>{customColumnLabels.after[i]}</span>}
