@@ -19,7 +19,7 @@ import { Button } from '@jahia/moonstone';
 import { Add } from '@jahia/moonstone/icons';
 ```
 
-Importing icons from `@jahia/moonstone` is deprecated and logs a warning: a component and an icon of the same name cannot both be exported from one place.
+`@jahia/moonstone` still exports the icons too.
 
 ## Documentation
 The icon API allows for 3 sizes which map to the following values:  

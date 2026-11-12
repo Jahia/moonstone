@@ -1,4 +1,4 @@
-// The icons entry point resolves with its types, and an icon of the root keeps the same type
+// The icons entry point resolves with its types, and the root still exports the same icons
 import { Add as RootAdd } from '@jahia/moonstone';
 import { Add } from '@jahia/moonstone/icons';
 

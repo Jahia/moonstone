@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Add the `@jahia/moonstone/icons` entry point, and deprecate importing icons from `@jahia/moonstone`, which now logs a warning (#888)
+Add the `@jahia/moonstone/icons` entry point, to import the icons apart from the components (#888)
