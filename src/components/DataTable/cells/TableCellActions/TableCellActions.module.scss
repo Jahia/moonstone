@@ -1,9 +1,6 @@
 .tableCellActions {
     position: relative;
-
-    // Beats the overflow of Typography's nowrap: in a narrow cell, the hover actions sit outside it
-    /* stylelint-disable-next-line declaration-no-important */
-    overflow: visible !important;
+    overflow: visible;
 
     gap: var(--moon-spacing-small);
 }

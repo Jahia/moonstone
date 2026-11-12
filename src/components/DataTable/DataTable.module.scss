@@ -13,10 +13,15 @@
     > * > * {
         flex-wrap: nowrap;
         min-width: max-content;
+
+        // The table clips a ring drawn outside the row
+        &:focus-visible {
+            @include focus-ring($inset: true);
+        }
     }
 }
 
-// The content of a data cell does not widen the table, only its width and minWidth do
+// The content of a cell with a minWidth does not widen the table beyond it
 .columnCell {
     contain: inline-size;
 }

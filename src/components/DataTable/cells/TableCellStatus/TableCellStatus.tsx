@@ -29,6 +29,7 @@ const TableCellStatusForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEle
                 style.tableCellStatus,
                 style[color],
                 row?.isStatusDismissed && style.dismissed,
+                props.isSticky && style.sticky,
                 className,
             )}
             component="td"

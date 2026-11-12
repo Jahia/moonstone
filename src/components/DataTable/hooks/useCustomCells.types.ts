@@ -19,7 +19,7 @@ export type UseCustomCellsReturn = {
     customAfterCount: number;
     customHeaderWidths: CustomHeaderWidths;
     customStickyCells: CustomStickyCells;
-    registerCustomCellCounts: (beforeCount: number, afterCount: number) => void;
+    registerCustomCellCounts: (beforeCount: number, afterCount: number, stickyCells: CustomStickyCells) => void;
     withCustomCellObserver: (
         node: React.ReactNode,
         rowIndex: number,

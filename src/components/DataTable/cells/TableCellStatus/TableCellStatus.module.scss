@@ -37,9 +37,6 @@
 
     &:hover,
     tr:focus-visible > &:not(.dismissed) {
-        // Opens the panel over the sticky cells that follow
-        z-index: 2;
-
         .panel {
             max-width: 500px;
 
@@ -82,4 +79,10 @@
     --tableCellStatus-background: var(--moon-color-accent_light_plain20);
     --tableCellStatus-color: var(--moon-color-accent_dark_contrast);
     --tableCellStatus-bar: var(--moon-color-accent);
+}
+
+// Opens the panel of a sticky status over the sticky cells that follow
+.tableCellStatus.sticky:hover,
+tr:focus-visible > .tableCellStatus.sticky:not(.dismissed) {
+    z-index: 2;
 }

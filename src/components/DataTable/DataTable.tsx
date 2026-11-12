@@ -138,7 +138,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
         || customStickyCells.after.some(Boolean);
 
     const headRowRef = useRef<HTMLElement>(null);
-    useStickyCells(headRowRef, isScrollable);
 
     const table = useReactTable({
         data,
@@ -174,7 +173,10 @@ export const DataTable = <T extends NonNullable<unknown>>({
         (row: Row<T>, options?: RenderOptions) => {
             const beforeCells = toNodeArray(options?.before);
             const afterCells = toNodeArray(options?.after);
-            registerCustomCellCounts(beforeCells.length, afterCells.length);
+            registerCustomCellCounts(beforeCells.length, afterCells.length, {
+                before: beforeCells.map(isStickyElement),
+                after: afterCells.map(isStickyElement),
+            });
             const sticky = isScrollable
                 ? getStickyLayout({
                         before: beforeCells.map(cell => hasStickyColumn || isStickyElement(cell)),
@@ -246,6 +248,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 after: Array.from({ length: customAfterCount }, (_, i) => Boolean(customStickyCells.after[i])),
             })
         : undefined;
+    useStickyCells(headRowRef, isScrollable, JSON.stringify(headerSticky ?? null));
 
     const renderRowWithCustomization = useCallback(
         (row: Row<T>) => {

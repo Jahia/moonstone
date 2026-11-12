@@ -26,7 +26,7 @@ const getColumnLayoutProps = <T extends NonNullable<unknown>>(column: Column<T>,
 
     return {
         isSticky,
-        className: clsx(styles.columnCell, isSticky && rank === columnLayout.stickyStartCount - 1 && styles.stickyEdgeStart),
+        className: clsx(meta?.minWidth && styles.columnCell, isSticky && rank === columnLayout.stickyStartCount - 1 && styles.stickyEdgeStart),
         style: {
             minWidth: meta?.minWidth,
             ...(isSticky && getStickyStyle('start', rank)),
@@ -40,17 +40,19 @@ export const renderHeadCell = <T extends NonNullable<unknown>>({
     enableSorting,
     isStructured,
     onClickTableHeadCell,
-}: RenderHeadCellProps<T>) => headerGroup.headers.map((header, index) => {
+}: RenderHeadCellProps<T>) => headerGroup.headers.map((header) => {
     const meta = header.column.columnDef.meta as CustomColumnMeta<T> | undefined;
     const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
     const columnSortDirection = header.column.getIsSorted();
     const layoutProps = getColumnLayoutProps(header.column, columnLayout);
+    // The first column of the configuration, wherever a sticky column moved it
+    const isStructuredColumn = isStructured && header.column.id === header.getContext().table.getAllLeafColumns()[0]?.id;
 
     return (
         <TableHeadCell
             isSticky={layoutProps.isSticky}
             align={meta?.align ?? 'left'}
-            className={clsx({ 'moonstone-tableHeadCell_structured': isStructured && index === 0 }, layoutProps.className)}
+            className={clsx({ 'moonstone-tableHeadCell_structured': isStructuredColumn }, layoutProps.className)}
             key={header.id}
             sorting={isColumnSortable
                 ? {
@@ -91,7 +93,9 @@ export const renderCell = <T extends NonNullable<unknown>>({
         },
     };
 
-    return row.getVisibleCells().map((cell, index) => {
+    const structuredColumnId = row.getAllCells()[0]?.column.id;
+
+    return row.getVisibleCells().map((cell) => {
         const meta = cell.column.columnDef.meta as CustomColumnMeta<T> | undefined;
         const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
         const cellProps = typeof meta?.cellProps === 'function'
@@ -107,7 +111,7 @@ export const renderCell = <T extends NonNullable<unknown>>({
             },
         };
 
-        if (isStructured && index === 0) {
+        if (isStructured && cell.column.id === structuredColumnId) {
             return (
                 <TableStructuredCell
                     key={cell.id}

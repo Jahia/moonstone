@@ -86,7 +86,7 @@ const STICKY_END = '--moon-sticky-end';
  * Measures the sticky cells of the header row and sets their offsets on the table, so every row
  * shares them. Also flags the table as scrolled from its start or before its end, for the shadows.
  */
-export function useStickyCells(headRowRef: React.RefObject<HTMLElement>, isEnabled: boolean) {
+export function useStickyCells(headRowRef: React.RefObject<HTMLElement>, isEnabled: boolean, layoutKey: string) {
     useLayoutEffect(() => {
         const headRow = headRowRef.current;
         const table = headRow?.parentElement?.parentElement;
@@ -129,5 +129,5 @@ export function useStickyCells(headRowRef: React.RefObject<HTMLElement>, isEnabl
             observer.disconnect();
             table.removeEventListener('scroll', updateScrollFlags);
         };
-    });
+    }, [headRowRef, isEnabled, layoutKey]);
 }

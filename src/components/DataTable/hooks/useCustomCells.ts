@@ -18,6 +18,8 @@ const defaultStickyCells = (): CustomStickyCells => ({
     after: [],
 });
 
+const isSameFlags = (a: boolean[], b: boolean[]) => a.length === b.length && a.every((flag, i) => flag === b[i]);
+
 export function useCustomCells<T extends NonNullable<unknown>>({
     data,
     primaryKey,
@@ -27,6 +29,7 @@ export function useCustomCells<T extends NonNullable<unknown>>({
     const [customAfterCount, setCustomAfterCount] = useState(0);
     const pendingCustomBefore = useRef(0);
     const pendingCustomAfter = useRef(0);
+    const pendingCustomSticky = useRef<CustomStickyCells>(defaultStickyCells());
     const [customHeaderWidths, setCustomHeaderWidths] = useState<CustomHeaderWidths>(defaultHeaderWidths);
     const [customStickyCells, setCustomStickyCells] = useState<CustomStickyCells>(defaultStickyCells);
     const observersRef = useRef<{ before: (ResizeObserver | undefined)[];
@@ -73,17 +76,27 @@ export function useCustomCells<T extends NonNullable<unknown>>({
             setCustomAfterCount(pendingCustomAfter.current);
         }
 
+        const pendingSticky = pendingCustomSticky.current;
+        if (!isSameFlags(pendingSticky.before, customStickyCells.before) || !isSameFlags(pendingSticky.after, customStickyCells.after)) {
+            setCustomStickyCells(pendingSticky);
+        }
+
         pendingCustomBefore.current = 0;
         pendingCustomAfter.current = 0;
+        pendingCustomSticky.current = defaultStickyCells();
     });
 
-    const registerCustomCellCounts = useCallback((beforeCount: number, afterCount: number) => {
+    const registerCustomCellCounts = useCallback((beforeCount: number, afterCount: number, stickyCells: CustomStickyCells) => {
         if (beforeCount) {
             pendingCustomBefore.current = beforeCount;
         }
 
         if (afterCount) {
             pendingCustomAfter.current = afterCount;
+        }
+
+        if (beforeCount || afterCount) {
+            pendingCustomSticky.current = stickyCells;
         }
     }, []);
 
@@ -93,8 +106,6 @@ export function useCustomCells<T extends NonNullable<unknown>>({
                 return node;
             }
 
-            const isSticky = Boolean((node.props as { isSticky?: boolean }).isSticky);
-
             return React.cloneElement(node as React.ReactElement, {
                 ref: (element: HTMLElement | null) => {
                     observersRef.current[position][index]?.disconnect();
@@ -103,19 +114,6 @@ export function useCustomCells<T extends NonNullable<unknown>>({
                     if (!element) {
                         return;
                     }
-
-                    setCustomStickyCells((previous) => {
-                        if (previous[position][index] === isSticky) {
-                            return previous;
-                        }
-
-                        const next = [...previous[position]];
-                        next[index] = isSticky;
-                        return {
-                            ...previous,
-                            [position]: next,
-                        };
-                    });
 
                     const measure = () => {
                         const width = `${element.offsetWidth}px`;

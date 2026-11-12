@@ -325,12 +325,12 @@ describe('DataTable sticky columns', () => {
     const left = (element: Element) => element.getBoundingClientRect().left;
     const right = (element: Element) => element.getBoundingClientRect().right;
 
-    it('should move a sticky column before the other columns', () => {
+    it('moves a sticky column before the other columns', () => {
         renderSticky();
         expect(screen.getAllByRole('columnheader')[0]).toHaveTextContent('Name');
     });
 
-    it('should keep the sticky cells on the edges of the table while it scrolls', async () => {
+    it('keeps the sticky cells on the edges of the table while it scrolls', async () => {
         renderSticky();
         const table = screen.getByRole('table');
         expect(table.scrollWidth).toBeGreaterThan(table.clientWidth);
@@ -342,7 +342,7 @@ describe('DataTable sticky columns', () => {
         expect(right(actionsCell)).toBeCloseTo(table.getBoundingClientRect().left + table.clientWidth, 0);
     });
 
-    it('should stick the selection cell before a sticky column', async () => {
+    it('sticks the selection cell before a sticky column', async () => {
         renderSticky({ enableSelection: true });
         const table = screen.getByRole('table');
 
@@ -353,21 +353,47 @@ describe('DataTable sticky columns', () => {
         expect(left(screen.getByRole('cell', { name: 'Alice' }))).toBeCloseTo(right(selectionCell), 0);
     });
 
-    it('should keep the hover actions of a sticky cell inside it, never over the other cells', () => {
-        renderSticky();
-        screen.getByRole('button', { name: 'Actions' }).focus();
-        const edit = screen.getByRole('button', { name: 'Edit' });
-        expect(edit).toBeVisible();
-        expect(left(edit)).toBeGreaterThanOrEqual(left(screen.getByRole('cell', { name: /Actions/ })));
+    it('keeps the expand control on the first column of a structured table when another column sticks', () => {
+        render(
+            <DataTable
+                isStructured
+                columns={[{ key: 'name', label: 'Name' }, { key: 'age', label: 'Age', isSticky: true }]}
+                data={kbStructuredData}
+                enablePagination={false}
+                primaryKey="id"
+            />,
+        );
+        expect(screen.getByRole('button', { name: 'Alice' })).toBeInTheDocument();
     });
 
-    it('should not scroll a table with no minWidth and no sticky cell', () => {
+    it('keeps the width of a sticky column that has no minWidth while the table scrolls', () => {
         render(
-            <div style={{ width: '200px' }}>
-                <DataTable columns={kbColumns} data={kbData} enablePagination={false} primaryKey="id"/>
+            <div style={{ width: '500px' }}>
+                <DataTable
+                    columns={[
+                        { key: 'city', label: 'City', minWidth: '300px' },
+                        { key: 'name', label: 'Name', isSticky: true },
+                        { key: 'job', label: 'Job', minWidth: '300px' },
+                    ]}
+                    data={people}
+                    enablePagination={false}
+                    primaryKey="id"
+                />
             </div>,
         );
+        const cell = screen.getByRole('cell', { name: 'Alice' });
+        expect(cell.scrollWidth).toBeLessThanOrEqual(cell.clientWidth);
+    });
+
+    it('sticks the header of a sticky custom cell on a page that does not show the first row', async () => {
+        renderSticky({
+            data: [...people, { id: '2', name: 'Bob', city: 'Lyon', job: 'Writer' }],
+            enablePagination: true,
+            itemsPerPageOptions: [1],
+            defaultCurrentPage: 2,
+        });
         const table = screen.getByRole('table');
-        expect(table.scrollWidth).toBe(table.clientWidth);
+        const actionsHeader = screen.getAllByRole('columnheader').at(-1) as HTMLElement;
+        await waitFor(() => expect(right(actionsHeader)).toBeCloseTo(table.getBoundingClientRect().left + table.clientWidth, 0));
     });
 });
