@@ -114,7 +114,6 @@ describe('NavItem', () => {
         expect(onError).not.toHaveBeenCalled();
     });
 
-    // TODO: is the usefull ? It seems we test the Tooltip implementation here
     it('should give the description of a Tooltip to the control', async () => {
         const user = userEvent.setup();
         render(<Tooltip label="Tip"><PrimaryNavItem label="Item"/></Tooltip>);

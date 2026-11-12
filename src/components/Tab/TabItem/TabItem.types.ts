@@ -11,7 +11,6 @@ export type TabItemProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onCli
     component?: string;
     /**
      * Text of the tab.
-     * @default ''
      */
     label?: string;
     /**
@@ -25,7 +24,6 @@ export type TabItemProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onCli
     icon?: React.ReactElement;
     /**
      * Whether the tab is disabled.
-     * @default false
      */
     isDisabled?: boolean;
     /**
@@ -39,7 +37,6 @@ export type TabItemProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onCli
     onClick?: React.MouseEventHandler;
     /**
      * Whether the tab uses reversed colors, for a dark background.
-     * @default false
      */
     isReversed?: boolean;
     /**

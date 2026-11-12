@@ -62,6 +62,5 @@ import {Dropdown} from '@jahia/moonstone';
 - Opening the list with the keyboard moves the focus into the options.
 - The Up and Down arrow keys move the focus between options.
 - Home and End move the focus to the first and last options.
-- Enter selects the focused option and closes the list. In multiple selection, Space toggles the
-  focused option.
+- Enter or Space selects the focused option and closes the list. In multiple selection, it toggles the option and the list stays open.
 - Escape closes the list and returns the focus to the trigger.

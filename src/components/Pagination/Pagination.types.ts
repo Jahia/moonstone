@@ -50,7 +50,6 @@ export type PaginationProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'class
 
     /**
      * Texts of the component, shown on screen or read by screen readers. Translate them with the rest of the UI.
-     * @default {itemsPerPage: 'Items', of: 'of'}
      */
     i18n?: {
         /**

@@ -43,4 +43,4 @@ import {Chip} from '@jahia/moonstone';
 - Name the status of the item in the passive voice, such as "Published" or "Marked for deletion".
 
 ## Accessibility
-- An icon-only Chip (no `label`) has no accessible name for screen readers. Pass an `aria-label` describing the status.
+- An icon-only Chip (no `label`) has no accessible name. Pass `role="img"` with an `aria-label` that describes the status.

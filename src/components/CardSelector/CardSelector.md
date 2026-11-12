@@ -30,6 +30,6 @@ CardSelector renders in a row layout: the thumbnail appears on the left, the bod
 - Avoid generic messages such as "Error". Be specific about what failed.
 
 ## Accessibility
-- Provide `thumbnailAlt` whenever `thumbnail` is an image URL so assistive technologies can describe the image.
+- The thumbnail is decorative: the card is named by `displayName`. Put what the image conveys there.
 - If `cardAction` contains buttons, ensure each has an `aria-label` that describes its specific action.
 - Use `isDisabled` rather than removing the component when an action is unavailable, so screen readers can still discover and announce the component.

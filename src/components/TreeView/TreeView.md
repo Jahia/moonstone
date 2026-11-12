@@ -64,6 +64,6 @@ const siteTree = [
 - The Right arrow key opens a closed node, and the Left arrow key closes an open one.
 - On an open node, the Right arrow key moves the focus to the first child.
 - On a child node, the Left arrow key moves the focus to the parent.
-- Enter selects the focused node. Space opens and closes it.
+- Enter calls `onClickItem` on the focused node, or opens and closes it. Space opens and closes it.
 - `*` opens all the sibling nodes.
 - A disabled or read-only node doesn't call `onClickItem`, with the mouse or the keyboard. The user can still open and close it.
