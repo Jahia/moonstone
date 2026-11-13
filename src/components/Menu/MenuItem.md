@@ -2,7 +2,7 @@
 ```jsx
 import {Menu, MenuItem} from '@jahia/moonstone';
 
-<Menu isDisplayed={isOpen}>
+<Menu isDisplayed={isOpen} onClose={() => setIsOpen(false)}>
     <MenuItem label="Edit"/>
 </Menu>
 ```

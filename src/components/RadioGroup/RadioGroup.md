@@ -2,7 +2,7 @@
 ```jsx
 import {RadioGroup, RadioItem} from '@jahia/moonstone';
 
-<RadioGroup name="visibility" role="radiogroup" aria-label="Visibility">
+<RadioGroup name="visibility" aria-label="Visibility">
     <RadioItem id="visibility-public" label="Public" value="public"/>
     <RadioItem id="visibility-private" label="Private" value="private"/>
 </RadioGroup>
@@ -36,4 +36,4 @@ import {RadioGroup, RadioItem} from '@jahia/moonstone';
 - Don't use a RadioGroup for 4 options or more. Use a [Dropdown](?path=/docs/components-dropdown--docs) instead.
 
 ## Accessibility
-- The group renders no label of its own. Give it an accessible name with `aria-labelledby`, pointing at its visible label, or `aria-label`, together with `role="radiogroup"`.
+- The group renders no label of its own. Give it an accessible name with `aria-labelledby`, pointing at its visible label, or `aria-label`. The group already has `role="radiogroup"`.

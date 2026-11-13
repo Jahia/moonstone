@@ -10,6 +10,7 @@ import {Dropdown} from '@jahia/moonstone';
     value={status}
     placeholder="Select a value"
     aria-label="Status"
+    onChange={(event, item) => setStatus(item.value)}
 />
 ```
 

@@ -2,7 +2,7 @@
 ```jsx
 import {Menu, MenuItem} from '@jahia/moonstone';
 
-<Menu isDisplayed={isOpen}>
+<Menu isDisplayed={isOpen} onClose={() => setIsOpen(false)}>
     <MenuItem label="Edit"/>
     <MenuItem label="Delete"/>
 </Menu>
@@ -38,4 +38,4 @@ import {Menu, MenuItem} from '@jahia/moonstone';
 - The Up and Down arrow keys move the focus between items.
 - Enter or Space activates the focused item.
 - Home and End move the focus to the first and last items.
-- Escape returns the focus to the element that had it before and calls `onClose`: close the menu there.
+- Escape returns the focus to the element that had it before and calls `onClose`: close the menu there. Without `onClose`, Escape does nothing.

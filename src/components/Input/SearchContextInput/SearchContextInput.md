@@ -5,7 +5,13 @@ import {Dropdown, SearchContextInput} from '@jahia/moonstone';
 <SearchContextInput
     aria-label="Search"
     searchContext={(
-        <Dropdown data={searchScopes} value={scope} placeholder="Select a scope"/>
+        <Dropdown
+            data={searchScopes}
+            value={scope}
+            placeholder="Select a scope"
+            aria-label="Search scope"
+            onChange={(event, item) => setScope(item.value)}
+        />
     )}
 />
 ```
@@ -41,5 +47,5 @@ import {Dropdown, SearchContextInput} from '@jahia/moonstone';
   the search runs, such as "Media" or "Global users".
 
 ## Accessibility
-- Always provide a label. Pass an `aria-label` for the text field. The [Dropdown](?path=/docs/components-dropdown--docs) takes its
-  accessible name from the selected scope.
+- Always provide a label. Pass an `aria-label` for the text field, and another for the [Dropdown](?path=/docs/components-dropdown--docs)
+  that names what it picks, such as "Search scope". Without it, the Dropdown is named by the selected scope only.
