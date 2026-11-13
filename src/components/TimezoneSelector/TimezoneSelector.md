@@ -51,8 +51,8 @@ import {TimezoneSelector} from '@jahia/moonstone';
 ## Accessibility
 - Put it in a [Field](?path=/docs/components-field--docs), which gives it its label.
 - Enter opens the list and moves the focus to its search field. Space and the Down arrow key open
-  it too (soon).
+  it too.
 - The Up and Down arrow keys move the focus between options. From the search field, the Down
-  arrow key moves it to the first option (soon).
+  arrow key moves it to the first option.
 - Enter selects the focused option and closes the list.
 - Escape closes the list and returns the focus to the trigger.

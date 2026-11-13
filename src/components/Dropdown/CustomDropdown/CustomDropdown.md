@@ -40,7 +40,7 @@ import {CustomDropdown} from '@jahia/moonstone';
 - An icon-only CustomDropdown (one with no `label`) must have an `aria-label` that describes what
   it opens.
 - Make sure every control you pass as children is reachable with the keyboard.
-- The Down arrow key opens the menu (soon).
+- The Down arrow key opens the menu.
 - Opening the menu with the keyboard moves the focus to the first item.
 - The Up and Down arrow keys move the focus between items.
 - Enter activates the focused item.
