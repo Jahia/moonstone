@@ -176,7 +176,8 @@ shows a badge in Storybook; `!manifest` keeps the component out of the AI manife
 
 Its `.md` keeps the same sections, written for the contributors who maintain the library:
 
-- **Example** imports from `~/components`, never from `@jahia/moonstone`.
+- **Example** imports from `~/components`, or from the component's folder when `~/components`
+  does not export it, such as `~/components/Tag`. Never from `@jahia/moonstone`.
 - **Do** names the components it is used to build.
 - **Don't** steers app code to the public component that wraps it, by name.
 - The rule "only mention public, exported components" does not apply to the component itself.
