@@ -10,7 +10,7 @@ import type { TabItemProps } from './TabItem/TabItem.types';
 
 import styles from './Tab.module.scss';
 
-export const Tab = React.forwardRef<HTMLDivElement, TabProps>(({ children, className = '', ...props }, ref) => {
+export const Tab = React.forwardRef<HTMLDivElement, TabProps>(({ children, className, ...props }, ref) => {
     const rovingTabIndex = useRovingTabIndex();
 
     if (!children || React.Children.count(children) < 1) {

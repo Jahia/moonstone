@@ -11,7 +11,7 @@ import styles from './Header.module.scss';
 
 export const Header: React.FC<HeaderProps> = ({
     title,
-    search = null,
+    search,
     mainActions,
     status,
     contentType,

@@ -8,6 +8,7 @@ export type TableBodyProps = Omit<React.ComponentPropsWithoutRef<'tbody'>, 'chil
 
     /**
      * Name of HTML element to render in the DOM for this component
+     * @default 'tbody'
      */
     component?: string;
 

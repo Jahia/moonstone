@@ -13,7 +13,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
     label,
     children,
     isDisabled,
-    isLoading = false,
+    isLoading,
     variant = 'ghost',
     size = 'default',
     icon,

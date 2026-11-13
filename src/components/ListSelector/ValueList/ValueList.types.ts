@@ -42,6 +42,7 @@ export type ValueListProps = {
     isReadOnly?: boolean;
     /**
      * Additional classes for <ul> element
+     * @default []
      */
     listClasses?: string[];
     /**

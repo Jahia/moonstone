@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import markdownNotes from './Accordion.md';
+import markdownNotes from './Accordion.md?raw';
 import { Accordion } from './index';
 import { AccordionItem } from '~/components/Accordion/AccordionItem';
 import { BarSquare, Bug, Love } from '~/icons';
@@ -15,9 +15,6 @@ export default {
     component: Accordion,
     tags: ['dark-theme'],
     subcomponents: { AccordionItem },
-    docs: {
-        IframeHeight: 800,
-    },
     decorators: [
         StoryCmp => (
             <div
@@ -28,7 +25,8 @@ export default {
         ),
     ],
     parameters: {
-        notes: { markdown: markdownNotes },
+        componentSubtitle: 'Collapsible sections, one open at a time.',
+        docs: { description: { component: markdownNotes } },
         actions: { argTypesRegex: '^on.*' },
     },
 } as Meta<typeof Accordion>;

@@ -10,7 +10,8 @@ type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'onC
     label?: React.ReactNode;
 
     /**
-     * Icon size
+     * Size of the button.
+     * @default 'default'
      */
     size?: ButtonToggleSize;
 
@@ -26,16 +27,19 @@ type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'onC
 
     /**
      * Is button disabled
+     * @default false
      */
     isDisabled?: boolean;
 
     /**
      * Is button color reversed
+     * @default false
      */
     isReversed?: boolean;
 
     /**
      * Is button loading
+     * @default false
      */
     isLoading?: boolean;
 
@@ -65,6 +69,7 @@ type ControlledProps = {
 type UncontrolledProps = {
     /**
      * Is button pressed by default
+     * @default false
      */
     defaultPressed?: boolean;
 };

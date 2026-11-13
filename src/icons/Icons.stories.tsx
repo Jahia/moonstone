@@ -1,6 +1,6 @@
 import React from 'react';
 
-import markdownNotes from './Icons.md';
+import markdownNotes from './Icons.md?raw';
 import { Love } from '~/icons';
 import * as Icons from '~/icons/components';
 
@@ -49,7 +49,7 @@ export default {
 
     parameters: {
     // ComponentSubtitle: 'Icons',
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
 
     excludeStories: ['IconWrapper'],

@@ -1,3 +1,4 @@
+import markdownNotes from './LayoutContent.md?raw';
 import { FakeContent } from '~/__storybook__/FakeComponents';
 import { Header } from '~/components';
 import { LayoutContent } from '~/layouts';
@@ -8,9 +9,13 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 export default {
     title: 'Layouts/LayoutContent',
     component: LayoutContent,
+    parameters: {
+        componentSubtitle: 'The main content area of a page.',
+        docs: { description: { component: markdownNotes } },
+    },
     decorators: [
         StoryCmp => (
-            <div style={{ width: '1OOvw', height: '100vh', display: 'flex' }}>
+            <div style={{ width: '100vw', height: '100vh', display: 'flex' }}>
                 <StoryCmp/>
             </div>
         ),

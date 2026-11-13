@@ -32,6 +32,7 @@ type ControlledProps = {
 type UncontrolledProps = {
     /**
      * Whether the checkbox should be checked by default. (uncontrolled)
+     * @default false
      */
     defaultChecked?: boolean;
 

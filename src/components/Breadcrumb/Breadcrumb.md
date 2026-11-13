@@ -1,3 +1,20 @@
-## Design
+## Example
 
-[Figma Link](https://www.figma.com/file/939bW74C3TLW5VAzK23uox/moonstone-components?node-id=1927%3A1255)
+```jsx
+import {Breadcrumb, BreadcrumbItem} from '@jahia/moonstone';
+
+<Breadcrumb>
+    <BreadcrumbItem label="Home"/>
+    <BreadcrumbItem label="About us"/>
+</Breadcrumb>
+```
+
+## Do
+
+- Use it to show the current page's position in a multi-level hierarchy and let the user navigate to an ancestor level.
+- Use it at the top of a page, inside its [Header](?path=/docs/components-header--docs), so the user can always tell where they are in the hierarchy.
+
+## Don't
+
+- Don't use it for flat, single-level navigation. Use [Tab](?path=/docs/components-tab--docs) or [SecondaryNav](?path=/docs/components-secondarynav--docs) instead.
+- Don't use it as a step indicator for a wizard or multi-step form. It conveys location, not progress.

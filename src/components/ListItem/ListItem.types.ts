@@ -9,42 +9,45 @@ export type ListItemProps = Omit<React.ComponentPropsWithRef<'li'>, 'className'>
     className?: string;
 
     /**
-     * ListItem label
+     * Main text of the row.
      */
     label: React.ReactNode;
 
     /**
-     * Optional description to display to describe the item
+     * Optional description shown below the label
      */
     description?: string;
 
     /**
-     * A leading icon display before the label. Cannot be used in conjunction with the image property.
-     */
+     * A leading icon shown before the label. Takes priority over `image` when both are passed.
+    */
     iconStart?: React.ReactElement;
 
     /**
-     * A trailing icon display at the end of ListItem
+     * A trailing icon shown at the end of the row.
      */
     iconEnd?: React.ReactElement;
 
     /**
-     * Optional image to display to describe the menu item. Cannot be used in conjunction with the iconStart property.
+     * Image shown before the label.
      */
     image?: React.ReactElement;
 
     /**
-     * Sets pre-defined max height/width to image; defaults to small
+     * Size of `image`.
+     * @default 'small'
      */
     imageSize?: 'small' | 'big';
 
     /**
-     * Which variant to pass to the inner typography component. The default is caption
+     * Typography variant of `label`.
+     * @default 'caption'
      */
     typographyVariant?: TypographyVariant;
 
     /**
-     * Which icon size to render.
+     * Size of `iconStart` and `iconEnd`.
+     * @default 'default'
      */
     iconSize?: 'small' | 'default' | 'big';
 };

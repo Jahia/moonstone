@@ -1,22 +1,27 @@
 type Label = {
     /**
      * Title of the right list
+     * @default ''
      */
     rightListTitle?: string;
     /**
      * Title of the left list
+     * @default ''
      */
     leftListTitle?: string;
     /**
      * Add all button title
+     * @default 'Add all'
      */
     addAllTitle?: string;
     /**
      * Remove all button title
+     * @default 'Remove all'
      */
     removeAllTitle?: string;
     /**
      * Label for number of items selected, use values to determine the number
+     * @default '<number of values> item(s) selected'
      */
     selected?: string;
 };
@@ -39,10 +44,12 @@ export type ListSelectorSelectorProps = Omit<React.ComponentPropsWithoutRef<'div
     label?: Label;
     /**
      * Options for left list
+     * @default []
      */
     options?: Option[];
     /**
      * Picked values, these are option values which should be recorded in onChange
+     * @default []
      */
     values?: string[];
     /**

@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React from 'react';
 
-import markdownNotes from './GlobalStyle_layout.md';
+import markdownNotes from './GlobalStyle_layout.md?raw';
 import { layout } from '~/globals/css-utils.js';
 import { capitalize } from '~/utils/helpers.js';
 
@@ -116,10 +116,11 @@ function displayItems(direction: Direction, type: 'justify' | 'align') {
 
 export default {
     title: 'Utilities/Layout',
+    tags: ['internal', '!manifest'],
 
     parameters: {
         componentSubtitle: 'Layout',
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
 };
 

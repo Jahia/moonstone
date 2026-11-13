@@ -40,6 +40,10 @@ type TimeInputBaseProps = Omit<BaseInputProps,
     | 'allowDecimal'
     | 'allowNegative'
 > & {
+    /**
+     * Visual style of the field and of its AM/PM dropdown
+     * @default 'outlined'
+     */
     variant?: DropdownProps['variant'];
 
     /**

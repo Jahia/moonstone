@@ -1,17 +1,22 @@
 import { Typography } from './index';
+import markdownNotes from './Typography.md?raw';
 
 import type { StoryObj } from '@storybook/react-vite';
 
-// Import markdownNotes from './Typography.md';
-
 export default {
-    title: 'Tokens/Typography',
+    title: 'Components/Typography',
     component: Typography,
     parameters: {
+        componentSubtitle: 'Any text you render.',
         layout: 'centered',
         knobs: { disable: true },
         storysource: { disable: true },
+        docs: { description: { component: markdownNotes } },
     },
+};
+
+export const Playground: StoryObj<typeof Typography> = {
+    render: args => <Typography {...args}>Playground</Typography>,
 };
 
 export const Variants = () => (
@@ -42,7 +47,3 @@ export const Links = () => (
         <Typography component="a" href="#links">This text is a link</Typography>
     </section>
 );
-
-export const Playground: StoryObj<typeof Typography> = {
-    render: args => <Typography {...args}>Playground</Typography>,
-};

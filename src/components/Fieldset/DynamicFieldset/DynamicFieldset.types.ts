@@ -24,6 +24,7 @@ type ControlledProps = {
 type UncontrolledProps = {
     /**
      * Whether dynamic fieldset is checked by default
+     * @default false
      */
     defaultChecked?: boolean;
 
