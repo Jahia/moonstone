@@ -39,9 +39,8 @@ Ground every claim in the code. Read `<Component>.types.ts` (props and JSDoc), `
 ## Code bugs
 
 A code bug found while documenting (a JSDoc that disagrees with the code, a default the consumer
-can't override, any behaviour the docs would otherwise have to describe as a bug) becomes a GitHub
-issue of Jahia/moonstone. Verify the bug in the code, look for an issue that already covers it, and
-open one when none does. Never record code bugs anywhere else, and never document them in the `.md`.
+can't override, any behaviour the docs would otherwise have to describe as a bug) follows the bug
+rule of `AGENTS.md`. Never document it in the `.md`.
 
 ## Review
 

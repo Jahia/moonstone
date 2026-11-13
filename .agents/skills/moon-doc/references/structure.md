@@ -109,8 +109,8 @@ Per-section content (for phrasing, see `style.md`):
     icon.").
   - Each **keyboard interaction the component adds**, such as arrow keys, Home and End, or
     Escape. Never the browser's native ones, such as Tab to move the focus or Space on a
-    checkbox. Source: the keyboard tests in `<Component>.browser.spec.tsx`. A behaviour tested
-    with `it.fails` ends with "(soon)"; remove "(soon)" when `.fails` is removed.
+    checkbox. Source: the keyboard tests in `<Component>.browser.spec.tsx`. For a behaviour
+    tested with `it.fails`, see the "(soon)" rule of `AGENTS.md`.
   - Never say how to write a text, such as a label: that goes to *Voice and tone*.
   - Never document a bug or its workaround: handle it as a code bug (`SKILL.md`, *Code bugs*).
   - No bullet for an ARIA attribute the component sets by default: the consumer can override
