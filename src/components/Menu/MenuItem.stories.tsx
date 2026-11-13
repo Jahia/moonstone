@@ -10,12 +10,7 @@ export default {
     parameters: {
         actions: { argTypesRegex: '^on.*' },
         componentSubtitle: 'One entry of a Menu.',
-        docs: {
-            description: { component: markdownNotes },
-            // Same as Menu: the menu is displayed in an iframe of its own
-            inlineStories: false,
-            IframeHeight: 300,
-        },
+        docs: { description: { component: markdownNotes } },
     },
 };
 

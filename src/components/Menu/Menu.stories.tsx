@@ -18,12 +18,7 @@ export default {
     subcomponents: { MenuItem },
     parameters: {
         componentSubtitle: 'Shows a floating list of actions.',
-        docs: {
-            description: { component: markdownNotes },
-            // Fix issues in the doc tab with firefox
-            inlineStories: false,
-            IframeHeight: 500,
-        },
+        docs: { description: { component: markdownNotes } },
     },
 };
 
