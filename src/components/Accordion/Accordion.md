@@ -34,7 +34,7 @@ import {Accordion, AccordionItem} from '@jahia/moonstone';
 
 ## Do
 
-- Keep one item open at all times.
+- Use it with one item open at all times: pass `defaultOpenedItem`, and use the controlled mode to keep it open.
 - Use it to organise content into collapsible sections inside a constrained vertical space.
 - Use it when the user only needs to work in one section at a time and the remaining sections can stay hidden.
 - Use it to group related settings, navigation entries, or content categories that share the same panel.
