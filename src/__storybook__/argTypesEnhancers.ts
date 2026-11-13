@@ -34,7 +34,8 @@ const isTextNode = (key: string, initial: unknown) =>
 // A story can give `control` and `type` as objects or as strings: only the object forms have these fields
 const controlType = ({ control }: InputType) => (control && typeof control === 'object' && 'type' in control ? control.type : undefined);
 const typeName = ({ type }: InputType) => (type && typeof type === 'object' ? type.name : undefined);
-// The story set the control itself (options, mapping, or a control other than the JSON editor)
+// The story set the control itself (options, mapping, or a control other than the JSON editor).
+// Storybook turns a story's `control: false` into `{ disable: true }` before this runs, so it counts as set.
 const isSetByStory = (argType: InputType) => Boolean(argType.options || argType.mapping || (argType.control && controlType(argType) !== 'object'));
 // The JSON editor Storybook infers for objects and arrays (as in its inferControls)
 const SCALAR_TYPES = ['boolean', 'string', 'number', 'enum', 'function', 'symbol'];

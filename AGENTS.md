@@ -21,6 +21,8 @@
 - **Every code bug becomes a GitHub issue.** Verify a bug found during any task in the code, look
   for an issue that already covers it, and open one when none does. Never record bugs in another
   file.
+- **"(soon)" is not a bug.** A doc line that ends with "(soon)" states a behaviour that an
+  `it.fails` test pins: it is planned, not built yet. Remove "(soon)" when `.fails` is removed.
 - **Verify before claiming done.** Run the relevant check and report the real result, including
   failures.
 - A behavior or props change must update every affected file of the component contract (code, types, spec, stories, docs) — not just the code.
