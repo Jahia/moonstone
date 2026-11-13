@@ -39,6 +39,16 @@ describe('Tab keyboard', () => {
         expect(tab('Last')).toHaveAttribute('tabindex', '-1');
     });
 
+    it('should keep the roving tabindex over a consumer tabIndex', () => {
+        render(
+            <Tab>
+                <TabItem isSelected label="First"/>
+                <TabItem label="Second" tabIndex={0}/>
+            </Tab>,
+        );
+        expect(tab('Second')).toHaveAttribute('tabindex', '-1');
+    });
+
     it('leaves the tablist with a single Tab from the selected tab', async () => {
         renderTab();
         tab('First').focus();

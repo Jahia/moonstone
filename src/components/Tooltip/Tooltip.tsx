@@ -50,8 +50,7 @@ export const Tooltip = ({
             <div
                 className={clsx('moonstone-tooltip', className)}
                 ref={refs.setReference}
-                {...getReferenceProps()}
-                {...props}
+                {...getReferenceProps(props)}
             >
                 {/* Children is the element to interact with in order for the tooltip to appear */}
                 {React.cloneElement(children, {
