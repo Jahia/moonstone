@@ -2,7 +2,6 @@
 @use "../../../tokens/spacings/spacings" as *;
 @use "../../../utils/mixins" as *;
 
-$big-tab-height: 32px;
 $selected-line-spacing: 4px;
 $selected-line-spacing-big: 8px;
 
@@ -65,8 +64,7 @@ $selected-line-spacing-big: 8px;
 }
 
 .moonstone-tabItem_big {
-    // height: $big-tab-height;
-    margin-bottom: calc($selected-line-spacing-big);
+    margin-bottom: $selected-line-spacing-big;
 
     .moonstone-tabItem_icon {
         margin-right: $spacing-icon_big;

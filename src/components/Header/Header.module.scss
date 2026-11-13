@@ -1,12 +1,7 @@
-$header-minHeight: 64px;
-$header-toolbar-minheight: 35px;
-
 .moonstone-header {
     z-index: 1;
 
     width: 100%;
-
-    // min-height: $header-minHeight;
     padding: var(--moon-spacing-small) var(--moon-spacing-medium) 0 var(--moon-spacing-medium);
 
     background-color: var(--moon-background-selector);
@@ -15,7 +10,7 @@ $header-toolbar-minheight: 35px;
 
 // Set the same spacing between each elements (buttons, chips, ...)
 .moonstone-header_actions {
-    >* + * {
+    > * + * {
         margin-left: var(--moon-spacing-small);
     }
 }
@@ -64,6 +59,4 @@ $header-toolbar-minheight: 35px;
 //---
 .moonstone-header_toolbar {
     padding-block: var(--moon-spacing-nano);
-
-    //     height: $header-toolbar-minheight;
 }

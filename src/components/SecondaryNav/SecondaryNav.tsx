@@ -42,7 +42,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
             }
             defaultSize={{
                 height: '0%',
-                width: '300px',
+                width: '280px',
             }}
             enable={isVisible ? ['right'] : []}
             i18n={{
