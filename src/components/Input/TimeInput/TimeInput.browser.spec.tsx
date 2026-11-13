@@ -72,7 +72,7 @@ describe('TimeInput keyboard', () => {
         expect(onChange.mock.calls[0][1].toString()).toBe('11:56:00');
     });
 
-    it.fails('opens the AM/PM selector with ArrowDown', async () => {
+    it('opens the AM/PM selector with ArrowDown', async () => {
         render(<TimeInput defaultValue="23:56" timeFormat="12h"/>);
         screen.getByRole('listbox', { name: 'AM/PM PM' }).focus();
         await userEvent.keyboard('{ArrowDown}');

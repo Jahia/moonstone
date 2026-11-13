@@ -59,9 +59,11 @@ import {Dropdown} from '@jahia/moonstone';
 ## Accessibility
 - Add an `aria-label` that names the field when the Dropdown is not in a [Field](?path=/docs/components-field--docs).
 - Override `i18n.clearButton` and `i18n.searchLabel` when translating; left unset, they default to English.
-- Enter opens the list. Space and the Down arrow key open it too (soon).
+- Enter, Space and the Down arrow key open the list.
 - Opening the list with the keyboard moves the focus into the options.
 - The Up and Down arrow keys move the focus between options.
 - Home and End move the focus to the first and last options.
+- In the search field, the Down arrow key moves the focus to the first option. Enter there selects nothing.
+- In a tree, the Right and Left arrow keys open and close the focused node, and `*` opens the nodes at its level.
 - Enter or Space selects the focused option and closes the list. In multiple selection, it toggles the option and the list stays open.
 - Escape closes the list and returns the focus to the trigger.

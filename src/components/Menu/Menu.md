@@ -39,3 +39,4 @@ import {Menu, MenuItem} from '@jahia/moonstone';
 - Enter or Space activates the focused item.
 - Home and End move the focus to the first and last items.
 - Escape returns the focus to the element that had it before and calls `onClose`: close the menu there. Without `onClose`, Escape does nothing.
+- In the search input, the Down arrow key moves the focus to the first enabled item. Enter there activates nothing: the search input only filters the items.
