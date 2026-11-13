@@ -116,6 +116,7 @@ function displayItems(direction: Direction, type: 'justify' | 'align') {
 
 export default {
     title: 'Utilities/Layout',
+    tags: ['internal', '!manifest'],
 
     parameters: {
         componentSubtitle: 'Layout',
