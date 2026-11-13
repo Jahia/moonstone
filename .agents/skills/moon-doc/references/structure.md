@@ -46,6 +46,8 @@ Per-section content (for phrasing, see `style.md`):
   attributes the Accessibility section requires (such as `aria-label` on a Switch). Nothing else.
   If that minimum makes no sense (a Button with neither `label` nor `icon`), the type is too
   loose: report it as a typing bug, and use the props that the bug says should be required.
+  A controlled component without the callback that changes its state is such a case (a
+  Dropdown without `onChange`, a Menu without `onClose`): the Example passes that callback.
   Every component used inside the Example follows the Accessibility section of its own doc.
   When a prop takes content the consumer builds (`children`, `content`, a slot), use
   `<YourContent/>`. Never a real implementation. Exception: when Moonstone components must be
