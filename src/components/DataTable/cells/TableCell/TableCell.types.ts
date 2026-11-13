@@ -11,11 +11,13 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
 
     /**
      * Name of the cell HTML element to render in the DOM
+     * @default 'td'
      */
     component?: 'td' | 'th';
 
     /**
      * How to align content horizontally within the table cell
+     * @default 'left'
      */
     align?: 'left' | 'center' | 'right';
 
@@ -31,6 +33,7 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
 
     /**
      * Children elements
+     * @default '-'
      */
     children?: React.ReactNode;
 

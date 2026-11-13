@@ -25,6 +25,7 @@ type BasicProps = Omit<React.ComponentPropsWithRef<'input'>, 'onChange' | 'value
 type ControlledProps = {
     /**
      * Whether the component should be checked (controlled)
+     * @default false
      */
     checked?: boolean;
 };
@@ -32,6 +33,7 @@ type ControlledProps = {
 type UncontrolledProps = {
     /**
      * Whether the component should be checked - default value (uncontrolled)
+     * @default false
      */
     defaultChecked?: boolean;
 };

@@ -34,7 +34,10 @@ export type ControlledTimezoneSelectorProps = BaseTimezoneSelectorProps & {
 
 export type UncontrolledTimezoneSelectorProps = BaseTimezoneSelectorProps & {
     value?: never;
-    /** Initial value in uncontrolled mode: IANA timezone identifier, or `null`. */
+    /**
+     * Initial value in uncontrolled mode: IANA timezone identifier, or `null`.
+     * @default null
+     */
     defaultValue?: string | null;
 
     /**

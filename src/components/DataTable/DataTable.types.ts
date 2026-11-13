@@ -8,7 +8,10 @@ export type { PaginationUncontrolledProps } from './pagination';
 export type SubRowKey = 'subRows';
 
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
-    /** Define HTML tag used to render the table */
+    /**
+     * Define HTML tag used to render the table
+     * @default 'table'
+     */
     component?: string;
     /** Additional classname */
     className?: string;
@@ -186,7 +189,10 @@ export type DataTableI18n = NonNullable<PaginationProps['i18n']> & {
 
 export type SelectionProps
     = | {
-        /** Enable selection for the table */
+        /**
+         * Enable selection for the table
+         * @default false
+         */
         enableSelection: true;
         /** Selected row primaryKey values (controlled) */
         selection: string[];
@@ -197,8 +203,15 @@ export type SelectionProps
         selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
     }
     | {
+        /**
+         * Enable selection for the table
+         * @default false
+         */
         enableSelection: true;
-        /** Initial selected rows primaryKey values (uncontrolled) */
+        /**
+         * Initial selected rows primaryKey values (uncontrolled)
+         * @default []
+         */
         defaultSelection?: string[];
         /** Optional callback to observe selection changes */
         onChangeSelection?: (selection: string[]) => void;

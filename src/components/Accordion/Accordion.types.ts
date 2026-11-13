@@ -5,6 +5,7 @@ import type { AccordionItemProps } from './AccordionItem/AccordionItem.types';
 type BasicProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className' | 'children'> & {
     /**
      * Whether the accordion uses reversed colors, for a dark background.
+     * @default false
      */
     isReversed?: boolean;
 

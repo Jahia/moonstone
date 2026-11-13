@@ -19,6 +19,7 @@ export type ButtonGroupProps = Omit<React.ComponentPropsWithRef<'div'>, 'childre
     variant?: ButtonVariant;
     /**
      * Color of the button
+     * @default 'default'
      */
     color?: ButtonColor;
     /**

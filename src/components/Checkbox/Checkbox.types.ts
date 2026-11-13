@@ -8,6 +8,7 @@ export type BasicCheckboxProps = Omit<React.ComponentPropsWithRef<'input'>, 'val
 
     /**
      * Size of the Checkbox
+     * @default 'default'
      */
     size?: 'default' | 'big';
 
@@ -28,6 +29,7 @@ export type BasicCheckboxProps = Omit<React.ComponentPropsWithRef<'input'>, 'val
 
     /**
      * Whether the checkbox should be indeterminate
+     * @default false
      */
     indeterminate?: boolean;
 
@@ -57,6 +59,7 @@ type ControlledProps = {
 type UncontrolledProps = {
     /**
      * Whether the checkbox should be checked - default value (uncontrolled)
+     * @default false
      */
     defaultChecked?: boolean;
 

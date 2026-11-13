@@ -5,6 +5,7 @@ import type { BadgeProps } from '~/components/Badge/Badge.types';
 export type PrimaryNavItemProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'onClick' | 'className'> & {
     /**
      * Label of the navigation entry
+     * @default ''
      */
     label?: string;
     /**
@@ -21,6 +22,7 @@ export type PrimaryNavItemProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'on
     button?: React.ReactNode;
     /**
      * Marks the item as the current page or section. Set it on only one item at a time.
+     * @default false
      */
     isSelected?: boolean;
     /**

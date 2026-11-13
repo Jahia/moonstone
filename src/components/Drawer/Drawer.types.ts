@@ -15,6 +15,7 @@ export type BasicDrawerProps = PaperCustomProps & {
 
     /**
      * Whether the Drawer is open
+     * @default false
      */
     isOpen?: boolean;
 

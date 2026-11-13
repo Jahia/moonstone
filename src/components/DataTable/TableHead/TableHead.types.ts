@@ -4,11 +4,13 @@ export type TableHeadProps = Omit<React.ComponentPropsWithoutRef<'thead'>, 'chil
     /**
      * Determines whether the table header row should stay sticky while the
      * table content is being scrolled through
+     * @default true
      */
     isSticky?: boolean;
 
     /**
      * Name of HTML element to render in the DOM for this component
+     * @default 'thead'
      */
     component?: string;
 

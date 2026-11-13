@@ -9,6 +9,7 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
 
     /**
      * Name of the cell HTML element to render in the DOM
+     * @default 'td' in TableBodyCell, 'th' in TableHeadCell
      */
     component?: 'td' | 'th';
 
@@ -24,11 +25,13 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
 
     /**
      * How to align content horizontally within the table cell
+     * @default 'left'
      */
     textAlign?: 'left' | 'center' | 'right';
 
     /**
      * How to align content vertically within the table cell
+     * @default 'middle'
      */
     verticalAlign?: 'top' | 'middle' | 'bottom';
 

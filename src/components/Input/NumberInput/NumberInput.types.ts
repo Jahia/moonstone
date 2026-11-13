@@ -19,6 +19,7 @@ export type BasicNumberInputProps = Omit<BaseInputProps, 'isShowClearButton' | '
 
     /**
      * Step to increase & decrease the value by
+     * @default 1
      */
     step?: number;
 

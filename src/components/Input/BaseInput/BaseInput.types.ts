@@ -20,16 +20,19 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
 
     /**
      * Whether the component should be disabled
+     * @default false
      */
     isDisabled?: boolean;
 
     /**
      * Whether the input should be read-only. It's still submittable.
+     * @default false
      */
     isReadOnly?: boolean;
 
     /**
      * Whether the input should be focused when displayed.
+     * @default false
      */
     focusOnField?: boolean;
 
@@ -40,6 +43,7 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
 
     /**
      * Whether the size of the input should be default or big
+     * @default 'default'
      */
     size?: 'default' | 'big';
 
@@ -51,6 +55,7 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
     /**
      * Visual style of the field.
      * @deprecated Use SearchInput instead of `search`, and Input instead of `text`. `ghost` will be removed: a field is always outlined.
+     * @default 'outlined'
      */
     variant?: 'text' | 'search' | 'outlined' | 'ghost';
 
@@ -146,6 +151,7 @@ type UncontrolledProps = {
 
     /**
      * Character to use as a separator
+     * @default '.'
      */
     separator?: '.' | ',';
 };
