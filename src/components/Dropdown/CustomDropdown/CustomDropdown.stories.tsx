@@ -17,12 +17,7 @@ export default {
     parameters: {
         layout: 'centered',
         componentSubtitle: 'Opens a menu of custom content from a button.',
-        docs: {
-            description: { component: markdownNotes },
-            // Fix issues in the doc tab with firefox
-            inlineStories: false,
-            IframeHeight: 500,
-        },
+        docs: { description: { component: markdownNotes } },
     },
 };
 

@@ -25,12 +25,7 @@ export default {
     parameters: {
         layout: 'centered',
         componentSubtitle: 'A select that also handles multiple and nested values.',
-        docs: {
-            description: { component: markdownNotes },
-            // Fix issues in the doc tab with firefox
-            inlineStories: false,
-            IframeHeight: 500,
-        },
+        docs: { description: { component: markdownNotes } },
     },
 };
 export const FlatData = {

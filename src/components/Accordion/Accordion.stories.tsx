@@ -15,9 +15,6 @@ export default {
     component: Accordion,
     tags: ['dark-theme'],
     subcomponents: { AccordionItem },
-    docs: {
-        IframeHeight: 800,
-    },
     decorators: [
         StoryCmp => (
             <div
