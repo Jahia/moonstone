@@ -15,6 +15,7 @@ import {
     dropdownDataTree,
     dropdownDataTreePill,
 } from '~/data';
+import { Love } from '~/icons';
 
 import type { DropdownDataOption, DropdownProps } from './Dropdown.types';
 
@@ -98,7 +99,7 @@ export const FlatData = {
     },
 
     args: {
-        icon: 'Love',
+        icon: <Love/>,
     },
 };
 
@@ -152,7 +153,7 @@ export const FlatDataMultiple = {
     },
 
     args: {
-        icon: 'Love',
+        icon: <Love/>,
     },
 };
 
@@ -213,7 +214,7 @@ export const GroupedData = {
     },
 
     args: {
-        icon: 'Love',
+        icon: <Love/>,
     },
 };
 
@@ -266,7 +267,7 @@ export const GroupedDataMultiple = {
     },
 
     args: {
-        icon: 'Love',
+        icon: <Love/>,
     },
 };
 
@@ -311,7 +312,7 @@ export const TreeData = {
     },
 
     args: {
-        icon: 'Love',
+        icon: <Love/>,
     },
 };
 
@@ -364,6 +365,6 @@ export const TreeDataMultiple = {
     },
 
     args: {
-        icon: 'Love',
+        icon: <Love/>,
     },
 };
