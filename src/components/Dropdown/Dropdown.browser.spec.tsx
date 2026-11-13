@@ -245,6 +245,17 @@ describe('Dropdown keyboard', () => {
             expect(screen.getByRole('treeitem', { name: /^Fruits/ })).toHaveFocus();
         });
 
+        it('chooses nothing with Enter in the search', async () => {
+            const { trigger, onChange } = renderDropdown({ data: undefined, treeData, hasSearch: true });
+            await openWithEnter(trigger);
+            screen.getByRole('searchbox').focus();
+            await userEvent.keyboard('Car');
+            await screen.findByRole('treeitem', { name: /^Carrot/ });
+            await userEvent.keyboard('{Enter}');
+            expect(onChange).not.toHaveBeenCalled();
+            expect(screen.getByRole('searchbox')).toHaveFocus();
+        });
+
         it('announces the empty text when the search finds nothing', async () => {
             const { trigger } = renderDropdown({ data: undefined, treeData, hasSearch: true });
             await openWithEnter(trigger);
