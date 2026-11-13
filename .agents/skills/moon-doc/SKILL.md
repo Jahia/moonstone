@@ -39,10 +39,9 @@ Ground every claim in the code. Read `<Component>.types.ts` (props and JSDoc), `
 ## Code bugs
 
 A code bug found while documenting (a JSDoc that disagrees with the code, a default the consumer
-can't override, any behaviour the docs would otherwise have to describe as a bug) goes through the
-`moon-ticket` skill, in its default *Write* mode. It verifies the bug, checks it for duplicates,
-and writes or updates a draft in `tickets/`. Never record code bugs anywhere else, never document
-them in the `.md`, and never publish the drafts: they wait for human review.
+can't override, any behaviour the docs would otherwise have to describe as a bug) becomes a GitHub
+issue of Jahia/moonstone. Verify the bug in the code, look for an issue that already covers it, and
+open one when none does. Never record code bugs anywhere else, and never document them in the `.md`.
 
 ## Review
 
@@ -62,5 +61,5 @@ by prop, and quote each `<!-- designer: … -->` question. Change nothing. End w
 ## Report
 
 Per component: files changed (or divergences found), `_Pending design guidance_` count, standard
-gaps, JSDoc blocks changed, snippets to apply, and the code bugs handed to `moon-ticket` (the
-draft written or updated in `tickets/`, or the issue that already covers each one). The render check in Storybook is always *pending* (a human step).
+gaps, JSDoc blocks changed, snippets to apply, and the code bugs found, each with the issue opened
+or the issue that already covers it. The render check in Storybook is always *pending* (a human step).
