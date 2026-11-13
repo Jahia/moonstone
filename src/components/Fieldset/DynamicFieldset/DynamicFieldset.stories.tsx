@@ -22,10 +22,10 @@ const meta: Meta<typeof DynamicFieldset> = {
         id: 'dynamic-fieldset',
         label: 'Dynamic fieldset',
         helper: 'dynamic fieldset information',
-        buttons: <Button icon={<MoreVert/>} variant="ghost"/>,
+        buttons: <Button aria-label="More actions" icon={<MoreVert/>} variant="ghost"/>,
         children: (
             <Field
-                buttons={<><Button icon={<Add/>} label="Add"/><Button icon={<MoreVert/>} variant="ghost"/></>}
+                buttons={<><Button icon={<Add/>} label="Add"/><Button aria-label="More actions" icon={<MoreVert/>} variant="ghost"/></>}
                 chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>}
                 helper="information"
                 id="field"

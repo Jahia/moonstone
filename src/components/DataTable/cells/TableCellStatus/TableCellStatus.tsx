@@ -1,6 +1,7 @@
 import clsx from 'clsx';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 
+import { TableRowContext } from '../../TableRow/TableRow.context';
 import { TableCell } from '../TableCell';
 import { layout } from '~/globals/css-utils.js';
 
@@ -16,23 +17,31 @@ const TableCellStatusForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEle
         ...props
     },
     ref,
-) => (
-    <TableCell
-        className={clsx(
-            style.tableCellStatus,
-            style[color],
-            className,
-        )}
-        component="td"
-        ref={ref}
-        width="8px"
-        {...props}
-    >
-        <div className={clsx(layout.flexRow_nowrap, layout.alignCenter, style.panel)}>
-            {children}
-        </div>
-    </TableCell>
-);
+) => {
+    const row = useContext(TableRowContext);
+    const registerStatus = row?.registerStatus;
+
+    useEffect(() => registerStatus?.(), [registerStatus]);
+
+    return (
+        <TableCell
+            className={clsx(
+                style.tableCellStatus,
+                style[color],
+                row?.isStatusDismissed && style.dismissed,
+                className,
+            )}
+            component="td"
+            ref={ref}
+            width="8px"
+            {...props}
+        >
+            <div className={clsx(layout.flexRow_nowrap, layout.alignCenter, style.panel)}>
+                {children}
+            </div>
+        </TableCell>
+    );
+};
 
 export const TableCellStatus = React.forwardRef(TableCellStatusForwardRef);
 TableCellStatus.displayName = 'TableCellStatus';

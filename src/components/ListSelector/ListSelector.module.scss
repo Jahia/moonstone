@@ -1,3 +1,5 @@
+@use "../../utils";
+
 $footerHeight: 24px;
 $gap: 8px;
 
@@ -30,5 +32,9 @@ $gap: 8px;
 .moonstone-listSelector_footer {
     height: $footerHeight;
 
-    color: var(--moon-color-gray60);
+    color: var(--moon-color-gray);
+}
+
+.moonstone-listSelector_visuallyHidden {
+    @include utils.visually-hidden;
 }

@@ -12,7 +12,7 @@ describe('Switch', () => {
 
     it('should add additional attributes', () => {
         render(<Switch aria-label="switch" data-custom="test"/>);
-        expect(screen.getByRole('checkbox')).toHaveAttribute(
+        expect(screen.getByRole('switch')).toHaveAttribute(
             'data-custom',
             'test',
         );
@@ -56,7 +56,7 @@ describe('Switch', () => {
         const user = userEvent.setup();
 
         render(<Switch aria-label="switch"/>);
-        const switchItem = screen.getByRole('checkbox');
+        const switchItem = screen.getByRole('switch');
         await user.click(switchItem);
 
         expect(switchItem).toBeChecked();
@@ -66,7 +66,7 @@ describe('Switch', () => {
         const user = userEvent.setup();
 
         render(<Switch aria-label="switch"/>);
-        const switchItem = screen.getByRole('checkbox');
+        const switchItem = screen.getByRole('switch');
         await user.click(switchItem);
         await user.click(switchItem);
 
@@ -75,22 +75,22 @@ describe('Switch', () => {
 
     it('should be unchecked by default', () => {
         render(<Switch aria-label="switch"/>);
-        expect(screen.getByRole('checkbox')).not.toBeChecked();
+        expect(screen.getByRole('switch')).not.toBeChecked();
     });
 
     it('should initially be checked on when the defaultChecked prop is set', () => {
         render(<Switch defaultChecked aria-label="switch"/>);
-        expect(screen.getByRole('checkbox')).toBeChecked();
+        expect(screen.getByRole('switch')).toBeChecked();
     });
 
     it('should initially be checked on when the checked prop is set', () => {
         render(<Switch checked aria-label="switch"/>);
-        expect(screen.getByRole('checkbox')).toBeChecked();
+        expect(screen.getByRole('switch')).toBeChecked();
     });
 
     it('should be disabled when isDisabled is set', () => {
         render(<Switch isDisabled aria-label="switch"/>);
-        expect(screen.getByRole('checkbox')).toBeDisabled();
+        expect(screen.getByRole('switch')).toBeDisabled();
     });
 
     it('should forward the ref to the input when uncontrolled', () => {
@@ -98,7 +98,7 @@ describe('Switch', () => {
 
         render(<Switch aria-label="switch" ref={ref}/>);
 
-        expect(ref.current).toBe(screen.getByRole('checkbox'));
+        expect(ref.current).toBe(screen.getByRole('switch'));
     });
 
     it('should forward the ref to the input when controlled', () => {
@@ -106,6 +106,6 @@ describe('Switch', () => {
 
         render(<Switch checked aria-label="switch" ref={ref} onChange={vi.fn()}/>);
 
-        expect(ref.current).toBe(screen.getByRole('checkbox'));
+        expect(ref.current).toBe(screen.getByRole('switch'));
     });
 });

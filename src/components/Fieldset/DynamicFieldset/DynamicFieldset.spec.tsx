@@ -41,6 +41,11 @@ describe('DynamicFieldset', () => {
         expect(screen.getByText('Click me')).toBeInTheDocument();
     });
 
+    it('should be a group named by its label, without the text of its buttons', () => {
+        render(<DynamicFieldset {...requiredProps} buttons={<Button label="Click me"/>}/>);
+        expect(screen.getByRole('group', { name: 'Dynamic fieldset label' })).toBeInTheDocument();
+    });
+
     it('should display multiple buttons', () => {
         render(
             <DynamicFieldset
@@ -68,9 +73,26 @@ describe('DynamicFieldset', () => {
                 </Field>
             </DynamicFieldset>,
         );
-        await user.click(screen.getByRole('checkbox'));
+        await user.click(screen.getByRole('switch'));
 
         expect(screen.getByDisplayValue('Input value')).toBeInTheDocument();
+    });
+
+    it('should toggle its own switch when its label is clicked', async () => {
+        const user = userEvent.setup();
+
+        render(
+            <>
+                <DynamicFieldset id="first" label="First"/>
+                <DynamicFieldset id="second" label="Second"/>
+            </>,
+        );
+        await user.click(screen.getByText('Second'));
+
+        const [first, second] = screen.getAllByRole('switch');
+        expect(second).toHaveAccessibleName('Second');
+        expect(second).toBeChecked();
+        expect(first).not.toBeChecked();
     });
 });
 
@@ -100,7 +122,7 @@ describe('UncontrolledDynamicFieldset', () => {
                 onChange={handleChange}
             />,
         );
-        await user.click(screen.getByRole('checkbox'));
+        await user.click(screen.getByRole('switch'));
 
         expect(handleChange).toHaveBeenCalledTimes(1);
     });
@@ -132,8 +154,14 @@ describe('ControlledDynamicFieldset', () => {
                 onChange={handleChange}
             />,
         );
-        await user.click(screen.getByRole('checkbox'));
+        await user.click(screen.getByRole('switch'));
 
         expect(handleChange).toHaveBeenCalledTimes(1);
+    });
+
+    it('should expose the state on the switch only', () => {
+        render(<DynamicFieldset {...requiredProps} checked data-testid="dynamic-fieldset"/>);
+        expect(screen.getByTestId('dynamic-fieldset')).not.toHaveAttribute('aria-checked');
+        expect(screen.getByRole('switch', { name: requiredProps.label })).toBeChecked();
     });
 });

@@ -17,6 +17,7 @@ export const LayoutContent = React.forwardRef(({
     isCentered = false,
     className,
     children,
+    i18n,
     ...props
 }: LayoutContentProps, ref: ForwardedRef<HTMLDivElement>) => {
     const classNameProps = clsx(
@@ -38,10 +39,14 @@ export const LayoutContent = React.forwardRef(({
             {...props}
         >
             {header}
-            <div aria-busy={isLoading ? 'true' : undefined} className={classNameProps}>
+            <section
+                aria-busy={isLoading ? 'true' : undefined}
+                aria-label={i18n?.contentLabel || undefined}
+                className={classNameProps}
+            >
                 {
                     isLoading
-                        ? <Loader size="big"/>
+                        ? <Loader i18n={{ loadingLabel: i18n?.loadingLabel }} size="big"/>
                         : (
                                 isCentered
                                     ? (
@@ -56,7 +61,7 @@ export const LayoutContent = React.forwardRef(({
                                     : children ?? content
                             )
                 }
-            </div>
+            </section>
         </div>
     );
 });

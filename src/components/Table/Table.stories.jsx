@@ -62,8 +62,8 @@ export const Basic = () => (
                 <TableBodyCell>cell 2</TableBodyCell>
                 <TableBodyCell>cell 3</TableBodyCell>
                 <TableBodyCell>
-                    <Button icon={<Edit/>} variant="ghost"/>
-                    <Button icon={<Visibility/>} variant="ghost"/>
+                    <Button aria-label="Edit" icon={<Edit/>} variant="ghost"/>
+                    <Button aria-label="View" icon={<Visibility/>} variant="ghost"/>
                 </TableBodyCell>
             </TableRow>
             <TableRow>
@@ -71,8 +71,8 @@ export const Basic = () => (
                 <TableBodyCell>cell 5</TableBodyCell>
                 <TableBodyCell>cell 6</TableBodyCell>
                 <TableBodyCell>
-                    <Button icon={<Edit/>} variant="ghost"/>
-                    <Button icon={<Visibility/>} variant="ghost"/>
+                    <Button aria-label="Edit" icon={<Edit/>} variant="ghost"/>
+                    <Button aria-label="View" icon={<Visibility/>} variant="ghost"/>
                 </TableBodyCell>
             </TableRow>
             <TableRow>
@@ -80,8 +80,8 @@ export const Basic = () => (
                 <TableBodyCell>cell 8</TableBodyCell>
                 <TableBodyCell>cell 9</TableBodyCell>
                 <TableBodyCell>
-                    <Button icon={<Edit/>} variant="ghost"/>
-                    <Button icon={<Visibility/>} variant="ghost"/>
+                    <Button aria-label="Edit" icon={<Edit/>} variant="ghost"/>
+                    <Button aria-label="View" icon={<Visibility/>} variant="ghost"/>
                 </TableBodyCell>
             </TableRow>
         </TableBody>
@@ -190,10 +190,10 @@ export const SelectableRows = {
                 {
                     id: 'selection',
                     Header: header => (
-                        <Checkbox {...header.getToggleAllRowsSelectedProps()}/>
+                        <Checkbox {...header.getToggleAllRowsSelectedProps()} aria-label="Select all rows"/>
                     ),
                     Cell: cellInfo => (
-                        <Checkbox {...cellInfo.row.getToggleRowSelectedProps()}/>
+                        <Checkbox {...cellInfo.row.getToggleRowSelectedProps()} aria-label="Select row"/>
                     ),
                     customWidth: columnsWidth.selection,
                 },
@@ -686,10 +686,10 @@ export const KitchenSinkFlat = {
                     id: 'selection',
                     customWidth: columnsWidth.selection,
                     Header: header => (
-                        <Checkbox {...header.getToggleAllRowsSelectedProps()}/>
+                        <Checkbox {...header.getToggleAllRowsSelectedProps()} aria-label="Select all rows"/>
                     ),
                     Cell: cellInfo => (
-                        <Checkbox {...cellInfo.row.getToggleRowSelectedProps()}/>
+                        <Checkbox {...cellInfo.row.getToggleRowSelectedProps()} aria-label="Select row"/>
                     ),
                 },
                 {
@@ -820,10 +820,10 @@ export const KitchenSinkNested = {
                     id: 'selection',
                     customWidth: columnsWidth.selection,
                     Header: header => (
-                        <Checkbox {...header.getToggleAllRowsSelectedProps()}/>
+                        <Checkbox {...header.getToggleAllRowsSelectedProps()} aria-label="Select all rows"/>
                     ),
                     Cell: cellInfo => (
-                        <Checkbox {...cellInfo.row.getToggleRowSelectedProps()}/>
+                        <Checkbox {...cellInfo.row.getToggleRowSelectedProps()} aria-label="Select row"/>
                     ),
                 },
                 {

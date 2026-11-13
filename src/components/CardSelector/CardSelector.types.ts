@@ -15,7 +15,7 @@ type BasicProps = Omit<React.ComponentPropsWithRef<'button'>, 'className' | 'id'
     id: string;
 
     /**
-     * Additional classname
+     * Additional classname, on the card. The other props, the ref included, go on the card button.
      */
     className?: string;
 

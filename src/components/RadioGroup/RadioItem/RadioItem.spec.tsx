@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { RadioGroup } from '../RadioGroup';
 import { RadioItem } from './index';
@@ -25,14 +26,14 @@ describe('radio', () => {
         expect(screen.getByDisplayValue('02')).toBeDisabled();
     });
 
-    it('should be read-only when isReadOnly is set', () => {
+    it('should not put aria-readonly on a read-only radio, which does not support it', () => {
         render(
             <RadioGroup name="test-name">
                 <RadioItem id="radio-01" label="radio 01" value="01"/>
                 <RadioItem isReadOnly id="radio-02" label="radio 02" value="02"/>
             </RadioGroup>,
         );
-        expect(screen.getByDisplayValue('02')).toHaveAttribute('aria-readonly', 'true');
+        expect(screen.getByDisplayValue('02')).not.toHaveAttribute('aria-readonly');
     });
 
     it('should display the description', () => {
@@ -43,5 +44,20 @@ describe('radio', () => {
             </RadioGroup>,
         );
         expect(screen.getByText('radio description')).toBeInTheDocument();
+    });
+
+    it('should call the onChange of the item and of the group', async () => {
+        const user = userEvent.setup();
+        const onItemChange = vi.fn();
+        const onGroupChange = vi.fn();
+        render(
+            <RadioGroup defaultValue="02" name="test-name" onChange={onGroupChange}>
+                <RadioItem id="radio-01" label="radio 01" value="01" onChange={onItemChange}/>
+                <RadioItem id="radio-02" label="radio 02" value="02"/>
+            </RadioGroup>,
+        );
+        await user.click(screen.getByLabelText('radio 01'));
+        expect(onItemChange).toHaveBeenCalledTimes(1);
+        expect(onGroupChange).toHaveBeenCalledTimes(1);
     });
 });

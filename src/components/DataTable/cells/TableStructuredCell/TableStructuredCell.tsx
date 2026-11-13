@@ -1,9 +1,10 @@
 import clsx from 'clsx';
-import React from 'react';
+import React, { useId } from 'react';
 
 import { TableCell } from '../TableCell';
 import { Typography } from '~/components';
 import { layout } from '~/globals/css-utils.js';
+import { mergeHandlers } from '~/hooks';
 import { ChevronDown, ChevronRight } from '~/icons';
 
 import type { TableStructuredCellProps } from './TableStructuredCell.types';
@@ -27,6 +28,8 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
         },
         ref,
     ) => {
+        const contentId = useId();
+
         // Render nothing when no children are provided to avoid empty HTML markup
         if (!children) {
             return null;
@@ -37,14 +40,11 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             event.stopPropagation();
             onToggleExpand?.();
         };
-
         return (
             <TableCell
-                aria-expanded={isExpanded}
                 className={clsx(styles.tableStructuredCell, className)}
                 ref={ref}
-                onClick={handleToggleExpand}
-                {...props}
+                {...mergeHandlers(props, { onClick: handleToggleExpand })}
             >
                 <div
                     className={clsx(
@@ -61,9 +61,18 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                     {isExpandable
                         ? (
                                 <>
-                                    {isExpanded
-                                        ? <ChevronDown/>
-                                        : <ChevronRight/>}
+                                    {/* Only the chevron is the button: the content may hold a link or a button. Its click bubbles to the onClick of the cell */}
+                                    <Typography
+                                        aria-expanded={isExpanded}
+                                        aria-labelledby={contentId}
+                                        className={styles.toggle}
+                                        component="button"
+                                        type="button"
+                                    >
+                                        {isExpanded
+                                            ? <ChevronDown/>
+                                            : <ChevronRight/>}
+                                    </Typography>
                                     <Typography
                                         isNowrap
                                         className={clsx(
@@ -72,6 +81,7 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                                             { [styles.scrollable]: isScrollable },
                                         )}
                                         component="div"
+                                        id={contentId}
                                     >
                                         {children}
                                     </Typography>

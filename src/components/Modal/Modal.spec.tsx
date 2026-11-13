@@ -53,4 +53,54 @@ describe('Modal', () => {
 
         expect(screen.getByTestId('moonstone-modal')).toBeInTheDocument();
     });
+
+    it('should be named by the title of its header', () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+        render(<Modal isOpen><ModalHeader title="Modal title">Modal content</ModalHeader></Modal>);
+        expect(screen.getByRole('dialog', { name: 'Modal title' })).toBeInTheDocument();
+        expect(warn).not.toHaveBeenCalled();
+        warn.mockRestore();
+    });
+
+    it('should warn when it has no header and no aria-label', () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+        render(<Modal isOpen><ModalBody>Modal content</ModalBody></Modal>);
+        expect(warn).toHaveBeenCalledWith('Modal: add a ModalHeader with a title, or an aria-label, to name the dialog');
+        warn.mockRestore();
+    });
+
+    it('should let the consumer name the modal', () => {
+        render(<Modal isOpen aria-label="Custom name"><ModalHeader title="Modal title"/></Modal>);
+        expect(screen.getByRole('dialog', { name: 'Custom name' })).toBeInTheDocument();
+    });
+
+    it('should not close on a press outside that is not released', async () => {
+        const user = userEvent.setup();
+        render(<ModalWithButton/>);
+        await user.click(screen.getByLabelText('Open modal'));
+
+        await user.pointer({ keys: '[MouseLeft>]', target: document.body });
+
+        expect(screen.getByTestId('moonstone-modal')).toBeInTheDocument();
+    });
+
+    it('should close on a click outside', async () => {
+        const user = userEvent.setup();
+        render(<ModalWithButton/>);
+        await user.click(screen.getByLabelText('Open modal'));
+
+        await user.click(document.body);
+
+        expect(screen.queryByTestId('moonstone-modal')).not.toBeInTheDocument();
+    });
+    it('should call the onMouseDown of the consumer and not close on a drag that starts inside', async () => {
+        const user = userEvent.setup();
+        const onMouseDown = vi.fn();
+        const onOpenChange = vi.fn();
+        render(<Modal isOpen aria-label="Dialog" onMouseDown={onMouseDown} onOpenChange={onOpenChange}><ModalBody>Modal content</ModalBody></Modal>);
+        // Press inside the dialog, release outside it
+        await user.pointer([{ keys: '[MouseLeft>]', target: screen.getByText('Modal content') }, { keys: '[/MouseLeft]', target: document.body }]);
+        expect(onMouseDown).toHaveBeenCalledTimes(1);
+        expect(onOpenChange).not.toHaveBeenCalled();
+    });
 });

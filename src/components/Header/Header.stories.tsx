@@ -141,12 +141,14 @@ export const Full: Story = {
         ],
         toolbarRight: [
             <Button
+                aria-label="Grid view"
                 icon={<ViewGrid/>}
                 key="1"
                 variant="ghost"
                 onClick={() => undefined}
             />,
             <Button
+                aria-label="List view"
                 icon={<ViewList/>}
                 key="2"
                 variant="ghost"

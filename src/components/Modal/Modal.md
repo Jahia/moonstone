@@ -11,3 +11,6 @@ A dialog integrated with Floating UI
 <ModalFooter>{children}</ModalFooter>
 </Modal>
 ```
+### Accessibility
+
+The title of the `ModalHeader` names the modal for screen readers. A modal without a `ModalHeader` takes an `aria-label`.

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useRef } from 'react';
+import React, { useId, useRef } from 'react';
 
 import { Typography } from '~/components';
 import { RadioGroupContext } from '~/components/RadioGroup/RadioGroup.context';
@@ -11,20 +11,21 @@ import type { RadioItemProps } from './RadioItem.types';
 import styles from './RadioItem.module.scss';
 
 export const RadioItem: React.FC<RadioItemProps> = ({
-    className, id, value, label, description, isDisabled, isReadOnly, ...props
+    className, id, value, label, description, isDisabled, isReadOnly, onChange, ...props
 }) => {
     const context = React.useContext(RadioGroupContext);
     const isDisabledItem = (typeof context.isDisabled === 'undefined') ? isDisabled : context.isDisabled;
     const isReadOnlyItem = (typeof context.isReadOnly === 'undefined') ? isReadOnly : context.isReadOnly;
     const containerRef = useRef(null);
+    const generatedId = useId();
+    const itemId = id ?? generatedId;
 
     return (
         <Typography
-            aria-disabled={isDisabledItem}
-            aria-readonly={isReadOnlyItem}
             className={clsx(
                 ['moonstone-radio-container', styles['moonstone-radio-container']],
                 ['flexCol', layout.flexCol],
+                isReadOnlyItem && ['moonstone-readonly', styles['moonstone-readonly']],
                 className,
             )}
             component="label"
@@ -37,17 +38,19 @@ export const RadioItem: React.FC<RadioItemProps> = ({
                     <input
                         {...props}
                         disabled={isDisabledItem}
-                        aria-describedby={description ? `${id}-description` : null}
-                        aria-labelledby={`${id}-label`}
-                        aria-readonly={isReadOnlyItem}
+                        aria-describedby={description ? `${itemId}-description` : null}
+                        aria-labelledby={`${itemId}-label`}
                         checked={context.value === value}
                         className={clsx('moonstone-radio_input', styles['moonstone-radio_input'])}
-                        id={id}
+                        id={itemId}
                         name={context.name}
                         type="radio"
                         value={value}
                         onChange={(event) => {
-                            context.onChange(event, value);
+                            if (!isReadOnlyItem) {
+                                onChange?.(event);
+                                context.onChange(event, value);
+                            }
                         }}
                     />
                     <RadioChecked className={clsx(
@@ -62,7 +65,7 @@ export const RadioItem: React.FC<RadioItemProps> = ({
                 <Typography
                     className={clsx('moonstone-radio-label', styles['moonstone-radio-label'])}
                     component="span"
-                    id={`${id}-label`}
+                    id={`${itemId}-label`}
                     variant="body"
                     weight="default"
                 >
@@ -76,7 +79,7 @@ export const RadioItem: React.FC<RadioItemProps> = ({
                         ['flexRow', layout.flexRow],
                     )}
                     component="span"
-                    id={`${id}-description`}
+                    id={`${itemId}-description`}
                     variant="caption"
                     weight="default"
                 >

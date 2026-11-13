@@ -3,6 +3,7 @@ import React from 'react';
 
 import { Separator, Typography } from '~/components';
 import { layout } from '~/globals/css-utils.js';
+import { warnOnce } from '~/utils/warnOnce';
 
 import type { HeaderProps } from './Header.types';
 
@@ -18,6 +19,7 @@ export const Header: React.FC<HeaderProps> = ({
     toolbarLeft,
     backButton = null,
     breadcrumb,
+    i18n,
     className,
     ...props
 }: HeaderProps) => {
@@ -25,7 +27,7 @@ export const Header: React.FC<HeaderProps> = ({
     const hasToolbar = Boolean(toolbarLeft || toolbarRight);
 
     if (backButton !== null) {
-        console.warn('backButton is deprecated and will be removed in a future release.');
+        warnOnce('Header.backButton', 'backButton is deprecated and will be removed in a future release.');
     }
 
     return (
@@ -115,12 +117,13 @@ export const Header: React.FC<HeaderProps> = ({
                 <>
                     {hasInformationArea && <Separator spacing="none"/>}
                     <div
+                        aria-label={i18n?.toolbarLabel || 'Page actions'}
                         className={clsx(
                             ['flexRow_between', layout.flexRow_between],
                             ['alignCenter', layout.alignCenter],
                             ['moonstone-header_toolbar', styles['moonstone-header_toolbar']],
                         )}
-                        role="toolbar"
+                        role="group"
                     >
                         <div
                             className={clsx(

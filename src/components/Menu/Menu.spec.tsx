@@ -14,7 +14,29 @@ describe('Menu', () => {
         expect(screen.queryByTestId('moonstone-menu')).not.toBeInTheDocument();
     });
 
+    it.each([false, null])('should render and search when the first child is %s', async (empty) => {
+        const user = userEvent.setup();
+
+        render(
+            <Menu hasSearch isDisplayed>
+                {empty}
+                <MenuItem label="Item1"/>
+            </Menu>,
+        );
+        await user.type(screen.getByRole('searchbox'), 'Item');
+        expect(screen.getByText('Item1')).toBeInTheDocument();
+    });
+
     describe('search functionality', () => {
+        it('should name the search input', () => {
+            render(
+                <Menu hasSearch isDisplayed>
+                    <MenuItem label="Item1"/>
+                </Menu>,
+            );
+            expect(screen.getByRole('searchbox')).toHaveAccessibleName('Search');
+        });
+
         it('should show the correct search results', async () => {
             const user = userEvent.setup();
 
@@ -79,7 +101,27 @@ describe('Menu', () => {
             );
             await user.type(screen.getByRole('searchbox'), 'random search text');
 
-            expect(screen.getByText(searchEmptyText)).toBeInTheDocument();
+            expect(screen.getByRole('status')).toHaveTextContent(searchEmptyText);
+        });
+
+        it('should keep the status live region mounted while there are results', () => {
+            render(
+                <Menu hasSearch isDisplayed data-testid="moonstone-menu">
+                    <MenuItem label="Item1"/>
+                </Menu>,
+            );
+
+            expect(screen.getByRole('status')).toBeEmptyDOMElement();
+        });
+
+        it('should not render a status live region when there is no search', () => {
+            render(
+                <Menu isDisplayed data-testid="moonstone-menu">
+                    <MenuItem label="Item1"/>
+                </Menu>,
+            );
+
+            expect(screen.queryByRole('status')).not.toBeInTheDocument();
         });
     });
 

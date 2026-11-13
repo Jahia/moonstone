@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { LayoutContent } from './index';
 
@@ -12,6 +13,28 @@ describe('LayoutContent', () => {
         expect(screen.getByText('test-header')).toBeInTheDocument();
     });
 
+    it('should not take the focus on a click inside it', async () => {
+        const user = userEvent.setup();
+        render(<LayoutContent i18n={{ contentLabel: 'Users' }}><p>text</p><button type="button">action</button></LayoutContent>);
+        await user.click(screen.getByText('text'));
+        expect(screen.getByRole('region', { name: 'Users' })).not.toHaveFocus();
+    });
+
+    it('should expose no region landmark without i18n.contentLabel', () => {
+        render(<LayoutContent {...requiredProps}/>);
+        expect(screen.queryByRole('region')).not.toBeInTheDocument();
+    });
+
+    it('should render no aria-label attribute when i18n.contentLabel is empty', () => {
+        render(<LayoutContent {...requiredProps} i18n={{ contentLabel: '' }}/>);
+        expect(screen.getByText(requiredProps.children)).not.toHaveAttribute('aria-label');
+    });
+
+    it('should name the content area with i18n.contentLabel', () => {
+        render(<LayoutContent {...requiredProps} i18n={{ contentLabel: 'Users' }}/>);
+        expect(screen.getByRole('region', { name: 'Users' })).toBeInTheDocument();
+    });
+
     it('should display content', () => {
         render(<LayoutContent {...requiredProps}/>);
         expect(screen.getByText(requiredProps.children)).toBeInTheDocument();
@@ -21,6 +44,11 @@ describe('LayoutContent', () => {
         render(<LayoutContent isLoading {...requiredProps}/>);
         expect(screen.getByRole('status')).toBeInTheDocument();
         expect(screen.queryByText(requiredProps.children)).not.toBeInTheDocument();
+    });
+
+    it('should name the loader with i18n.loadingLabel', () => {
+        render(<LayoutContent isLoading i18n={{ loadingLabel: 'Chargement' }} {...requiredProps}/>);
+        expect(screen.getByRole('status')).toHaveAccessibleName('Chargement');
     });
 
     it('should have the class "moonstone-layoutContent_centered" when "isCentered" set to true', () => {

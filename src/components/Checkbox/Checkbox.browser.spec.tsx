@@ -53,6 +53,28 @@ describe('Checkbox keyboard', () => {
         expect(onChange).toHaveBeenCalledWith(expect.anything(), 'a', false);
     });
 
+    it('keeps a read-only checkbox unchecked with Space', async () => {
+        const onChange = vi.fn();
+        render(<Checkbox isReadOnly value="a" onChange={onChange}/>);
+        screen.getByRole('checkbox').focus();
+        await userEvent.keyboard(' ');
+        expect(screen.getByRole('checkbox')).not.toBeChecked();
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it('should give the keyboard focus to a read-only checkbox', async () => {
+        render(
+            <>
+                <button type="button">before</button>
+                <Checkbox isReadOnly value="a"/>
+            </>,
+        );
+        screen.getByRole('button', { name: 'before' }).focus();
+        await userEvent.keyboard('{Tab}');
+        expect(screen.getByRole('checkbox')).toHaveFocus();
+        expect(screen.getByRole('checkbox').matches(':focus-visible')).toBe(true);
+    });
+
     it('skips a disabled checkbox in the tab sequence', async () => {
         render(
             <>
@@ -69,11 +91,20 @@ describe('Checkbox keyboard', () => {
     it('becomes checked with Space when indeterminate', async () => {
         const onChange = vi.fn();
         render(<IndeterminateCheckbox onChange={onChange}/>);
-        expect(screen.getByRole('checkbox')).toHaveAttribute('aria-checked', 'mixed');
+        expect(screen.getByRole('checkbox')).toBePartiallyChecked();
         screen.getByRole('checkbox').focus();
         await userEvent.keyboard(' ');
         expect(onChange).toHaveBeenCalledWith(true);
         expect(screen.getByRole('checkbox')).toBeChecked();
-        expect(screen.getByRole('checkbox')).toHaveAttribute('aria-checked', 'true');
+    });
+});
+
+describe('Checkbox pointer', () => {
+    it.each(['default', 'big'] as const)('checks with a click 1px inside the 24px target around a %s box', async (size) => {
+        render(<div style={{ padding: 8 }}><Checkbox aria-label="Accept" size={size} value="a"/></div>);
+        const checkbox = screen.getByRole('checkbox');
+        const { width, height } = checkbox.getBoundingClientRect();
+        await userEvent.click(checkbox, { position: { x: ((width - 24) / 2) + 1, y: ((height - 24) / 2) + 1 }, force: true });
+        expect(checkbox).toBeChecked();
     });
 });

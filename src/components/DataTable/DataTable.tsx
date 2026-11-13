@@ -25,6 +25,8 @@ import { toNodeArray } from '~/utils/helpers';
 import type { DataTableProps, RenderOptions } from './DataTable.types';
 import type { Row } from '@tanstack/react-table';
 
+import styles from './DataTable.module.scss';
+
 // Styles for custom column headers (no padding to match measured cell widths)
 const CUSTOM_HEADER_STYLE = { padding: 0 };
 
@@ -48,6 +50,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     defaultExpandedRows,
     onExpandChange,
     renderRow,
+    customColumnLabels,
     onClickTableHeadCell,
     selectionCellProps,
     // Pagination props
@@ -155,6 +158,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     {enableSelection && (
                         <TableCell width="auto" {...selectionCellProps}>
                             <Checkbox
+                                aria-label={i18n?.selectRow || 'Select row'}
                                 checked={row.getIsSelected()}
                                 onChange={row.getToggleSelectedHandler()}
                             />
@@ -173,7 +177,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 </>
             );
         },
-        [enableSelection, isStructured, registerCustomCellCounts, selectionCellProps, withCustomCellObserver],
+        [enableSelection, isStructured, registerCustomCellCounts, selectionCellProps, i18n?.selectRow, withCustomCellObserver],
     );
 
     const renderRowWithCustomization = useCallback(
@@ -226,13 +230,17 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                     key={`custom-before-header-${i}`}
                                     style={CUSTOM_HEADER_STYLE}
                                     width={customHeaderWidths.before[i]}
-                                />
+                                >
+                                    {customColumnLabels?.before?.[i] && <span className={styles.dataTable_hiddenLabel}>{customColumnLabels.before[i]}</span>}
+                                </TableHeadCell>
                             ))}
 
                             {/* Selection header */}
                             {enableSelection && (
                                 <TableHeadCell width="auto" {...selectionCellProps}>
+                                    <span className={styles.dataTable_hiddenLabel}>{i18n?.selectionColumnLabel || 'Selection'}</span>
                                     <Checkbox
+                                        aria-label={i18n?.selectAllRows || 'Select all rows'}
                                         checked={table.getIsAllRowsSelected()}
                                         indeterminate={table.getIsSomeRowsSelected()}
                                         onChange={table.getToggleAllRowsSelectedHandler()}
@@ -254,7 +262,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                     key={`custom-after-header-${i}`}
                                     style={CUSTOM_HEADER_STYLE}
                                     width={customHeaderWidths.after[i]}
-                                />
+                                >
+                                    {customColumnLabels?.after?.[i] && <span className={styles.dataTable_hiddenLabel}>{customColumnLabels.after[i]}</span>}
+                                </TableHeadCell>
                             ))}
                         </TableRow>
                     ))}

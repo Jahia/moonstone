@@ -137,12 +137,12 @@ describe('ButtonToggle', () => {
                 label="test me"
             />,
         );
-        expect(screen.getByRole('status')).toBeInTheDocument();
+        expect(screen.getByRole('status', { hidden: true })).toBeInTheDocument();
     });
 
     it('should display loader when an iconStart is provided', () => {
         render(<ButtonToggle isLoading iconStart={<Apps/>} label="test me"/>);
-        expect(screen.getByRole('status')).toBeInTheDocument();
+        expect(screen.getByRole('status', { hidden: true })).toBeInTheDocument();
     });
 
     it('should prevent click when the button is loading', async () => {

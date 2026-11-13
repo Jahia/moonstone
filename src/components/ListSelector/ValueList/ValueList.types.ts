@@ -45,9 +45,13 @@ export type ValueListProps = {
      */
     listClasses?: string[];
     /**
-     * List role
+     * aria-label of the <ul> element
      */
-    role: string;
+    listLabel?: string;
+    /**
+     * Side of the selector the list sits on: the left list holds the available values, the right list the selected ones
+     */
+    side: 'left' | 'right';
     /**
      * OnClick callback
      */

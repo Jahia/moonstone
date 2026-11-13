@@ -44,14 +44,14 @@ describe('TimezoneSelector keyboard', () => {
         expect(screen.getByRole('searchbox')).toHaveFocus();
     });
 
-    it.fails('opens with Space', async () => {
+    it('opens with Space', async () => {
         const { trigger } = renderSelector();
         trigger.focus();
         await userEvent.keyboard(' ');
         expect(await screen.findByRole('list')).toBeInTheDocument();
     });
 
-    it.fails('opens with ArrowDown', async () => {
+    it('opens with ArrowDown', async () => {
         const { trigger } = renderSelector();
         trigger.focus();
         await userEvent.keyboard('{ArrowDown}');
@@ -65,7 +65,7 @@ describe('TimezoneSelector keyboard', () => {
         expect(screen.queryByText(/^Paris/)).not.toBeInTheDocument();
     });
 
-    it.fails('moves focus to the first option with ArrowDown from the search input', async () => {
+    it('moves focus to the first option with ArrowDown from the search input', async () => {
         const { trigger } = renderSelector();
         await openAndSearch(trigger);
         await userEvent.keyboard('{ArrowDown}');
@@ -91,7 +91,7 @@ describe('TimezoneSelector keyboard', () => {
         await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
     });
 
-    it.fails('closes with Escape and returns focus to the trigger', async () => {
+    it('closes with Escape and returns focus to the trigger', async () => {
         const { trigger } = renderSelector();
         await openAndSearch(trigger);
         await userEvent.keyboard('{Escape}');

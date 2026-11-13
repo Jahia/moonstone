@@ -40,7 +40,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ children, className, ...
                             )
                         : (
                                 <Fragment key={item.key}>
-                                    {React.cloneElement(item, { 'aria-current': 'page' })}
+                                    {React.cloneElement(item, { 'aria-current': item.props['aria-current'] ?? 'page' })}
                                 </Fragment>
                             )
                 ))}

@@ -15,7 +15,9 @@ import {
     type TimeSegment,
 } from './timeHelpers';
 import { Dropdown } from '~/components';
+import { WithoutField } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils';
+import { mergeHandlers, shouldIgnoreKey } from '~/hooks';
 import { Clock } from '~/icons';
 
 import type { ControlledTimeInputProps } from './TimeInput.types';
@@ -34,6 +36,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
     className,
     isDisabled,
     isReadOnly,
+    i18n,
     ...props
 }, ref) => {
     const time = toPlainTime(value);
@@ -72,7 +75,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         const input = inputRef.current;
-        if (!input || isDisabled || isReadOnly) {
+        if (!input || isDisabled || isReadOnly || shouldIgnoreKey(event)) {
             return;
         }
 
@@ -105,7 +108,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
         <div className={clsx(styles.timeInput, layout.flexRow_nowrap, layout.alignCenter, className)}>
             <BaseInput
                 ref={handleRef}
-                {...props}
+                {...mergeHandlers(props, { onKeyDown: handleKeyDown })}
                 isDisabled={isDisabled}
                 isReadOnly={isReadOnly}
                 autoComplete="off"
@@ -122,30 +125,32 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
                     }
                 }}
                 onChange={event => setDraft(formatTimeInput(event.target.value, timeFormat))}
-                onKeyDown={handleKeyDown}
             />
             {meridiem && (
-                <Dropdown
-                    {...meridiemDropdownProps}
-                    isDisabled={isDisabled || isReadOnly}
-                    className={clsx(styles.meridiemDropdown, meridiemDropdownProps?.className)}
-                    data={[{
-                        label: 'AM',
-                        value: 'AM',
-                    }, {
-                        label: 'PM',
-                        value: 'PM',
-                    }]}
-                    size={size === 'big' ? 'medium' : 'small'}
-                    value={meridiem}
-                    variant={variant}
-                    onChange={(event: React.SyntheticEvent, item?: DropdownDataOption) => {
-                        // An empty field has no time to re-emit.
-                        if (displayValue && (item?.value === 'AM' || item?.value === 'PM')) {
-                            emitChange(event, parseTimeInput(displayValue, '12h', item.value));
-                        }
-                    }}
-                />
+                <WithoutField>
+                    <Dropdown
+                        aria-label={i18n?.meridiemLabel || 'AM/PM'}
+                        {...meridiemDropdownProps}
+                        isDisabled={isDisabled || isReadOnly}
+                        className={clsx(styles.meridiemDropdown, meridiemDropdownProps?.className)}
+                        data={[{
+                            label: 'AM',
+                            value: 'AM',
+                        }, {
+                            label: 'PM',
+                            value: 'PM',
+                        }]}
+                        size={size === 'big' ? 'medium' : 'small'}
+                        value={meridiem}
+                        variant={variant}
+                        onChange={(event: React.SyntheticEvent, item?: DropdownDataOption) => {
+                            // An empty field has no time to re-emit.
+                            if (displayValue && (item?.value === 'AM' || item?.value === 'PM')) {
+                                emitChange(event, parseTimeInput(displayValue, '12h', item.value));
+                            }
+                        }}
+                    />
+                </WithoutField>
             )}
         </div>
     );

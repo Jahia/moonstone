@@ -10,7 +10,6 @@ import styles from './SecondaryNavHeader.module.scss';
 
 export const SecondaryNavHeader: React.FC<SecondaryNavHeaderProps> = ({ children }) => (
     <Typography
-        aria-label="moonstone-secondaryNavHeader"
         className={clsx(
             ['moonstone-secondaryNavHeader', styles['moonstone-secondaryNavHeader']],
             ['flexCol_center', layout.flexCol_center],

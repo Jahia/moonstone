@@ -1,6 +1,8 @@
+import { FloatingList } from '@floating-ui/react';
 import clsx from 'clsx';
-import React from 'react';
+import React, { useMemo, useRef } from 'react';
 
+import { FieldContext } from './Field.context';
 import { Typography } from '~/components';
 import { layout } from '~/globals/css-utils.js';
 
@@ -20,6 +22,15 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
     className,
     ...props
 }, ref) => {
+    const hasErrorMessage = Boolean(hasError && errorMessage);
+    const controlsRef = useRef<HTMLElement[]>([]);
+    const field = useMemo(() => ({
+        labelId: `${id}-label`,
+        controlId: `${id}-control`,
+        descriptionId: [helper && `${id}-helper`, hasErrorMessage && `${id}-error`].filter(Boolean).join(' ') || undefined,
+        hasError,
+    }), [id, helper, hasErrorMessage, hasError]);
+
     if (!children) {
         return null;
     }
@@ -50,7 +61,15 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
                         ['alignCenter', layout.alignCenter],
                     )}
                 >
-                    <Typography isNowrap component="label" weight="bold">{label}</Typography>
+                    <Typography
+                        isNowrap
+                        component="label"
+                        htmlFor={field.controlId}
+                        id={field.labelId}
+                        weight="bold"
+                    >
+                        {label}
+                    </Typography>
                     {chips
                         && (
                             <div
@@ -84,16 +103,18 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
                     )}
             </div>
             {helper
-                && <Typography className={clsx('moonstone-field_helper', styles['moonstone-field_helper'])} variant="caption">{helper}</Typography>}
+                && <Typography className={clsx('moonstone-field_helper', styles['moonstone-field_helper'])} id={`${id}-helper`} variant="caption">{helper}</Typography>}
             <div
                 className={clsx(
                     ['moonstone-field_children', styles['moonstone-field_children']],
                     ['flexCol_nowrap', layout.flexCol_nowrap],
                 )}
             >
-                {children}
-                {hasError && errorMessage
-                    && <Typography className={clsx('moonstome-field_errorMessage', styles['moonstome-field_errorMessage'])} variant="caption">{errorMessage}</Typography>}
+                <FieldContext.Provider value={field}>
+                    <FloatingList elementsRef={controlsRef}>{children}</FloatingList>
+                </FieldContext.Provider>
+                {hasErrorMessage
+                    && <Typography className={clsx('moonstome-field_errorMessage', styles['moonstome-field_errorMessage'])} id={`${id}-error`} role="alert" variant="caption">{errorMessage}</Typography>}
             </div>
         </div>
     );

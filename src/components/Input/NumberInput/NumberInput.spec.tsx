@@ -93,16 +93,36 @@ describe('NumberInput', () => {
     it('should increase value by step on arrowUp', async () => {
         const user = userEvent.setup();
 
-        render(<NumberInput data-testid="moonstone-numberInput" step={1} value="5"/>);
+        render(<NumberInput data-testid="moonstone-numberInput" defaultValue="5" step={1}/>);
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowUp]');
         expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('6');
     });
 
+    it('should call a consumer onKeyUp and still increase the value on arrowUp', async () => {
+        const user = userEvent.setup();
+        const onKeyUp = vi.fn();
+
+        render(<NumberInput data-testid="moonstone-numberInput" defaultValue="5" step={1} onKeyUp={onKeyUp}/>);
+        await user.keyboard('[Tab]');
+        await user.keyboard('[ArrowUp]');
+        expect(onKeyUp).toHaveBeenCalled();
+        expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('6');
+    });
+
+    it('should not increase the value when a consumer onKeyUp prevents the default', async () => {
+        const user = userEvent.setup();
+
+        render(<NumberInput data-testid="moonstone-numberInput" step={1} value="5" onKeyUp={e => e.preventDefault()}/>);
+        await user.keyboard('[Tab]');
+        await user.keyboard('[ArrowUp]');
+        expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('5');
+    });
+
     it('should decrease value by step on arrowDown', async () => {
         const user = userEvent.setup();
 
-        render(<NumberInput data-testid="moonstone-numberInput" step={1} value="5"/>);
+        render(<NumberInput data-testid="moonstone-numberInput" defaultValue="5" step={1}/>);
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowDown]');
         expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('4');
@@ -111,7 +131,7 @@ describe('NumberInput', () => {
     it('should cap value to max on arrowUp', async () => {
         const user = userEvent.setup();
 
-        render(<NumberInput data-testid="moonstone-numberInput" max={10} step={999} value="5"/>);
+        render(<NumberInput data-testid="moonstone-numberInput" defaultValue="5" max={10} step={999}/>);
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowUp]');
         expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('10');
@@ -120,7 +140,7 @@ describe('NumberInput', () => {
     it('should cap value to min on arrowDown', async () => {
         const user = userEvent.setup();
 
-        render(<NumberInput data-testid="moonstone-numberInput" min={2} step={999} value="5"/>);
+        render(<NumberInput data-testid="moonstone-numberInput" defaultValue="5" min={2} step={999}/>);
         await user.keyboard('[Tab]');
         await user.keyboard('[ArrowDown]');
         expect(screen.getByTestId('moonstone-numberInput')).toHaveValue('2');

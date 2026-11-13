@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 
 import { PrimaryNav } from '../PrimaryNav';
 import { PrimaryNavItem } from './index';
-import { Badge } from '~/components';
+import { Badge, Tooltip } from '~/components';
 
 describe('NavItem', () => {
     it('should display a text children', () => {
@@ -43,20 +43,34 @@ describe('NavItem', () => {
         );
     });
 
-    it('should set selected when given selected property', () => {
-        render(<PrimaryNavItem isSelected data-testid="primaryNav-item"/>);
-        expect(screen.getByTestId('primaryNav-item')).toHaveAttribute(
-            'aria-current',
-            'true',
-        );
+    it('should include the badge in the accessible name of the item', () => {
+        render(<PrimaryNavItem badge={<Badge label="3"/>} label="Workflow"/>);
+        expect(screen.getByRole('button', { name: 'Workflow 3' })).toBeInTheDocument();
     });
 
-    it('should not set selected when not given selected property', () => {
-        render(<PrimaryNavItem data-testid="primaryNav-item"/>);
-        expect(screen.getByTestId('primaryNav-item')).toHaveAttribute(
-            'aria-current',
-            'false',
-        );
+    it('should include the badge in the accessible name of a link item', () => {
+        render(<PrimaryNavItem badge={<Badge label="3"/>} label="Workflow" url="toto.com"/>);
+        expect(screen.getByRole('link', { name: 'Workflow 3' })).toBeInTheDocument();
+    });
+
+    it('should mark the selected item as the current page', () => {
+        render(<PrimaryNavItem isSelected label="Item"/>);
+        expect(screen.getByRole('button', { name: 'Item' })).toHaveAttribute('aria-current', 'page');
+    });
+
+    it('should not set aria-current when the item is not selected', () => {
+        render(<PrimaryNavItem label="Item"/>);
+        expect(screen.getByRole('button', { name: 'Item' })).not.toHaveAttribute('aria-current');
+    });
+
+    it('should mark a selected link item as the current page', () => {
+        render(<PrimaryNavItem isSelected label="Link" url="toto.com"/>);
+        expect(screen.getByRole('link', { name: 'Link' })).toHaveAttribute('aria-current', 'page');
+    });
+
+    it('should not nest the button slot inside the item control', () => {
+        render(<PrimaryNavItem button={<button type="button">Action</button>} label="Item"/>);
+        expect(screen.getByRole('button', { name: 'Item' })).not.toContainElement(screen.getByRole('button', { name: 'Action' }));
     });
 
     it('should display a link when given a url props', () => {
@@ -86,5 +100,12 @@ describe('NavItem', () => {
         await user.click(screen.getByText('test me'));
 
         expect(onClick).toHaveBeenCalled();
+    });
+
+    it('should give the description of a Tooltip to the control', async () => {
+        const user = userEvent.setup();
+        render(<Tooltip label="Tip"><PrimaryNavItem label="Item"/></Tooltip>);
+        await user.hover(screen.getByRole('button', { name: 'Item' }));
+        expect(screen.getByRole('button', { name: 'Item' })).toHaveAccessibleDescription('Tip');
     });
 });

@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { Button, Menu } from '~/components';
+import { mergeHandlers, shouldIgnoreKey } from '~/hooks';
 import { ChevronDown } from '~/icons';
 
 import type { CustomDropdownProps } from './CustomDropdown.types';
@@ -27,6 +28,8 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
     // must not trigger a render, and the event object has to survive until the menu closes:
     // `onBlur` takes the original FocusEvent, and there is none left at that point.
     const pendingBlurEventRef = useRef<React.FocusEvent | null>(null);
+    // The contract of the published 2.21.1 (ddf86190): onFocus fires once when focus enters, and onBlur only follows a delivered onFocus
+    const isFocusSentRef = useRef(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
 
@@ -42,7 +45,10 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
         const event = pendingBlurEventRef.current;
 
         pendingBlurEventRef.current = null;
-        onBlur?.(event);
+        if (isFocusSentRef.current) {
+            isFocusSentRef.current = false;
+            onBlur?.(event);
+        }
     }, [isFocused, isOpened, onBlur]);
 
     // ---
@@ -96,19 +102,24 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                     setIsFocused(false);
                     pendingBlurEventRef.current = event;
                 }}
-                onClick={(!isDisabled && !isLoading) ? handleOpenMenu : undefined}
                 onFocus={(event) => {
                     setIsFocused(true);
                     // Focus came back before the menu closed: the queued blur never happened.
                     pendingBlurEventRef.current = null;
-                    onFocus?.(event);
-                }}
-                onKeyUp={(e) => {
-                    if (e.key === 'Enter' && !isDisabled && !isLoading) {
-                        handleOpenMenu(e);
+                    if (onFocus && !isFocusSentRef.current) {
+                        isFocusSentRef.current = true;
+                        onFocus(event);
                     }
                 }}
-                {...props}
+                {...mergeHandlers(props, {
+                    onClick: (!isDisabled && !isLoading) ? handleOpenMenu : undefined,
+                    onKeyDown: (e: React.KeyboardEvent) => {
+                        if (e.key === 'ArrowDown' && !isDisabled && !isLoading && !shouldIgnoreKey(e)) {
+                            e.preventDefault();
+                            handleOpenMenu(e);
+                        }
+                    },
+                })}
             />
 
             {isOpened && (

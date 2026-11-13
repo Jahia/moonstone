@@ -33,9 +33,7 @@
     }
 
     &:focus-visible {
-        @extend %is-focused;
-
-        outline-offset: -1px;
+        @include utils.focus-ring($inset: true);
     }
 
     &.selected {
@@ -45,12 +43,13 @@
     }
 
     &:not([disabled]):hover {
-        color: var(--moon-color-accent);
+        color: var(--moon-color-accent_dark);
 
         background-color: var(--moon-color-gray_light60);
     }
 
-    &:hover > div > div > .moonstone-displayNone {
+    &:hover > div > div > .moonstone-displayNone,
+    &:focus-visible > div > div > .moonstone-displayNone {
         display: block;
     }
 }
@@ -69,6 +68,10 @@
     .moonstone-dragging {
         background-color: var(--moon-color-light);
         box-shadow: 0 4px 8px rgba(19, 28, 33, 0.2);
+
+        &:focus-visible {
+            @include utils.focus-ring(true, 0 4px 8px rgba(19, 28, 33, 0.2));
+        }
 
         & > div > div > .moonstone-displayNone {
             display: none;

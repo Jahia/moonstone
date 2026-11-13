@@ -42,7 +42,7 @@
     cursor: pointer;
 
     &:focus-visible {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:hover {
@@ -66,7 +66,12 @@
     overflow: hidden;
 
     .moonstone-secondaryNav_wrapper {
+        // Hidden once the 0.2s collapse of the nav ends, so its content leaves the Tab sequence
+        @include transition(visibility 0s 0.2s);
+
         max-width: 0;
+
+        visibility: hidden;
 
         pointer-events: none;
     }

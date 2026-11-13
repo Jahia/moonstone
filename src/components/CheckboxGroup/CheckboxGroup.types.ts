@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { CheckboxItemProps } from './CheckboxItem/CheckboxItem.types';
 
-export type CheckboxGroupProps = {
+export type CheckboxGroupProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children' | 'className' | 'onChange'> & {
     /**
      * Set the same name to all CheckboxItem
      */

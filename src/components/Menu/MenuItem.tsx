@@ -1,10 +1,13 @@
+import { CompositeItem } from '@floating-ui/react';
 import clsx from 'clsx';
-import React, { useRef } from 'react';
+import React from 'react';
 
 import { ListItem } from '~/components';
-import { mergeHandlers, onArrowNavigation } from '~/hooks';
+import { mergeHandlers, onAccessibleClick, rovingItemProps } from '~/hooks';
+import { warnOnce } from '~/utils/warnOnce';
 
 import type { MenuItemProps } from './MenuItem.types';
+import type { ListItemProps } from '~/components/ListItem/ListItem.types';
 
 import styles from './MenuItem.module.scss';
 
@@ -26,23 +29,14 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     onKeyUp,
     ...props
 }) => {
-    const containerRef = useRef(null);
-    return (
-        <ListItem
-            ref={containerRef}
-            {...mergeHandlers(
-                {
-                    onKeyUp: (e: React.KeyboardEvent) => {
-                        if (onKeyPress) {
-                            console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
-                            onKeyPress(e);
-                        }
+    // Enter and Space click the item, so `onClick` keeps its MouseEvent
+    const keys = onAccessibleClick({
+        onClick: e => (e.currentTarget as HTMLElement).click(),
+        disabled: isDisabled,
+    });
 
-                        onKeyUp?.(e);
-                    },
-                },
-                onArrowNavigation({ ref: containerRef }),
-            )}
+    const listItem = (
+        <ListItem
             aria-disabled={isDisabled}
             className={clsx(
                 ['moonstone-menuItem', styles['moonstone-menuItem']],
@@ -60,11 +54,30 @@ export const MenuItem: React.FC<MenuItemProps> = ({
             iconStart={iconStart}
             image={image}
             imageSize={imageSize}
-            tabIndex={isDisabled || variant === 'title' || isSelected ? null : 0}
             onClick={isDisabled ? undefined : onClick}
-            {...props}
+            {...mergeHandlers({
+                ...props,
+                onKeyUp: (e: React.KeyboardEvent<HTMLLIElement>) => {
+                    if (onKeyPress) {
+                        warnOnce('MenuItem.onKeyPress', 'onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
+                        onKeyPress(e);
+                    }
+
+                    onKeyUp?.(e);
+                },
+            }, {
+                onKeyDown: keys.onKeyDown,
+                onKeyUp: keys.onKeyUp,
+            }) as ListItemProps}
         />
     );
+
+    // A title, or an item the consumer takes out of the Tab sequence, is no item of the Menu
+    if (variant === 'title' || props.tabIndex === -1) {
+        return listItem;
+    }
+
+    return <CompositeItem {...rovingItemProps} render={listItem}/>;
 };
 
 MenuItem.displayName = 'MenuItem';

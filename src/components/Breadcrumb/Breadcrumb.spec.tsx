@@ -21,6 +21,16 @@ describe('Breadcrumb', () => {
         expect(screen.getByTestId('breadcrumb')).toHaveAttribute('data-custom', 'extra');
     });
 
+    it('should keep the aria-current of the last item', () => {
+        render(
+            <Breadcrumb>
+                <BreadcrumbItem label="First" onClick={() => null}/>
+                <BreadcrumbItem aria-current="location" label="Last" onClick={() => null}/>
+            </Breadcrumb>,
+        );
+        expect(screen.getByRole('button', { name: 'Last' })).toHaveAttribute('aria-current', 'location');
+    });
+
     it('should display nothing when the component has no children', () => {
         render(<Breadcrumb/>);
         expect(screen.queryByRole('breadcrumb-item')).not.toBeInTheDocument();

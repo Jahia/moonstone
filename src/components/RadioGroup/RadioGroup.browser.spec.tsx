@@ -91,6 +91,15 @@ describe('RadioGroup keyboard', () => {
         expect(screen.getByRole('radio', { name: 'Large' })).toBeChecked();
     });
 
+    it('moves the focus but keeps the value of a read-only group with ArrowDown', async () => {
+        const { onChange } = renderGroup({ defaultValue: 'small', isReadOnly: true });
+        screen.getByRole('radio', { name: 'Small' }).focus();
+        await userEvent.keyboard('{ArrowDown}');
+        expect(screen.getByRole('radio', { name: 'Medium' })).toHaveFocus();
+        expect(screen.getByRole('radio', { name: 'Small' })).toBeChecked();
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
     it('checks the focused unchecked item with Space', async () => {
         const { onChange } = renderGroup({ defaultValue: 'small' });
         screen.getByRole('radio', { name: 'Large' }).focus();
@@ -111,5 +120,32 @@ describe('RadioGroup keyboard', () => {
         await userEvent.keyboard('{ArrowDown}');
         expect(screen.getByRole('radio', { name: 'Large' })).toHaveFocus();
         expect(screen.getByRole('radio', { name: 'Large' })).toBeChecked();
+    });
+});
+
+describe('RadioGroup read-only style', () => {
+    const opacityOf = (name: string) => getComputedStyle(screen.getByRole<HTMLInputElement>('radio', { name }).labels[0]).opacity;
+
+    it('dims every item of a read-only group', () => {
+        renderGroup({ isReadOnly: true });
+        expect(opacityOf('Small')).toBe('0.4');
+    });
+
+    it('dims a read-only item in an editable group, and only that item', () => {
+        render(
+            <RadioGroup name="size">
+                <RadioItem id="small" label="Small" value="small"/>
+                <RadioItem isReadOnly id="medium" label="Medium" value="medium"/>
+            </RadioGroup>,
+        );
+        expect(opacityOf('Small')).toBe('1');
+        expect(opacityOf('Medium')).toBe('0.4');
+    });
+
+    it('shows the focused item of a read-only group at full opacity', async () => {
+        renderGroup({ defaultValue: 'small', isReadOnly: true });
+        screen.getByRole('button', { name: 'before' }).focus();
+        await userEvent.keyboard('{Tab}');
+        expect(opacityOf('Small')).toBe('1');
     });
 });

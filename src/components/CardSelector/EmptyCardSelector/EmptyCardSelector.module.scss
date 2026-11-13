@@ -1,4 +1,5 @@
 @use "../../../utils/motion" as *;
+@use "../../../utils/mixins" as *;
 @use '../CardSelector.module.scss' as *;
 
 .moonstone-emptyCardSelector {
@@ -10,7 +11,8 @@
 
     color: var(--moon-color-dark_plain60);
 
-    border: 1px dashed var(--moon-color-gray40);
+    border: var(--moon-border-selector);
+    border-style: dashed;
     border-radius: var(--moon-radius-selector);
     background-color: var(--moon-background-selector);
     cursor: pointer;
@@ -24,7 +26,7 @@
     }
 
     &:focus-visible:not([disabled]) {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:hover:not([disabled]) {

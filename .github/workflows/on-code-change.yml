@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
     types: [opened, synchronize, reopened, labeled]
+  workflow_dispatch: # dispatched on the release PR by chachalog-release-pr-checks.yml
 
 jobs:
   build-and-test:
@@ -17,9 +18,10 @@ jobs:
       - run: yarn build
       - run: yarn playwright install chromium --only-shell
       - run: yarn test
+      - run: yarn test:types
       - name: Run visual tests
         id: visual-tests
-        if: github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'test:visual')
+        if: (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'test:visual')) || (github.event_name == 'workflow_dispatch' && github.ref_name == 'release')
         run: |
           set +e
           NO_COLOR=1 yarn test:visual 2>&1 | tee visual-test-output.log

@@ -104,16 +104,16 @@ export const Advanced: Story = {
         <ModalBody>
             <Fieldset id="modal-fieldset" label="Modal fieldset">
                 <Field
-                    buttons={<><Button icon={<Add/>} label="Add"/><Button icon={<MoreVert/>} variant="ghost"/></>}
+                    buttons={<><Button icon={<Add/>} label="Add"/><Button aria-label="More actions" icon={<MoreVert/>} variant="ghost"/></>}
                     chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>}
                     helper="information"
                     id="field-text"
                     label="Text field"
                 >
-                    <FieldSelector buttons={<Button icon={<MoreVert/>}/>} selector={<Input placeholder="Input value" size="big"/>}/>
+                    <FieldSelector buttons={<Button aria-label="More actions" icon={<MoreVert/>}/>} selector={<Input placeholder="Input value" size="big"/>}/>
                 </Field>
                 <Field
-                    buttons={<Button icon={<MoreVert/>} variant="ghost"/>}
+                    buttons={<Button aria-label="More actions" icon={<MoreVert/>} variant="ghost"/>}
                     chips={<><Chip color="accent" label="Required"/><Chip icon={<Language/>} label="Shared by all languages"/></>}
                     helper="information"
                     id="field-dropdown"

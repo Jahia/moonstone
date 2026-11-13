@@ -1,8 +1,9 @@
 import clsx from 'clsx';
 import React, { useState } from 'react';
 
-import { SearchInput, TreeView } from '~/components';
-import { usePositioning } from '~/hooks';
+import { SearchInput, TreeView, Typography } from '~/components';
+import { WithoutField } from '~/components/Field/Field.context';
+import { shouldIgnoreKey, usePositioning } from '~/hooks';
 
 import type { TreeViewMenuProps } from './TreeViewMenu.types';
 import type { TreeViewData } from '~/components/TreeView/TreeView.types';
@@ -106,12 +107,12 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
     hasOverlay = true,
     hasSearch,
     autoAddSearchLimit = 7,
-    // SearchEmptyText = 'No results found.',
+    i18n,
+    searchEmptyText = 'No results found.',
     treeData,
     value,
     values,
     handleSelect,
-    // HandleKeyPress,
     onClose,
 }) => {
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
@@ -190,21 +191,27 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                 style={styleMenu}
             >
                 {hasAutoSearch && (
-                    <div className={clsx('moonstone-menu_searchInput', styles['moonstone-menu_searchInput'])}>
-                        <SearchInput
-                            value={inputValue}
-                            onChange={e => setInputValue(e.target.value)}
-                            onClear={() => setInputValue('')}
-                            onKeyUp={(e) => {
-                                if (e.key === 'Enter' && treeData.length > 0) {
-                                    const item = find(data => !data.isDisabled, treeData[0]);
-                                    if (item) {
-                                        handleSelect(e, item);
+                    // The search box of a menu is not the control of a Field around it
+                    <WithoutField>
+                        <div className={clsx('moonstone-menu_searchInput', styles['moonstone-menu_searchInput'])}>
+                            <SearchInput
+                                aria-label={i18n?.searchLabel || 'Search'}
+                                value={inputValue}
+                                onChange={e => setInputValue(e.target.value)}
+                                onClear={() => setInputValue('')}
+                                onKeyDown={(e) => {
+                                    if (shouldIgnoreKey(e)) {
+                                        return;
                                     }
-                                }
-                            }}
-                        />
-                    </div>
+
+                                    if (e.key === 'ArrowDown') {
+                                        e.preventDefault();
+                                        itemRef.current?.querySelector<HTMLElement>('[data-roving-item]:not([aria-disabled="true"])')?.focus();
+                                    }
+                                }}
+                            />
+                        </div>
+                    </WithoutField>
                 )}
                 <TreeView
                     data={treeData}
@@ -218,6 +225,19 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
                     onCloseItem={onCloseItem}
                     onOpenItem={onOpenItem}
                 />
+                {/* Stays mounted while the search exists so the empty state is announced when it appears */}
+                {hasAutoSearch && (
+                    <div role="status">
+                        {inputValue !== '' && treeData.length === 0 && (
+                            <Typography
+                                className={clsx('moonstone-menu_emptySearchText', styles['moonstone-menu_emptySearchText'])}
+                                variant="caption"
+                            >
+                                {searchEmptyText}
+                            </Typography>
+                        )}
+                    </div>
+                )}
             </menu>
             {
                 hasOverlay && isDisplayed && (

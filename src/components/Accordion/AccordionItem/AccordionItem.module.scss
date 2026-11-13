@@ -1,11 +1,7 @@
 @use "../../../tokens/spacings/spacings" as *;
 @use "../../../utils/mixins" as *;
 
-// $accordionHeader_height: 40px;
-
 .moonstone-accordionItem {
-    // min-height: $accordionHeader_height;
-
     border-top: 1px solid var(--moon-color-gray_light);
     border-bottom: 1px solid var(--moon-color-gray_light);
 
@@ -30,12 +26,12 @@
 .moonstone-accordionItem_header {
     width: 100%;
 
-    // height: $accordionHeader_height;
-    padding: var(--moon-spacing-small) var(--moon-spacing-medium);
-
     background-color: var(--moon-color-gray_light60);
 
-    cursor: pointer;
+    // Doubled class to outrank the padding reset of Typography
+    &.moonstone-accordionItem_header {
+        padding: var(--moon-spacing-small) var(--moon-spacing-medium);
+    }
 
     &.moonstone-selected {
         border-bottom: 1px solid var(--moon-color-gray_light);
@@ -44,9 +40,7 @@
     }
 
     &:focus-visible {
-        @extend %is-focused;
-
-        outline-offset: -2px;
+        @include focus-ring($inset: true);
     }
 
     &:active {
@@ -83,7 +77,7 @@
     }
 }
 
-.moonstone-accordionItem_iconContainer {
+.accordionItem_icon {
     margin-right: $spacing-icon_big;
 }
 

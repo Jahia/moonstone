@@ -7,7 +7,9 @@ export type BannerProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' |
     title: string;
 
     /**
-     * Variant of the Banner
+     * Variant of the Banner. `warning` and `danger` banners are announced right away (`role="alert"`),
+     * `neutral` and `info` politely (`role="status"`), which screen readers may skip when the banner
+     * appears with its text: pass `role="alert"` when it must be read.
      */
     variant?: 'neutral' | 'info' | 'warning' | 'danger';
 

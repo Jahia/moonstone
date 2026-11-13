@@ -1,9 +1,12 @@
+import { useMergeRefs } from '@floating-ui/react';
 import clsx from 'clsx';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { Button } from '~/components';
+import { useFieldAria, useFieldControlId } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils.js';
 import { Cancel } from '~/icons';
+import { warnOnce } from '~/utils/warnOnce';
 
 import type { ControlledBaseInputProps } from './BaseInput.types';
 
@@ -21,10 +24,12 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
     icon,
     variant = 'outlined',
     isShowClearButton,
+    i18n,
     prefixComponents,
     postfixComponents,
     onClick,
     onKeyPress,
+    onKeyDown,
     onKeyUp,
     onClear,
     onChange,
@@ -34,6 +39,8 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
     ...props
 }, ref) => {
     const isFilled = value !== '';
+    const fieldAria = useFieldAria(props);
+    const { id: controlId, ref: fieldRef } = useFieldControlId(id);
     const classNameProps = clsx(
         ['moonstone-baseInput', styles['moonstone-baseInput']],
         [`moonstone-${size}`, size === 'big' && styles[`moonstone-${size}`]],
@@ -56,7 +63,21 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
         };
     }
 
+    // DateTimeInput forwards a callback ref, so the input is reached through an inner one
+    const inputRef = useRef<HTMLInputElement>(null);
+    const mergedRef = useMergeRefs([inputRef, ref, fieldRef]);
+    const pressedKeys = useRef(new Set<string>());
+
+    const handleClear: React.MouseEventHandler = (e) => {
+        onClear(e);
+        // Unless onClear moved it, focus goes back to the field
+        if (document.activeElement === e.currentTarget) {
+            inputRef.current.focus();
+        }
+    };
+
     return (
+        // oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- the consumer's onClick; the input inside takes the keyboard
         <div className={classNameProps} role={role} onClick={onClick}>
             {icon && (
                 <div
@@ -85,30 +106,40 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                         ['moonstone-baseInput-element', styles['moonstone-baseInput-element']],
                         [`moonstone-${size}`, size === 'big' && styles[`moonstone-${size}`]],
                     )}
-                    id={id}
+                    id={controlId}
                     placeholder={placeholder}
-                    ref={ref}
+                    ref={mergedRef}
                     role={role === 'search' ? 'searchbox' : undefined}
                     type="text"
                     value={value}
                     onBlur={onBlur}
                     onChange={onChange}
                     onFocus={onFocus}
+                    onKeyDown={(e) => {
+                        pressedKeys.current.add(e.key);
+                        onKeyDown?.(e);
+                    }}
                     onKeyUp={(e) => {
+                        // Pressed elsewhere, e.g. Enter on the clear button, which moves focus here on keydown
+                        if (!pressedKeys.current.delete(e.key)) {
+                            return;
+                        }
+
                         if (onKeyPress) {
-                            console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
+                            warnOnce('BaseInput.onKeyPress', 'onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
                             onKeyPress(e);
                         }
 
                         onKeyUp?.(e);
                     }}
                     {...props}
+                    {...fieldAria}
                 />
                 {postfixComponents}
             </div>
             { onClear && isFilled && !isDisabled && !isReadOnly && (
                 <Button
-                    aria-label="Reset"
+                    aria-label={i18n?.clearButton || 'Reset'}
                     className={clsx(
                         ['moonstone-baseInput_clearButton', styles['moonstone-baseInput_clearButton']],
                         ['flexRow_center', layout.flexRow_center],
@@ -116,7 +147,7 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                     )}
                     icon={<Cancel/>}
                     variant="ghost"
-                    onClick={onClear}
+                    onClick={handleClear}
                 />
             )}
         </div>

@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Added Delete and Backspace to remove a `Tag`, and Home and End to jump to the `NumberInput` bounds (#1545)
+Added Delete and Backspace to remove a `Tag` (#1545)

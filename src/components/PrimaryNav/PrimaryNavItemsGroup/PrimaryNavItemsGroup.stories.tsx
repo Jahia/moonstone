@@ -14,15 +14,17 @@ const meta: Meta<typeof PrimaryNavItemsGroup> = {
     },
     decorators: [
         Story => (
-            <div
+            <ul
                 style={{
+                    padding: 0,
+                    margin: 0,
                     backgroundColor: '#131c21',
                     width: '18.75rem',
                     height: '100vh',
                 }}
             >
                 <Story/>
-            </div>
+            </ul>
         ),
     ],
 };

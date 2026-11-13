@@ -1,4 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
+import { useState } from 'react';
+import { type Mock } from 'vitest';
 import { userEvent } from 'vitest/browser';
 
 import { Dropdown } from './index';
@@ -8,6 +10,11 @@ const data = [
     { label: 'Banana', value: 'banana' },
     { label: 'Cherry', value: 'cherry' },
     { label: 'Date', value: 'date' },
+];
+
+const treeData = [
+    { id: 'fruits', label: 'Fruits', value: 'fruits', children: [{ id: 'apple', label: 'Apple', value: 'apple' }] },
+    { id: 'vegetables', label: 'Vegetables', value: 'vegetables', children: [{ id: 'carrot', label: 'Carrot', value: 'carrot' }] },
 ];
 
 const renderDropdown = (props = {}) => {
@@ -52,21 +59,38 @@ describe('Dropdown keyboard', () => {
         expect(await screen.findByRole('list')).toBeInTheDocument();
     });
 
-    it.fails('opens with Space', async () => {
+    it('opens with Space', async () => {
         const { trigger } = renderDropdown();
         trigger.focus();
         await userEvent.keyboard(' ');
         expect(await screen.findByRole('list')).toBeInTheDocument();
     });
 
-    it.fails('opens with ArrowDown', async () => {
+    it('opens with ArrowDown', async () => {
         const { trigger } = renderDropdown();
         trigger.focus();
         await userEvent.keyboard('{ArrowDown}');
         expect(await screen.findByRole('list')).toBeInTheDocument();
     });
 
-    it.fails('moves focus into the options when opened with the keyboard', async () => {
+    it('opens on the keydown of Enter', async () => {
+        const { trigger } = renderDropdown();
+        trigger.focus();
+        await userEvent.keyboard('{Enter>}');
+        expect(await screen.findByRole('list')).toBeInTheDocument();
+        await userEvent.keyboard('{/Enter}');
+    });
+
+    it.each([{ isDisabled: true }, { isLoading: true }])('stays closed on Enter, Space and ArrowDown with %o', async (props) => {
+        const { trigger } = renderDropdown(props);
+        trigger.focus();
+        await userEvent.keyboard('{Enter}');
+        await userEvent.keyboard(' ');
+        await userEvent.keyboard('{ArrowDown}');
+        expect(screen.queryByRole('list')).not.toBeInTheDocument();
+    });
+
+    it('moves focus into the options when opened with the keyboard', async () => {
         const { trigger } = renderDropdown();
         await openWithEnter(trigger);
         expect(getOption('Apple')).toHaveFocus();
@@ -82,7 +106,7 @@ describe('Dropdown keyboard', () => {
         expect(getOption('Apple')).toHaveFocus();
     });
 
-    it.fails('moves focus to the first and last options with Home and End', async () => {
+    it('moves focus to the first and last options with Home and End', async () => {
         const { trigger } = renderDropdown();
         await openWithEnter(trigger);
         getOption('Banana').focus();
@@ -92,22 +116,97 @@ describe('Dropdown keyboard', () => {
         expect(getOption('Apple')).toHaveFocus();
     });
 
-    it('selects the focused option with Enter and closes', async () => {
+    it('should select the focused option with Enter, close and return focus to the trigger', async () => {
         const { trigger, onChange } = renderDropdown();
         await openWithEnter(trigger);
         getOption('Banana').focus();
         await userEvent.keyboard('{Enter}');
         expect(onChange).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ value: 'banana' }));
         await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
+        expect(trigger).toHaveFocus();
     });
 
-    it.fails('closes with Escape and returns focus to the trigger', async () => {
+    it('should keep the focus where onChange moved it', async () => {
+        const { trigger } = renderDropdown({ onChange: () => screen.getByRole('button', { name: 'after' }).focus() });
+        await openWithEnter(trigger);
+        getOption('Banana').focus();
+        await userEvent.keyboard('{Enter}');
+        await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
+        expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
+    });
+
+    it('closes with Escape and returns focus to the trigger', async () => {
         const { trigger } = renderDropdown();
         await openWithEnter(trigger);
         getOption('Apple').focus();
         await userEvent.keyboard('{Escape}');
         await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
         expect(trigger).toHaveFocus();
+    });
+
+    it('should keep focus on the trigger after a clear with Enter, and keep the menu closed', async () => {
+        const { trigger } = renderDropdown({ value: 'banana', onClear: vi.fn() });
+        screen.getByRole('button', { name: 'Reset' }).focus();
+        await userEvent.keyboard('{Enter}');
+        expect(trigger).toHaveFocus();
+        expect(screen.queryByRole('list')).not.toBeInTheDocument();
+    });
+
+    it('should keep focus on the trigger after a click on a Tag', async () => {
+        const { trigger } = renderDropdown({ value: undefined, values: ['apple', 'banana'] });
+        await userEvent.click(getOption('Apple'));
+        expect(trigger).toHaveFocus();
+    });
+
+    it('should keep the focus on the trigger after removing a Tag with Delete', async () => {
+        const MultipleDropdown = () => {
+            const [values, setValues] = useState(['apple', 'banana']);
+            return <Dropdown data={data} values={values} onChange={(_e, item) => setValues(values.filter(v => v !== item.value))}/>;
+        };
+        render(<MultipleDropdown/>);
+        getOption('Apple').focus();
+        await userEvent.keyboard('{Delete}');
+        await waitFor(() => expect(screen.queryByRole('option', { name: 'Apple' })).not.toBeInTheDocument());
+        expect(screen.getByRole('listbox')).toHaveFocus();
+    });
+
+    describe('onFocus and onBlur', () => {
+        const expectOneFocusAndOneBlurOnLeave = async (onFocus: Mock, onBlur: Mock) => {
+            expect(onBlur).not.toHaveBeenCalled();
+            screen.getByRole('button', { name: 'after' }).focus();
+            await waitFor(() => expect(onBlur).toHaveBeenCalledTimes(1));
+            expect(onFocus).toHaveBeenCalledTimes(1);
+        };
+
+        it('should fire onBlur only when the focus leaves, after a choice', async () => {
+            const onFocus = vi.fn();
+            const onBlur = vi.fn();
+            const { trigger } = renderDropdown({ onFocus, onBlur });
+            await openWithEnter(trigger);
+            getOption('Banana').focus();
+            await userEvent.keyboard('{Enter}');
+            await waitFor(() => expect(screen.queryByRole('list')).not.toBeInTheDocument());
+            await expectOneFocusAndOneBlurOnLeave(onFocus, onBlur);
+        });
+
+        it('should fire onBlur only when the focus leaves, after a clear', async () => {
+            const onFocus = vi.fn();
+            const onBlur = vi.fn();
+            const { trigger } = renderDropdown({ onFocus, onBlur, value: 'banana', onClear: vi.fn() });
+            screen.getByRole('button', { name: 'Reset' }).focus();
+            await userEvent.keyboard('{Enter}');
+            expect(trigger).toHaveFocus();
+            await expectOneFocusAndOneBlurOnLeave(onFocus, onBlur);
+        });
+
+        it('should fire onBlur only when the focus leaves, after a click on a Tag', async () => {
+            const onFocus = vi.fn();
+            const onBlur = vi.fn();
+            const { trigger } = renderDropdown({ onFocus, onBlur, value: undefined, values: ['apple', 'banana'] });
+            await userEvent.click(getOption('Apple'));
+            expect(trigger).toHaveFocus();
+            await expectOneFocusAndOneBlurOnLeave(onFocus, onBlur);
+        });
     });
 
     it.fails('closes when focus leaves the options with Tab', async () => {
@@ -125,6 +224,59 @@ describe('Dropdown keyboard', () => {
         await userEvent.keyboard('Ban');
         await waitFor(() => expect(screen.queryByText('Apple')).not.toBeInTheDocument());
         expect(getOption('Banana')).toBeInTheDocument();
+    });
+
+    it('chooses nothing with Enter in the search', async () => {
+        const { trigger, onChange } = renderDropdown({ hasSearch: true, data: [{ groupLabel: 'Fruits', options: data }] });
+        await openWithEnter(trigger);
+        await userEvent.keyboard('Ban');
+        await waitFor(() => expect(screen.queryByText('Apple')).not.toBeInTheDocument());
+        await userEvent.keyboard('{Enter}');
+        expect(onChange).not.toHaveBeenCalled();
+        expect(screen.getByRole('searchbox')).toHaveFocus();
+    });
+
+    describe('tree', () => {
+        it('moves to the first option with ArrowDown in the search', async () => {
+            const { trigger } = renderDropdown({ data: undefined, treeData, hasSearch: true });
+            await openWithEnter(trigger);
+            screen.getByRole('searchbox').focus();
+            await userEvent.keyboard('{ArrowDown}');
+            expect(screen.getByRole('treeitem', { name: /^Fruits/ })).toHaveFocus();
+        });
+
+        it('chooses nothing with Enter in the search', async () => {
+            const { trigger, onChange } = renderDropdown({ data: undefined, treeData, hasSearch: true });
+            await openWithEnter(trigger);
+            screen.getByRole('searchbox').focus();
+            await userEvent.keyboard('Car');
+            await screen.findByRole('treeitem', { name: /^Carrot/ });
+            await userEvent.keyboard('{Enter}');
+            expect(onChange).not.toHaveBeenCalled();
+            expect(screen.getByRole('searchbox')).toHaveFocus();
+        });
+
+        it('announces the empty text when the search finds nothing', async () => {
+            const { trigger } = renderDropdown({ data: undefined, treeData, hasSearch: true });
+            await openWithEnter(trigger);
+            screen.getByRole('searchbox').focus();
+            await userEvent.keyboard('zzz');
+            await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('No results found.'));
+        });
+
+        it('opens and closes the nodes with ArrowRight, ArrowLeft and *', async () => {
+            const { trigger } = renderDropdown({ data: undefined, treeData });
+            await openWithEnter(trigger);
+            const fruits = screen.getByRole('treeitem', { name: /^Fruits/ });
+            fruits.focus();
+            await userEvent.keyboard('{ArrowRight}');
+            expect(fruits).toHaveAttribute('aria-expanded', 'true');
+            await userEvent.keyboard('{ArrowLeft}');
+            expect(fruits).toHaveAttribute('aria-expanded', 'false');
+            await userEvent.keyboard('*');
+            expect(fruits).toHaveAttribute('aria-expanded', 'true');
+            expect(screen.getByRole('treeitem', { name: /^Vegetables/ })).toHaveAttribute('aria-expanded', 'true');
+        });
     });
 
     it('toggles the focused option with Space in the multiple variant', async () => {

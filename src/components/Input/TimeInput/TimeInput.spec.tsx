@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { Temporal } from 'temporal-polyfill';
 
 import { TimeInput } from './index';
+import { Field } from '~/components/Field';
 
 const emittedTime = (handleChange: ReturnType<typeof vi.fn>) =>
     (handleChange.mock.lastCall?.[1] as Temporal.PlainTime | null)?.toString({ smallestUnit: 'minute' }) ?? null;
@@ -272,5 +273,30 @@ describe('TimeInput', () => {
 
             expect(emittedTime(handleChange)).toBe('14:29');
         });
+
+        it('should leave an arrow key held with a modifier to the browser', async () => {
+            const user = userEvent.setup();
+            const handleChange = vi.fn();
+
+            render(<TimeInput defaultValue="14:30" onChange={handleChange}/>);
+
+            const input = screen.getByDisplayValue('14:30') as HTMLInputElement;
+            input.focus();
+            input.setSelectionRange(0, 0);
+            await user.keyboard('{Shift>}{ArrowUp}{/Shift}');
+
+            expect(handleChange).not.toHaveBeenCalled();
+        });
+    });
+
+    it('should not link the meridiem dropdown to a Field around it', () => {
+        render(
+            <Field helper="Help" id="time" label="Time">
+                <TimeInput defaultValue="14:30" timeFormat="12h" onChange={() => null}/>
+            </Field>,
+        );
+        // The meridiem dropdown is named by its own label and value, not by the Field
+        const dropdown = screen.getByRole('listbox', { name: 'AM/PM PM' });
+        expect(dropdown).not.toHaveAttribute('aria-describedby');
     });
 });

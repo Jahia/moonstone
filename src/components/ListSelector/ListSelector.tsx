@@ -19,16 +19,17 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
     isReadOnly,
     onChange,
     label = {
-        rightListTitle: 'Label for the right list',
-        leftListTitle: 'Label for the left list',
-        addAllTitle: 'Add all',
-        removeAllTitle: 'Remove all',
-        selected: `${values.length} item(s) selected`,
+        rightListTitle: '',
+        leftListTitle: '',
+        addAllTitle: '',
+        removeAllTitle: '',
+        selected: '',
     },
     ...props
 }) => {
     const [dragged, setDragged] = useState(null);
     const hasTitle = label?.rightListTitle?.length > 0 || label?.leftListTitle?.length > 0;
+    const selectedLabel = label.selected || `${values.length} item(s) selected`;
 
     // This tracks drag operation without delay and prevents NPE, if we ever experience issues with this, 'dragged' will need to live in this ref
     // like it did before, but so far state updates are pretty fast and I did not see any issues.
@@ -62,7 +63,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
             )}
             {...props}
         >
-            <div
+            <section
                 className={clsx(
                     ['moonstone-listSelector_left', styles['moonstone-listSelector_left']],
                     ['flexCol_nowrap', layout.flexCol_nowrap],
@@ -88,8 +89,9 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                     filter={filterLeft}
                     iconEnd={<ChevronRight className={clsx('moonstone-displayNone', valueListStyles['moonstone-displayNone'])}/>}
                     listClasses={typeof dragged?.originalIndex === 'number' ? ['moonstone-draggedOver', styles['moonstone-draggedOver']] : []}
-                    role="left-list"
+                    listLabel={label.leftListTitle}
                     setFilter={setFilterLeft}
+                    side="left"
                     values={valuesLeft}
                     onClick={(e, value) => {
                         onChange(values.concat(value.value));
@@ -134,7 +136,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                     }}
 
                 />
-            </div>
+            </section>
             <div
                 className={clsx(
                     ['moonstone-listSelector_buttons', styles['moonstone-listSelector_buttons']],
@@ -145,7 +147,6 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                 <Button
                     isDisabled={isReadOnly || valuesLeft.length === 0}
                     icon={<ChevronDoubleRight/>}
-                    role="add-all"
                     title={label.addAllTitle || 'Add all'}
                     variant="ghost"
                     onClick={() => onChange([...valuesRight, ...valuesLeft].map(o => o.value))}
@@ -153,13 +154,12 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                 <Button
                     isDisabled={isReadOnly || valuesRight.length === 0}
                     icon={<ChevronDoubleLeft/>}
-                    role="remove-all"
                     title={label.removeAllTitle || 'Remove all'}
                     variant="ghost"
                     onClick={() => onChange(values.filter(v => !valuesRight.find(o => o.value === v)))}
                 />
             </div>
-            <div
+            <section
                 className={clsx(
                     ['moonstone-listSelector_right', styles['moonstone-listSelector_right']],
                     ['flexCol_nowrap', layout.flexCol_nowrap],
@@ -186,8 +186,9 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                     iconEnd={<Close className={clsx('moonstone-displayNone', valueListStyles['moonstone-displayNone'])}/>}
                     label={label}
                     listClasses={(dragged && !filterRight) ? ['moonstone-draggedOver', styles['moonstone-draggedOver']] : []}
-                    role="right-list"
+                    listLabel={label.rightListTitle}
                     setFilter={setFilterRight}
+                    side="right"
                     values={valuesRight}
                     onClick={(e, value) => {
                         onChange(values.filter(val => val !== value.value));
@@ -268,9 +269,18 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                         ['alignCenter', layout.alignCenter],
                     )}
                 >
-                    {values.length > 0 && <Typography variant="caption" weight="semiBold">{label.selected || '0 item selected'}</Typography>}
+                    <div role="status">
+                        {/* Hidden at 0 but still read out, so removing the last item is announced */}
+                        <Typography
+                            className={clsx(values.length === 0 && styles['moonstone-listSelector_visuallyHidden'])}
+                            variant="caption"
+                            weight="semiBold"
+                        >
+                            {selectedLabel}
+                        </Typography>
+                    </div>
                 </footer>
-            </div>
+            </section>
         </div>
     );
 };

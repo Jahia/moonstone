@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { ResizeCallback, ResizeStartCallback, Size } from 're-resizable';
+import type { NumberSize, ResizeCallback, ResizeDirection, ResizeStartCallback, Size } from 're-resizable';
 
 export type EnableZonesProps = {
     // Top?: boolean;
@@ -25,7 +25,7 @@ export type ResizableBoxMinWidth = string | number;
 
 export type ResizableBoxMaxWidth = string | number;
 
-export type ResizableBoxProps = {
+export type ResizableBoxProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children' | 'className' | 'onResize'> & {
     /**
      * Content of the component
      */
@@ -59,23 +59,39 @@ export type ResizableBoxProps = {
      */
     role?: string;
     /**
-     * Function triggered when the resize begins
+     * Function triggered when the resize begins. A keyboard resize does not call it
      * @param {object} e - Mouse event
      * @param {string} dir - Direction resized
      * @param {node} ref - HTML element resized
      */
     onResizeStart?: ResizeStartCallback;
     /**
-     * Function on resizing
+     * Function on resizing. A keyboard resize does not call it
      * @param {object} e - event
      */
     onResizing?: ResizeCallback;
     /**
-     * Function triggered when the resize is finished
-     * @param {object} e - Mouse event
+     * Function triggered when the resize is finished, by the pointer or by a key on the handle. With a controlled `size`, apply `delta` to it
+     * @param {object} e - Mouse, touch or keyboard event
      * @param {string} dir - Direction resized
      * @param {node} ref - HTML element resized
      * @param {object} delta - delta between after resize
      */
-    onResizeStop?: ResizeCallback;
+    // Method syntax: TypeScript checks its parameters bivariantly, so a 2.21.1 ResizeCallback compiles
+    onResizeStop?(this: void, e: MouseEvent | TouchEvent | KeyboardEvent, dir: ResizeDirection, ref: HTMLElement, delta: NumberSize): void;
+    /**
+     * ResizableBox labels
+     */
+    i18n?: {
+        /**
+         * aria-label of the resize handle
+         * @default the aria-label of the box, else 'Resize'
+         */
+        handleLabel?: string;
+        /**
+         * Unit read after the width of the resize handle, e.g. "300 pixels"
+         * @default 'pixels'
+         */
+        widthUnit?: string;
+    };
 };

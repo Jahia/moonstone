@@ -26,11 +26,11 @@ describe('SecondaryNav keyboard', () => {
 
     it('collapses the nav with Enter and reports it with aria-expanded', async () => {
         const { onToggled } = renderNav();
-        expect(screen.getByRole('region')).toHaveAttribute('aria-expanded', 'true');
+        expect(toggle()).toHaveAttribute('aria-expanded', 'true');
         toggle().focus();
         await userEvent.keyboard('{Enter}');
         expect(onToggled).toHaveBeenCalledTimes(1);
-        expect(screen.getByRole('region')).toHaveAttribute('aria-expanded', 'false');
+        expect(toggle()).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('collapses the nav with Space', async () => {
@@ -38,7 +38,7 @@ describe('SecondaryNav keyboard', () => {
         toggle().focus();
         await userEvent.keyboard(' ');
         expect(onToggled).toHaveBeenCalledTimes(1);
-        expect(screen.getByRole('region')).toHaveAttribute('aria-expanded', 'false');
+        expect(toggle()).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('keeps the toggle button focusable once collapsed and expands again with Enter', async () => {
@@ -47,6 +47,34 @@ describe('SecondaryNav keyboard', () => {
         await userEvent.keyboard('{Enter}');
         expect(toggle()).toHaveFocus();
         await userEvent.keyboard('{Enter}');
-        expect(screen.getByRole('region')).toHaveAttribute('aria-expanded', 'true');
+        expect(toggle()).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    it('skips the content of a collapsed nav with Tab', async () => {
+        render(
+            <>
+                <SecondaryNav isDefaultVisible={false} header="Header">
+                    <button type="button">inside</button>
+                </SecondaryNav>
+                <button type="button">after</button>
+            </>,
+        );
+        toggle().focus();
+        await userEvent.keyboard('{Tab}');
+        expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
+    });
+
+    it('keeps the content visible while the nav collapses, then hides it', async () => {
+        render(<SecondaryNav header="Header"><button type="button">inside</button></SecondaryNav>);
+        toggle().focus();
+        await userEvent.keyboard('{Enter}');
+        expect(getComputedStyle(screen.getByRole('button', { name: 'inside' })).visibility).toBe('visible');
+        await expect.element(screen.getByText('inside')).not.toBeVisible();
+    });
+
+    it('reads the width of a nav that starts collapsed once it is expanded', async () => {
+        render(<SecondaryNav isDefaultVisible={false} header="Header">Nav content</SecondaryNav>);
+        await userEvent.click(toggle());
+        expect(screen.getByRole('separator')).toHaveAttribute('aria-valuenow', '300');
     });
 });

@@ -47,6 +47,11 @@ describe('Fieldset', () => {
         expect(screen.getByText('Click me')).toBeInTheDocument();
     });
 
+    it('should be a group named by its label, without the text of its buttons', () => {
+        render(<Fieldset {...requiredProps} buttons={<Button label="Click me"/>}><div/></Fieldset>);
+        expect(screen.getByRole('group', { name: 'Fieldset label' })).toBeInTheDocument();
+    });
+
     it('should display multiple buttons', () => {
         render(<Fieldset {...requiredProps} buttons={<><Button icon={<Add/>} label="Click me"/><Button icon={<Love/>} label="Click me"/></>}><div/></Fieldset>);
         expect(screen.getAllByText('Click me')).toHaveLength(2);

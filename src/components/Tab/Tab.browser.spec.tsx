@@ -32,14 +32,24 @@ describe('Tab keyboard', () => {
         expect(tab('Second')).toHaveAttribute('aria-selected', 'false');
     });
 
-    it.fails('keeps only the selected tab in the Tab sequence', () => {
+    it('keeps only the selected tab in the Tab sequence', () => {
         renderTab();
         expect(tab('First')).toHaveAttribute('tabindex', '0');
         expect(tab('Second')).toHaveAttribute('tabindex', '-1');
         expect(tab('Last')).toHaveAttribute('tabindex', '-1');
     });
 
-    it.fails('leaves the tablist with a single Tab from the selected tab', async () => {
+    it('should keep the roving tabindex over a consumer tabIndex', () => {
+        render(
+            <Tab>
+                <TabItem isSelected label="First"/>
+                <TabItem label="Second" tabIndex={0}/>
+            </Tab>,
+        );
+        expect(tab('Second')).toHaveAttribute('tabindex', '-1');
+    });
+
+    it('leaves the tablist with a single Tab from the selected tab', async () => {
         renderTab();
         tab('First').focus();
         await userEvent.keyboard('{Tab}');
@@ -60,28 +70,28 @@ describe('Tab keyboard', () => {
         expect(tab('First')).toHaveFocus();
     });
 
-    it.fails('skips disabled tabs when moving with the arrow keys', async () => {
+    it('skips disabled tabs when moving with the arrow keys', async () => {
         renderTab();
         tab('Second').focus();
         await userEvent.keyboard('{ArrowRight}');
         expect(tab('Last')).toHaveFocus();
     });
 
-    it.fails('wraps focus from the last tab to the first with ArrowRight', async () => {
+    it('wraps focus from the last tab to the first with ArrowRight', async () => {
         renderTab();
         tab('Last').focus();
         await userEvent.keyboard('{ArrowRight}');
         expect(tab('First')).toHaveFocus();
     });
 
-    it.fails('wraps focus from the first tab to the last with ArrowLeft', async () => {
+    it('wraps focus from the first tab to the last with ArrowLeft', async () => {
         renderTab();
         tab('First').focus();
         await userEvent.keyboard('{ArrowLeft}');
         expect(tab('Last')).toHaveFocus();
     });
 
-    it.fails('moves focus to the first and last tabs with Home and End', async () => {
+    it('moves focus to the first and last tabs with Home and End', async () => {
         renderTab();
         tab('Second').focus();
         await userEvent.keyboard('{End}');

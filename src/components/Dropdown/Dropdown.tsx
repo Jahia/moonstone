@@ -1,12 +1,15 @@
-/* eslint-disable complexity */
 import clsx from 'clsx';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+/* eslint-disable complexity */
+import React, { useEffect, useId, useMemo, useRef, useState } from 'react';
 
 import { Tag } from '../Tag';
 import { Button, Loader, Typography } from '~/components';
 import { DropdownMenu, TreeViewMenu } from '~/components/Dropdown';
+import { useFieldAria } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils.js';
+import { onAccessibleClick, shouldIgnoreKey } from '~/hooks';
 import { Cancel, ChevronDown } from '~/icons';
+import { warnOnce } from '~/utils/warnOnce';
 
 import type {
     DropdownData,
@@ -72,22 +75,25 @@ export const Dropdown: React.FC<DropdownProps> = ({
     searchEmptyText = 'No results found.',
     imageSize,
     onClear,
+    i18n,
     onChange,
     onBlur,
     onFocus,
     className,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
     ...props
 }) => {
     if (value !== undefined && values !== undefined) {
-        console.warn('The Dropdown component cannot receive both `value` and `values` props.');
+        warnOnce('Dropdown.value-values', 'The Dropdown component cannot receive both `value` and `values` props.');
     }
 
     if (data !== undefined && treeData !== undefined) {
-        console.warn('The Dropdown component cannot receive both `data` and `treeData` props.');
+        warnOnce('Dropdown.data-treeData', 'The Dropdown component cannot receive both `data` and `treeData` props.');
     }
 
     if (label !== undefined) {
-        console.warn('The property `label` is deprecated in the Dropdown component. Use `placeholder` to show text when no value is selected; otherwise, the label for the selected value is automatically displayed.');
+        warnOnce('Dropdown.label', 'The property `label` is deprecated in the Dropdown component. Use `placeholder` to show text when no value is selected; otherwise, the label for the selected value is automatically displayed.');
     }
 
     const [isOpened, setIsOpened] = useState(false);
@@ -96,9 +102,15 @@ export const Dropdown: React.FC<DropdownProps> = ({
     // must not trigger a render, and the event object has to survive until the menu closes:
     // `onBlur` takes the original FocusEvent, and there is none left at that point.
     const pendingBlurEventRef = useRef<React.FocusEvent | null>(null);
+    // The contract of the published 2.21.1 (ddf86190): onFocus fires once when focus enters, and onBlur only follows a delivered onFocus
+    const isFocusSentRef = useRef(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
     const ref: MutableRefObject<HTMLDivElement> = useRef();
+    const triggerId = useId();
+    const valueId = `${triggerId}-value`;
+    const fieldAria = useFieldAria({ 'aria-label': ariaLabel });
+    const nameIds = ariaLabelledBy ?? fieldAria['aria-labelledby'] ?? (ariaLabel && triggerId);
 
     const isTree = Array.isArray(treeData);
     const flatData = useMemo(() => isTree ? flatten(treeData) : data, [treeData, data, isTree]);
@@ -114,7 +126,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
         const event = pendingBlurEventRef.current;
 
         pendingBlurEventRef.current = null;
-        onBlur?.(event);
+        if (isFocusSentRef.current) {
+            isFocusSentRef.current = false;
+            onBlur?.(event);
+        }
     }, [isFocused, isOpened, onBlur]);
 
     // Return nothing if `data` isn't an array
@@ -165,12 +180,18 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 }
             } else {
                 let canClose: boolean | void = !item.isDisabled;
+                const focusedOption = document.activeElement;
                 if (!item.isDisabled && item.value !== value) {
                     e.stopPropagation();
                     canClose = (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: DropdownDataOption) => void)(e, item);
                 }
 
                 if (canClose !== false) {
+                    // Unless onChange moved it, focus goes back to the trigger: the menu unmounts with it inside
+                    if (document.activeElement === focusedOption) {
+                        ref.current.focus();
+                    }
+
                     setIsOpened(false);
                 }
             }
@@ -187,6 +208,18 @@ export const Dropdown: React.FC<DropdownProps> = ({
             handleSelect(e, item);
         }
     };
+
+    const triggerKeys = onAccessibleClick({ onClick: handleOpenMenu });
+    const handleTriggerKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'ArrowDown' && e.target === e.currentTarget && !shouldIgnoreKey(e)) {
+            e.preventDefault();
+            handleOpenMenu(e);
+        } else {
+            triggerKeys.onKeyDown(e);
+        }
+    };
+
+    const canOpen = !isDisabled && !isLoading;
 
     // ---
     // CSS classes
@@ -215,9 +248,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
         >
             <div
                 aria-busy={isLoading ? true : undefined}
+                aria-describedby={fieldAria['aria-describedby']}
                 aria-disabled={isDisabled || isEmpty}
-                aria-label={label || getDataItem(flatData, value)?.label || placeholder}
+                aria-invalid={fieldAria['aria-invalid']}
+                aria-label={ariaLabel ?? (label || getDataItem(flatData, value)?.label || placeholder)}
+                // The consumer or Field name, then the value: "Language French"
+                aria-labelledby={nameIds && `${nameIds} ${valueId}`}
                 className={clsx(cssDropdown)}
+                id={triggerId}
                 ref={ref}
                 role="listbox"
                 tabIndex={0}
@@ -225,21 +263,21 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     setIsFocused(false);
                     pendingBlurEventRef.current = event;
                 }}
-                onClick={(!isDisabled && !isLoading) ? handleOpenMenu : undefined}
+                onClick={canOpen ? handleOpenMenu : undefined}
                 onFocus={(event) => {
                     setIsFocused(true);
                     // Focus came back before the menu closed: the queued blur never happened.
                     pendingBlurEventRef.current = null;
-                    onFocus?.(event);
-                }}
-                onKeyUp={(e) => {
-                    if (e.key === 'Enter' && !isDisabled && !isLoading) {
-                        handleOpenMenu(e);
+                    if (onFocus && !isFocusSentRef.current) {
+                        isFocusSentRef.current = true;
+                        onFocus(event);
                     }
                 }}
+                onKeyDown={canOpen ? handleTriggerKeyDown : undefined}
+                onKeyUp={canOpen ? triggerKeys.onKeyUp : undefined}
             >
                 {icon && !isLoading && <icon.type {...icon.props} className={clsx('moonstone-dropdown_icon', styles['moonstone-dropdown_icon'])} role="presentation" size="default"/>}
-                {isLoading && <Loader className={clsx({ 'moonstone-dropdown_loaderOverlay': !icon })} size="small"/>}
+                {isLoading && <Loader aria-hidden className={clsx({ 'moonstone-dropdown_loaderOverlay': !icon })} size="small"/>}
                 {!label && values && values.length > 0
                     ? (
                             <div
@@ -248,6 +286,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                     ['flexFluid', layout.flexFluid],
                                     ['flexRow', layout.flexRow],
                                 )}
+                                id={valueId}
                             >
                                 {values.map((v) => {
                                     const item = getDataItem(flatData, v);
@@ -256,12 +295,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                             isDisabled={isDisabled}
                                             key={item.value}
                                             label={item.label}
+                                            // oxlint-disable-next-line jsx-a11y/role-has-required-aria-props -- #1604
                                             role="option"
                                             size={size}
                                             value={item.value}
                                             onClick={(e) => {
                                                 ref.current.focus();
-                                                ref.current.blur();
                                                 if (!isDisabled) {
                                                     handleSelect(e, item);
                                                 }
@@ -279,6 +318,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
                                     ['moonstone-dropdown_label', styles['moonstone-dropdown_label']],
                                 )}
                                 component="span"
+                                id={valueId}
+                                // oxlint-disable-next-line jsx-a11y/role-has-required-aria-props -- #1604
                                 role="option"
                                 title={label}
                                 variant={size === 'small' ? 'caption' : 'body'}
@@ -288,7 +329,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         )}
                 {onClear && isFilled && !isDisabled && (
                     <Button
-                        aria-label="Reset"
+                        aria-label={i18n?.clearButton || 'Reset'}
                         className={clsx(
                             ['moonstone-baseInput_clearButton', baseInputStyles['moonstone-baseInput_clearButton']],
                             ['flexRow_center', layout.flexRow_center],
@@ -299,7 +340,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         onClick={(e) => {
                             e.stopPropagation();
                             ref.current.focus();
-                            ref.current.blur();
                             onClear(e);
                         }}
                     />
@@ -317,6 +357,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     data={data}
                     handleKeyPress={handleKeyPress}
                     handleSelect={handleSelect}
+                    i18n={i18n}
                     imageSize={imageSize}
                     maxHeight={menuMaxHeight}
                     maxWidth={menuMaxWidth}

@@ -30,9 +30,9 @@ export default defineConfig({
         'react/display-name': 'off',
         'react-hooks/rules-of-hooks': 'error',
         'react-hooks/exhaustive-deps': 'warn',
-        // Warn: flags any ref *passed* to a call during render (useMergeRefs, floating-ui,
-        // onArrowNavigation), which is our standard pattern — no hit reads `.current` in
-        // render. Kept visible so a genuine render-time `.current` read still surfaces.
+        // Warn: flags any ref *passed* to a call during render (useMergeRefs, floating-ui),
+        // which is our standard pattern — no hit reads `.current` in render. Kept visible
+        // so a genuine render-time `.current` read still surfaces.
         'react/refs': 'warn',
         'react/set-state-in-effect': 'error',
         // Off: only reports that React Compiler would skip memoizing `useReactTable`.
@@ -44,6 +44,8 @@ export default defineConfig({
         'typescript/no-inferrable-types': 'error',
         // Off: tsgolint disagrees with tsc here and its autofix removes load-bearing, breaking the build.
         'typescript/no-unnecessary-type-assertion': 'off',
+        // Off while strictNullChecks is off: it reads a possibly-undefined value as never undefined (#1508)
+        'typescript/no-useless-default-assignment': 'off',
         // From tseslint "recommended"; missing from oxlint's correctness category
         'typescript/ban-ts-comment': 'error',
         'typescript/no-explicit-any': 'warn',
@@ -52,8 +54,8 @@ export default defineConfig({
         'typescript/no-empty-object-type': 'error',
         'typescript/no-unsafe-function-type': 'error',
         'typescript/no-unnecessary-type-constraint': 'error',
-        // Deprecation messages go through console.warn
-        'no-console': ['warn', { allow: ['warn'] }],
+        // A warning goes through warnOnce, the one file allowed below
+        'no-console': 'error',
         'eqeqeq': ['error', 'smart'],
         'array-callback-return': 'error',
         'radix': 'error',
@@ -74,14 +76,13 @@ export default defineConfig({
         'unicorn/filename-case': 'off',
         'unicorn/no-null': 'off',
         'jsx-a11y/prefer-tag-over-role': 'off',
-        // TODO: Will be tackled in a dedicated task and changed to 'error'.
-        'jsx-a11y/click-events-have-key-events': 'warn',
-        'jsx-a11y/no-noninteractive-element-interactions': 'warn',
-        'jsx-a11y/no-static-element-interactions': 'warn',
-        'jsx-a11y/aria-role': 'warn',
-        'jsx-a11y/interactive-supports-focus': 'warn',
-        'jsx-a11y/role-supports-aria-props': 'warn',
-        'jsx-a11y/role-has-required-aria-props': 'warn',
+        'jsx-a11y/click-events-have-key-events': 'error',
+        'jsx-a11y/no-noninteractive-element-interactions': 'error',
+        'jsx-a11y/no-static-element-interactions': 'error',
+        'jsx-a11y/aria-role': 'error',
+        'jsx-a11y/interactive-supports-focus': 'error',
+        'jsx-a11y/role-supports-aria-props': 'error',
+        'jsx-a11y/role-has-required-aria-props': 'error',
         'perfectionist/sort-imports': ['error', {
             type: 'natural',
             ignoreCase: true,
@@ -92,7 +93,11 @@ export default defineConfig({
                 ['internal', 'parent', 'sibling', 'index'],
                 ['type', 'type-import', 'type-internal', 'type-parent', 'type-sibling', 'type-index'],
                 'side-effect',
-                'style',
+                // Stylesheet order is CSS load order: place the group, keep its order
+                {
+                    group: 'style',
+                    type: 'unsorted',
+                },
                 'side-effect-style',
             ],
         }],
@@ -170,13 +175,25 @@ export default defineConfig({
             },
         },
         {
+            files: ['src/utils/warnOnce.ts'],
+            rules: {
+                'no-console': 'off',
+            },
+        },
+        {
+            // Node scripts of the repository, not shipped: their console is their output
+            files: ['scripts/**'],
+            rules: {
+                'no-console': 'off',
+            },
+        },
+        {
             files: ['**/*.stories.{ts,tsx,js,jsx}'],
             jsPlugins: ['eslint-plugin-storybook'],
             rules: {
                 ...storybook.configs['flat/recommended'][1].rules,
                 // Fixture objects read better with several properties per line
                 '@stylistic/object-property-newline': 'off',
-                'typescript/no-useless-default-assignment': 'off',
             },
         },
         {

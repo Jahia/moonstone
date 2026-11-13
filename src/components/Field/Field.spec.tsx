@@ -5,6 +5,9 @@ import { FieldSelector } from './FieldSelector';
 import { Field } from './index';
 import { Button } from '~/components/Button';
 import { Chip } from '~/components/Chip';
+import { Dropdown } from '~/components/Dropdown';
+import { Input } from '~/components/Input';
+import { Textarea } from '~/components/Textarea';
 import { Add, Love } from '~/icons';
 
 import type { FieldProps } from './Field.types';
@@ -114,5 +117,123 @@ describe('Field', () => {
     it('should display errorMessage', () => {
         render(<Field {...requiredProps} hasError errorMessage="Field errorMessage"><div/></Field>);
         expect(screen.getByText('Field errorMessage')).toBeInTheDocument();
+    });
+
+    it('should name the input inside with its label, and describe it with its helper and its error', () => {
+        render(
+            <Field
+                hasError
+                errorMessage="Required"
+                helper="Help"
+                id="title"
+                label="Title"
+            >
+                <Input/>
+            </Field>,
+        );
+        const input = screen.getByRole('textbox', { name: 'Title' });
+        expect(input).toHaveAccessibleDescription('Help Required');
+        expect(input).toBeInvalid();
+        expect(screen.getByRole('alert')).toHaveTextContent('Required');
+    });
+
+    it('should name a Dropdown inside with its label followed by the selected value', () => {
+        render(
+            <Field id="language" label="Language">
+                <Dropdown data={[{ label: 'French', value: 'fr' }]} value="fr" onChange={() => null}/>
+            </Field>,
+        );
+        expect(screen.getByRole('listbox', { name: 'Language French' })).toBeInTheDocument();
+    });
+
+    it('should name a multiple Dropdown inside with its label followed by its tags', () => {
+        const data = [{ label: 'French', value: 'fr' }, { label: 'German', value: 'de' }];
+        render(
+            <Field id="languages" label="Languages">
+                <Dropdown data={data} values={['fr', 'de']} onChange={() => null}/>
+            </Field>,
+        );
+        expect(screen.getByRole('listbox', { name: 'Languages French German' })).toBeInTheDocument();
+    });
+
+    it('should name a Textarea inside with its label, and describe it with its helper', () => {
+        render(<Field helper="Help" id="summary" label="Summary"><Textarea/></Field>);
+        expect(screen.getByRole('textbox', { name: 'Summary' })).toHaveAccessibleDescription('Help');
+    });
+
+    it('should focus the input inside on a click on its label', async () => {
+        render(<Field id="title" label="Title"><Input/></Field>);
+        await userEvent.click(screen.getByText('Title'));
+        expect(screen.getByRole('textbox', { name: 'Title' })).toHaveFocus();
+    });
+
+    it('should give the id the label points to the first control inside only, and a unique id to the others', () => {
+        render(
+            <Field id="keyword" label="Keyword">
+                <Input/>
+                <Textarea/>
+            </Field>,
+        );
+        const controls = screen.getAllByRole('textbox', { name: 'Keyword' });
+        expect(controls[0]).toHaveAttribute('id', 'keyword-control');
+        expect(controls[1].id).not.toBe(controls[0].id);
+    });
+
+    it('should give the id the label points to the next input when the first one is removed', () => {
+        const { rerender } = render(
+            <Field id="keyword" label="Keyword">
+                <Input key="first"/>
+                <Input key="second"/>
+                <Input key="third"/>
+            </Field>,
+        );
+        rerender(
+            <Field id="keyword" label="Keyword">
+                <Input key="second"/>
+                <Input key="third"/>
+            </Field>,
+        );
+        const inputs = screen.getAllByRole('textbox', { name: 'Keyword' });
+        expect(inputs[0]).toHaveAttribute('id', 'keyword-control');
+        expect(inputs[1].id).not.toBe(inputs[0].id);
+    });
+
+    // Limit: FloatingList sorts the controls again only when one mounts or unmounts
+    it.fails('should give the id the label points to the input that becomes first after a keyed reorder', () => {
+        const { rerender } = render(
+            <Field id="keyword" label="Keyword">
+                <Input key="first"/>
+                <Input key="second"/>
+            </Field>,
+        );
+        rerender(
+            <Field id="keyword" label="Keyword">
+                <Input key="second"/>
+                <Input key="first"/>
+            </Field>,
+        );
+        expect(screen.getAllByRole('textbox', { name: 'Keyword' })[0]).toHaveAttribute('id', 'keyword-control');
+    });
+
+    it('should join the aria-describedby of the input to its helper', () => {
+        render(
+            <Field helper="Help" id="title" label="Title">
+                <span id="hint">Hint</span>
+                <Input aria-describedby="hint"/>
+            </Field>,
+        );
+        expect(screen.getByRole('textbox', { name: 'Title' })).toHaveAccessibleDescription('Hint Help');
+    });
+
+    it('should not link the search box of a Dropdown inside to its label or helper', async () => {
+        render(
+            <Field helper="Help" id="language" label="Language">
+                <Dropdown hasSearch data={[{ label: 'French', value: 'fr' }]} value="fr" onChange={() => null}/>
+            </Field>,
+        );
+        await userEvent.click(screen.getByRole('listbox', { name: 'Language French' }));
+        const searchbox = screen.getByRole('searchbox');
+        expect(searchbox).not.toHaveAttribute('aria-labelledby');
+        expect(searchbox).not.toHaveAttribute('aria-describedby');
     });
 });

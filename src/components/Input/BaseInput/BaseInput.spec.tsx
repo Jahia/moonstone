@@ -22,6 +22,18 @@ describe('BaseInput', () => {
         ).toBeInTheDocument();
     });
 
+    it('should forward aria-invalid and aria-describedby to the input', () => {
+        render(
+            <>
+                <BaseInput aria-describedby="error" aria-invalid="true" aria-label="Title"/>
+                <span id="error">Required</span>
+            </>,
+        );
+        const input = screen.getByRole('textbox', { name: 'Title' });
+        expect(input).toBeInvalid();
+        expect(input).toHaveAccessibleDescription('Required');
+    });
+
     it('should have specified id', () => {
         const { container } = render(<BaseInput id="test-id"/>);
         expect(container.querySelector('#test-id')).toBeInTheDocument();
@@ -63,6 +75,11 @@ describe('BaseInput', () => {
         await user.type(screen.getByTestId('moonstone-input'), 'type a value');
 
         expect(screen.getByDisplayValue('type a value')).toBeInTheDocument();
+    });
+
+    it('should let the consumer translate the clear button name', () => {
+        render(<BaseInput defaultValue="test-default-value" i18n={{ clearButton: 'Effacer' }} onClear={() => {}}/>);
+        expect(screen.getByRole('button', { name: 'Effacer' })).toBeInTheDocument();
     });
 });
 

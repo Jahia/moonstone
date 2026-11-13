@@ -35,7 +35,6 @@ const BannerForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, BannerPro
 
     return (
         <div
-            aria-label={title}
             className={clsx(
                 ['moonstone-banner', styles['moonstone-banner']],
                 [`moonstone-banner_${variant}`, styles[`moonstone-banner_${variant}`]],
@@ -43,6 +42,7 @@ const BannerForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, BannerPro
                 ['flexCol', layout.flexCol],
             )}
             ref={ref}
+            role={variant === 'warning' || variant === 'danger' ? 'alert' : 'status'}
             {...props}
         >
             <div className={clsx(

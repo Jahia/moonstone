@@ -36,6 +36,16 @@ clears the whole value, like the clear button.
 
 Provide `value` + `onChange` for controlled (`onChange` is required), or `defaultValue` for uncontrolled.
 
+## Accessibility
+
+- When `Enter` or `Space` in the date field opens the calendar, focus moves to the selected day, else
+  to today, else to the first enabled day. When a click opens it, focus stays in the field, to type a
+  date, and the calendar is reachable with Tab after the field.
+- The arrow keys move between the days. `Enter` selects the focused day, closes the calendar and
+  returns focus to the date field.
+- `Escape` closes the calendar and returns focus to the date field when focus was inside the
+  calendar. It stops there, so a `Modal` around the field stays open.
+
 ## Calendar constraints
 
 - `minDate` / `maxDate` — inclusive bounds; dates outside are disabled.
@@ -57,8 +67,9 @@ years are not listed.
 `locale` (BCP 47) drives the calendar text, the displayed date format, and the first day of the week.
 When omitted, the browser locale is used. `dateFormat` (LDML, e.g. `'dd/MM/yyyy'`) overrides only the
 field's date order — name tokens still render localized via `locale`. `weekStartsOn` overrides the
-locale-derived first day. `i18n` overrides the calendar action labels (today / next / previous month)
-and the timezone row label.
+locale-derived first day. `i18n` overrides the calendar action labels (today / next / previous month),
+the timezone row label, the clear button name, and the names of the time field (`timeLabel`, "Time") and
+of the AM/PM dropdown (`meridiemLabel`, "AM/PM").
 
 ## Zoned mode
 

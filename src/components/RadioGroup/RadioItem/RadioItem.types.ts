@@ -4,7 +4,7 @@ export type RadioItemProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'clas
     /**
      * Identifier added to the input element
      */
-    id: string;
+    id?: string;
 
     /**
      * Radio label

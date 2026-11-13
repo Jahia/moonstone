@@ -109,4 +109,20 @@ describe('FieldBoolean', () => {
             screen.getByText('FieldBoolean errorMessage'),
         ).toBeInTheDocument();
     });
+
+    it('should name the checkbox with its label, and describe it with its helper and its error', () => {
+        render(
+            <FieldBoolean
+                {...requiredProps}
+                hasError
+                errorMessage="Required"
+                helper="Help"
+                label="Accept"
+            />,
+        );
+        const checkbox = screen.getByRole('checkbox', { name: 'Accept' });
+        expect(checkbox).toHaveAccessibleDescription('Help Required');
+        expect(checkbox).toBeInvalid();
+        expect(screen.getByRole('alert')).toHaveTextContent('Required');
+    });
 });

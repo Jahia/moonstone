@@ -35,6 +35,18 @@ export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: Dr
  */
 export type BaseDropdownProps = {
     /**
+     * Accessible name of the trigger
+     * @default the label, else the label of the selected option, else the placeholder
+     */
+    'aria-label'?: string;
+
+    /**
+     * Id of the element that names the trigger. It replaces the label of a surrounding Field
+     */
+    'aria-labelledby'?: string;
+    // The quoted keys stay in their own object, or quote-props quotes every key of the type
+} & {
+    /**
      * Text for dropdown, when no value is selected
      */
     placeholder?: string;
@@ -107,6 +119,22 @@ export type BaseDropdownProps = {
      * Function - when passed in, the Clear icon appears at the end of the input and its click event is passed back when the Clear icon is clicked
      */
     onClear?: React.MouseEventHandler;
+
+    /**
+     * Dropdown labels
+     */
+    i18n?: {
+        /**
+         * Accessible name of the clear button
+         * @default 'Reset'
+         */
+        clearButton?: string;
+        /**
+         * Accessible name of the search input of the menu
+         * @default 'Search'
+         */
+        searchLabel?: string;
+    };
 
     /**
      * Function triggered on focus of the checkbox value

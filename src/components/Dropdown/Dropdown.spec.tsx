@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Dropdown, DropdownMenu, TreeViewMenu } from './index';
+import { Field } from '~/components/Field';
 import { dropdownData } from '~/data/dropdownData';
 import { dropdownDataGrouped } from '~/data/dropdownDataGrouped';
 import { dropdownDataTree } from '~/data/dropdownDataTree';
@@ -93,7 +94,7 @@ describe('Dropdown', () => {
         );
     });
 
-    it('should add aria-busy attribute if the dropdown is loading', () => {
+    it('should mark a loading dropdown busy and hide its loader from screen readers', () => {
         render(
             <Dropdown
                 isLoading
@@ -106,6 +107,7 @@ describe('Dropdown', () => {
         expect(screen.getByTestId('moonstone-dropdown').firstChild).toHaveAttribute(
             'aria-busy',
         );
+        expect(screen.queryByRole('status')).not.toBeInTheDocument();
     });
 
     it('should not display the menu dropdown by default', () => {
@@ -150,6 +152,67 @@ describe('Dropdown', () => {
         expect(screen.getByRole('tree')).toBeInTheDocument();
     });
 
+    it('should name the trigger with the aria-label of the consumer', () => {
+        render(<Dropdown aria-label="Language" data={dropdownDataGrouped} value="" onChange={() => 'testing'}/>);
+        expect(screen.getByRole('listbox')).toHaveAccessibleName('Language');
+    });
+
+    it('should name the trigger with the aria-label of the consumer inside a Field', () => {
+        render(
+            <Field id="language" label="Field label">
+                <Dropdown aria-label="Language" data={dropdownDataGrouped} value="" onChange={() => 'testing'}/>
+            </Field>,
+        );
+        expect(screen.getByRole('listbox')).toHaveAccessibleName('Language');
+    });
+
+    it('should name the trigger with the aria-label of the consumer followed by the value', () => {
+        render(<Dropdown aria-label="Language" data={[{ label: 'French', value: 'fr' }]} value="fr" onChange={() => null}/>);
+        expect(screen.getByRole('listbox')).toHaveAccessibleName('Language French');
+    });
+
+    it('should name the trigger with the aria-labelledby of the consumer followed by the value', () => {
+        render(
+            <>
+                <span id="language-label">Language</span>
+                <Dropdown aria-labelledby="language-label" data={[{ label: 'French', value: 'fr' }]} value="fr" onChange={() => null}/>
+            </>,
+        );
+        expect(screen.getByRole('listbox')).toHaveAccessibleName('Language French');
+    });
+
+    it('should name the search input of the menu with i18n.searchLabel', async () => {
+        const user = userEvent.setup();
+        render(
+            <Dropdown
+                hasSearch
+                data={dropdownDataGrouped}
+                i18n={{ searchLabel: 'Find' }}
+                value=""
+                onChange={() => 'testing'}
+            />,
+        );
+
+        await user.click(screen.getByRole('listbox'));
+        expect(screen.getByRole('searchbox')).toHaveAccessibleName('Find');
+    });
+
+    it('should name the search input of the tree menu with i18n.searchLabel', async () => {
+        const user = userEvent.setup();
+        render(
+            <Dropdown
+                hasSearch
+                i18n={{ searchLabel: 'Find' }}
+                treeData={dropdownDataTree}
+                value=""
+                onChange={() => 'testing'}
+            />,
+        );
+
+        await user.click(screen.getByRole('listbox'));
+        expect(screen.getByRole('searchbox')).toHaveAccessibleName('Find');
+    });
+
     it('should update searchbar when I click on the dropdown and start typing', async () => {
         const user = userEvent.setup();
         render(
@@ -182,6 +245,23 @@ describe('Dropdown', () => {
         expect(screen.getByText(/Group Two/)).toBeInTheDocument();
         expect(screen.getByText(/option 4/)).toBeInTheDocument();
         expect(screen.queryByText(/option 3/i)).not.toBeInTheDocument();
+    });
+
+    it('should announce the empty search text through a live region', async () => {
+        const user = userEvent.setup();
+        render(
+            <Dropdown
+                hasSearch
+                data={dropdownDataGrouped}
+                searchEmptyText="Nothing found"
+                value=""
+                onChange={() => 'testing'}
+            />,
+        );
+
+        await user.click(screen.getByRole('listbox'));
+        await user.type(screen.getByRole('searchbox'), 'no match at all');
+        expect(screen.getByRole('status')).toHaveTextContent('Nothing found');
     });
 
     it('should call onChange when I select a value', async () => {
@@ -308,6 +388,13 @@ describe('Dropdown', () => {
         );
     });
 
+    it('should let the consumer translate the reset button name', () => {
+        render(
+            <Dropdown data={dropdownData} i18n={{ clearButton: 'Effacer' }} values={['4']} onClear={vi.fn()}/>,
+        );
+        expect(screen.getByRole('button', { name: 'Effacer' })).toBeInTheDocument();
+    });
+
     it('should call onClear when the reset button is clicked', async () => {
         const user = userEvent.setup();
         const onClear = vi.fn();
@@ -402,6 +489,48 @@ describe('Dropdown', () => {
         );
         await user.click(screen.getByRole('listbox'));
         expect(screen.getByRole('search')).toBeInTheDocument();
+    });
+
+    it('should not link the search box of a tree to a Field around it', async () => {
+        const user = userEvent.setup();
+        render(
+            <Field helper="Help" id="page" label="Page">
+                <Dropdown hasSearch treeData={dropdownDataTree} value="" onChange={() => null}/>
+            </Field>,
+        );
+        await user.click(screen.getByRole('listbox'));
+        expect(screen.getByRole('searchbox')).not.toHaveAttribute('aria-describedby');
+    });
+
+    it('should not call onBlur when no onFocus was delivered', async () => {
+        const user = userEvent.setup();
+        const onBlur = vi.fn();
+        render(<><Dropdown data={dropdownData} value="" onBlur={onBlur}/><button type="button">after</button></>);
+
+        await user.tab();
+        await user.tab();
+
+        expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
+        expect(onBlur).not.toHaveBeenCalled();
+    });
+
+    it('should call onFocus once and onBlur once across a round trip through the menu', async () => {
+        const user = userEvent.setup();
+        const onFocus = vi.fn();
+        const onBlur = vi.fn();
+        render(<><Dropdown data={dropdownData} value="" onBlur={onBlur} onFocus={onFocus}/><button type="button">after</button></>);
+        const trigger = screen.getByRole('listbox');
+
+        await user.click(trigger);
+        expect(screen.getByRole('list')).toBeInTheDocument();
+        expect(trigger).not.toHaveFocus();
+        await user.keyboard('{Escape}');
+        expect(trigger).toHaveFocus();
+        expect(screen.queryByRole('list')).not.toBeInTheDocument();
+        await user.tab();
+
+        expect(onFocus).toHaveBeenCalledTimes(1);
+        expect(onBlur).toHaveBeenCalledTimes(1);
     });
 });
 

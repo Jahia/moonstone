@@ -19,6 +19,16 @@ describe('SearchInput', () => {
         render(<SearchInput/>);
         expect(screen.getByRole('search')).toBeInTheDocument();
     });
+
+    it('should not show the reset button on an empty field', () => {
+        render(<SearchInput/>);
+        expect(screen.queryByRole('button', { name: 'Reset' })).not.toBeInTheDocument();
+    });
+
+    it('should let the consumer translate the clear button name', () => {
+        render(<SearchInput defaultValue="test-default-value" i18n={{ clearButton: 'Effacer' }}/>);
+        expect(screen.getByRole('button', { name: 'Effacer' })).toBeInTheDocument();
+    });
 });
 
 describe('UncontrolledInput', () => {

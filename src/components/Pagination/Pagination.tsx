@@ -16,10 +16,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         itemsPerPage: 'Items',
         of: 'of',
     },
-    i18n = {
-        itemsPerPage: label.itemsPerPage,
-        of: label.of,
-    },
+    i18n,
     itemsPerPageOptions = [25, 50, 100],
     itemsPerPage = itemsPerPageOptions[0],
     totalOfItems,
@@ -61,6 +58,7 @@ export const Pagination: React.FC<PaginationProps> = ({
             >
                 <Button
                     isDisabled={currentPage === 1}
+                    aria-label={i18n?.firstPage || 'First page'}
                     data-testid="pagination-button-first-page"
                     icon={<ChevronFirstPage/>}
                     variant="ghost"
@@ -68,6 +66,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                 />
                 <Button
                     isDisabled={currentPage === 1}
+                    aria-label={i18n?.previousPage || 'Previous page'}
                     data-testid="pagination-button-previous-page"
                     icon={<ChevronLeft/>}
                     variant="ghost"
@@ -85,7 +84,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                     data-testid="pagination-total-items"
                     variant="caption"
                 >
-                    {`${visibleRangeStart}-${visibleRangeEnd} ${i18n.of} ${totalOfItems}`}
+                    {`${visibleRangeStart}-${visibleRangeEnd} ${i18n?.of || label.of} ${totalOfItems}`}
                 </Typography>
                 <div
                     className={clsx(
@@ -94,7 +93,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                         layout.alignCenter,
                     )}
                 >
-                    <Typography variant="caption">{i18n.itemsPerPage}</Typography>
+                    <Typography variant="caption">{i18n?.itemsPerPage || label.itemsPerPage}</Typography>
                     <Dropdown
                         data={itemsPerPageOptions.map((opt: number) => ({
                             label: opt.toString(),
@@ -116,6 +115,7 @@ export const Pagination: React.FC<PaginationProps> = ({
             >
                 <Button
                     isDisabled={lastPage === currentPage}
+                    aria-label={i18n?.nextPage || 'Next page'}
                     data-testid="pagination-button-next-page"
                     icon={<ChevronRight/>}
                     variant="ghost"
@@ -123,6 +123,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                 />
                 <Button
                     isDisabled={lastPage === currentPage}
+                    aria-label={i18n?.lastPage || 'Last page'}
                     data-testid="pagination-button-last-page"
                     icon={<ChevronLastPage/>}
                     variant="ghost"

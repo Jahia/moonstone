@@ -1,9 +1,4 @@
 import React from 'react';
-import {
-    STORY_ARGS_UPDATED,
-    UPDATE_GLOBALS,
-} from 'storybook/internal/core-events';
-import { addons } from 'storybook/preview-api';
 
 import '@fontsource-variable/nunito-sans';
 
@@ -17,45 +12,35 @@ import '../src/tokens/borders/borders.scss';
 // Uncomment to use legacy css in storybook
 // import '../dist/legacy-global-bundle.css';
 
-let channel = addons.getChannel();
-const storyListener = (args) => {
-    if (typeof args.args.isReversed !== 'undefined') {
-        let colorTheme = args.args.isReversed ? 'dark' : 'light';
-        channel.emit(UPDATE_GLOBALS, {
-            initialGlobals: {
-                theme: colorTheme,
-                backgrounds:
-                    colorTheme === 'dark'
-                        ? {
-                                name: 'dark',
-                                value: '#293136',
-                            }
-                        : {
-                                name: 'light',
-                                value: '#fdfdfd',
-                            },
-            },
-        });
-    }
-};
-
-function setupBackgroundListener() {
-    channel.removeListener(STORY_ARGS_UPDATED, storyListener);
-    channel.addListener(STORY_ARGS_UPDATED, storyListener);
-}
-
-// Dark theme runs: stories tagged `dark-theme` render their reversed variant unless they set it
+// Dark theme runs: stories tagged `dark-theme` render their reversed variant unless they set it.
+// Reversed stories get the dark canvas in the same render (a globals update would wait for the a11y run).
 export const decorators = [
-    (Story, { globals, args, tags }) =>
-        globals.theme === 'dark' && tags.includes('dark-theme') && args.isReversed === undefined
-            ? Story({
-                    args: {
-                        ...args,
-                        isReversed: true,
-                    },
-                })
-            : Story(),
+    (Story, {
+        globals, args, tags, viewMode,
+    }) => {
+        const themeReversed = globals.theme === 'dark' && tags.includes('dark-theme') && args.isReversed === undefined;
+        // In docs, only the block that renders this style (several blocks can show the same story)
+        const selector = viewMode === 'docs' ? '.docs-story:has(style[data-reversed])' : 'body';
+        return (
+            <>
+                {(args.isReversed || themeReversed) && <style data-reversed>{`${selector} { background: var(--moon-color-gray_dark); color: var(--moon-color-light); }`}</style>}
+                {themeReversed
+                    ? Story({
+                            args: {
+                                ...args,
+                                isReversed: true,
+                            },
+                        })
+                    : Story()}
+            </>
+        );
+    },
 ];
+
+// Declares `theme` so it can be set from the URL (`globals=theme:dark`)
+export const initialGlobals = {
+    theme: 'light',
+};
 
 export const parameters = {
     layout: 'fullscreen',
@@ -100,6 +85,11 @@ export const parameters = {
         // 'error' - fail CI on a11y violations
         // 'off' - skip a11y checks entirely
         test: 'todo',
+        context: {
+            // floating-ui focus guards: aria-hidden spans that pass the focus on at once
+            // (not aria-hidden on Safari, for VoiceOver)
+            exclude: ['[data-floating-ui-focus-guard]'],
+        },
         // WCAG 2.2 AA: axe tags are incremental, so every A/AA tag since 2.0 is needed
         options: {
             runOnly: {
@@ -122,5 +112,4 @@ export const parameters = {
     },
 };
 
-setupBackgroundListener();
 export const tags = ['autodocs'];

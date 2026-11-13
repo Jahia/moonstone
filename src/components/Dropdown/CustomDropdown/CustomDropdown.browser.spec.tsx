@@ -41,6 +41,29 @@ describe('CustomDropdown keyboard', () => {
         expect(trigger).toHaveFocus();
     });
 
+    it('should call the onClick of the consumer and still open the menu', async () => {
+        const onClick = vi.fn();
+        render(
+            <CustomDropdown label="Actions" onClick={onClick}>
+                <MenuItem label="First"/>
+            </CustomDropdown>,
+        );
+        await userEvent.click(screen.getByRole('button', { name: 'Actions' }));
+        expect(onClick).toHaveBeenCalledTimes(1);
+        expect(await screen.findByRole('list')).toBeInTheDocument();
+    });
+
+    it('should keep the menu closed with Enter when the onClick of the consumer calls preventDefault', async () => {
+        render(
+            <CustomDropdown label="Actions" onClick={e => e.preventDefault()}>
+                <MenuItem label="First"/>
+            </CustomDropdown>,
+        );
+        screen.getByRole('button', { name: 'Actions' }).focus();
+        await userEvent.keyboard('{Enter}');
+        expect(screen.queryByRole('list')).not.toBeInTheDocument();
+    });
+
     it('opens with Enter', async () => {
         const { trigger } = renderCustomDropdown();
         trigger.focus();
@@ -55,14 +78,14 @@ describe('CustomDropdown keyboard', () => {
         expect(await screen.findByRole('list')).toBeInTheDocument();
     });
 
-    it.fails('opens with ArrowDown', async () => {
+    it('opens with ArrowDown', async () => {
         const { trigger } = renderCustomDropdown();
         trigger.focus();
         await userEvent.keyboard('{ArrowDown}');
         expect(await screen.findByRole('list')).toBeInTheDocument();
     });
 
-    it.fails('moves focus to the first item when opened with the keyboard', async () => {
+    it('moves focus to the first item when opened with the keyboard', async () => {
         const { trigger } = renderCustomDropdown();
         await openWithEnter(trigger);
         expect(getItem('First')).toHaveFocus();
@@ -78,7 +101,7 @@ describe('CustomDropdown keyboard', () => {
         expect(getItem('First')).toHaveFocus();
     });
 
-    it.fails('activates the focused item with Enter', async () => {
+    it('activates the focused item with Enter', async () => {
         const { trigger, onFirst } = renderCustomDropdown();
         await openWithEnter(trigger);
         getItem('First').focus();
@@ -86,7 +109,7 @@ describe('CustomDropdown keyboard', () => {
         expect(onFirst).toHaveBeenCalledTimes(1);
     });
 
-    it.fails('closes with Escape and returns focus to the trigger', async () => {
+    it('closes with Escape and returns focus to the trigger', async () => {
         const { trigger } = renderCustomDropdown();
         await openWithEnter(trigger);
         getItem('First').focus();

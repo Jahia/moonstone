@@ -75,12 +75,13 @@ describe('TreeView', () => {
         expect(screen.getByTestId('test-iconStart')).toBeInTheDocument();
     });
 
-    it('should display loading icon if node is loading', () => {
+    it('should mark a loading node busy and keep its label as its name', () => {
         render(<TreeView data={[{ ...tree[0], isLoading: true }]}/>);
         expect(screen.getAllByRole('treeitem')[0]).toHaveAttribute(
             'aria-busy',
             'true',
         );
+        expect(screen.getAllByRole('treeitem')[0]).toHaveAccessibleName(tree[0].label);
     });
 
     it('should add specific class if TreeView is reversed', () => {

@@ -58,13 +58,13 @@ describe('TimeInput keyboard', () => {
         render(<TimeInput defaultValue="23:56" timeFormat="12h"/>);
         screen.getByRole('textbox').focus();
         await userEvent.keyboard('{Tab}');
-        await waitFor(() => expect(screen.getByRole('listbox', { name: 'PM' })).toHaveFocus());
+        await waitFor(() => expect(screen.getByRole('listbox', { name: 'AM/PM PM' })).toHaveFocus());
     });
 
     it('opens the AM/PM selector with Enter and selects an option with Enter', async () => {
         const onChange = vi.fn();
         render(<TimeInput defaultValue="23:56" timeFormat="12h" onChange={onChange}/>);
-        screen.getByRole('listbox', { name: 'PM' }).focus();
+        screen.getByRole('listbox', { name: 'AM/PM PM' }).focus();
         await userEvent.keyboard('{Enter}');
         (await findOption('AM')).focus();
         await userEvent.keyboard('{Enter}');
@@ -72,20 +72,39 @@ describe('TimeInput keyboard', () => {
         expect(onChange.mock.calls[0][1].toString()).toBe('11:56:00');
     });
 
-    it.fails('opens the AM/PM selector with ArrowDown', async () => {
+    it('opens the AM/PM selector with ArrowDown', async () => {
         render(<TimeInput defaultValue="23:56" timeFormat="12h"/>);
-        screen.getByRole('listbox', { name: 'PM' }).focus();
+        screen.getByRole('listbox', { name: 'AM/PM PM' }).focus();
         await userEvent.keyboard('{ArrowDown}');
         expect(await findOption('AM')).toBeVisible();
     });
 
-    it.fails('closes the AM/PM selector with Escape and returns focus to it', async () => {
+    it('closes the AM/PM selector with Escape and returns focus to it', async () => {
         render(<TimeInput defaultValue="23:56" timeFormat="12h"/>);
-        screen.getByRole('listbox', { name: 'PM' }).focus();
+        screen.getByRole('listbox', { name: 'AM/PM PM' }).focus();
         await userEvent.keyboard('{Enter}');
         (await findOption('AM')).focus();
         await userEvent.keyboard('{Escape}');
         expect(screen.queryByRole('list')).toBeNull();
-        expect(screen.getByRole('listbox', { name: 'PM' })).toHaveFocus();
+        expect(screen.getByRole('listbox', { name: 'AM/PM PM' })).toHaveFocus();
+    });
+
+    it('extends the selection with Shift+ArrowLeft', async () => {
+        render(<TimeInput defaultValue="12:30"/>);
+        const input = screen.getByRole('textbox') as HTMLInputElement;
+        input.focus();
+        input.setSelectionRange(5, 5);
+        await userEvent.keyboard('{Shift>}{ArrowLeft}{ArrowLeft}{/Shift}');
+        expect([input.selectionStart, input.selectionEnd]).toEqual([3, 5]);
+    });
+
+    it('calls the onKeyDown of the consumer and still steps the hour with ArrowUp', async () => {
+        const onKeyDown = vi.fn();
+        render(<TimeInput defaultValue="12:30" onKeyDown={onKeyDown}/>);
+        screen.getByRole('textbox').focus();
+        await userEvent.keyboard('{ArrowLeft}');
+        await userEvent.keyboard('{ArrowUp}');
+        expect(screen.getByRole('textbox')).toHaveValue('13:30');
+        expect(onKeyDown).toHaveBeenCalled();
     });
 });
