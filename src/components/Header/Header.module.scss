@@ -1,10 +1,8 @@
-$header-minHeight: 64px;
-$header-toolbar-minheight: 35px;
-
 .moonstone-header {
+    z-index: 1;
+
     width: 100%;
-    min-height: $header-minHeight;
-    padding: var(--moon-spacing-medium) var(--moon-spacing-large) 0 var(--moon-spacing-large);
+    padding: var(--moon-spacing-small) var(--moon-spacing-medium) 0 var(--moon-spacing-medium);
 
     background-color: var(--moon-background-selector);
     box-shadow: 0 1px 8px var(--moon-color-gray60);
@@ -21,7 +19,9 @@ $header-toolbar-minheight: 35px;
 // Main
 //---
 .moonstone-header_main {
-    margin-bottom: var(--moon-spacing-nano);
+    &:only-child {
+        padding-bottom: var(--moon-spacing-small);
+    }
 }
 
 .moonstone-header_back {
@@ -42,7 +42,7 @@ $header-toolbar-minheight: 35px;
 // Information Section
 //---
 .moonstone-header_information {
-    padding: var(--moon-spacing-medium) 0;
+    padding: var(--moon-spacing-small) 0;
 }
 
 .moonstone-header_informationLeft,
@@ -58,5 +58,5 @@ $header-toolbar-minheight: 35px;
 // Toolbar Section
 //---
 .moonstone-header_toolbar {
-    height: $header-toolbar-minheight;
+    padding-block: var(--moon-spacing-nano);
 }

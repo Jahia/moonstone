@@ -40,7 +40,7 @@ export const WithIcon = {
     args: {
         id: 'id',
         label: 'AccordionItem',
-        icon: <Love size="big"/>,
+        icon: <Love/>,
     },
 };
 

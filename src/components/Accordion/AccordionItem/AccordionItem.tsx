@@ -3,7 +3,7 @@ import React, { useId } from 'react';
 
 import { AccordionContext } from '~/components/Accordion/Accordion.context';
 import { Typography } from '~/components/Typography';
-import { icons, layout } from '~/globals/css-utils.js';
+import { layout } from '~/globals/css-utils.js';
 import { shouldIgnoreKey } from '~/hooks';
 
 import type { AccordionItemProps } from './AccordionItem.types';
@@ -68,16 +68,15 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
                     {icon && (
                         <icon.type
                             {...icon.props}
-                            className={clsx('moonstone-icon_big', icons['moonstone-icon_big'], styles.accordionItem_icon, icon.props.className)}
-                            size="big"
+                            className={clsx(styles.accordionItem_icon, icon.props.className)}
                         />
                     )}
                     <Typography
                         isNowrap
                         className={clsx('flexFluid', layout.flexFluid)}
                         component="span"
-                        variant="subheading"
-                        weight={open ? 'bold' : 'default'}
+                        variant="body"
+                        weight={open ? 'bold' : 'semiBold'}
                     >
                         {label}
                     </Typography>
