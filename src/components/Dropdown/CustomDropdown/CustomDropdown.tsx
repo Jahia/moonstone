@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { Button, Menu } from '~/components';
-import { mergeHandlers } from '~/hooks';
+import { mergeHandlers, shouldIgnoreKey } from '~/hooks';
 import { ChevronDown } from '~/icons';
 
 import type { CustomDropdownProps } from './CustomDropdown.types';
@@ -113,6 +113,12 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                 }}
                 {...mergeHandlers(props, {
                     onClick: (!isDisabled && !isLoading) ? handleOpenMenu : undefined,
+                    onKeyDown: (e: React.KeyboardEvent) => {
+                        if (e.key === 'ArrowDown' && !isDisabled && !isLoading && !shouldIgnoreKey(e)) {
+                            e.preventDefault();
+                            handleOpenMenu(e);
+                        }
+                    },
                 })}
             />
 
