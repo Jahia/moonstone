@@ -1,5 +1,7 @@
 A side panel that slides in next to the content. It is not modal: the page next to it stays usable.
 
+It slides in when `isOpen` turns true, and out when `isOpen` turns false. A Drawer rendered open, such as a panel open by default, shows at once, with no slide-in. To animate an opening, keep the Drawer rendered and set `isOpen`: a Drawer that you mount to open it does not slide in.
+
 ## Accessibility
 
 - Name the Drawer with `aria-label` or `aria-labelledby`: it renders an `aside` by default, a landmark that screen readers list by its name.

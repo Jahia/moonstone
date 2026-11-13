@@ -1,6 +1,6 @@
 import { useMergeRefs } from '@floating-ui/react';
 import clsx from 'clsx';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Paper } from '~/components/Paper';
 import { mergeHandlers, shouldIgnoreKey, usePresence } from '~/hooks';
@@ -27,6 +27,12 @@ export const Drawer = React.forwardRef(<C extends React.ElementType = 'aside'>({
 }: DrawerProps<C>,
     ref: React.Ref<HTMLElement>) => {
     const { isPresent, state } = usePresence(isOpen, ANIMATION_DURATION);
+
+    // True from a first render with `isOpen` until the first close. Reset during render, like usePresence
+    const [isRenderedOpen, setIsRenderedOpen] = useState(isOpen);
+    if (isRenderedOpen && !isOpen) {
+        setIsRenderedOpen(false);
+    }
 
     const drawerRef = useRef<HTMLElement>(null);
     const mergedRef = useMergeRefs([drawerRef, ref]);
@@ -64,7 +70,7 @@ export const Drawer = React.forwardRef(<C extends React.ElementType = 'aside'>({
     const paperProps = {
         'ref': mergedRef,
         'component': component || 'aside',
-        'className': clsx(styles.drawer, className),
+        'className': clsx(styles.drawer, { [styles.renderedOpen]: isRenderedOpen }, className),
         ...mergeHandlers(props, { onKeyDown: handleKeyDown }) as BasicPaperProps,
         'style': {
             ...style,

@@ -76,6 +76,30 @@ describe('Drawer keyboard', () => {
     });
 });
 
+describe('Drawer animation', () => {
+    const renderDrawer = (isOpen: boolean) => render(<Drawer isOpen={isOpen} aria-label="Side panel"><p>Drawer content</p></Drawer>);
+    const animationsOf = () => screen.getByRole('complementary', { name: 'Side panel' }).getAnimations() as CSSAnimation[];
+
+    it('should not slide in when it is rendered open', () => {
+        renderDrawer(true);
+        expect(animationsOf()).toHaveLength(0);
+    });
+
+    it('should slide in when it opens', () => {
+        const { rerender } = renderDrawer(false);
+        rerender(<Drawer isOpen aria-label="Side panel"><p>Drawer content</p></Drawer>);
+        expect(animationsOf().map(a => a.animationName)).toEqual([expect.stringContaining('slide-in')]);
+    });
+
+    it('should slide out, then in again, once it was rendered open', () => {
+        const { rerender } = renderDrawer(true);
+        rerender(<Drawer isOpen={false} aria-label="Side panel"><p>Drawer content</p></Drawer>);
+        expect(animationsOf().map(a => a.animationName)).toEqual([expect.stringContaining('slide-out')]);
+        rerender(<Drawer isOpen aria-label="Side panel"><p>Drawer content</p></Drawer>);
+        expect(animationsOf().map(a => a.animationName)).toEqual([expect.stringContaining('slide-in')]);
+    });
+});
+
 // The 2.21.1 fix was lost once on main (app-shell#409)
 describe('Drawer styles', () => {
     it('lets its consumer set its width, with no min-width of 100%', () => {
