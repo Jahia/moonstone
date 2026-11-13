@@ -62,18 +62,17 @@ describe('Checkbox keyboard', () => {
         expect(onChange).not.toHaveBeenCalled();
     });
 
-    it('shows the focus of a read-only checkbox', async () => {
-        // The colour of the focus ring is a global token, which the tests do not load
+    it('should give the keyboard focus to a read-only checkbox', async () => {
         render(
-            <div style={{ '--moon-color-accent_light': 'blue' } as React.CSSProperties}>
+            <>
                 <button type="button">before</button>
                 <Checkbox isReadOnly value="a"/>
-            </div>,
+            </>,
         );
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
-        expect(getComputedStyle(screen.getByRole('checkbox')).outlineStyle).toBe('solid');
-        expect(getComputedStyle(screen.getByRole('checkbox')).opacity).toBe('1');
+        expect(screen.getByRole('checkbox')).toHaveFocus();
+        expect(screen.getByRole('checkbox').matches(':focus-visible')).toBe(true);
     });
 
     it('skips a disabled checkbox in the tab sequence', async () => {

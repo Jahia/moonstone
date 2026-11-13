@@ -23,7 +23,7 @@
     }
 
     &:focus-visible {
-        @extend %is-focused;
+        @include focus-ring;
     }
 }
 
@@ -44,6 +44,10 @@
 
     background: var(--moon-color-white);
     box-shadow: -4px 4px 4px -4px var(--moon-color-gray60);
+
+    &:focus-visible {
+        @include focus-ring(false, -4px 4px 4px -4px var(--moon-color-gray60));
+    }
 }
 
 // Chevron icon animation

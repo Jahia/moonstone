@@ -17,7 +17,7 @@ import {
 import { Dropdown } from '~/components';
 import { WithoutField } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils';
-import { shouldIgnoreKey } from '~/hooks';
+import { mergeHandlers, shouldIgnoreKey } from '~/hooks';
 import { Clock } from '~/icons';
 
 import type { ControlledTimeInputProps } from './TimeInput.types';
@@ -36,6 +36,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
     className,
     isDisabled,
     isReadOnly,
+    i18n,
     ...props
 }, ref) => {
     const time = toPlainTime(value);
@@ -107,7 +108,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
         <div className={clsx(styles.timeInput, layout.flexRow_nowrap, layout.alignCenter, className)}>
             <BaseInput
                 ref={handleRef}
-                {...props}
+                {...mergeHandlers(props, { onKeyDown: handleKeyDown })}
                 isDisabled={isDisabled}
                 isReadOnly={isReadOnly}
                 autoComplete="off"
@@ -124,11 +125,11 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
                     }
                 }}
                 onChange={event => setDraft(formatTimeInput(event.target.value, timeFormat))}
-                onKeyDown={handleKeyDown}
             />
             {meridiem && (
                 <WithoutField>
                     <Dropdown
+                        aria-label={i18n?.meridiemLabel || 'AM/PM'}
                         {...meridiemDropdownProps}
                         isDisabled={isDisabled || isReadOnly}
                         className={clsx(styles.meridiemDropdown, meridiemDropdownProps?.className)}

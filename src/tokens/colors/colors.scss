@@ -1,3 +1,5 @@
+@use "focus" as *;
+
 // gray, blue*, green, red and yellow already use Figma "Palette 2" values (WCAG AA contrast fix ahead of the palette migration)
 $color-light: #fdfdfd;
 $color-gray-light: #dadada;
@@ -123,4 +125,11 @@ $color-purple-dark: #47168f;
     --moon-color-purple_plain40: #ceb1f9;
     --moon-color-purple_plain60: #b78cf8;
     --moon-color-purple_dark: #{$color-purple-dark};
+    --moon-color-focus_outer: #{$color-blue};
+    --moon-color-focus_inner: #{$color-white};
+}
+
+.moonstone-reverse,
+.moonstone-reversed {
+    @include focus-reversed;
 }

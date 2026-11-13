@@ -102,7 +102,6 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                     setIsFocused(false);
                     pendingBlurEventRef.current = event;
                 }}
-                onClick={(!isDisabled && !isLoading) ? handleOpenMenu : undefined}
                 onFocus={(event) => {
                     setIsFocused(true);
                     // Focus came back before the menu closed: the queued blur never happened.
@@ -113,6 +112,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                     }
                 }}
                 {...mergeHandlers(props, {
+                    onClick: (!isDisabled && !isLoading) ? handleOpenMenu : undefined,
                     onKeyDown: (e: React.KeyboardEvent) => {
                         if (e.key === 'ArrowDown' && !isDisabled && !isLoading && !shouldIgnoreKey(e)) {
                             e.preventDefault();

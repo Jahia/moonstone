@@ -24,12 +24,8 @@ $row-multiple-line-height: 64px;
         .moonstone-checkbox_input {
             border: 1px solid var(--moon-color-light);
 
-            &:not(:checked, :indeterminate) {
+            &:not(:checked, :indeterminate, :focus-visible) {
                 box-shadow: none;
-            }
-
-            &.hasFocus {
-                border: 2px solid var(--moon-color-accent_dark_contrast);
             }
         }
 

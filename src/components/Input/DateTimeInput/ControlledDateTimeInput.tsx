@@ -29,9 +29,9 @@ import {
     parseValue,
 } from './dateTimeValue';
 import { Button, Dropdown, Typography } from '~/components';
-import { WithoutField } from '~/components/Field/Field.context';
+import { useFieldAria, WithoutField } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils';
-import { shouldIgnoreKey } from '~/hooks';
+import { mergeHandlers, shouldIgnoreKey } from '~/hooks';
 import { Calendar } from '~/icons';
 
 import type { ControlledDateTimeInputProps } from './DateTimeInput.types';
@@ -143,6 +143,12 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
 
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     const timeInputId = useId();
+    const timeId = timeInputProps?.id ?? timeInputId;
+    const timezoneLabelId = useId();
+    // The time input repeats the name of the date input before its own: "Publication date Time"
+    const fieldAria = useFieldAria(props);
+    const dateNameIds = props['aria-labelledby'] ?? fieldAria['aria-labelledby'];
+    const timeLabel = i18n?.timeLabel || 'Time';
     const [draft, setDraft] = useState<string | null>(null);
     const [displayedMonth, setDisplayedMonth] = useState(() => getDisplayMonth(selectedDate));
 
@@ -245,6 +251,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
 
     return (
         <div className={clsx(styles.dateTimeInput, className)}>
+            {/* oxlint-disable-next-line jsx-a11y/no-static-element-interactions -- catches the Escape that bubbles up from the fields */}
             <div
                 className={styles.fieldsRow}
                 onKeyDown={(event) => {
@@ -256,7 +263,26 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
             >
                 <BaseInput
                     ref={fieldRef}
-                    {...props}
+                    {...mergeHandlers(props, {
+                        onClick: openCalendar,
+                        onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => {
+                            // Only on an untouched field — once a draft exists Space is a character; keydown runs before insertion.
+                            if (event.key === ' ' && draft === null && !shouldIgnoreKey(event)) {
+                                event.preventDefault();
+                                openCalendar(event);
+                            }
+                        },
+                        onKeyUp: (event: React.KeyboardEvent<HTMLInputElement>) => {
+                            if (event.key === 'Enter') {
+                                if (draft === null) {
+                                    openCalendar(event);
+                                } else {
+                                    commitDraft(event);
+                                    setIsCalendarOpen(false);
+                                }
+                            }
+                        },
+                    })}
                     isDisabled={isDisabled}
                     isReadOnly={isReadOnly}
                     autoComplete={autoComplete}
@@ -274,24 +300,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     onClear={(event) => {
                         event.stopPropagation();
                         clearValue(event);
-                    }}
-                    onClick={openCalendar}
-                    onKeyDown={(event) => {
-                        // Only on an untouched field — once a draft exists Space is a character; keydown runs before insertion.
-                        if (event.key === ' ' && draft === null && !shouldIgnoreKey(event)) {
-                            event.preventDefault();
-                            openCalendar(event);
-                        }
-                    }}
-                    onKeyUp={(event) => {
-                        if (event.key === 'Enter') {
-                            if (draft === null) {
-                                openCalendar(event);
-                            } else {
-                                commitDraft(event);
-                                setIsCalendarOpen(false);
-                            }
-                        }
                     }}
                 />
                 {isCalendarOpen && (
@@ -381,6 +389,10 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                 )}
                 {type !== 'date' && (
                     <TimeInput
+                        aria-label={!dateNameIds && props['aria-label'] ? `${props['aria-label']} ${timeLabel}` : timeLabel}
+                        // A consumer aria-label in timeInputProps replaces the whole name
+                        aria-labelledby={dateNameIds && !timeInputProps?.['aria-label'] ? `${dateNameIds} ${timeId}` : undefined}
+                        i18n={{ meridiemLabel: i18n?.meridiemLabel }}
                         // The label of a Field around it points to the date input, which takes the id of the Field control
                         id={timeInputId}
                         {...timeInputProps}
@@ -407,11 +419,12 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
             </div>
             {type === 'zonedDateTime' && currentValue !== null && (
                 <div className={clsx(layout.flexRow_nowrap, layout.alignCenter)}>
-                    <Typography className={styles.timezoneLabel} component="span" variant="caption">
+                    <Typography className={styles.timezoneLabel} component="span" id={timezoneLabelId} variant="caption">
                         {i18nLabels.timezone}:
                     </Typography>
                     <WithoutField>
                         <TimezoneSelector
+                            aria-labelledby={timezoneSelectorProps?.['aria-label'] ? undefined : timezoneLabelId}
                             {...timezoneSelectorProps}
                             referenceDate={selectedDate}
                             size="small"
