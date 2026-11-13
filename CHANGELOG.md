@@ -1,5 +1,129 @@
 # @jahia/moonstone Changelog
 
+## 2.22.0
+
+### New Features
+
+* The keyboard focus ring is now a double ring, with colors that follow the light and the reversed themes, so it shows clearly on every background (#1647)
+
+* Remove the global classes `moonstone-accordionItem_iconContainer` and `moonstone-primaryNavItem_content` with their wrappers (#1428)
+
+* Warn when an `ImgWrapper`, or a `Thumbnail` that renders a URL, has no `alt` text: pass `alt=""` for a decorative image (#1424)
+
+* Move focus into a `Drawer` or a `Menu` when it opens and back when it closes, close both with Escape when `onOpenChange` or `onClose` is set, and click a `MenuItem` with Enter or Space (#1432)
+
+* Prevent nested buttons in `CardSelector` components (#1440)
+
+* Name the `Loader` "Loading", translatable through `i18n.loadingLabel` of `Loader` and `LayoutContent`, and warn on an unnamed icon-only `Button` (#1527)
+
+* Sort a `DataTable` column with the keyboard. (#1576)
+
+* Make the scrolling area of `LayoutContent` a `section`, a region landmark when named through `i18n.contentLabel` (#1537)
+
+* Improve color contrast
+
+* Added Delete and Backspace to remove a `Tag` (#1545)
+
+* Add a `data-icon` attribute with the icon name to every icon (#1464)
+
+* A `Typography` rendered as a `button` has no native border and background, and inherits its color and text alignment (#1428)
+
+* Fixed Tab and screen readers reaching the items of a closed `Menu` or a collapsed `SecondaryNav` (#1596).
+  Fixed a `Menu` crash when its first child is `false`, `null` or text.
+  Tests that look for these items now need to open the `Menu` or expand the `SecondaryNav` first.
+
+* Link the `Field` label, helper and error to its control, name `RadioGroup`, `CheckboxGroup` and `Fieldset` as groups, make the `id` of `RadioItem` and `CheckboxItem` optional, and export `useFieldAria` for custom controls (#1426)
+
+* Name the `Pagination`, `TablePagination` and `DataTable` controls and the `Input` and `Dropdown` clear buttons, translatable with `i18n` (`label` for `TablePagination`) (#1425)
+
+* Set `scope="col"` on the `DataTable` header cells, name the selection column "Selection", and name the custom columns of `renderRow` with `customColumnLabels` (#1577)
+
+* Render the toolbar of `Header` as a group named "Page actions" instead of `role="toolbar"`: a selector on `[role="toolbar"]` becomes `[role="group"]` (#1587)
+
+* Add `role="switch"` to `Switch`, set the `indeterminate` property of `Checkbox`, and drop `aria-checked` from both (#1427)
+
+* Call `onResizeStop` of `ResizableBox` after a keyboard resize, and resize a controlled box through its `size` (#1561)
+
+* Name the search input of `Menu` and `Dropdown` through a `searchLabel` key and each search input of `ListSelector` after its list title, pass the `aria-label` of a `Dropdown` to its trigger, and remove the hard-coded English `aria-label` of the `SortIndicator` icon (#1572)
+
+* Resize `ResizableBox` with the keyboard, and translate its handle with `i18n` on `ResizableBox` and `SecondaryNav` (#1439)
+
+* Name the time input of `DateTimeInput` "Time", its timezone selector "Timezone:", and the AM/PM selector of `TimeInput` and `DateTimeInput` "AM/PM", translatable through `i18n.timeLabel` and `i18n.meridiemLabel` (#1580)
+
+* Add an `i18n` prop to `Header`, `PrimaryNav` and `SecondaryNav` to translate their `aria-label` (#1428)
+
+### Bug Fixes
+
+* Restore the Moonstone colors, sizes and fonts of the `DateTimeInput` calendar (#1595)
+
+* Stop giving the same id to every control of a `Field`: only the first keeps `<id>-control` (#1580)
+
+* Set `aria-orientation="vertical"` on a vertical `Separator` (#1532)
+
+* Keep focus after keyboard activation on `ButtonToggle` or `CardSelector`, or after clearing an `Input` or a `SearchInput` (#1544)
+
+* Add `role="status"` to the `ListSelector` selection count and to the `Menu` and `Dropdown` "no results" text (#1447)
+
+* Add a visible focus indicator on the `PrimaryNav` and `SecondaryNav` toggle buttons (#1422)
+
+* Make generated icons decorative by default, and stop `TreeView` naming icons after a function (#1423)
+
+* Move the focus into the `DateTimeInput` calendar when Enter or Space opens it, and back to the date field when it closes (#1585)
+
+* The `EmptyData` title is now an `h3` heading (#1514)
+
+* Fix `onClick is not a function` error when clicking a component without `onClick` (#1506)
+
+* Hide the reset button of `SearchInput`, `SearchContextInput` and `ListSelector` on an empty field again (#1508)
+
+* Fixed `TimeInput` and `DateTimeInput` so shortcuts with Shift, Ctrl, Alt or Meta keep their browser behavior (#1554).
+
+* Navigate `Tab`, `Menu` and `TreeView` with the arrow keys, Home and End, as one Tab stop each; `Accordion`, `ListSelector`, `PrimaryNavItem` and `Dropdown` items act on Enter keydown and Space keyup (#1430)
+
+* Animations turn off when users enable “reduce motion” in their OS (#1441)
+
+* Use the correct attributes, `role` and `aria-*` on `Accordion`, `Banner`, `DynamicFieldset`, `ListSelector`, `Modal`, `PrimaryNav`, `ResizableBox`, `SecondaryNav` and `Tooltip` (#1428)
+
+* Keep `TreeView` one Tab stop with arrow-key navigation when a custom `itemComponent` does not forward its `ref` (#1615)
+
+* Grow the click area of `Checkbox` and `Switch` to at least 24 × 24 px, with no change to their size or look (#1443)
+
+* Fixed warnings that filled the console on every render: each one now shows only once (#1636)
+
+* Move the focus between the `Accordion` headers with ArrowDown and ArrowUp (#1601)
+
+* Remove `aria-disabled` and `aria-readonly` from the label of `CheckboxItem`, which does not support them, and style it from the state of its checkbox. A read-only `Checkbox` keeps its value with Space and shows its focus (#1593)
+
+* Fix `ref` not being forwarded on several components (#1466)
+
+* Keep the selected value in the name of a `Dropdown` named by `aria-label` or `aria-labelledby`, and keep the focus on it after a choice, a clear or a tag removal (#1646)
+
+* Name the group of a `DynamicFieldset` by its `label` only, without the text of its `buttons` (#1581)
+
+* Fixed `NumberInput` so Home and End move the caret again, and ArrowDown stops at 0 when `allowNegative` is false (#1510)
+
+* Open a `Dropdown` with Enter on keydown (was keyup), Space or ArrowDown, and a `CustomDropdown` with ArrowDown; in the search box of a `Menu` or a tree `Dropdown`, ArrowDown reaches the first option, and Enter no longer picks the first result: the search only filters. A tree `Dropdown` shows and announces its `searchEmptyText` (#1603)
+
+* Show hover-only content on keyboard focus, and make `Tooltip` hoverable (#1446)
+
+* Fixed `NumberInput` arrow keys not calling `onChange`, and starting from 0 in an empty field (#1510)
+
+* Activate a clickable `DataTable` row with Enter and Space, as a click on the row does, and keep a click on a control of a cell from calling the `onClick` of the row (#1588)
+
+* Render the two lists of `ListSelector` in a `section`, so the `header` of each title and the `footer` of the counter no longer create page landmarks (#1573)
+
+* Expand a row of a structured `DataTable` with the keyboard: `aria-expanded` moves from the first `<td>` to a new chevron `<button>` (#1578)
+
+* A consumer `onKeyUp` on `NumberInput` no longer replaces its arrow keys, and the last `Breadcrumb` item keeps its own `aria-current` (#1431)
+
+* Call the consumer's event handlers as well as the component's own on `RadioItem`, `TimeInput`, `DateTimeInput`, `CustomDropdown`, `Tooltip` and `Modal` (#1431)
+
+* Escape collapses an expanded `PrimaryNav` and returns the focus to its toggle button, and no longer bubbles while the nav is expanded (#1584)
+
+* Set `aria-readonly` on a read-only `RadioGroup`, keep its value with the arrow keys, show the focus of its radios, and remove `aria-readonly` and `aria-disabled` from the `RadioItem` label and radio, which do not support them (#1586)
+
+* Link the label of each `DynamicFieldset` to its own switch, and remove its fixed `moonstone-dynamic-fieldset-switch` id (#1535)
+
 ## 2.21.1
 
 * Fixed `Drawer` ignoring the width its consumer sets, and `Pill` stretching to the full width of its container.
