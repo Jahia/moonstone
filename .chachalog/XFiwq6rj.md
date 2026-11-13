@@ -3,4 +3,4 @@
 "@jahia/moonstone": patch
 ---
 
-Fixed the `Drawer` so a panel rendered open, such as one open by default, no longer slides in. It now slides only when `isOpen` changes (#1696)
+Fixed the `Drawer` so a panel open by default no longer slides in when its screen opens. A `Drawer` now slides only when `isOpen` changes: to animate an opening, keep it rendered and set `isOpen` instead of mounting it (#1696)
