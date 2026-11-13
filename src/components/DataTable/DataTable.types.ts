@@ -189,10 +189,7 @@ export type DataTableI18n = NonNullable<PaginationProps['i18n']> & {
 
 export type SelectionProps
     = | {
-        /**
-         * Enable selection for the table
-         * @default false
-         */
+        /** Enable selection for the table */
         enableSelection: true;
         /** Selected row primaryKey values (controlled) */
         selection: string[];
@@ -203,10 +200,6 @@ export type SelectionProps
         selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
     }
     | {
-        /**
-         * Enable selection for the table
-         * @default false
-         */
         enableSelection: true;
         /**
          * Initial selected rows primaryKey values (uncontrolled)
@@ -220,6 +213,10 @@ export type SelectionProps
         selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
     }
     | {
+        /**
+         * Enable selection for the table
+         * @default false
+         */
         enableSelection?: false;
         selection?: never;
         defaultSelection?: never;
