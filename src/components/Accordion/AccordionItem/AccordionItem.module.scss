@@ -1,7 +1,11 @@
 @use "../../../tokens/spacings/spacings" as *;
 @use "../../../utils/mixins" as *;
 
+$accordionHeader_height: 40px;
+
 .moonstone-accordionItem {
+    min-height: $accordionHeader_height;
+
     border-top: 1px solid var(--moon-color-gray_light);
     border-bottom: 1px solid var(--moon-color-gray_light);
 
@@ -25,12 +29,13 @@
 // ---
 .moonstone-accordionItem_header {
     width: 100%;
+    height: $accordionHeader_height;
 
     background-color: var(--moon-color-gray_light60);
 
     // Doubled class to outrank the padding reset of Typography
     &.moonstone-accordionItem_header {
-        padding: var(--moon-spacing-small) var(--moon-spacing-medium);
+        padding: 0 var(--moon-spacing-medium);
     }
 
     &.moonstone-selected {
