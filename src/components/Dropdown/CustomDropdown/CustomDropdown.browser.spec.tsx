@@ -41,6 +41,29 @@ describe('CustomDropdown keyboard', () => {
         expect(trigger).toHaveFocus();
     });
 
+    it('should call the onClick of the consumer and still open the menu', async () => {
+        const onClick = vi.fn();
+        render(
+            <CustomDropdown label="Actions" onClick={onClick}>
+                <MenuItem label="First"/>
+            </CustomDropdown>,
+        );
+        await userEvent.click(screen.getByRole('button', { name: 'Actions' }));
+        expect(onClick).toHaveBeenCalledTimes(1);
+        expect(await screen.findByRole('list')).toBeInTheDocument();
+    });
+
+    it('should keep the menu closed with Enter when the onClick of the consumer calls preventDefault', async () => {
+        render(
+            <CustomDropdown label="Actions" onClick={e => e.preventDefault()}>
+                <MenuItem label="First"/>
+            </CustomDropdown>,
+        );
+        screen.getByRole('button', { name: 'Actions' }).focus();
+        await userEvent.keyboard('{Enter}');
+        expect(screen.queryByRole('list')).not.toBeInTheDocument();
+    });
+
     it('opens with Enter', async () => {
         const { trigger } = renderCustomDropdown();
         trigger.focus();
@@ -55,7 +78,7 @@ describe('CustomDropdown keyboard', () => {
         expect(await screen.findByRole('list')).toBeInTheDocument();
     });
 
-    it.fails('opens with ArrowDown', async () => {
+    it('opens with ArrowDown', async () => {
         const { trigger } = renderCustomDropdown();
         trigger.focus();
         await userEvent.keyboard('{ArrowDown}');

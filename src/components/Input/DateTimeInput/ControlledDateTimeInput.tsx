@@ -31,7 +31,7 @@ import {
 import { Button, Dropdown, Typography } from '~/components';
 import { useFieldAria, WithoutField } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils';
-import { shouldIgnoreKey } from '~/hooks';
+import { mergeHandlers, shouldIgnoreKey } from '~/hooks';
 import { Calendar } from '~/icons';
 
 import type { ControlledDateTimeInputProps } from './DateTimeInput.types';
@@ -263,7 +263,26 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
             >
                 <BaseInput
                     ref={fieldRef}
-                    {...props}
+                    {...mergeHandlers(props, {
+                        onClick: openCalendar,
+                        onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => {
+                            // Only on an untouched field — once a draft exists Space is a character; keydown runs before insertion.
+                            if (event.key === ' ' && draft === null && !shouldIgnoreKey(event)) {
+                                event.preventDefault();
+                                openCalendar(event);
+                            }
+                        },
+                        onKeyUp: (event: React.KeyboardEvent<HTMLInputElement>) => {
+                            if (event.key === 'Enter') {
+                                if (draft === null) {
+                                    openCalendar(event);
+                                } else {
+                                    commitDraft(event);
+                                    setIsCalendarOpen(false);
+                                }
+                            }
+                        },
+                    })}
                     isDisabled={isDisabled}
                     isReadOnly={isReadOnly}
                     autoComplete={autoComplete}
@@ -281,24 +300,6 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
                     onClear={(event) => {
                         event.stopPropagation();
                         clearValue(event);
-                    }}
-                    onClick={openCalendar}
-                    onKeyDown={(event) => {
-                        // Only on an untouched field — once a draft exists Space is a character; keydown runs before insertion.
-                        if (event.key === ' ' && draft === null && !shouldIgnoreKey(event)) {
-                            event.preventDefault();
-                            openCalendar(event);
-                        }
-                    }}
-                    onKeyUp={(event) => {
-                        if (event.key === 'Enter') {
-                            if (draft === null) {
-                                openCalendar(event);
-                            } else {
-                                commitDraft(event);
-                                setIsCalendarOpen(false);
-                            }
-                        }
                     }}
                 />
                 {isCalendarOpen && (

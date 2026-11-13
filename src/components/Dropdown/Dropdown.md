@@ -28,3 +28,5 @@ The value of the `image` property should be an `img` HTML element.
 The name of the Dropdown is its `aria-label`, its `aria-labelledby` or the label of its `Field`, followed by the selected value, such as "Language French".
 
 The focus stays on the Dropdown after a choice, a clear or the removal of a tag.
+
+`Enter`, `Space` and `ArrowDown` open the menu.

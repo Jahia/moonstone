@@ -76,8 +76,7 @@ const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps
                                 className,
                             )}
                             ref={modalRef}
-                            {...getFloatingProps()}
-                            {...props}
+                            {...getFloatingProps(props)}
                         >
                             <ModalContext.Provider value={contextValue}>
                                 {children}
