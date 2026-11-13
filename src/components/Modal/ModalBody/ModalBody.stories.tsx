@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { userEvent, within } from 'storybook/test';
 
 import markdownNotes from './ModalBody.md?raw';
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from '~/components';
@@ -34,5 +35,10 @@ export const Playground: StoryObj<typeof ModalBody> = {
                 </Modal>
             </>
         );
+    },
+    // Opens the modal so that the visual test captures it, not only the button
+    play: async ({ canvasElement }) => {
+        await userEvent.click(within(canvasElement).getByRole('button', { name: 'Open modal' }));
+        await within(document.body).findByRole('dialog');
     },
 };
