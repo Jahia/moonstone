@@ -11,7 +11,7 @@ import type { RadioItemProps } from './RadioItem.types';
 import styles from './RadioItem.module.scss';
 
 export const RadioItem: React.FC<RadioItemProps> = ({
-    className, id, value, label, description, isDisabled, isReadOnly, ...props
+    className, id, value, label, description, isDisabled, isReadOnly, onChange, ...props
 }) => {
     const context = React.useContext(RadioGroupContext);
     const isDisabledItem = (typeof context.isDisabled === 'undefined') ? isDisabled : context.isDisabled;
@@ -48,6 +48,7 @@ export const RadioItem: React.FC<RadioItemProps> = ({
                         value={value}
                         onChange={(event) => {
                             if (!isReadOnlyItem) {
+                                onChange?.(event);
                                 context.onChange(event, value);
                             }
                         }}

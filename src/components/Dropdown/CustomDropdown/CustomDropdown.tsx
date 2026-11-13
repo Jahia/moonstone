@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { Button, Menu } from '~/components';
+import { mergeHandlers } from '~/hooks';
 import { ChevronDown } from '~/icons';
 
 import type { CustomDropdownProps } from './CustomDropdown.types';
@@ -101,7 +102,6 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                     setIsFocused(false);
                     pendingBlurEventRef.current = event;
                 }}
-                onClick={(!isDisabled && !isLoading) ? handleOpenMenu : undefined}
                 onFocus={(event) => {
                     setIsFocused(true);
                     // Focus came back before the menu closed: the queued blur never happened.
@@ -111,12 +111,9 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                         onFocus(event);
                     }
                 }}
-                onKeyUp={(e) => {
-                    if (e.key === 'Enter' && !isDisabled && !isLoading) {
-                        handleOpenMenu(e);
-                    }
-                }}
-                {...props}
+                {...mergeHandlers(props, {
+                    onClick: (!isDisabled && !isLoading) ? handleOpenMenu : undefined,
+                })}
             />
 
             {isOpened && (
