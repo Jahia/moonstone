@@ -1,6 +1,9 @@
 const template = ({
     imports, interfaces, componentName, jsx, exports,
 }, { tpl }) => {
+    // svgr prefixes the component name with Svg: the icon name is its export name
+    const iconName = componentName.replace(/^Svg/, '');
+
     return tpl`
     import styles from '../_icons.module.scss';
     import clsx from 'clsx';
@@ -21,7 +24,7 @@ const template = ({
         color,
         ...otherProps
     }: IconProps) => {
-        const props = Object.assign({}, {size, className, focusable: false, ...otherProps});
+        const props = Object.assign({}, {size, className, focusable: false, 'data-icon': '${iconName}', ...otherProps});
 
         // An icon is decorative unless the consumer gives it a name or a role.
         if (props['aria-hidden'] === undefined && !props['aria-label'] && !props['aria-labelledby'] && !props.role) {
