@@ -1,8 +1,8 @@
 .moonstone-SortIndicator {
-    color: var(--moon-color-gray);
+    color: var(--moon-color-gray_light);
 
     &:hover {
-        color: var(--moon-color-gray_dark);
+        color: var(--moon-color-gray);
     }
 }
 
