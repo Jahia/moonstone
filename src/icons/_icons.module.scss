@@ -1,3 +1,5 @@
+@use "../tokens/colors/palette";
+
 .moonstone-icon {
     composes: moonstone-icon from "../components/Chip/Chip.module.scss";
 
@@ -24,7 +26,7 @@
 
 // Color
 .moonstone-icon_blue {
-    fill: var(--moon-color-accent);
+    fill: palette.$color-blue-50;
 }
 
 .moonstone-icon_deepBlue {
@@ -32,11 +34,11 @@
 }
 
 .moonstone-icon_green {
-    fill: var(--moon-color-success);
+    fill: palette.$color-green-50;
 }
 
 .moonstone-icon_yellow {
-    fill: var(--moon-color-warning);
+    fill: palette.$color-amber-50;
 }
 
 .moonstone-icon_red {

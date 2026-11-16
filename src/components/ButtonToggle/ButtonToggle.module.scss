@@ -19,6 +19,10 @@
 
         background-color: var(--moon-color-accent_light_plain20);
 
+        &.reversed {
+            color: var(--moon-color-accent_dark);
+        }
+
         // Outranks the ring of the ghost Button, reversed included
         &[aria-pressed="true"]:focus-visible:not(:disabled) {
             @include focus-ring(false, var(--shadow));

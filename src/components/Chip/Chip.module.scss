@@ -1,10 +1,7 @@
 @use "../../tokens/spacings/spacings" as *;
+@use "../../tokens/colors/palette";
 
 .moonstone-chip {
-    composes:
-        moonstone-chip from "../Table/TableRow/TableRow.module.scss",
-        moonstone-chip from "../DataTable/TableRow/TableRow.module.scss";
-
     display: inline-flex;
     flex-direction: row;
     align-items: center;
@@ -95,7 +92,7 @@
     &.moonstone-color_danger {
         color: var(--moon-color-light);
 
-        background-color: var(--moon-color-danger);
+        background-color: palette.$color-red-50;
     }
 
     &.moonstone-color_default {
@@ -107,7 +104,7 @@
     &.moonstone-color_success {
         color: var(--moon-color-light);
 
-        background-color: var(--moon-color-success);
+        background-color: palette.$color-green-50;
     }
 
     &.moonstone-color_warning {

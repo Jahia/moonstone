@@ -1,4 +1,5 @@
 @use '../../../utils';
+@use "../../../tokens/colors/palette";
 
 $default-size: 24px;
 $big-size: 32px;
@@ -100,7 +101,7 @@ $min-width: 40px;
 
     &::placeholder {
         font-style: italic;
-        color: var(--moon-color-gray_dark60);
+        color: var(--moon-color-gray);
 
         opacity: 1;
     }
@@ -109,14 +110,14 @@ $min-width: 40px;
         outline: none;
 
         ~ .moonstone-baseInput_icon {
-            color: var(--moon-color-accent);
+            color: palette.$color-blue-50;
         }
     }
 
     // Check if the input is empty
     &:placeholder-shown {
         ~ .moonstone-baseInput_icon {
-            color: var(--moon-color-gray60);
+            color: var(--moon-color-gray);
         }
     }
 }

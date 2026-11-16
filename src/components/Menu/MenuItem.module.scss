@@ -1,4 +1,5 @@
 @use '../../utils/index' as *;
+@use "../../tokens/colors/palette";
 
 .moonstone-menuItem {
     padding: var(--moon-spacing-nano) var(--moon-spacing-medium);
@@ -35,14 +36,14 @@
     &.moonstone-selected {
         color: var(--moon-color-light);
 
-        background-color: var(--moon-color-accent);
+        background-color: palette.$color-blue-50;
         cursor: default;
     }
 
     &.moonstone-highlighted {
-        color: var(--moon-color-light);
+        color: var(--moon-color-accent_dark_contrast);
 
-        background-color: var(--moon-color-gray60);
+        background-color: var(--moon-color-gray_light);
     }
 
     &.moonstone-disabled {

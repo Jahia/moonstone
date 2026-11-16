@@ -1,5 +1,6 @@
 @use "../../../utils/motion" as *;
 @use "../../../utils/mixins" as *;
+@use "../../../tokens/colors/palette";
 
 $radio-sizeDefault: 16px;
 
@@ -34,7 +35,7 @@ $radio-sizeDefault: 16px;
     .moonstone-radio-description {
         margin-left: var(--moon-spacing-large);
 
-        color: var(--moon-color-gray60);
+        color: var(--moon-color-gray);
     }
 
     .moonstone-radio {
@@ -92,7 +93,7 @@ $radio-sizeDefault: 16px;
         }
 
         &:checked ~ .moonstone-radio_icon {
-            fill: var(--moon-color-accent);
+            fill: palette.$color-blue-50;
         }
 
         &:hover ~ .moonstone-radio_icon {

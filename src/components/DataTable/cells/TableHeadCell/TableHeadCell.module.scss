@@ -1,15 +1,16 @@
 @use "../../../../utils/mixins" as *;
+@use "../../../../tokens/colors/palette";
 
 .tableHeadCell {
     font-weight: bold;
 }
 
 .sort {
-    color: var(--moon-color-gray_light);
+    color: var(--moon-color-gray);
 }
 
 .sortActive {
-    color: var(--moon-color-accent);
+    color: palette.$color-blue-50;
 }
 
 .sortButton {
@@ -37,7 +38,7 @@
 
     &:hover {
         .sort {
-            color: var(--moon-color-gray);
+            color: var(--moon-color-gray_dark);
         }
 
         .sortActive {

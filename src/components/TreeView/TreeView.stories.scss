@@ -1,3 +1,7 @@
 .colorTest {
-    color: hotpink;
+    color: purple;
+
+    .moonstone-reversed & {
+        color: plum;
+    }
 }

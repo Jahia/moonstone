@@ -1,4 +1,5 @@
 @use '../../utils' as *;
+@use "../../tokens/colors/palette";
 
 .moonstone-tag {
     display: inline-flex;
@@ -10,9 +11,9 @@
 
     color: var(--moon-color-light);
 
-    border: 1px solid var(--moon-color-accent);
+    border: 1px solid palette.$color-blue-50;
     border-radius: var(--moon-radius);
-    background-color: var(--moon-color-accent);
+    background-color: palette.$color-blue-50;
     cursor: pointer;
 
     &.moonstone-small {
