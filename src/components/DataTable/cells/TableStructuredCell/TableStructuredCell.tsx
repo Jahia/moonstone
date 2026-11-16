@@ -4,7 +4,6 @@ import React, { useId } from 'react';
 import { TableCell } from '../TableCell';
 import { Typography } from '~/components';
 import { layout } from '~/globals/css-utils.js';
-import { mergeHandlers } from '~/hooks';
 import { ChevronDown, ChevronRight } from '~/icons';
 
 import type { TableStructuredCellProps } from './TableStructuredCell.types';
@@ -36,15 +35,11 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
         }
 
         const indent = depth * indentSpace;
-        const handleToggleExpand: React.MouseEventHandler = (event) => {
-            event.stopPropagation();
-            onToggleExpand?.();
-        };
         return (
             <TableCell
                 className={clsx(styles.tableStructuredCell, className)}
                 ref={ref}
-                {...mergeHandlers(props, { onClick: handleToggleExpand })}
+                {...props}
             >
                 <div
                     className={clsx(
@@ -61,13 +56,13 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                     {isExpandable
                         ? (
                                 <>
-                                    {/* Only the chevron is the button: the content may hold a link or a button. Its click bubbles to the onClick of the cell */}
                                     <Typography
                                         aria-expanded={isExpanded}
                                         aria-labelledby={contentId}
                                         className={styles.toggle}
                                         component="button"
                                         type="button"
+                                        onClick={onToggleExpand}
                                     >
                                         {isExpanded
                                             ? <ChevronDown/>

@@ -340,7 +340,7 @@ describe('DataTable', () => {
         );
 
         // Collapse the parent row
-        await user.click(screen.getByText('Parent'));
+        await user.click(screen.getByRole('button', { name: 'Parent' }));
         expect(screen.queryByText('Child')).not.toBeInTheDocument();
 
         // Simulate a data reference change with same content (e.g. re-fetch, filter)
@@ -427,13 +427,13 @@ describe('DataTable', () => {
             />,
         );
 
-        await user.click(screen.getByText('Parent'));
+        await user.click(screen.getByRole('button', { name: 'Parent' }));
         // When collapsing parent "1", TanStack transitions from `true` (all expanded) to an explicit
         // record; child "1.1" remains listed as expanded in the record even though it is hidden.
         expect(onExpandChange).toHaveBeenCalledWith(['1.1']);
     });
 
-    it('should toggle row when clicking on the expandable node', async () => {
+    it('should toggle row when clicking on the toggle of the expandable node', async () => {
         const user = userEvent.setup();
         render(
             <DataTable<TestData>
@@ -444,10 +444,10 @@ describe('DataTable', () => {
             />,
         );
 
-        await user.click(screen.getByText('Parent'));
+        await user.click(screen.getByRole('button', { name: 'Parent' }));
         expect(screen.queryByText('Child')).not.toBeInTheDocument();
 
-        await user.click(screen.getByText('Parent'));
+        await user.click(screen.getByRole('button', { name: 'Parent' }));
         expect(screen.getByText('Child')).toBeInTheDocument();
     });
 
