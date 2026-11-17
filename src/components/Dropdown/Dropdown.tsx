@@ -66,7 +66,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     value,
     values,
     isDisabled,
-    isLoading = false,
+    isLoading,
     variant = 'ghost',
     size = 'medium',
     icon,

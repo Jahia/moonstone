@@ -8,11 +8,13 @@ export type TablePaginationProps = Omit<React.ComponentPropsWithoutRef<'div'>, '
 
     /**
      * Current rows per page
+     * @default 10
      */
     rowsPerPage?: number;
 
     /**
      * Choices for rows per pages value
+     * @default [5, 10, 25]
      */
     rowsPerPageOptions?: number[];
 
