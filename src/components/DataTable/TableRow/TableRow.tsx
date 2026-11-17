@@ -3,7 +3,8 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { TableRowContext } from './TableRow.context';
 import { layout } from '~/globals/css-utils.js';
-import { mergeHandlers, shouldIgnoreKey } from '~/hooks';
+import { mergeHandlers, onAccessibleClick, shouldIgnoreKey } from '~/hooks';
+import { FOCUSABLE } from '~/utils/helpers';
 
 import type { TableRowProps } from './TableRow.types';
 
@@ -16,6 +17,7 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
         type = 'body',
         isHighlighted = false,
         children,
+        onClick,
         ...props
     }, ref) => {
     const hasStatus = useRef(false);
@@ -30,6 +32,20 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
         isStatusDismissed,
         registerStatus,
     }), [isStatusDismissed, registerStatus]);
+
+    // Enter and Space dispatch a click on the row
+    const keys = onAccessibleClick({
+        onClick: e => (e.currentTarget as HTMLElement).click(),
+        disabled: !onClick,
+    });
+
+    const handleClick = (e: React.MouseEvent<HTMLTableRowElement>) => {
+        // A click on a control of a cell, or Enter and Space on it, belongs to that control
+        const control = (e.target as Element).closest(FOCUSABLE);
+        if (control === e.currentTarget || !e.currentTarget.contains(control)) {
+            onClick(e);
+        }
+    };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
         if (e.target !== e.currentTarget || shouldIgnoreKey(e)) {
@@ -67,8 +83,12 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
             'aria-selected': isHighlighted && type === 'body' ? true : undefined,
             'tabIndex': 0,
             ...mergeHandlers(props, {
+                onClick: onClick && handleClick,
                 onKeyDown: handleKeyDown,
                 onBlur: handleBlur,
+            }, {
+                onKeyDown: keys.onKeyDown,
+                onKeyUp: keys.onKeyUp,
             }),
             ref,
         },

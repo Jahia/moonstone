@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-`ImgWrapper` and `Thumbnail` now require an `alt` text (#1424)
+Warn when an `ImgWrapper`, or a `Thumbnail` that renders a URL, has no `alt` text: pass `alt=""` for a decorative image (#1424)

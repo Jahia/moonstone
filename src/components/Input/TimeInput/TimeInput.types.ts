@@ -52,6 +52,15 @@ type TimeInputBaseProps = Omit<BaseInputProps,
 
     /** Additional props forwarded to the internal AM/PM dropdown in 12h mode. */
     meridiemDropdownProps?: TimeInputMeridiemDropdownProps;
+
+    /** I18n labels of the `TimeInput` */
+    i18n?: {
+        /**
+         * aria-label of the AM/PM dropdown in 12h mode
+         * @default 'AM/PM'
+         */
+        meridiemLabel?: string;
+    };
 };
 
 /**

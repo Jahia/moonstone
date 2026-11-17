@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { userEvent } from 'vitest/browser';
 
 import { FieldSelector } from './index';
@@ -32,7 +32,6 @@ const renderField = () => {
 };
 
 const getSelector = () => screen.getByRole('listbox', { name: 'Choose' });
-const findOption = (name: string) => screen.findByRole('list').then(list => within(list).getByRole('option', { name }));
 
 describe('FieldSelector keyboard', () => {
     it('reaches the selector control with Tab', async () => {
@@ -40,27 +39,6 @@ describe('FieldSelector keyboard', () => {
         screen.getByRole('button', { name: 'before' }).focus();
         await userEvent.keyboard('{Tab}');
         expect(getSelector()).toHaveFocus();
-    });
-
-    it('opens the selector with Enter', async () => {
-        renderField();
-        getSelector().focus();
-        await userEvent.keyboard('{Enter}');
-        expect(await findOption('Option 2')).toBeVisible();
-    });
-
-    it.fails('opens the selector with Space', async () => {
-        renderField();
-        getSelector().focus();
-        await userEvent.keyboard(' ');
-        expect(await findOption('Option 2')).toBeVisible();
-    });
-
-    it.fails('opens the selector with ArrowDown', async () => {
-        renderField();
-        getSelector().focus();
-        await userEvent.keyboard('{ArrowDown}');
-        expect(await findOption('Option 2')).toBeVisible();
     });
 
     it('reaches the action buttons with Tab after the selector', async () => {

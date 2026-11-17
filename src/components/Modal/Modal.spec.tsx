@@ -93,4 +93,14 @@ describe('Modal', () => {
 
         expect(screen.queryByTestId('moonstone-modal')).not.toBeInTheDocument();
     });
+    it('should call the onMouseDown of the consumer and not close on a drag that starts inside', async () => {
+        const user = userEvent.setup();
+        const onMouseDown = vi.fn();
+        const onOpenChange = vi.fn();
+        render(<Modal isOpen aria-label="Dialog" onMouseDown={onMouseDown} onOpenChange={onOpenChange}><ModalBody>Modal content</ModalBody></Modal>);
+        // Press inside the dialog, release outside it
+        await user.pointer([{ keys: '[MouseLeft>]', target: screen.getByText('Modal content') }, { keys: '[/MouseLeft]', target: document.body }]);
+        expect(onMouseDown).toHaveBeenCalledTimes(1);
+        expect(onOpenChange).not.toHaveBeenCalled();
+    });
 });

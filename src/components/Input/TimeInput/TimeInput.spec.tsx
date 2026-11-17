@@ -295,8 +295,8 @@ describe('TimeInput', () => {
                 <TimeInput defaultValue="14:30" timeFormat="12h" onChange={() => null}/>
             </Field>,
         );
-        const dropdown = screen.getByRole('listbox');
-        expect(dropdown).not.toHaveAttribute('aria-labelledby');
+        // The meridiem dropdown is named by its own label and value, not by the Field
+        const dropdown = screen.getByRole('listbox', { name: 'AM/PM PM' });
         expect(dropdown).not.toHaveAttribute('aria-describedby');
     });
 });

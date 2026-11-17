@@ -7,6 +7,7 @@ import { Button, Loader, Typography } from '~/components';
 import { DropdownMenu, TreeViewMenu } from '~/components/Dropdown';
 import { useFieldAria } from '~/components/Field/Field.context';
 import { layout } from '~/globals/css-utils.js';
+import { onAccessibleClick, shouldIgnoreKey } from '~/hooks';
 import { Cancel, ChevronDown } from '~/icons';
 import { warnOnce } from '~/utils/warnOnce';
 
@@ -106,7 +107,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
     const ref: MutableRefObject<HTMLDivElement> = useRef();
-    const pressedKeys = useRef(new Set<string>());
     const triggerId = useId();
     const valueId = `${triggerId}-value`;
     const fieldAria = useFieldAria({ 'aria-label': ariaLabel });
@@ -209,6 +209,18 @@ export const Dropdown: React.FC<DropdownProps> = ({
         }
     };
 
+    const triggerKeys = onAccessibleClick({ onClick: handleOpenMenu });
+    const handleTriggerKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'ArrowDown' && e.target === e.currentTarget && !shouldIgnoreKey(e)) {
+            e.preventDefault();
+            handleOpenMenu(e);
+        } else {
+            triggerKeys.onKeyDown(e);
+        }
+    };
+
+    const canOpen = !isDisabled && !isLoading;
+
     // ---
     // CSS classes
     // ---
@@ -251,7 +263,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     setIsFocused(false);
                     pendingBlurEventRef.current = event;
                 }}
-                onClick={(!isDisabled && !isLoading) ? handleOpenMenu : undefined}
+                onClick={canOpen ? handleOpenMenu : undefined}
                 onFocus={(event) => {
                     setIsFocused(true);
                     // Focus came back before the menu closed: the queued blur never happened.
@@ -261,22 +273,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
                         onFocus(event);
                     }
                 }}
-                onKeyDown={(e) => {
-                    // A key of the Reset button or of a tag is not a key of the trigger
-                    if (e.target === e.currentTarget) {
-                        pressedKeys.current.add(e.key);
-                    }
-                }}
-                onKeyUp={(e) => {
-                    // Pressed elsewhere, e.g. Enter on an option, which moves focus here on keydown
-                    if (!pressedKeys.current.delete(e.key)) {
-                        return;
-                    }
-
-                    if (e.key === 'Enter' && !isDisabled && !isLoading) {
-                        handleOpenMenu(e);
-                    }
-                }}
+                onKeyDown={canOpen ? handleTriggerKeyDown : undefined}
+                onKeyUp={canOpen ? triggerKeys.onKeyUp : undefined}
             >
                 {icon && !isLoading && <icon.type {...icon.props} className={clsx('moonstone-dropdown_icon', styles['moonstone-dropdown_icon'])} role="presentation" size="default"/>}
                 {isLoading && <Loader aria-hidden className={clsx({ 'moonstone-dropdown_loaderOverlay': !icon })} size="small"/>}

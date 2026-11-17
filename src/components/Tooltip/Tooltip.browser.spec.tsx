@@ -56,4 +56,20 @@ describe('Tooltip pointer', () => {
         });
         expect(screen.getByRole('tooltip')).toBeVisible();
     });
+
+    it('calls the onFocus of the consumer and still appears on keyboard focus', async () => {
+        const onFocus = vi.fn();
+        render(
+            <>
+                <button type="button">before</button>
+                <Tooltip label="Go home" onFocus={onFocus}>
+                    <button type="button">Home</button>
+                </Tooltip>
+            </>,
+        );
+        screen.getByRole('button', { name: 'before' }).focus();
+        await userEvent.keyboard('{Tab}');
+        expect(await screen.findByRole('tooltip')).toHaveTextContent('Go home');
+        expect(onFocus).toHaveBeenCalled();
+    });
 });

@@ -28,3 +28,7 @@ hour `23 → 00`, 12h `12 → 01`); the value updates immediately. On an empty f
 seeds `00:00`. `ArrowLeft` / `ArrowRight` move between the hour and minute segments.
 
 Forward extra props to the AM/PM dropdown (12h) via `meridiemDropdownProps`.
+
+## Localization
+
+`i18n.meridiemLabel` names the AM/PM dropdown in 12h mode ("AM/PM" by default).

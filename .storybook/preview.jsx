@@ -20,7 +20,7 @@ export const decorators = [
     }) => {
         const themeReversed = globals.theme === 'dark' && tags.includes('dark-theme') && args.isReversed === undefined;
         // In docs, only the block that renders this style (several blocks can show the same story)
-        const selector = viewMode === 'docs' ? '.docs-story:has(style[data-reversed])' : '.sb-show-main';
+        const selector = viewMode === 'docs' ? '.docs-story:has(style[data-reversed])' : 'body';
         return (
             <>
                 {(args.isReversed || themeReversed) && <style data-reversed>{`${selector} { background: var(--moon-color-gray_dark); color: var(--moon-color-light); }`}</style>}
@@ -85,6 +85,11 @@ export const parameters = {
         // 'error' - fail CI on a11y violations
         // 'off' - skip a11y checks entirely
         test: 'todo',
+        context: {
+            // floating-ui focus guards: aria-hidden spans that pass the focus on at once
+            // (not aria-hidden on Safari, for VoiceOver)
+            exclude: ['[data-floating-ui-focus-guard]'],
+        },
         // WCAG 2.2 AA: axe tags are incremental, so every A/AA tag since 2.0 is needed
         options: {
             runOnly: {

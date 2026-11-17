@@ -32,3 +32,5 @@ Not available
 <div role="tabpanel" id="panel-1" aria-labelledby="tab-1">…</div>
 <div role="tabpanel" id="panel-2" aria-labelledby="tab-2">…</div>
 ```
+
+`TabItem` ignores a `tabIndex` from the consumer: the roving focus of `Tab` sets it.

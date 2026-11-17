@@ -29,3 +29,4 @@ Use the `searchEmptyText` prop to provide a string to display when the search re
 - `Escape` pressed inside the menu returns the focus and calls `onClose` with the keyboard event. A click on the overlay calls it with the mouse event.
 - `Enter` and `Space` click the focused `MenuItem`, so its `onClick` receives a `MouseEvent`.
 - The arrow keys, `Home` and `End` move between the items, and the menu is one Tab stop.
+- In the search input, `ArrowDown` moves to the first enabled item. The search input only filters the items: `Enter` does not choose one.

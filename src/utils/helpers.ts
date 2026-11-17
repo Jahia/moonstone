@@ -1,5 +1,8 @@
 import React from 'react';
 
+// The elements Tab reaches: `tabindex="-1"` leaves out the inactive items of a tab list, menu or tree
+export const FOCUSABLE = ':is(a[href], button, input:not([type="hidden"]), select, textarea, [tabindex]):not(:disabled, [tabindex="-1"])';
+
 export const capitalize = <T extends string>(s: T): Capitalize<T> => s.charAt(0).toUpperCase() + s.slice(1) as Capitalize<T>;
 
 export const isTruncated = (element: HTMLElement | null): boolean => element !== null && element.scrollWidth > element.clientWidth;
