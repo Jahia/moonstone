@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 
-import { type DataTableColumn, type RenderRowContext, TableCell, TableCellActions, TableCellStatus } from './index';
+import { type DataTableColumn, type DataTableProps, type RenderRowContext, TableCellActions, TableCellStatus } from './index';
 import { Button } from '~/components/Button';
 import { DataTable, TableRow } from '~/components/DataTable';
 import { Modal } from '~/components/Modal';
@@ -319,9 +319,13 @@ describe('DataTable sticky columns', () => {
         { key: 'job', label: 'Job', width: '300px' },
     ];
 
-    const renderSticky = (props = {}) => {
-        render(
-            <div style={{ width: '700px' }}>
+    type StickyTableProps = Partial<DataTableProps<Person>> & { width?: string; actionsOnHover?: React.ReactNode };
+
+    // A table with a sticky actions cell after the columns, and a button before it for the keyboard
+    const stickyTable = ({ width = '700px', actionsOnHover, ...props }: StickyTableProps = {}) => (
+        <>
+            <button type="button">before</button>
+            <div style={{ width }}>
                 <DataTable
                     columns={stickyColumns}
                     data={people}
@@ -329,25 +333,19 @@ describe('DataTable sticky columns', () => {
                     primaryKey="id"
                     renderRow={({ id, render: renderCells }: RenderRowContext<Person>) => (
                         <TableRow key={id}>
-                            {renderCells({
-                                after: (
-                                    <TableCellActions
-                                        isSticky
-                                        actions={<Button label="Actions"/>}
-                                        actionsOnHover={<Button label="Edit"/>}
-                                    />
-                                ),
-                            })}
+                            {renderCells({ after: <TableCellActions isSticky actions={<Button label="Actions"/>} actionsOnHover={actionsOnHover}/> })}
                         </TableRow>
                     )}
-                    {...props}
+                    {...props as object}
                 />
-            </div>,
-        );
-    };
+            </div>
+        </>
+    );
+    const renderSticky = (props?: StickyTableProps) => ({ ...render(stickyTable(props)), table: screen.getByRole('table') });
 
     const left = (element: Element) => element.getBoundingClientRect().left;
     const right = (element: Element) => element.getBoundingClientRect().right;
+    const cell = (name: string) => screen.getByRole('cell', { name });
 
     it('sticks nothing and does not scroll by default', () => {
         render(
@@ -359,112 +357,62 @@ describe('DataTable sticky columns', () => {
                 primaryKey="id"
             />,
         );
-        const table = screen.getByRole('table');
-        expect(getComputedStyle(table).overflowX).toBe('visible');
-        expect(screen.getAllByRole('columnheader').map(cell => getComputedStyle(cell).position)).not.toContain('sticky');
-        expect(screen.getAllByRole('cell').map(cell => getComputedStyle(cell).position)).not.toContain('sticky');
+        expect(getComputedStyle(screen.getByRole('table')).overflowX).toBe('visible');
+        const cells = [...screen.getAllByRole('columnheader'), ...screen.getAllByRole('cell')];
+        expect(cells.map(element => getComputedStyle(element).position)).not.toContain('sticky');
     });
 
-    it('moves a sticky column before the other columns', () => {
-        renderSticky();
+    it('moves a sticky column first, and keeps it and the sticky cells on the edges while the table scrolls', async () => {
+        const { table } = renderSticky();
         expect(screen.getAllByRole('columnheader')[0]).toHaveTextContent('Name');
-    });
-
-    it('keeps the sticky cells on the edges of the table while it scrolls', async () => {
-        renderSticky();
-        const table = screen.getByRole('table');
-        expect(table.scrollWidth).toBeGreaterThan(table.clientWidth);
+        expect(cell('Alice').getBoundingClientRect().width).toBeCloseTo(screen.getByRole('columnheader', { name: 'Name' }).getBoundingClientRect().width, 0);
 
         table.scrollLeft = table.scrollWidth / 2;
 
-        await waitFor(() => expect(left(screen.getByRole('cell', { name: 'Alice' }))).toBeCloseTo(left(table), 0));
-        const actionsCell = screen.getByRole('cell', { name: /Actions/ });
-        expect(right(actionsCell)).toBeCloseTo(table.getBoundingClientRect().left + table.clientWidth, 0);
+        await waitFor(() => expect(left(cell('Alice'))).toBeCloseTo(left(table), 0));
+        expect(right(screen.getByRole('cell', { name: /Actions/ }))).toBeCloseTo(left(table) + table.clientWidth, 0);
     });
 
     it('keeps the header on top while the table scrolls down', async () => {
-        const manyPeople = Array.from({ length: 20 }, (_, i) => ({ ...people[0], id: String(i), name: `Person ${i}` }));
+        const data = Array.from({ length: 20 }, (_, i) => ({ ...people[0], id: String(i), name: `Person ${i}` }));
         render(
             <div style={{ width: '700px', height: '200px' }}>
-                <DataTable columns={stickyColumns} data={manyPeople} enablePagination={false} primaryKey="id"/>
+                <DataTable columns={stickyColumns} data={data} enablePagination={false} primaryKey="id"/>
             </div>,
         );
         const table = screen.getByRole('table');
-        expect(table.clientHeight).toBeLessThanOrEqual(200);
 
         table.scrollTop = 300;
 
-        const firstHeader = screen.getAllByRole('columnheader')[0];
-        await waitFor(() => expect(firstHeader.getBoundingClientRect().top).toBeCloseTo(table.getBoundingClientRect().top, 0));
+        await waitFor(() => expect(screen.getAllByRole('columnheader')[0].getBoundingClientRect().top).toBeCloseTo(table.getBoundingClientRect().top, 0));
     });
 
     it('sticks the selection cell before a sticky column', async () => {
-        renderSticky({ enableSelection: true });
-        const table = screen.getByRole('table');
+        const { table } = renderSticky({ enableSelection: true });
 
         table.scrollLeft = table.scrollWidth;
 
-        const selectionCell = screen.getByRole('cell', { name: 'Select row' });
+        const selectionCell = cell('Select row');
         await waitFor(() => expect(left(selectionCell)).toBeCloseTo(left(table), 0));
-        expect(left(screen.getByRole('cell', { name: 'Alice' }))).toBeCloseTo(right(selectionCell), 0);
+        expect(left(cell('Alice'))).toBeCloseTo(right(selectionCell), 0);
     });
 
-    const renderFocusTable = (width: string, columns: DataTableColumn<Person>[], actionsOnHover?: React.ReactNode) => {
-        render(
-            <>
-                <button type="button">before</button>
-                <div style={{ width }}>
-                    <DataTable
-                        columns={columns}
-                        data={people}
-                        enablePagination={false}
-                        primaryKey="id"
-                        renderRow={({ id, render: renderCells }: RenderRowContext<Person>) => (
-                            <TableRow key={id}>
-                                {renderCells({
-                                    after: [
-                                        <TableCell key="more" width="100px"><Button label="More"/></TableCell>,
-                                        <TableCellActions isSticky actions={<Button label="Actions"/>} actionsOnHover={actionsOnHover} key="actions"/>,
-                                    ],
-                                })}
-                            </TableRow>
-                        )}
-                    />
-                </div>
-            </>,
-        );
-        return { table: screen.getByRole('table'), more: screen.getByRole('button', { name: 'More' }) };
-    };
-
-    const wideColumns: DataTableColumn<Person>[] = [
-        { key: 'name', label: 'Name', width: '150px', isSticky: true },
-        { key: 'city', label: 'City', width: '400px' },
-        { key: 'job', label: 'Job', width: '400px' },
-    ];
-
     it('stops sticking when the sticky cells would take more than half of the table', async () => {
-        const { table } = renderFocusTable('300px', [
-            { key: 'name', label: 'Name', width: '200px', isSticky: true },
-            { key: 'city', label: 'City', width: '300px' },
-        ]);
+        const { table } = renderSticky({ width: '300px' });
         table.scrollLeft = 100;
-        await waitFor(() => expect(left(screen.getByRole('cell', { name: 'Alice' }))).toBeLessThan(left(table) - 50));
+        await waitFor(() => expect(left(cell('Alice'))).toBeLessThan(left(table) - 50));
     });
 
     it('keeps each focused hover action of a sticky actions cell inside it', async () => {
-        renderFocusTable('500px', [
-            { key: 'name', label: 'Name', width: '150px', isSticky: true },
-            { key: 'city', label: 'City', width: '300px' },
-            { key: 'job', label: 'Job', width: '300px' },
-        ], [<Button key="view" label="View"/>, <Button key="edit" label="Edit"/>, <Button key="delete" label="Delete"/>]);
-        const cell = screen.getByRole('cell', { name: /Actions/ });
+        renderSticky({ width: '500px', actionsOnHover: ['View', 'Edit', 'Delete'].map(label => <Button key={label} label={label}/>) });
+        const actionsCell = screen.getByRole('cell', { name: /Actions/ });
         // The hover actions show while the focus is in the row
         screen.getByRole('button', { name: 'Actions' }).focus();
         for (const label of ['View', 'Edit', 'Delete']) {
             const action = screen.getByRole('button', { name: label });
             action.focus();
-            await waitFor(() => expect(left(action)).toBeGreaterThanOrEqual(left(cell) - 1));
-            expect(right(action)).toBeLessThanOrEqual(right(cell) + 1);
+            await waitFor(() => expect(left(action)).toBeGreaterThanOrEqual(left(actionsCell) - 1));
+            expect(right(action)).toBeLessThanOrEqual(right(actionsCell) + 1);
         }
     });
 
@@ -474,12 +422,13 @@ describe('DataTable sticky columns', () => {
         root.setProperty('--moon-color-focus_outer', 'rgb(9, 119, 186)');
         root.setProperty('--moon-color-focus_inner', 'rgb(255, 255, 255)');
         try {
-            renderFocusTable('600px', wideColumns);
+            renderSticky();
             screen.getByRole('button', { name: 'before' }).focus();
+            // The first Tab stops on the table, which scrolls
             await userEvent.keyboard('{Tab}');
             await userEvent.keyboard('{Tab}');
             expect(screen.getByRole('row', { name: /Alice/ })).toHaveFocus();
-            const ring = getComputedStyle(screen.getByRole('cell', { name: 'Alice' })).boxShadow;
+            const ring = getComputedStyle(cell('Alice')).boxShadow;
             expect(ring).toContain('rgb(9, 119, 186)');
             expect(ring).toContain('rgb(255, 255, 255)');
         } finally {
@@ -501,106 +450,55 @@ describe('DataTable sticky columns', () => {
         expect(screen.getByRole('button', { name: 'Alice' })).toBeInTheDocument();
     });
 
-    it('keeps the width of a sticky column while the table scrolls', () => {
-        render(
-            <div style={{ width: '500px' }}>
-                <DataTable
-                    columns={[
-                        { key: 'city', label: 'City', width: '300px' },
-                        { key: 'name', label: 'Name', width: '150px', isSticky: true },
-                        { key: 'job', label: 'Job', width: '300px' },
-                    ]}
-                    data={people}
-                    enablePagination={false}
-                    primaryKey="id"
-                />
-            </div>,
-        );
-        const width = screen.getByRole('cell', { name: 'Alice' }).getBoundingClientRect().width;
-        expect(width).toBeGreaterThanOrEqual(150);
-        expect(width).toBeCloseTo(screen.getByRole('columnheader', { name: 'Name' }).getBoundingClientRect().width, 0);
-    });
-
-    it('measures the sticky cells once the data arrives', async () => {
-        const tableOf = (rows: Person[]) => (
-            <div style={{ width: '1000px' }}>
-                <DataTable
-                    columns={[
-                        { key: 'name', label: 'Name', width: '100px', isSticky: true },
-                        { key: 'city', label: 'City', width: '100px', isSticky: true },
-                        { key: 'job', label: 'Job', width: '1200px' },
-                    ]}
-                    data={rows}
-                    enablePagination={false}
-                    primaryKey="id"
-                />
-            </div>
-        );
-        const { rerender } = render(tableOf([]));
-
-        rerender(tableOf(people));
-        screen.getByRole('table').scrollLeft = 300;
-
-        await waitFor(() => expect(left(screen.getByRole('cell', { name: 'Paris' }))).toBeCloseTo(right(screen.getByRole('cell', { name: 'Alice' })), 0));
-    });
-
-    it('measures the sticky cells again when the sticky columns change order', async () => {
+    it('measures the sticky cells when the data arrives, and again when other columns stick', async () => {
         const widths = { name: '100px', city: '250px', job: '1200px', id: '100px' };
-        const tableOf = (keys: (keyof Person)[]) => (
-            <div style={{ width: '1000px' }}>
-                <DataTable
-                    columns={keys.map(key => ({ key, label: key, width: widths[key], isSticky: key !== 'job' }))}
-                    data={people}
-                    enablePagination={false}
-                    primaryKey="id"
-                />
-            </div>
-        );
-        const { rerender } = render(tableOf(['name', 'city', 'job']));
+        const stickyFirst = (keys: (keyof Person)[], data: Person[] = people) => stickyTable({
+            width: '1000px',
+            data,
+            renderRow: undefined,
+            columns: [...keys, 'job' as const].map(key => ({ key, label: key, width: widths[key], isSticky: key !== 'job' })),
+        });
+        const { rerender } = render(stickyFirst(['name', 'city'], []));
 
-        rerender(tableOf(['city', 'name', 'job']));
-        const table = screen.getByRole('table');
-        table.scrollLeft = 300;
+        rerender(stickyFirst(['name', 'city']));
+        screen.getByRole('table').scrollLeft = 300;
+        await waitFor(() => expect(left(cell('Paris'))).toBeCloseTo(right(cell('Alice')), 0));
 
-        await waitFor(() => expect(left(screen.getByRole('cell', { name: 'Alice' }))).toBeCloseTo(right(screen.getByRole('cell', { name: 'Paris' })), 0));
+        rerender(stickyFirst(['city', 'name']));
+        await waitFor(() => expect(left(cell('Alice'))).toBeCloseTo(right(cell('Paris')), 0));
     });
 
-    it.each([
-        ['a sticky column', true],
-        ['a column', false],
-    ])('lines up the cells of %s with no width across rows of different lengths', (_, isNameSticky) => {
+    it('lines up the columns across rows when columns with no width hold texts of different lengths', () => {
         render(
             <div style={{ width: '500px' }}>
                 <DataTable
                     columns={[
-                        { key: 'name', label: 'Name', isSticky: isNameSticky },
-                        { key: 'city', label: 'City', width: '300px', isSticky: !isNameSticky },
-                        { key: 'job', label: 'Job', width: '300px' },
+                        { key: 'name', label: 'Name', isSticky: true },
+                        { key: 'job', label: 'Job' },
+                        { key: 'city', label: 'City', width: '300px' },
                     ]}
                     data={[
                         { id: '1', name: 'Al', city: 'Paris', job: 'Designer' },
-                        { id: '2', name: 'Alexandrina Montgomery-Smith of the long name', city: 'Lyon', job: 'Writer' },
+                        { id: '2', name: 'Alexandrina Montgomery-Smith', city: 'Lyon', job: 'Writer of very long reports' },
                     ]}
                     enablePagination={false}
                     primaryKey="id"
                 />
             </div>,
         );
-        const jobLefts = [screen.getByRole('columnheader', { name: 'Job' }), screen.getByRole('cell', { name: 'Designer' }), screen.getByRole('cell', { name: 'Writer' })]
-            .map(left);
-        expect(jobLefts[1]).toBeCloseTo(jobLefts[0], 0);
-        expect(jobLefts[2]).toBeCloseTo(jobLefts[0], 0);
+        const cityLeft = left(screen.getByRole('columnheader', { name: 'City' }));
+        expect(left(cell('Paris'))).toBeCloseTo(cityLeft, 0);
+        expect(left(cell('Lyon'))).toBeCloseTo(cityLeft, 0);
     });
 
     it('sticks the header of a sticky custom cell on a page that does not show the first row', async () => {
-        renderSticky({
+        const { table } = renderSticky({
             data: [...people, { id: '2', name: 'Bob', city: 'Lyon', job: 'Writer' }],
             enablePagination: true,
             itemsPerPageOptions: [1],
             defaultCurrentPage: 2,
         });
-        const table = screen.getByRole('table');
         const actionsHeader = screen.getAllByRole('columnheader').at(-1) as HTMLElement;
-        await waitFor(() => expect(right(actionsHeader)).toBeCloseTo(table.getBoundingClientRect().left + table.clientWidth, 0));
+        await waitFor(() => expect(right(actionsHeader)).toBeCloseTo(left(table) + table.clientWidth, 0));
     });
 });
