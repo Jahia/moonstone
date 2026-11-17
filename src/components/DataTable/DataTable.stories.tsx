@@ -202,6 +202,8 @@ const columnsWithContact: DataTableColumn<DataUserWithContact>[] = [
 ];
 
 export const StickyColumns: StoryObj<typeof DataTable<DataUserWithContact>> = {
+    // The table scrolls both ways inside a parent with a height, so its header sticks
+    decorators: [StoryCmp => <div style={{ display: 'flex', flexDirection: 'column', height: '400px' }}><StoryCmp/></div>],
     render: args => (
         <DataTable
             {...args}

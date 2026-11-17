@@ -366,6 +366,22 @@ describe('DataTable sticky columns', () => {
         expect(right(actionsCell)).toBeCloseTo(table.getBoundingClientRect().left + table.clientWidth, 0);
     });
 
+    it('keeps the header on top while the table scrolls down', async () => {
+        const manyPeople = Array.from({ length: 20 }, (_, i) => ({ ...people[0], id: String(i), name: `Person ${i}` }));
+        render(
+            <div style={{ width: '700px', height: '200px' }}>
+                <DataTable columns={stickyColumns} data={manyPeople} enablePagination={false} primaryKey="id"/>
+            </div>,
+        );
+        const table = screen.getByRole('table');
+        expect(table.clientHeight).toBeLessThanOrEqual(200);
+
+        table.scrollTop = 300;
+
+        const firstHeader = screen.getAllByRole('columnheader')[0];
+        await waitFor(() => expect(firstHeader.getBoundingClientRect().top).toBeCloseTo(table.getBoundingClientRect().top, 0));
+    });
+
     it('sticks the selection cell before a sticky column', async () => {
         renderSticky({ enableSelection: true });
         const table = screen.getByRole('table');
