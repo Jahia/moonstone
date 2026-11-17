@@ -20,17 +20,13 @@ const getColumnLayoutProps = <T extends NonNullable<unknown>>(column: Column<T>,
         return {};
     }
 
-    const meta = column.columnDef.meta as CustomColumnMeta<T> | undefined;
     const isSticky = column.getIsPinned() === 'left';
     const rank = columnLayout.stickyStartBase + column.getPinnedIndex();
 
     return {
         isSticky,
         className: clsx(styles.columnCell, isSticky && rank === columnLayout.stickyStartCount - 1 && styles.stickyEdgeStart),
-        style: {
-            minWidth: meta?.minWidth,
-            ...(isSticky && getStickyStyle('start', rank)),
-        },
+        style: isSticky ? getStickyStyle('start', rank) : undefined,
     };
 };
 

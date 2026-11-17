@@ -4,15 +4,14 @@
     @include visually-hidden;
 }
 
-// Set on the table when a column has a minWidth or a cell is sticky
-// The table scrolls both ways, so the sticky header sticks to it and not to the page
+// Set on the table when a cell is sticky. The table scrolls both ways, so the sticky header sticks to it and not to the page
 .scrollable {
     overflow: auto;
 
     max-height: 100%;
     scroll-padding-inline: var(--moon-sticky-start-width, 0) var(--moon-sticky-end-width, 0);
 
-    // Rows: one line, as wide as the minimum widths of their cells
+    // Rows: one line, as wide as the widths of their cells
     > * > * {
         flex-wrap: nowrap;
         min-width: max-content;

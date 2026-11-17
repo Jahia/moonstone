@@ -192,13 +192,13 @@ const usersWithContact: DataUserWithContact[] = tableFlat.map((user, index) => (
 const columnsWithContact: DataTableColumn<DataUserWithContact>[] = [
     ...dataColumnsUser.map(column => ({
         ...column,
-        minWidth: '160px',
+        width: '160px',
         isSticky: column.key === 'firstName',
     })),
-    { key: 'email', label: 'Email', minWidth: '280px' },
-    { key: 'city', label: 'City', minWidth: '160px' },
-    { key: 'role', label: 'Role', minWidth: '160px' },
-    { key: 'company', label: 'Company', minWidth: '200px' },
+    { key: 'email', label: 'Email', width: '280px' },
+    { key: 'city', label: 'City', width: '160px' },
+    { key: 'role', label: 'Role', width: '160px' },
+    { key: 'company', label: 'Company', width: '200px' },
 ];
 
 export const StickyColumns: StoryObj<typeof DataTable<DataUserWithContact>> = {

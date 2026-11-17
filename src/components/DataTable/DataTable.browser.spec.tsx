@@ -314,9 +314,9 @@ describe('DataTable sticky columns', () => {
     const people: Person[] = [{ id: '1', name: 'Alice', city: 'Paris', job: 'Designer' }];
 
     const stickyColumns: DataTableColumn<Person>[] = [
-        { key: 'city', label: 'City', minWidth: '300px' },
-        { key: 'name', label: 'Name', minWidth: '200px', isSticky: true },
-        { key: 'job', label: 'Job', minWidth: '300px' },
+        { key: 'city', label: 'City', width: '300px' },
+        { key: 'name', label: 'Name', width: '200px', isSticky: true },
+        { key: 'job', label: 'Job', width: '300px' },
     ];
 
     const renderSticky = (props = {}) => {
@@ -437,9 +437,9 @@ describe('DataTable sticky columns', () => {
 
     it('keeps each focused hover action of a sticky actions cell inside it', async () => {
         renderFocusTable('500px', [
-            { key: 'name', label: 'Name', minWidth: '150px', isSticky: true },
-            { key: 'city', label: 'City', minWidth: '300px' },
-            { key: 'job', label: 'Job', minWidth: '300px' },
+            { key: 'name', label: 'Name', width: '150px', isSticky: true },
+            { key: 'city', label: 'City', width: '300px' },
+            { key: 'job', label: 'Job', width: '300px' },
         ], [<Button key="view" label="View"/>, <Button key="edit" label="Edit"/>, <Button key="delete" label="Delete"/>]);
         const cell = screen.getByRole('cell', { name: /Actions/ });
         // The hover actions show while the focus is in the row
@@ -482,9 +482,9 @@ describe('DataTable sticky columns', () => {
             <div style={{ width: '500px' }}>
                 <DataTable
                     columns={[
-                        { key: 'city', label: 'City', minWidth: '300px' },
+                        { key: 'city', label: 'City', width: '300px' },
                         { key: 'name', label: 'Name', width: '150px', isSticky: true },
-                        { key: 'job', label: 'Job', minWidth: '300px' },
+                        { key: 'job', label: 'Job', width: '300px' },
                     ]}
                     data={people}
                     enablePagination={false}

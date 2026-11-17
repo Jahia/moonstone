@@ -6,7 +6,6 @@ export type CustomColumnMeta<T extends NonNullable<unknown>> = {
     isSortable?: boolean;
     align?: 'left' | 'center' | 'right';
     width?: string;
-    minWidth?: string;
     isScrollable?: boolean;
     cellProps?:
         | (React.TdHTMLAttributes<HTMLTableCellElement> & Record<string, unknown>)

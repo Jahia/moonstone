@@ -132,7 +132,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     const stickyColumnCount = columnPinning.left?.length ?? 0;
     const hasStickyColumn = stickyColumnCount > 0;
     const isSelectionSticky = enableSelection && (hasStickyColumn || Boolean(selectionCellProps?.isSticky));
-    const isScrollable = columns.some(col => col.minWidth || col.isSticky)
+    const isScrollable = hasStickyColumn
         || isSelectionSticky
         || customStickyCells.before.some(Boolean)
         || customStickyCells.after.some(Boolean);
