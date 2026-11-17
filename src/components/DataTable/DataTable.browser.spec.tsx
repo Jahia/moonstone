@@ -521,6 +521,29 @@ describe('DataTable sticky columns', () => {
         expect(width).toBeCloseTo(screen.getByRole('columnheader', { name: 'Name' }).getBoundingClientRect().width, 0);
     });
 
+    it('measures the sticky cells once the data arrives', async () => {
+        const tableOf = (rows: Person[]) => (
+            <div style={{ width: '1000px' }}>
+                <DataTable
+                    columns={[
+                        { key: 'name', label: 'Name', width: '100px', isSticky: true },
+                        { key: 'city', label: 'City', width: '100px', isSticky: true },
+                        { key: 'job', label: 'Job', width: '1200px' },
+                    ]}
+                    data={rows}
+                    enablePagination={false}
+                    primaryKey="id"
+                />
+            </div>
+        );
+        const { rerender } = render(tableOf([]));
+
+        rerender(tableOf(people));
+        screen.getByRole('table').scrollLeft = 300;
+
+        await waitFor(() => expect(left(screen.getByRole('cell', { name: 'Paris' }))).toBeCloseTo(right(screen.getByRole('cell', { name: 'Alice' })), 0));
+    });
+
     it('measures the sticky cells again when the sticky columns change order', async () => {
         const widths = { name: '100px', city: '250px', job: '1200px', id: '100px' };
         const tableOf = (keys: (keyof Person)[]) => (

@@ -239,8 +239,10 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 after: Array.from({ length: customAfterCount }, (_, i) => Boolean(customStickyCells.after[i])),
             })
         : undefined;
-    // What the sticky cells are, by their ids for the columns: another column can stick with the same count
-    useStickyCells(headRowRef, isScrollable, JSON.stringify([customBeforeCount, customAfterCount, customStickyCells, isSelectionSticky, columnPinning.left]));
+    // What the sticky cells are, by their ids for the columns: another column can stick with the same count.
+    // And whether the table is shown: it renders nothing until data arrives.
+    const isShown = Array.isArray(data) && data.length > 0;
+    useStickyCells(headRowRef, isScrollable, JSON.stringify([isShown, customBeforeCount, customAfterCount, customStickyCells, isSelectionSticky, columnPinning.left]));
 
     const renderRowWithCustomization = useCallback(
         (row: Row<T>) => {
@@ -276,7 +278,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         [renderRow, renderRowContent, rowProps],
     );
 
-    if (!data || !Array.isArray(data) || data.length === 0) {
+    if (!isShown) {
         return null;
     }
 
