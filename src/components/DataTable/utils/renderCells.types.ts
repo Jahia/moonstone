@@ -16,8 +16,6 @@ export type CustomColumnMeta<T extends NonNullable<unknown>> = {
 export type ColumnLayout = {
     /** Number of sticky cells before the data columns (custom `before` cells and the selection) */
     stickyStartBase: number;
-    /** Number of sticky cells on the left edge, data columns included */
-    stickyStartCount: number;
 };
 
 export type RenderHeadCellProps<T extends NonNullable<unknown>> = {

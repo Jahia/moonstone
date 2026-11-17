@@ -7,10 +7,15 @@ import styles from '../DataTable.module.scss';
 
 export type StickySide = 'start' | 'end';
 
-export type StickyCellProps = {
-    isSticky: true;
+type CellLayoutProps = {
     className?: string;
-    style: React.CSSProperties;
+    style?: React.CSSProperties;
+};
+
+export type StickyCellProps = CellLayoutProps & {
+    'isSticky': true;
+    // The edge the cell sticks to, which `useStickyCells` reads to measure it
+    'data-sticky': StickySide;
 };
 
 /**
@@ -23,11 +28,22 @@ export const getStickyStyle = (side: StickySide, rank: number): React.CSSPropert
         : { right: `var(--moon-sticky-end-${rank}, 0px)` }
 );
 
+/** Adds the layout props to the props of a cell, keeping its own className and style */
+export const mergeCellProps = <P extends CellLayoutProps>(props: P | undefined, layout: CellLayoutProps | undefined) => ({
+    ...props,
+    ...layout,
+    className: clsx(props?.className, layout?.className),
+    style: {
+        ...props?.style,
+        ...layout?.style,
+    },
+});
+
 const countTrue = (flags: boolean[]) => flags.filter(Boolean).length;
 
 /**
  * Places the cells around the data columns: each sticky one gets its offset, and the innermost
- * sticky cell of each edge carries the shadow.
+ * sticky cell of each edge carries the shadow. Every cell before a sticky column sticks too.
  */
 export const getStickyLayout = ({
     before, isSelectionSticky, stickyColumnCount, after,
@@ -37,24 +53,23 @@ export const getStickyLayout = ({
     stickyColumnCount: number;
     after: boolean[];
 }) => {
-    const stickyStartBase = countTrue(before) + (isSelectionSticky ? 1 : 0);
+    const beforeFlags = before.map(isSticky => stickyColumnCount > 0 || isSticky);
+    const stickyStartBase = countTrue(beforeFlags) + (isSelectionSticky ? 1 : 0);
     const stickyStartCount = stickyStartBase + stickyColumnCount;
     const stickyEndCount = countTrue(after);
 
     const place = (side: StickySide, rank: number, count: number): StickyCellProps => ({
-        isSticky: true,
-        className: rank === count - 1 ? (side === 'start' ? styles.stickyEdgeStart : styles.stickyEdgeEnd) : undefined,
-        style: getStickyStyle(side, rank),
+        'isSticky': true,
+        'data-sticky': side,
+        'className': rank === count - 1 ? (side === 'start' ? styles.stickyEdgeStart : styles.stickyEdgeEnd) : undefined,
+        'style': getStickyStyle(side, rank),
     });
 
     return {
-        before: before.map((isSticky, i) => (isSticky ? place('start', countTrue(before.slice(0, i)), stickyStartCount) : undefined)),
+        before: beforeFlags.map((isSticky, i) => (isSticky ? place('start', countTrue(beforeFlags.slice(0, i)), stickyStartCount) : undefined)),
         selection: isSelectionSticky ? place('start', stickyStartBase - 1, stickyStartCount) : undefined,
         after: after.map((isSticky, i) => (isSticky ? place('end', countTrue(after.slice(i + 1)), stickyEndCount) : undefined)),
-        columnLayout: {
-            stickyStartBase,
-            stickyStartCount,
-        } satisfies ColumnLayout,
+        columnLayout: { stickyStartBase } satisfies ColumnLayout,
     };
 };
 
@@ -62,25 +77,14 @@ export const isStickyElement = (node: React.ReactNode) => (
     React.isValidElement(node) && Boolean((node.props as { isSticky?: boolean }).isSticky)
 );
 
-/** Adds the sticky props to a custom cell, keeping its own className and style */
+/** Adds the sticky props to a custom cell */
 export const withStickyProps = (node: React.ReactNode, placement?: StickyCellProps) => {
     if (!placement || !React.isValidElement(node)) {
         return node;
     }
 
-    const props = node.props as Pick<StickyCellProps, 'className' | 'style'>;
-    return React.cloneElement(node as React.ReactElement<StickyCellProps>, {
-        isSticky: true,
-        className: clsx(props.className, placement.className),
-        style: {
-            ...props.style,
-            ...placement.style,
-        },
-    });
+    return React.cloneElement(node as React.ReactElement<StickyCellProps>, mergeCellProps(node.props as CellLayoutProps, placement));
 };
-
-const STICKY_START = '--moon-sticky-start';
-const STICKY_END = '--moon-sticky-end';
 
 /**
  * Measures the sticky cells of the header row and sets their offsets on the table, so every row
@@ -94,9 +98,8 @@ export function useStickyCells(headRowRef: React.RefObject<HTMLElement>, isEnabl
             return;
         }
 
-        const cells = Array.from(headRow.children) as HTMLElement[];
-        const startCells = cells.filter(cell => cell.style.left.includes(STICKY_START));
-        const endCells = cells.filter(cell => cell.style.right.includes(STICKY_END)).reverse();
+        const startCells = Array.from(headRow.querySelectorAll<HTMLElement>(':scope > [data-sticky="start"]'));
+        const endCells = Array.from(headRow.querySelectorAll<HTMLElement>(':scope > [data-sticky="end"]')).reverse();
 
         const widthOf = (sideCells: HTMLElement[]) => sideCells.reduce((sum, cell) => sum + cell.offsetWidth, 0);
         let isSticking = true;

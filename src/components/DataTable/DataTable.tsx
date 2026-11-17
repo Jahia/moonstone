@@ -11,6 +11,7 @@ import React, { useCallback, useMemo, useRef } from 'react';
 import {
     getStickyLayout,
     isStickyElement,
+    mergeCellProps,
     useCustomCells,
     useExpansion,
     usePagination,
@@ -179,7 +180,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
             });
             const sticky = isScrollable
                 ? getStickyLayout({
-                        before: beforeCells.map(cell => hasStickyColumn || isStickyElement(cell)),
+                        before: beforeCells.map(isStickyElement),
                         isSelectionSticky,
                         stickyColumnCount,
                         after: afterCells.map(isStickyElement),
@@ -195,16 +196,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     ))}
 
                     {enableSelection && (
-                        <TableCell
-                            width="auto"
-                            {...selectionCellProps}
-                            {...sticky?.selection}
-                            className={clsx(selectionCellProps?.className, sticky?.selection?.className)}
-                            style={{
-                                ...selectionCellProps?.style,
-                                ...sticky?.selection?.style,
-                            }}
-                        >
+                        <TableCell width="auto" {...mergeCellProps(selectionCellProps, sticky?.selection)}>
                             <Checkbox
                                 aria-label={i18n?.selectRow || 'Select row'}
                                 checked={row.getIsSelected()}
@@ -234,7 +226,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
             i18n?.selectRow,
             withCustomCellObserver,
             isScrollable,
-            hasStickyColumn,
             isSelectionSticky,
             stickyColumnCount,
         ],
@@ -242,14 +233,14 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     const headerSticky = isScrollable
         ? getStickyLayout({
-                before: Array.from({ length: customBeforeCount }, (_, i) => hasStickyColumn || Boolean(customStickyCells.before[i])),
+                before: Array.from({ length: customBeforeCount }, (_, i) => Boolean(customStickyCells.before[i])),
                 isSelectionSticky,
                 stickyColumnCount,
                 after: Array.from({ length: customAfterCount }, (_, i) => Boolean(customStickyCells.after[i])),
             })
         : undefined;
-    // The ids of the sticky columns too: another column can stick with the same count
-    useStickyCells(headRowRef, isScrollable, JSON.stringify([headerSticky ?? null, columnPinning.left]));
+    // What the sticky cells are, by their ids for the columns: another column can stick with the same count
+    useStickyCells(headRowRef, isScrollable, JSON.stringify([customBeforeCount, customAfterCount, customStickyCells, isSelectionSticky, columnPinning.left]));
 
     const renderRowWithCustomization = useCallback(
         (row: Row<T>) => {
@@ -299,11 +290,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             {Array.from({ length: customBeforeCount }, (_, i) => (
                                 <TableHeadCell
                                     key={`custom-before-header-${i}`}
-                                    {...headerSticky?.before[i]}
-                                    style={{
-                                        ...CUSTOM_HEADER_STYLE,
-                                        ...headerSticky?.before[i]?.style,
-                                    }}
+                                    {...mergeCellProps({ style: CUSTOM_HEADER_STYLE }, headerSticky?.before[i])}
                                     width={customHeaderWidths.before[i]}
                                 >
                                     {customColumnLabels?.before?.[i] && <span className={styles.dataTable_hiddenLabel}>{customColumnLabels.before[i]}</span>}
@@ -312,16 +299,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
                             {/* Selection header */}
                             {enableSelection && (
-                                <TableHeadCell
-                                    width="auto"
-                                    {...selectionCellProps}
-                                    {...headerSticky?.selection}
-                                    className={clsx(selectionCellProps?.className, headerSticky?.selection?.className)}
-                                    style={{
-                                        ...selectionCellProps?.style,
-                                        ...headerSticky?.selection?.style,
-                                    }}
-                                >
+                                <TableHeadCell width="auto" {...mergeCellProps(selectionCellProps, headerSticky?.selection)}>
                                     <span className={styles.dataTable_hiddenLabel}>{i18n?.selectionColumnLabel || 'Selection'}</span>
                                     <Checkbox
                                         aria-label={i18n?.selectAllRows || 'Select all rows'}
@@ -345,11 +323,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             {Array.from({ length: customAfterCount }, (_, i) => (
                                 <TableHeadCell
                                     key={`custom-after-header-${i}`}
-                                    {...headerSticky?.after[i]}
-                                    style={{
-                                        ...CUSTOM_HEADER_STYLE,
-                                        ...headerSticky?.after[i]?.style,
-                                    }}
+                                    {...mergeCellProps({ style: CUSTOM_HEADER_STYLE }, headerSticky?.after[i])}
                                     width={customHeaderWidths.after[i]}
                                 >
                                     {customColumnLabels?.after?.[i] && <span className={styles.dataTable_hiddenLabel}>{customColumnLabels.after[i]}</span>}

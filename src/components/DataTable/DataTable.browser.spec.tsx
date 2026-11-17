@@ -349,6 +349,22 @@ describe('DataTable sticky columns', () => {
     const left = (element: Element) => element.getBoundingClientRect().left;
     const right = (element: Element) => element.getBoundingClientRect().right;
 
+    it('sticks nothing and does not scroll by default', () => {
+        render(
+            <DataTable
+                enableSelection
+                columns={stickyColumns.map(column => ({ ...column, isSticky: false }))}
+                data={people}
+                enablePagination={false}
+                primaryKey="id"
+            />,
+        );
+        const table = screen.getByRole('table');
+        expect(getComputedStyle(table).overflowX).toBe('visible');
+        expect(screen.getAllByRole('columnheader').map(cell => getComputedStyle(cell).position)).not.toContain('sticky');
+        expect(screen.getAllByRole('cell').map(cell => getComputedStyle(cell).position)).not.toContain('sticky');
+    });
+
     it('moves a sticky column before the other columns', () => {
         renderSticky();
         expect(screen.getAllByRole('columnheader')[0]).toHaveTextContent('Name');

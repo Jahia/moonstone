@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import React from 'react';
 
 import { TableCell, TableHeadCell, TableStructuredCell } from '../cells';
-import { getStickyStyle } from '../hooks/useStickyCells';
+import { getStickyStyle, mergeCellProps } from '../hooks/useStickyCells';
 
 import type {
     ColumnLayout,
@@ -20,13 +20,15 @@ const getColumnLayoutProps = <T extends NonNullable<unknown>>(column: Column<T>,
         return {};
     }
 
-    const isSticky = column.getIsPinned() === 'left';
-    const rank = columnLayout.stickyStartBase + column.getPinnedIndex();
+    if (column.getIsPinned() !== 'left') {
+        return { className: styles.columnCell };
+    }
 
     return {
-        isSticky,
-        className: clsx(styles.columnCell, isSticky && rank === columnLayout.stickyStartCount - 1 && styles.stickyEdgeStart),
-        style: isSticky ? getStickyStyle('start', rank) : undefined,
+        'isSticky': true,
+        'data-sticky': 'start',
+        'className': clsx(styles.columnCell, column.getIsLastColumn('left') && styles.stickyEdgeStart),
+        'style': getStickyStyle('start', columnLayout.stickyStartBase + column.getPinnedIndex()),
     };
 };
 
@@ -40,15 +42,16 @@ export const renderHeadCell = <T extends NonNullable<unknown>>({
     const meta = header.column.columnDef.meta as CustomColumnMeta<T> | undefined;
     const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
     const columnSortDirection = header.column.getIsSorted();
-    const layoutProps = getColumnLayoutProps(header.column, columnLayout);
     // The first column of the configuration, wherever a sticky column moved it
     const isStructuredColumn = isStructured && header.column.id === header.getContext().table.getAllLeafColumns()[0]?.id;
 
     return (
         <TableHeadCell
-            isSticky={layoutProps.isSticky}
+            {...mergeCellProps({
+                className: clsx({ 'moonstone-tableHeadCell_structured': isStructuredColumn }),
+                style: { cursor: isColumnSortable ? 'pointer' : 'default' },
+            }, getColumnLayoutProps(header.column, columnLayout))}
             align={meta?.align ?? 'left'}
-            className={clsx({ 'moonstone-tableHeadCell_structured': isStructuredColumn }, layoutProps.className)}
             key={header.id}
             sorting={isColumnSortable
                 ? {
@@ -56,10 +59,6 @@ export const renderHeadCell = <T extends NonNullable<unknown>>({
                         isActive: Boolean(columnSortDirection),
                     }
                 : undefined}
-            style={{
-                cursor: isColumnSortable ? 'pointer' : 'default',
-                ...layoutProps.style,
-            }}
             width={meta?.width}
             onClick={(event: React.MouseEvent<HTMLTableCellElement>) => {
                 if (isColumnSortable) {
@@ -94,25 +93,16 @@ export const renderCell = <T extends NonNullable<unknown>>({
     return row.getVisibleCells().map((cell) => {
         const meta = cell.column.columnDef.meta as CustomColumnMeta<T> | undefined;
         const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
-        const cellProps = typeof meta?.cellProps === 'function'
+        const ownCellProps = typeof meta?.cellProps === 'function'
             ? meta.cellProps(rowContext)
             : meta?.cellProps;
-        const layoutProps = getColumnLayoutProps(cell.column, columnLayout);
-        const layoutCellProps = columnLayout && {
-            isSticky: layoutProps.isSticky,
-            className: clsx(cellProps?.className as string | undefined, layoutProps.className),
-            style: {
-                ...(cellProps?.style as React.CSSProperties | undefined),
-                ...layoutProps.style,
-            },
-        };
+        const cellProps = columnLayout ? mergeCellProps(ownCellProps, getColumnLayoutProps(cell.column, columnLayout)) : ownCellProps;
 
         if (isStructured && cell.column.id === structuredColumnId) {
             return (
                 <TableStructuredCell
                     key={cell.id}
                     {...cellProps}
-                    {...layoutCellProps}
                     isExpandable={row.getCanExpand()}
                     isExpanded={rowContext.meta.isExpanded}
                     isScrollable={meta?.isScrollable}
@@ -130,7 +120,6 @@ export const renderCell = <T extends NonNullable<unknown>>({
             <TableCell
                 key={cell.id}
                 {...cellProps}
-                {...layoutCellProps}
                 isScrollable={meta?.isScrollable}
                 align={meta?.align}
                 width={meta?.width}
