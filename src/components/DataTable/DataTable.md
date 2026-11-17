@@ -17,6 +17,7 @@ const columns = [
 - Use it when the state lives elsewhere.
 - Don't mix a controlled prop with its `default*` counterpart.
 - The callbacks receive the new state: `onSortChange(sortBy, sortDirection)`, `onChangeSelection(selection)` with the `primaryKey` values of the selected rows, `onPageChange(page)` with a page number that starts at 1, and `onExpandChange(expandedRows)` with the `primaryKey` values of the expanded rows.
+- To load the sub-rows of a row only when it opens, pass `canExpand` and load them for each open row that has no `subRows`: the DataTable shows a loader under the row until you add them to `data`. To load them by pages, pass `hasMoreSubRows` and `onLoadMoreSubRows`: a "Show more" button follows the last loaded sub-row of the row.
 
 ```jsx
 <DataTable primaryKey="id" data={sortedPages} columns={columns} enableSorting sortBy={sortBy} sortDirection={sortDirection} onSortChange={(by, direction) => setSort(by, direction)}/>
