@@ -248,7 +248,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 after: Array.from({ length: customAfterCount }, (_, i) => Boolean(customStickyCells.after[i])),
             })
         : undefined;
-    useStickyCells(headRowRef, isScrollable, JSON.stringify(headerSticky ?? null));
+    // The ids of the sticky columns too: another column can stick with the same count
+    useStickyCells(headRowRef, isScrollable, JSON.stringify([headerSticky ?? null, columnPinning.left]));
 
     const renderRowWithCustomization = useCallback(
         (row: Row<T>) => {
