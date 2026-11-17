@@ -36,7 +36,7 @@
     }
 }
 
-// The content of a cell with a minWidth does not widen the table beyond it
+// The content of a data cell does not widen its row, so every row has the same width and the columns line up
 .columnCell {
     contain: inline-size;
 }

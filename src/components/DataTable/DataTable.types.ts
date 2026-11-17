@@ -91,6 +91,7 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
      * Keeps the column on the left edge while the table scrolls horizontally.
      * A sticky column moves before the other columns, and the cells before it stick too.
      * The table then scrolls in both directions: give its parent a height, or the header no longer sticks.
+     * Give a sticky column a `width`: without one, it shrinks like every column with no width.
      * @default false
      */
     isSticky?: boolean;

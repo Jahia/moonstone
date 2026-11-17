@@ -477,13 +477,13 @@ describe('DataTable sticky columns', () => {
         expect(screen.getByRole('button', { name: 'Alice' })).toBeInTheDocument();
     });
 
-    it('keeps the width of a sticky column that has no minWidth while the table scrolls', () => {
+    it('keeps the width of a sticky column while the table scrolls', () => {
         render(
             <div style={{ width: '500px' }}>
                 <DataTable
                     columns={[
                         { key: 'city', label: 'City', minWidth: '300px' },
-                        { key: 'name', label: 'Name', isSticky: true },
+                        { key: 'name', label: 'Name', width: '150px', isSticky: true },
                         { key: 'job', label: 'Job', minWidth: '300px' },
                     ]}
                     data={people}
@@ -492,8 +492,36 @@ describe('DataTable sticky columns', () => {
                 />
             </div>,
         );
-        const cell = screen.getByRole('cell', { name: 'Alice' });
-        expect(cell.scrollWidth).toBeLessThanOrEqual(cell.clientWidth);
+        const width = screen.getByRole('cell', { name: 'Alice' }).getBoundingClientRect().width;
+        expect(width).toBeGreaterThanOrEqual(150);
+        expect(width).toBeCloseTo(screen.getByRole('columnheader', { name: 'Name' }).getBoundingClientRect().width, 0);
+    });
+
+    it.each([
+        ['a sticky column', true],
+        ['a column', false],
+    ])('lines up the cells of %s with no width across rows of different lengths', (_, isNameSticky) => {
+        render(
+            <div style={{ width: '500px' }}>
+                <DataTable
+                    columns={[
+                        { key: 'name', label: 'Name', isSticky: isNameSticky },
+                        { key: 'city', label: 'City', width: '300px', isSticky: !isNameSticky },
+                        { key: 'job', label: 'Job', width: '300px' },
+                    ]}
+                    data={[
+                        { id: '1', name: 'Al', city: 'Paris', job: 'Designer' },
+                        { id: '2', name: 'Alexandrina Montgomery-Smith of the long name', city: 'Lyon', job: 'Writer' },
+                    ]}
+                    enablePagination={false}
+                    primaryKey="id"
+                />
+            </div>,
+        );
+        const jobLefts = [screen.getByRole('columnheader', { name: 'Job' }), screen.getByRole('cell', { name: 'Designer' }), screen.getByRole('cell', { name: 'Writer' })]
+            .map(left);
+        expect(jobLefts[1]).toBeCloseTo(jobLefts[0], 0);
+        expect(jobLefts[2]).toBeCloseTo(jobLefts[0], 0);
     });
 
     it('sticks the header of a sticky custom cell on a page that does not show the first row', async () => {

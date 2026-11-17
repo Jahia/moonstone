@@ -26,7 +26,7 @@ const getColumnLayoutProps = <T extends NonNullable<unknown>>(column: Column<T>,
 
     return {
         isSticky,
-        className: clsx(meta?.minWidth && styles.columnCell, isSticky && rank === columnLayout.stickyStartCount - 1 && styles.stickyEdgeStart),
+        className: clsx(styles.columnCell, isSticky && rank === columnLayout.stickyStartCount - 1 && styles.stickyEdgeStart),
         style: {
             minWidth: meta?.minWidth,
             ...(isSticky && getStickyStyle('start', rank)),
