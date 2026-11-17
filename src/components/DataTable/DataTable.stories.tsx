@@ -182,18 +182,18 @@ const updateFolder = (folders: Folder[], id: string, update: (folder: Folder) =>
 
     return folder.subRows ? { ...folder, subRows: updateFolder(folder.subRows, id, update) } : folder;
 });
+// The next page of a folder, from the folders it already holds when the page arrives
+const addPage = (folder: Folder): Folder => {
+    const loaded = folder.subRows ?? [];
+    const count = Math.min(PAGE_SIZE, SUB_FOLDER_COUNT - loaded.length);
+    return { ...folder, subRows: [...loaded, ...Array.from({ length: count }, (_, i) => toFolder(`${folder.id}.${loaded.length + i + 1}`))] };
+};
 
 export const LazySubRows: StoryObj<typeof DataTable<Folder>> = {
     render: () => {
         const [folders, setFolders] = useState<Folder[]>(() => ['1', '2'].map(toFolder));
-        const [loaded, setLoaded] = useState<string[]>([]);
-
-        const loadPage = (id: string, from: number) => {
-            setTimeout(() => {
-                const page = Array.from({ length: PAGE_SIZE }, (_, i) => toFolder(`${id}.${from + i + 1}`));
-                setFolders(current => updateFolder(current, id, folder => ({ ...folder, subRows: [...folder.subRows ?? [], ...page] })));
-            }, 1000);
-        };
+        const [opened, setOpened] = useState<string[]>([]);
+        const loadPage = (id: string) => setTimeout(() => setFolders(current => updateFolder(current, id, addPage)), 1000);
 
         return (
             <DataTable
@@ -204,10 +204,10 @@ export const LazySubRows: StoryObj<typeof DataTable<Folder>> = {
                 data={folders}
                 primaryKey="id"
                 onExpandChange={(ids) => {
-                    ids.filter(id => !loaded.includes(id)).forEach(id => loadPage(id, 0));
-                    setLoaded([...new Set([...loaded, ...ids])]);
+                    ids.filter(id => !opened.includes(id)).forEach(loadPage);
+                    setOpened([...new Set([...opened, ...ids])]);
                 }}
-                onLoadMoreSubRows={folder => loadPage(folder.id, folder.subRows?.length ?? 0)}
+                onLoadMoreSubRows={folder => loadPage(folder.id)}
             />
         );
     },

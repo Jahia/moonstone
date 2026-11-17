@@ -258,14 +258,15 @@ type RenderRowProps<T extends NonNullable<unknown>> = {
 type LazySubRowsProps<T extends NonNullable<unknown>> = {
     /**
      * Whether a row can open before its `subRows` are loaded. While an open row has no `subRows`,
-     * the table shows a loader under it: load them when `onExpandChange` reports the row, and add
-     * them to `data`. With it, the rows start closed.
+     * the table shows a loader under it: load them for each open row that has none, the rows open
+     * at mount and those that `onExpandChange` reports, and add them to `data`. With it, the rows
+     * start closed.
      * @default undefined, a row opens only when it has `subRows`
      */
     canExpand?: (row: T) => boolean;
     /**
      * Whether an open row has more `subRows` to load. The table then shows a "Show more" button
-     * after its last loaded sub-row. Applies to the rows that `canExpand` accepts.
+     * after its last loaded sub-row.
      * @default undefined, no row has more
      */
     hasMoreSubRows?: (row: T) => boolean;

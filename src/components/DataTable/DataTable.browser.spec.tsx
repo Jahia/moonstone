@@ -323,6 +323,7 @@ describe('DataTable lazy sub-rows', () => {
                 canExpand={hasChildren}
                 columns={nameColumn}
                 data={[pages]}
+                i18n={{ loadingRowsLabel: 'Chargement' }}
                 primaryKey="id"
                 onExpandChange={onExpandChange}
             />
@@ -332,14 +333,14 @@ describe('DataTable lazy sub-rows', () => {
         await userEvent.click(screen.getByRole('button', { name: 'Pages' }));
 
         expect(onExpandChange).toHaveBeenCalledWith(['1']);
-        expect(screen.getByRole('status', { name: 'Loading' })).toBeInTheDocument();
+        expect(screen.getByRole('status', { name: 'Chargement' })).toBeInTheDocument();
         expect(screen.getAllByRole('checkbox')).toHaveLength(2);
         await userEvent.click(screen.getByRole('checkbox', { name: 'Select row' }));
         expect(screen.getByRole('checkbox', { name: 'Select all rows' })).toBeChecked();
 
         rerender(lazyTable({ id: '1', name: 'Pages', hasChildren: true, subRows: [{ id: '1.1', name: 'Home' }] }));
 
-        expect(screen.queryByRole('status', { name: 'Loading' })).not.toBeInTheDocument();
+        expect(screen.queryByRole('status', { name: 'Chargement' })).not.toBeInTheDocument();
         expect(screen.getByRole('cell', { name: 'Home' })).toBeInTheDocument();
     });
 
@@ -355,17 +356,36 @@ describe('DataTable lazy sub-rows', () => {
             <DataTable
                 hasMoreSubRows={node => node.id === '1'}
                 isStructured
-                canExpand={hasChildren}
                 columns={nameColumn}
                 data={[pages]}
                 defaultExpandedRows={['1', '1.1']}
+                i18n={{ loadMoreRows: 'Afficher plus' }}
                 primaryKey="id"
                 onLoadMoreSubRows={onLoadMoreSubRows}
             />,
         );
 
-        expect(screen.getAllByRole('row').slice(1).map(tr => tr.textContent)).toEqual(['Pages', 'Home', 'About', 'Show more']);
-        await userEvent.click(screen.getByRole('button', { name: 'Show more' }));
+        expect(screen.getAllByRole('row').slice(1).map(tr => tr.textContent)).toEqual(['Pages', 'Home', 'About', 'Afficher plus']);
+        await userEvent.click(screen.getByRole('button', { name: 'Afficher plus' }));
         expect(onLoadMoreSubRows).toHaveBeenCalledWith(pages);
+    });
+
+    it('gives the focus to the row above "Show more" when the last page loads', async () => {
+        const lazyTable = (subRows: Node[]) => (
+            <DataTable
+                hasMoreSubRows={node => (node.subRows?.length ?? 0) < 2}
+                isStructured
+                columns={nameColumn}
+                data={[{ id: '1', name: 'Pages', subRows }]}
+                primaryKey="id"
+            />
+        );
+        const { rerender } = render(lazyTable([{ id: '1.1', name: 'Home' }]));
+        screen.getByRole('button', { name: 'Show more' }).focus();
+
+        rerender(lazyTable([{ id: '1.1', name: 'Home' }, { id: '1.2', name: 'About' }]));
+
+        expect(screen.queryByRole('button', { name: 'Show more' })).not.toBeInTheDocument();
+        expect(screen.getByRole('row', { name: 'Home' })).toHaveFocus();
     });
 });
