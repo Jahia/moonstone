@@ -1,7 +1,7 @@
 export type PillProps = Omit<React.ComponentPropsWithoutRef<'span'>, 'className' | 'children'> & {
     /**
-     * ListItem label
-     * @deprecated label is deprecated and will be removed in a future release. Use `children` instead.
+     * Label of the pill
+     * @deprecated Use `children` instead.
      */
     label?: string;
 

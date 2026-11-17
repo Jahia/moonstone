@@ -20,7 +20,8 @@ export type BasicIconTextIconProps = {
     iconEnd?: React.ReactElement;
 
     /**
-     * Which size of icon to render; is "default" by default ;)
+     * Size of the icons.
+     * @default 'default'
      */
     iconSize?: 'small' | 'default' | 'big';
 

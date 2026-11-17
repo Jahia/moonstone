@@ -13,6 +13,7 @@ export type LayoutModuleProps = {
 
     /**
      * The HTML markup used for the content node
+     * @default 'main'
      */
     component?: string;
 

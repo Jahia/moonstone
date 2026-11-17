@@ -24,27 +24,27 @@ export type PrimaryNavHeaderProps = {
 
 export type PrimaryNavProps = React.ComponentPropsWithoutRef<'nav'> & {
     /**
-     * Image of logo application
+     * Logo shown in the header of the navigation.
      */
     headerLogo?: React.ReactNode;
     /**
-     * Image for application mode
+    * Icon shown next to the header caption (and, collapsed, above the toggle button) to indicate the application's mode or environment.
      */
     modeIcon?: React.ReactElement;
     /**
-     * Application's environment
+    * Caption shown next to `modeIcon` when expanded, typically naming the application's environment (for example "Production").
      */
     headerCaption?: string;
     /**
-     * Primary nav groups displayed at the top
+     * The PrimaryNavItemsGroup components shown at the top.
      */
     top?: React.ReactElement<PrimaryNavItemsGroupProps> | React.ReactElement<PrimaryNavItemsGroupProps>[];
     /**
-     * Primary nav groups displayed at the bottom
+     * The PrimaryNavItemsGroup components shown at the bottom.
      */
     bottom?: React.ReactElement<PrimaryNavItemsGroupProps> | React.ReactElement<PrimaryNavItemsGroupProps>[];
     /**
-     * Primary nav labels
+     * Texts of the component, shown on screen or read by screen readers. Translate them with the rest of the UI.
      */
     i18n?: {
         /**

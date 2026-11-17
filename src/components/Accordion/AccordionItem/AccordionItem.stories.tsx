@@ -1,6 +1,5 @@
-import markdownNotes from './AccordionItem.md';
+import markdownNotes from './AccordionItem.md?raw';
 import { AccordionItem } from './index';
-import { iconArgType } from '~/__storybook__/iconArgType';
 import { Accordion } from '~/components/Accordion';
 import { Love } from '~/icons';
 
@@ -8,7 +7,7 @@ import type { AccordionItemProps } from './AccordionItem.types';
 import type { Meta, StoryFn } from '@storybook/react-vite';
 
 export default {
-    title: 'Components/Accordion/AccordionItem',
+    title: 'Components/AccordionItem',
     component: AccordionItem,
     decorators: [
         StoryCmp => (
@@ -20,17 +19,16 @@ export default {
         ),
     ],
     parameters: {
-        notes: { markdown: markdownNotes },
+        componentSubtitle: 'One section of an Accordion.',
+        docs: { description: { component: markdownNotes } },
         actions: { argTypesRegex: '^on.*' },
     },
-    argTypes: {
-        icon: iconArgType,
-    },
+    args: { children: 'Content here' },
 } as Meta<typeof AccordionItem>;
 
 const Template: StoryFn<AccordionItemProps> = args => (
     <Accordion>
-        <AccordionItem {...args}>Content here</AccordionItem>
+        <AccordionItem {...args}/>
     </Accordion>
 );
 
@@ -40,7 +38,7 @@ export const WithIcon = {
     args: {
         id: 'id',
         label: 'AccordionItem',
-        icon: <Love size="big"/>,
+        icon: <Love/>,
     },
 };
 
