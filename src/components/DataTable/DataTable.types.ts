@@ -171,6 +171,16 @@ export type DataTableI18n = NonNullable<PaginationProps['i18n']> & {
      * @default 'Selection'
      */
     selectionColumnLabel?: string;
+    /**
+     * aria-label of the loader shown under an open row while its sub-rows load
+     * @default 'Loading'
+     */
+    loadingRowsLabel?: string;
+    /**
+     * Text of the button that loads more sub-rows of a row
+     * @default 'Show more'
+     */
+    loadMoreRows?: string;
 };
 
 export type SelectionProps
@@ -245,8 +255,29 @@ type RenderRowProps<T extends NonNullable<unknown>> = {
     };
 };
 
-type StructuredProps
-    = | {
+type LazySubRowsProps<T extends NonNullable<unknown>> = {
+    /**
+     * Whether a row can open before its `subRows` are loaded. While an open row has no `subRows`,
+     * the table shows a loader under it: load them when `onExpandChange` reports the row, and add
+     * them to `data`. With it, the rows start closed.
+     * @default undefined, a row opens only when it has `subRows`
+     */
+    canExpand?: (row: T) => boolean;
+    /**
+     * Whether an open row has more `subRows` to load. The table then shows a "Show more" button
+     * after its last loaded sub-row. Applies to the rows that `canExpand` accepts.
+     * @default undefined, no row has more
+     */
+    hasMoreSubRows?: (row: T) => boolean;
+    /**
+     * Called on a click of the "Show more" button of a row: add its next sub-rows to `data`
+     * @param row - The row whose sub-rows to load
+     */
+    onLoadMoreSubRows?: (row: T) => void;
+};
+
+type StructuredProps<T extends NonNullable<unknown>>
+    = | (LazySubRowsProps<T> & {
         /** Whether the table data has a hierarchical structure with subRows */
         isStructured: true;
         /** IDs of currently expanded rows (controlled). */
@@ -254,8 +285,8 @@ type StructuredProps
         /** Callback fired when expanded rows change (required in controlled mode). */
         onExpandChange: (expandedRows: string[]) => void;
         defaultExpandedRows?: never;
-    }
-    | {
+    })
+    | (LazySubRowsProps<T> & {
         /** Whether the table data has a hierarchical structure with subRows */
         isStructured: true;
         expandedRows?: never;
@@ -263,21 +294,24 @@ type StructuredProps
         onExpandChange?: (expandedRows: string[]) => void;
         /**
            * IDs of rows expanded at mount (uncontrolled).
-           * Pass `true` to expand all rows (default when `isStructured` is set).
+           * Pass `true` to expand all rows (default when `isStructured` is set without `canExpand`).
            */
         defaultExpandedRows?: true | string[];
-    }
+    })
     | {
         isStructured?: false;
         expandedRows?: never;
         onExpandChange?: never;
         defaultExpandedRows?: never;
+        canExpand?: never;
+        hasMoreSubRows?: never;
+        onLoadMoreSubRows?: never;
     };
 
 export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'children'>
     & DataTableBaseProps<T>
     & SortingProps<T>
     & SelectionProps
-    & StructuredProps
+    & StructuredProps<T>
     & RenderRowProps<T>
     & DataTablePaginationProps;

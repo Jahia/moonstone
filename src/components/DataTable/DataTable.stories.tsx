@@ -168,3 +168,48 @@ export const InsertCells: Story = {
     },
     name: 'Insert custom cells (renderRow)',
 };
+
+type Folder = { id: string; name: string; hasChildren: boolean; subRows?: Folder[] };
+
+// Each folder holds 5 folders, 2 levels deep, loaded 2 at a time after a delay
+const SUB_FOLDER_COUNT = 5;
+const PAGE_SIZE = 2;
+const toFolder = (id: string): Folder => ({ id, name: `Folder ${id}`, hasChildren: id.split('.').length < 3 });
+const updateFolder = (folders: Folder[], id: string, update: (folder: Folder) => Folder): Folder[] => folders.map((folder) => {
+    if (folder.id === id) {
+        return update(folder);
+    }
+
+    return folder.subRows ? { ...folder, subRows: updateFolder(folder.subRows, id, update) } : folder;
+});
+
+export const LazySubRows: StoryObj<typeof DataTable<Folder>> = {
+    render: () => {
+        const [folders, setFolders] = useState<Folder[]>(() => ['1', '2'].map(toFolder));
+        const [loaded, setLoaded] = useState<string[]>([]);
+
+        const loadPage = (id: string, from: number) => {
+            setTimeout(() => {
+                const page = Array.from({ length: PAGE_SIZE }, (_, i) => toFolder(`${id}.${from + i + 1}`));
+                setFolders(current => updateFolder(current, id, folder => ({ ...folder, subRows: [...folder.subRows ?? [], ...page] })));
+            }, 1000);
+        };
+
+        return (
+            <DataTable
+                hasMoreSubRows={folder => (folder.subRows?.length ?? 0) < SUB_FOLDER_COUNT}
+                isStructured
+                canExpand={folder => folder.hasChildren}
+                columns={[{ key: 'name', label: 'Name' }]}
+                data={folders}
+                primaryKey="id"
+                onExpandChange={(ids) => {
+                    ids.filter(id => !loaded.includes(id)).forEach(id => loadPage(id, 0));
+                    setLoaded([...new Set([...loaded, ...ids])]);
+                }}
+                onLoadMoreSubRows={folder => loadPage(folder.id, folder.subRows?.length ?? 0)}
+            />
+        );
+    },
+    name: 'Lazy sub-rows',
+};

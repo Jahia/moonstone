@@ -10,7 +10,7 @@ import React, { useCallback, useMemo } from 'react';
 import { useCustomCells, useExpansion, usePagination, useSelection, useSorting } from './hooks';
 import { createTableColumns } from './shared';
 import { renderCell, renderHeadCell } from './utils';
-import { Checkbox } from '~/components';
+import { Button, Checkbox, Loader } from '~/components';
 import {
     Table,
     TableBody,
@@ -18,6 +18,7 @@ import {
     TableHead,
     TableHeadCell,
     TableRow,
+    TableStructuredCell,
 } from '~/components/DataTable';
 import { Pagination } from '~/components/Pagination';
 import { toNodeArray } from '~/utils/helpers';
@@ -49,6 +50,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
     expandedRows,
     defaultExpandedRows,
     onExpandChange,
+    canExpand,
+    hasMoreSubRows,
+    onLoadMoreSubRows,
     renderRow,
     customColumnLabels,
     onClickTableHeadCell,
@@ -70,7 +74,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
 }: DataTableProps<T>) => {
     const { expanded, handleExpandedChange } = useExpansion({
         expandedRows,
-        defaultExpandedRows: defaultExpandedRows ?? (isStructured ? true : undefined),
+        // Rows whose sub-rows load when they open start closed
+        defaultExpandedRows: defaultExpandedRows ?? (isStructured && !canExpand ? true : undefined),
         onExpandChange,
     });
 
@@ -133,6 +138,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         rowCount: isPaginationControlled ? totalItems : undefined,
         // Enables hierarchical/structured table rendering by allowing TanStack to access nested subRows
         getSubRows: (row: T) => (row as T & { subRows?: T[] }).subRows,
+        getRowCanExpand: canExpand && (row => row.subRows.length > 0 || canExpand(row.original)),
         onPaginationChange: enablePagination ? handlePaginationChange : undefined,
         enableSorting,
         // UX decision: Toggle between asc/desc only, no unsorted state to prevent user confusion
@@ -214,6 +220,45 @@ export const DataTable = <T extends NonNullable<unknown>>({
         [renderRow, renderRowContent, rowProps],
     );
 
+    const columnCount = customBeforeCount + (enableSelection ? 1 : 0) + table.getVisibleLeafColumns().length + customAfterCount;
+    // A row that is not data, under the sub-rows of `parent`: no checkbox, and out of the selection
+    const renderSubRowsRow = (parent: Row<T>, key: string, content: React.ReactNode) => (
+        <TableRow key={`${parent.id}-${key}`} tabIndex={-1}>
+            <TableStructuredCell colSpan={columnCount} depth={parent.depth + 1}>{content}</TableStructuredCell>
+        </TableRow>
+    );
+
+    // The data rows, with a loader under an open row whose sub-rows load, and a "Show more" row after
+    // the last loaded sub-row of a row that has more
+    const renderBodyRows = () => {
+        const nodes: React.ReactNode[] = [];
+        const rowsWithMore: Row<T>[] = [];
+        const closeRowsWithMore = (depth: number) => {
+            while (rowsWithMore.length > 0 && rowsWithMore[rowsWithMore.length - 1].depth >= depth) {
+                const parent = rowsWithMore.pop() as Row<T>;
+                nodes.push(renderSubRowsRow(parent, 'more', (
+                    <Button label={i18n?.loadMoreRows || 'Show more'} variant="ghost" onClick={() => onLoadMoreSubRows?.(parent.original)}/>
+                )));
+            }
+        };
+
+        table.getRowModel().rows.forEach((row) => {
+            closeRowsWithMore(row.depth);
+            nodes.push(renderRowWithCustomization(row));
+            if (!row.getIsExpanded() || !canExpand?.(row.original)) {
+                return;
+            }
+
+            if ((row.original as T & { subRows?: T[] }).subRows === undefined) {
+                nodes.push(renderSubRowsRow(row, 'loading', <Loader i18n={{ loadingLabel: i18n?.loadingRowsLabel }} size="small"/>));
+            } else if (hasMoreSubRows?.(row.original)) {
+                rowsWithMore.push(row);
+            }
+        });
+        closeRowsWithMore(0);
+        return nodes;
+    };
+
     if (!data || !Array.isArray(data) || data.length === 0) {
         return null;
     }
@@ -270,7 +315,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     ))}
                 </TableHead>
                 <TableBody>
-                    {table.getRowModel().rows.map(row => renderRowWithCustomization(row))}
+                    {renderBodyRows()}
                 </TableBody>
             </Table>
             {enablePagination && (
