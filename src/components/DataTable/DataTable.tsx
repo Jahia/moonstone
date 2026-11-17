@@ -35,7 +35,7 @@ import { Pagination } from '~/components/Pagination';
 import { toNodeArray } from '~/utils/helpers';
 
 import type { DataTableProps, RenderOptions } from './DataTable.types';
-import type { ColumnPinningState, Row } from '@tanstack/react-table';
+import type { Row } from '@tanstack/react-table';
 
 import styles from './DataTable.module.scss';
 
@@ -126,11 +126,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
     const tableColumns = useMemo(() => createTableColumns(columns), [columns]);
 
     // TanStack moves the pinned columns before the others
-    const columnPinning = useMemo((): ColumnPinningState => ({
-        left: columns.filter(col => col.isSticky).map(col => String(col.key)),
-        right: [],
-    }), [columns]);
-    const stickyColumnCount = columnPinning.left?.length ?? 0;
+    const stickyColumnIds = useMemo(() => columns.filter(col => col.isSticky).map(col => String(col.key)), [columns]);
+    const stickyColumnCount = stickyColumnIds.length;
     const hasStickyColumn = stickyColumnCount > 0;
     const isSelectionSticky = enableSelection && (hasStickyColumn || Boolean(selectionCellProps?.isSticky));
     const isScrollable = hasStickyColumn
@@ -144,7 +141,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         data,
         columns: tableColumns,
         state: {
-            columnPinning,
+            columnPinning: { left: stickyColumnIds },
             expanded,
             rowSelection,
             sorting,
@@ -174,16 +171,16 @@ export const DataTable = <T extends NonNullable<unknown>>({
         (row: Row<T>, options?: RenderOptions) => {
             const beforeCells = toNodeArray(options?.before);
             const afterCells = toNodeArray(options?.after);
-            registerCustomCellCounts(beforeCells.length, afterCells.length, {
+            const stickyCells = {
                 before: beforeCells.map(isStickyElement),
                 after: afterCells.map(isStickyElement),
-            });
+            };
+            registerCustomCellCounts(beforeCells.length, afterCells.length, stickyCells);
             const sticky = isScrollable
                 ? getStickyLayout({
-                        before: beforeCells.map(isStickyElement),
+                        ...stickyCells,
                         isSelectionSticky,
                         stickyColumnCount,
-                        after: afterCells.map(isStickyElement),
                     })
                 : undefined;
 
@@ -207,7 +204,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     {renderCell({
                         row,
                         isStructured,
-                        columnLayout: sticky?.columnLayout,
+                        stickyStartBase: sticky?.stickyStartBase,
                     })}
 
                     {afterCells.map((cell, i) => (
@@ -242,7 +239,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     // What the sticky cells are, by their ids for the columns: another column can stick with the same count.
     // And whether the table is shown: it renders nothing until data arrives.
     const isShown = Array.isArray(data) && data.length > 0;
-    useStickyCells(headRowRef, isScrollable, JSON.stringify([isShown, customBeforeCount, customAfterCount, customStickyCells, isSelectionSticky, columnPinning.left]));
+    useStickyCells(headRowRef, isScrollable, JSON.stringify([isShown, customBeforeCount, customAfterCount, customStickyCells, isSelectionSticky, stickyColumnIds]));
 
     const renderRowWithCustomization = useCallback(
         (row: Row<T>) => {
@@ -315,7 +312,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             {/* Data column headers */}
                             {renderHeadCell({
                                 headerGroup,
-                                columnLayout: headerSticky?.columnLayout,
+                                stickyStartBase: headerSticky?.stickyStartBase,
                                 enableSorting,
                                 isStructured,
                                 onClickTableHeadCell,

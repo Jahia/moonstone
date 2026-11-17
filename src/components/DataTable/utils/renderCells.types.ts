@@ -12,15 +12,10 @@ export type CustomColumnMeta<T extends NonNullable<unknown>> = {
         | ((context: RowContext<T>) => React.TdHTMLAttributes<HTMLTableCellElement> & Record<string, unknown>);
 };
 
-/** Horizontal layout of the data columns, set when the table scrolls horizontally */
-export type ColumnLayout = {
-    /** Number of sticky cells before the data columns (custom `before` cells and the selection) */
-    stickyStartBase: number;
-};
-
 export type RenderHeadCellProps<T extends NonNullable<unknown>> = {
     headerGroup: HeaderGroup<T>;
-    columnLayout?: ColumnLayout;
+    /** Number of sticky cells before the data columns, set when the table scrolls horizontally */
+    stickyStartBase?: number;
     enableSorting: boolean;
     isStructured: boolean;
     onClickTableHeadCell?: DataTableProps<T>['onClickTableHeadCell'];
@@ -29,5 +24,6 @@ export type RenderHeadCellProps<T extends NonNullable<unknown>> = {
 export type RenderCellProps<T extends NonNullable<unknown>> = {
     row: Row<T>;
     isStructured: boolean;
-    columnLayout?: ColumnLayout;
+    /** Number of sticky cells before the data columns, set when the table scrolls horizontally */
+    stickyStartBase?: number;
 };

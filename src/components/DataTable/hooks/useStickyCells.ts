@@ -1,8 +1,6 @@
 import clsx from 'clsx';
 import React, { useLayoutEffect } from 'react';
 
-import type { ColumnLayout } from '../utils/renderCells.types';
-
 import styles from '../DataTable.module.scss';
 
 export type StickySide = 'start' | 'end';
@@ -69,7 +67,8 @@ export const getStickyLayout = ({
         before: beforeFlags.map((isSticky, i) => (isSticky ? place('start', countTrue(beforeFlags.slice(0, i)), stickyStartCount) : undefined)),
         selection: isSelectionSticky ? place('start', stickyStartBase - 1, stickyStartCount) : undefined,
         after: after.map((isSticky, i) => (isSticky ? place('end', countTrue(after.slice(i + 1)), stickyEndCount) : undefined)),
-        columnLayout: { stickyStartBase } satisfies ColumnLayout,
+        // Number of sticky cells before the data columns: the custom `before` cells and the selection
+        stickyStartBase,
     };
 };
 

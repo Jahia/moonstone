@@ -6,7 +6,6 @@ import { TableCell, TableHeadCell, TableStructuredCell } from '../cells';
 import { getStickyStyle, mergeCellProps } from '../hooks/useStickyCells';
 
 import type {
-    ColumnLayout,
     CustomColumnMeta,
     RenderCellProps,
     RenderHeadCellProps,
@@ -15,8 +14,8 @@ import type { Column } from '@tanstack/react-table';
 
 import styles from '../DataTable.module.scss';
 
-const getColumnLayoutProps = <T extends NonNullable<unknown>>(column: Column<T>, columnLayout?: ColumnLayout) => {
-    if (!columnLayout) {
+const getColumnLayoutProps = <T extends NonNullable<unknown>>(column: Column<T>, stickyStartBase?: number) => {
+    if (stickyStartBase === undefined) {
         return {};
     }
 
@@ -28,13 +27,13 @@ const getColumnLayoutProps = <T extends NonNullable<unknown>>(column: Column<T>,
         'isSticky': true,
         'data-sticky': 'start',
         'className': clsx(styles.columnCell, column.getIsLastColumn('left') && styles.stickyEdgeStart),
-        'style': getStickyStyle('start', columnLayout.stickyStartBase + column.getPinnedIndex()),
+        'style': getStickyStyle('start', stickyStartBase + column.getPinnedIndex()),
     };
 };
 
 export const renderHeadCell = <T extends NonNullable<unknown>>({
     headerGroup,
-    columnLayout,
+    stickyStartBase,
     enableSorting,
     isStructured,
     onClickTableHeadCell,
@@ -43,14 +42,14 @@ export const renderHeadCell = <T extends NonNullable<unknown>>({
     const isColumnSortable = enableSorting && (meta?.isSortable ?? false);
     const columnSortDirection = header.column.getIsSorted();
     // The first column of the configuration, wherever a sticky column moved it
-    const isStructuredColumn = isStructured && header.column.id === header.getContext().table.getAllLeafColumns()[0]?.id;
+    const isStructuredColumn = isStructured && header.column.getIsFirstColumn();
 
     return (
         <TableHeadCell
             {...mergeCellProps({
                 className: clsx({ 'moonstone-tableHeadCell_structured': isStructuredColumn }),
                 style: { cursor: isColumnSortable ? 'pointer' : 'default' },
-            }, getColumnLayoutProps(header.column, columnLayout))}
+            }, getColumnLayoutProps(header.column, stickyStartBase))}
             align={meta?.align ?? 'left'}
             key={header.id}
             sorting={isColumnSortable
@@ -76,7 +75,7 @@ export const renderHeadCell = <T extends NonNullable<unknown>>({
 export const renderCell = <T extends NonNullable<unknown>>({
     row,
     isStructured,
-    columnLayout,
+    stickyStartBase,
 }: RenderCellProps<T>) => {
     const rowContext = {
         id: row.id,
@@ -88,17 +87,16 @@ export const renderCell = <T extends NonNullable<unknown>>({
         },
     };
 
-    const structuredColumnId = row.getAllCells()[0]?.column.id;
-
     return row.getVisibleCells().map((cell) => {
         const meta = cell.column.columnDef.meta as CustomColumnMeta<T> | undefined;
         const cellContent = flexRender(cell.column.columnDef.cell, cell.getContext());
         const ownCellProps = typeof meta?.cellProps === 'function'
             ? meta.cellProps(rowContext)
             : meta?.cellProps;
-        const cellProps = columnLayout ? mergeCellProps(ownCellProps, getColumnLayoutProps(cell.column, columnLayout)) : ownCellProps;
+        const cellProps = stickyStartBase === undefined ? ownCellProps : mergeCellProps(ownCellProps, getColumnLayoutProps(cell.column, stickyStartBase));
 
-        if (isStructured && cell.column.id === structuredColumnId) {
+        // The first column of the configuration, wherever a sticky column moved it
+        if (isStructured && cell.column.getIsFirstColumn()) {
             return (
                 <TableStructuredCell
                     key={cell.id}
