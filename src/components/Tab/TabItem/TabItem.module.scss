@@ -3,7 +3,7 @@
 @use "../../../utils/mixins" as *;
 
 $selected-line-spacing: 4px;
-$selected-line-spacing-big: 8px;
+$selected-line-spacing-big: var(--moon-spacing-medium);
 
 .moonstone-tabItem {
     width: fit-content;
