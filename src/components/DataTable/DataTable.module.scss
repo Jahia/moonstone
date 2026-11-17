@@ -16,20 +16,25 @@
         flex-wrap: nowrap;
         min-width: max-content;
 
-        // The sticky cells cover a ring drawn on the row: each cell draws its part, in the colour of the ring
+        // The sticky cells cover a ring drawn on the row: each cell draws its part of the double ring of
+        // focus-ring($inset: true), the outer colour on the edge and the inner one inside it
         &:focus-visible {
+            $outer: var(--moon-color-focus_outer);
+            $inner: var(--moon-color-focus_inner);
+            $top-bottom: inset 0 2px $outer, inset 0 -2px $outer, inset 0 4px $inner, inset 0 -4px $inner;
+
             outline: none;
 
             > * {
-                box-shadow: inset 0 2px var(--moon-color-focus_outer), inset 0 -2px var(--moon-color-focus_outer);
+                box-shadow: $top-bottom;
             }
 
             > :first-child {
-                box-shadow: inset 2px 0 var(--moon-color-focus_outer), inset 0 2px var(--moon-color-focus_outer), inset 0 -2px var(--moon-color-focus_outer);
+                box-shadow: inset 2px 0 $outer, $top-bottom, inset 4px 0 $inner;
             }
 
             > :last-child {
-                box-shadow: inset -2px 0 var(--moon-color-focus_outer), inset 0 2px var(--moon-color-focus_outer), inset 0 -2px var(--moon-color-focus_outer);
+                box-shadow: inset -2px 0 $outer, $top-bottom, inset -4px 0 $inner;
             }
         }
     }

@@ -468,16 +468,24 @@ describe('DataTable sticky columns', () => {
         }
     });
 
-    it('draws the ring of a focused row over its sticky cells', async () => {
-        // The color token of the ring comes from the global styles, which the specs do not load
-        document.documentElement.style.setProperty('--moon-color-focus_outer', 'rgb(9, 119, 186)');
-        renderFocusTable('600px', wideColumns);
-        screen.getByRole('button', { name: 'before' }).focus();
-        await userEvent.keyboard('{Tab}');
-        await userEvent.keyboard('{Tab}');
-        expect(screen.getByRole('row', { name: /Alice/ })).toHaveFocus();
-        expect(getComputedStyle(screen.getByRole('cell', { name: 'Alice' })).boxShadow).toContain('rgb(9, 119, 186)');
-        document.documentElement.style.removeProperty('--moon-color-focus_outer');
+    it('draws the double ring of a focused row over its sticky cells', async () => {
+        // The color tokens of the ring come from the global styles, which the specs do not load
+        const root = document.documentElement.style;
+        root.setProperty('--moon-color-focus_outer', 'rgb(9, 119, 186)');
+        root.setProperty('--moon-color-focus_inner', 'rgb(255, 255, 255)');
+        try {
+            renderFocusTable('600px', wideColumns);
+            screen.getByRole('button', { name: 'before' }).focus();
+            await userEvent.keyboard('{Tab}');
+            await userEvent.keyboard('{Tab}');
+            expect(screen.getByRole('row', { name: /Alice/ })).toHaveFocus();
+            const ring = getComputedStyle(screen.getByRole('cell', { name: 'Alice' })).boxShadow;
+            expect(ring).toContain('rgb(9, 119, 186)');
+            expect(ring).toContain('rgb(255, 255, 255)');
+        } finally {
+            root.removeProperty('--moon-color-focus_outer');
+            root.removeProperty('--moon-color-focus_inner');
+        }
     });
 
     it('keeps the expand control on the first column of a structured table when another column sticks', () => {
