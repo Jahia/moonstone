@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Improve the text contrast of the components to WCAG AA (#1706)
+Improve the color contrast of the components (#1706)
