@@ -1,23 +1,20 @@
-import markdownNotes from './EmptyCardSelector.md';
+import markdownNotes from './EmptyCardSelector.md?raw';
 import { EmptyCardSelector } from './index';
-import { iconArgType } from '~/__storybook__/iconArgType';
 import { File } from '~/icons';
 
 import type { EmptyCardSelectorProps } from './EmptyCardSelector.types';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof EmptyCardSelector> = {
-    title: 'Components/CardSelector/EmptyCardSelector',
+    title: 'Components/EmptyCardSelector',
     component: EmptyCardSelector,
     tags: ['new'],
 
     parameters: {
+        componentSubtitle: 'An empty picker field, before the user selects an item.',
+        docs: { description: { component: markdownNotes } },
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
-        notes: { markdown: markdownNotes },
-    },
-    argTypes: {
-        iconStart: iconArgType,
     },
 };
 export default meta;

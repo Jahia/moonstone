@@ -9,6 +9,7 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
 
     /**
      * Name of the cell HTML element to render in the DOM
+     * @default 'td' in TableBodyCell, 'th' in TableHeadCell
      */
     component?: 'td' | 'th';
 
@@ -24,16 +25,18 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
 
     /**
      * How to align content horizontally within the table cell
+     * @default 'left'
      */
     textAlign?: 'left' | 'center' | 'right';
 
     /**
      * How to align content vertically within the table cell
+     * @default 'middle'
      */
     verticalAlign?: 'top' | 'middle' | 'bottom';
 
     /**
-     * Define the width of the cell, if no width is set the column takes all space available. (e.g. '120px')
+     * Width of the cell, such as `'120px'`. Without it, the column takes all the space available.
      */
     width?: string;
 

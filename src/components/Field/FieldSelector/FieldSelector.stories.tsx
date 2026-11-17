@@ -1,4 +1,4 @@
-import markdownNotes from './FieldSelector.md';
+import markdownNotes from './FieldSelector.md?raw';
 import { FieldSelector } from './index';
 import { Button, Dropdown, Input, RadioGroup, RadioItem } from '~/components';
 import { Close, MoreVert } from '~/icons';
@@ -6,14 +6,15 @@ import { Close, MoreVert } from '~/icons';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof FieldSelector> = {
-    title: 'Components/Field/FieldSelector',
+    title: 'Components/FieldSelector',
     component: FieldSelector,
     tags: ['beta'],
 
     parameters: {
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
-        notes: { markdown: markdownNotes },
+        componentSubtitle: 'One row of a Field, holding a single control.',
+        docs: { description: { component: markdownNotes } },
     },
     argTypes: {
 

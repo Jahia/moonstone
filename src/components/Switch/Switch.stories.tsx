@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Switch } from './index';
+import markdownNotes from './Switch.md?raw';
 
 import type { SwitchProps } from './Switch.types';
 import type { StoryObj } from '@storybook/react-vite';
@@ -10,6 +11,8 @@ export default {
     component: Switch,
     parameters: {
         layout: 'centered',
+        componentSubtitle: 'A setting that takes effect immediately, without a save step.',
+        docs: { description: { component: markdownNotes } },
     // When enabled, the controlledSwitch doesn't work anymore. maybe it's fixed with storybook 7.4 (https://github.com/storybookjs/storybook/pull/23804)
     // Actions: {argTypesRegex: '^on.*'}
     },

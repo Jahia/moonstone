@@ -4,46 +4,46 @@ import type { RadioItemProps } from '~/components/RadioGroup/RadioItem/RadioItem
 
 type BasicRadioGroupProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children' | 'className' | 'onChange'> & {
     /**
-     * RadioItem's input name
+     * Name shared by the radio inputs of the group.
      */
     name: string;
 
     /**
-     * Content of RadioItem component (We expected at least 2 items)
+     * The RadioItem components of the group, at least two.
      */
     children: React.ReactElement<RadioItemProps>[];
 
     /**
-     * Additional classname
+     * Additional class name.
      */
     className?: string;
 
     /**
-     * Function triggered on change of the RadioItem value
+     * Called when the user selects an option, with the option's `value`.
      */
     onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: string) => void;
 
     /**
-     * Whether the component should be disabled
+     * Whether every option of the group is disabled. Overrides each RadioItem's `isDisabled`.
      */
     isDisabled?: boolean;
 
     /**
-     * Whether the radio can be selected but not changed by the user
+     * Whether every option of the group is read-only. Overrides each RadioItem's `isReadOnly`.
      */
     isReadOnly?: boolean;
 };
 
 type ControlledProps = {
     /**
-     * The value of selected RadioItem. Define the component as controlled when it set (Controlled)
+     * Value of the selected RadioItem (controlled). Setting it makes the group controlled.
      */
     value?: string;
 };
 
 type UncontrolledProps = {
     /**
-     * The default value of the selected RadioItem (Uncontrolled)
+     * Value of the RadioItem selected on first render (uncontrolled).
      */
     defaultValue?: string;
 };
@@ -54,12 +54,12 @@ export type UncontrolledRadioGroupProps = BasicRadioGroupProps & UncontrolledPro
 
 export type RadioGroupContextProps = {
     /**
-     * RadioItem's input name
+     * Name shared by the radio inputs of the group.
      */
     name: string | undefined;
 
     /**
-     * Function triggered on change of the RadioItem value
+     * Called when the user selects an option, with the option's `value`.
      */
     onChange: (event: React.ChangeEvent<HTMLInputElement>, value: string) => void;
 
