@@ -75,7 +75,7 @@ $checkbox-sizeBig: 20px;
         --shadow-color: #{palette.$color-blue-50};
 
         &:hover {
-            border: 2px solid var(--moon-color-accent_dark);
+            border: 2px solid palette.$color-blue-60;
         }
 
         & ~ .moonstone-checkbox_icon {

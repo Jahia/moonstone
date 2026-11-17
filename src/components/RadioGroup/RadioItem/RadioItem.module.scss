@@ -97,7 +97,7 @@ $radio-sizeDefault: 16px;
         }
 
         &:hover ~ .moonstone-radio_icon {
-            fill: var(--moon-color-accent_dark);
+            fill: palette.$color-blue-60;
         }
     }
 }

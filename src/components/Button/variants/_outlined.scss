@@ -103,9 +103,9 @@
     background-color: transparent;
 
     &:hover:not(:disabled) {
-        color: var(--moon-color-accent_dark);
+        color: palette.$color-blue-60;
 
-        border-color: var(--moon-color-accent_dark);
+        border-color: palette.$color-blue-60;
     }
 
     &:focus-visible:not(:disabled) {

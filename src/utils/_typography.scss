@@ -62,7 +62,7 @@
     text-decoration-line: underline;
 
     &:hover {
-        color: var(--moon-color-accent_dark);
+        color: palette.$color-blue-60;
     }
 
     &:focus-visible {

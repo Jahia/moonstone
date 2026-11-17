@@ -62,8 +62,8 @@
     &:hover:not(:disabled) {
         color: var(--moon-color-light);
 
-        border-color: var(--moon-color-accent_dark);
-        background-color: var(--moon-color-accent_dark);
+        border-color: palette.$color-blue-60;
+        background-color: palette.$color-blue-60;
     }
 
     &:focus-visible:not(:disabled) {

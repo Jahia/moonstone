@@ -62,7 +62,7 @@
     background-color: transparent;
 
     &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-        color: var(--moon-color-accent_dark);
+        color: palette.$color-blue-60;
     }
 
     &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {

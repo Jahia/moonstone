@@ -21,8 +21,8 @@
     }
 
     &:not([disabled]):hover {
-        border-color: var(--moon-color-accent_dark);
-        background-color: var(--moon-color-accent_dark);
+        border-color: palette.$color-blue-60;
+        background-color: palette.$color-blue-60;
     }
 
     &:not([disabled]):focus-visible {
