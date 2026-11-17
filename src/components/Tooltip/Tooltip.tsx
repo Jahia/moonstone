@@ -49,6 +49,7 @@ export const Tooltip = ({
         return (
             <div
                 className={clsx('moonstone-tooltip', className)}
+                data-moonstone="Tooltip"
                 ref={refs.setReference}
                 {...getReferenceProps(props)}
             >

@@ -27,6 +27,7 @@ export const Pill: React.FC<PillProps> = ({
                 className,
             )}
             component="span"
+            data-moonstone="Pill"
             variant="caption"
             weight="semiBold"
             {...props}

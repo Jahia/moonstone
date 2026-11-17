@@ -58,6 +58,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(({
         <BaseInput
             allowDecimal={allowDecimal}
             allowNegative={allowNegative}
+            data-moonstone="NumberInput"
             filterFunction={filterNumberInputValue}
             inputMode={allowDecimal ? 'decimal' : 'numeric'}
             max={max}

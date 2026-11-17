@@ -54,6 +54,7 @@ const ControlledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivEle
     return (
         <div
             className={classNameProps}
+            data-moonstone="Collapsible"
             ref={ref}
             {...other}
         >

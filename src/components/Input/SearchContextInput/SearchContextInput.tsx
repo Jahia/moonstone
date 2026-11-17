@@ -30,6 +30,7 @@ export const SearchContextInput = React.forwardRef<HTMLInputElement, SearchConte
 
     return (
         <BaseInput
+            data-moonstone="SearchContextInput"
             ref={inputRef}
             {...props}
             isShowClearButton

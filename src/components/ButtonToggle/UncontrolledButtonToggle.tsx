@@ -9,6 +9,7 @@ export const UncontrolledButtonToggle = React.forwardRef<HTMLButtonElement, Unco
 
     return (
         <ControlledButtonToggle
+            data-moonstone="UncontrolledButtonToggle"
             {...props}
             isPressed={pressed}
             ref={ref}

@@ -48,6 +48,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
                 image && ['moonstone-menuItem-image', styles['moonstone-menuItem-image']],
                 className,
             )}
+            data-moonstone="MenuItem"
             description={description}
             iconEnd={iconEnd}
             iconSize={iconSize}

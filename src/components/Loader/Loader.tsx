@@ -20,6 +20,7 @@ export const Loader: React.FC<LoaderProps> = ({
                 [`moonstone-loader_${size}`, styles[`moonstone-loader_${size}`]],
                 className,
             )}
+            data-moonstone="Loader"
             role="status"
             {...props}
         >

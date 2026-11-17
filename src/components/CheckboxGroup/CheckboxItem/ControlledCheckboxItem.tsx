@@ -29,6 +29,7 @@ export const ControlledCheckboxItem: React.FC<ControlledCheckboxItemProps> = ({
                 className,
             )}
             component="label"
+            data-moonstone="CheckboxItem"
             ref={containerRef}
             variant="body"
             weight="default"

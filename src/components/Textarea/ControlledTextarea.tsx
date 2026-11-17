@@ -34,6 +34,7 @@ export const ControlledTextarea = React.forwardRef<HTMLTextAreaElement, Controll
                 isResizable && ['moonstone-textarea_resizable', styles['moonstone-textarea_resizable']],
                 className,
             )}
+            data-moonstone="Textarea"
             id={controlId}
             placeholder={placeholder}
             ref={mergedRef}

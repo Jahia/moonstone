@@ -22,6 +22,7 @@ export const EmptyData = React.forwardRef<HTMLElement, EmptyDataProps>(
                     ['flexFluid', layout.flexFluid],
                     className,
                 )}
+                data-moonstone="EmptyData"
                 ref={ref}
                 {...props}
             >

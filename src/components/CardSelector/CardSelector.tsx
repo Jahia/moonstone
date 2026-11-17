@@ -53,6 +53,7 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
                     (isDisabled || isReadOnly) && ['moonstone-cardSelector_disabled', styles['moonstone-cardSelector_disabled']],
                     ['flexRow_center', layout.flexRow_center],
                     ['alignCenter', layout.alignCenter])}
+                data-moonstone="CardSelector"
                 id={id}
                 ref={ref}
                 type="button"
@@ -73,7 +74,7 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
 
     // The action is a sibling of the button, never inside it: a button cannot hold another control
     return (
-        <div className={classNameProps}>
+        <div className={classNameProps} data-moonstone="CardSelector">
             <button
                 disabled={isDisabled || isReadOnly}
                 aria-label={displayName}

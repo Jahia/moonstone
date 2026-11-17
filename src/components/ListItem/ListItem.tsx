@@ -31,6 +31,7 @@ const ListItemForwardRef: React.ForwardRefRenderFunction<HTMLLIElement, ListItem
     return (
         <li
             className={clsx(cssListItem)}
+            data-moonstone="ListItem"
             ref={ref}
             {...props}
         >

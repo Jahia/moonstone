@@ -40,6 +40,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
                     !isVisible && ['moonstone-secondaryNav_hidden', styles['moonstone-secondaryNav_hidden']],
                 )
             }
+            data-moonstone="SecondaryNav"
             defaultSize={{
                 height: '0%',
                 width: '300px',

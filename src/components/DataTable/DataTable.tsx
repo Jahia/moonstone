@@ -220,7 +220,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     return (
         <>
-            <Table className={className} {...props}>
+            <Table className={className} data-moonstone="DataTable" {...props}>
                 <TableHead>
                     {table.getHeaderGroups().map(headerGroup => (
                         <TableRow key={headerGroup.id} type="head">

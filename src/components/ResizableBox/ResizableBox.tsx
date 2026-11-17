@@ -112,6 +112,7 @@ export const ResizableBox: React.FC<ResizableBoxProps> = ({
     return (
         <Resizable
             className={clsx(className)}
+            data-moonstone="ResizableBox"
             defaultSize={defaultSize}
             enable={enableZones}
             handleClasses={

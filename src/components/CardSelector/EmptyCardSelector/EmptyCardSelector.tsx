@@ -37,6 +37,7 @@ export const EmptyCardSelector = React.forwardRef<HTMLButtonElement, EmptyCardSe
                 ['alignCenter', layout.alignCenter],
                 className,
             )}
+            data-moonstone="EmptyCardSelector"
             id={id}
             ref={ref}
             type="button"

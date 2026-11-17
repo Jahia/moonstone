@@ -50,6 +50,7 @@ export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
                 isSelected && ['moonstone-selected', styles['moonstone-selected']],
                 className,
             )}
+            data-moonstone="PrimaryNavItem"
             title={label}
             {...props}
         >

@@ -27,6 +27,7 @@ export const FieldSelector = React.forwardRef<HTMLDivElement, FieldSelectorProps
                 ['alignCenter', layout.alignCenter],
                 className,
             )}
+            data-moonstone="FieldSelector"
             draggable={isDraggable}
             ref={ref}
             {...props}

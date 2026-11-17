@@ -35,6 +35,7 @@ const ControlledSwitchForwardRef: React.ForwardRefRenderFunction<HTMLInputElemen
                 isDisabled && ['moonstone-switch_disabled', styles['moonstone-switch_disabled']],
                 className,
             )}
+            data-moonstone="Switch"
         >
             <input
                 {...mergeHandlers(other, { onKeyDown: handleKeyDown })}

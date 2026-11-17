@@ -16,6 +16,7 @@ export const Separator: React.FC<SeparatorProps> = ({
     return (
         <hr
             aria-orientation={variant === 'vertical' ? 'vertical' : undefined}
+            data-moonstone="Separator"
             {...props}
             className={clsx(
                 ['moonstone-separator', styles['moonstone-separator']],

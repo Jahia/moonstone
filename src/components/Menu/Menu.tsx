@@ -215,6 +215,7 @@ export const Menu: React.FC<MenuProps> = ({
                             className,
                             (!isDisplayed || !stylePosition) && ['moonstone-hidden', styles['moonstone-hidden']],
                         )}
+                        data-moonstone="Menu"
                         style={styleMenu}
                         onMouseEnter={onMouseEnter}
                         onMouseLeave={onMouseLeave}
