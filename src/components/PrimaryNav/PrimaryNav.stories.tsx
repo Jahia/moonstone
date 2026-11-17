@@ -1,5 +1,5 @@
 import { PrimaryNav } from './index';
-import markdownNotes from './PrimaryNav.md';
+import markdownNotes from './PrimaryNav.md?raw';
 import placeholder from '~/__storybook__/assets/img-placeholder.jpg';
 import {
     Badge,
@@ -23,9 +23,11 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 export default {
     title: 'Components/PrimaryNav',
     component: PrimaryNav,
+    subcomponents: { PrimaryNavItemsGroup, PrimaryNavItem },
 
     parameters: {
-        notes: { markdown: markdownNotes },
+        componentSubtitle: 'The application\'s single top-level navigation.',
+        docs: { description: { component: markdownNotes } },
     },
 } as Meta<typeof PrimaryNav>;
 

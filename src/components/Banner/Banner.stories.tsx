@@ -1,4 +1,4 @@
-import { iconArgType } from '~/__storybook__/iconArgType';
+import markdownNotes from './Banner.md?raw';
 import { Banner, Button } from '~/components';
 import { RichText } from '~/icons';
 
@@ -11,11 +11,10 @@ const meta: Meta<typeof Banner> = {
     tags: ['new'],
 
     parameters: {
+        componentSubtitle: 'A status message that stays visible until the user acts.',
+        docs: { description: { component: markdownNotes } },
         layout: 'padded',
         actions: { argTypesRegex: '^on.*' },
-    },
-    argTypes: {
-        iconStart: iconArgType,
     },
 };
 export default meta;

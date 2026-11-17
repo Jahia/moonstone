@@ -1,5 +1,5 @@
 import { SvgWrapper } from './index';
-import markdownNotes from './SvgWrapper.md';
+import markdownNotes from './SvgWrapper.md?raw';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
@@ -28,7 +28,8 @@ export default {
 
     parameters: {
         layout: 'centered',
-        notes: { markdown: markdownNotes },
+        componentSubtitle: 'An inline SVG shown at icon scale.',
+        docs: { description: { component: markdownNotes } },
     },
 } as Meta<typeof SvgWrapper>;
 

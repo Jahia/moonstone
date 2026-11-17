@@ -1,17 +1,20 @@
 import { RadioGroup } from '../index';
 import { RadioItem } from './index';
+import markdownNotes from './RadioItem.md?raw';
 
 import type { RadioItemProps } from './RadioItem.types';
 import type { StoryObj } from '@storybook/react-vite';
 
 export default {
-    title: 'Components/RadioGroup/RadioItem',
+    title: 'Components/RadioItem',
     component: RadioItem,
     parameters: {
         layout: 'centered',
         knobs: { disable: true },
         storysource: { disable: true },
         actions: { argTypesRegex: '^on.*' },
+        componentSubtitle: 'One option of a RadioGroup.',
+        docs: { description: { component: markdownNotes } },
     },
 };
 

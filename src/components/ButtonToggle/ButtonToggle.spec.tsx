@@ -268,7 +268,7 @@ describe('ButtonToggle', () => {
         expect(ref.current).toBe(screen.getByRole('button'));
     });
 
-    it('should not throw when clicked without onClick', async () => {
+    it('should not throw when clicked without onClick or onChange', async () => {
         const user = userEvent.setup();
         const onError = vi.fn();
         window.addEventListener('error', onError);
