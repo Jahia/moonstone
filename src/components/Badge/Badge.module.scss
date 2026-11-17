@@ -26,6 +26,8 @@
     }
 
     &.moonstone-badge_success {
+        color: var(--moon-color-white);
+
         background-color: palette.$color-green-50;
     }
 }
