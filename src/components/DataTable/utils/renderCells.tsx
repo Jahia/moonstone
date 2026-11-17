@@ -93,7 +93,7 @@ export const renderCell = <T extends NonNullable<unknown>>({
         const ownCellProps = typeof meta?.cellProps === 'function'
             ? meta.cellProps(rowContext)
             : meta?.cellProps;
-        const cellProps = stickyStartBase === undefined ? ownCellProps : mergeCellProps(ownCellProps, getColumnLayoutProps(cell.column, stickyStartBase));
+        const cellProps = mergeCellProps(ownCellProps, getColumnLayoutProps(cell.column, stickyStartBase));
 
         // The first column of the configuration, wherever a sticky column moved it
         if (isStructured && cell.column.getIsFirstColumn()) {

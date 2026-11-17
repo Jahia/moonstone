@@ -3,14 +3,14 @@ import React, { useLayoutEffect } from 'react';
 
 import styles from '../DataTable.module.scss';
 
-export type StickySide = 'start' | 'end';
+type StickySide = 'start' | 'end';
 
 type CellLayoutProps = {
     className?: string;
     style?: React.CSSProperties;
 };
 
-export type StickyCellProps = CellLayoutProps & {
+type StickyCellProps = CellLayoutProps & {
     'isSticky': true;
     // The edge the cell sticks to, which `useStickyCells` reads to measure it
     'data-sticky': StickySide;

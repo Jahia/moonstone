@@ -135,6 +135,17 @@ export const DataTable = <T extends NonNullable<unknown>>({
         || customStickyCells.before.some(Boolean)
         || customStickyCells.after.some(Boolean);
 
+    // One layout for the header and the rows: they hold the same custom cells
+    const stickyLayout = useMemo(
+        () => (isScrollable
+            ? getStickyLayout({
+                    ...customStickyCells,
+                    isSelectionSticky,
+                    stickyColumnCount,
+                })
+            : undefined),
+        [isScrollable, customStickyCells, isSelectionSticky, stickyColumnCount],
+    );
     const headRowRef = useRef<HTMLElement>(null);
 
     const table = useReactTable({
@@ -171,29 +182,21 @@ export const DataTable = <T extends NonNullable<unknown>>({
         (row: Row<T>, options?: RenderOptions) => {
             const beforeCells = toNodeArray(options?.before);
             const afterCells = toNodeArray(options?.after);
-            const stickyCells = {
+            registerCustomCellCounts(beforeCells.length, afterCells.length, {
                 before: beforeCells.map(isStickyElement),
                 after: afterCells.map(isStickyElement),
-            };
-            registerCustomCellCounts(beforeCells.length, afterCells.length, stickyCells);
-            const sticky = isScrollable
-                ? getStickyLayout({
-                        ...stickyCells,
-                        isSelectionSticky,
-                        stickyColumnCount,
-                    })
-                : undefined;
+            });
 
             return (
                 <>
                     {beforeCells.map((cell, i) => (
                         <React.Fragment key={(cell as React.ReactElement).key}>
-                            {withStickyProps(withCustomCellObserver(cell, row.index, 'before', i), sticky?.before[i])}
+                            {withStickyProps(withCustomCellObserver(cell, row.index, 'before', i), stickyLayout?.before[i])}
                         </React.Fragment>
                     ))}
 
                     {enableSelection && (
-                        <TableCell width="auto" {...mergeCellProps(selectionCellProps, sticky?.selection)}>
+                        <TableCell width="auto" {...mergeCellProps(selectionCellProps, stickyLayout?.selection)}>
                             <Checkbox
                                 aria-label={i18n?.selectRow || 'Select row'}
                                 checked={row.getIsSelected()}
@@ -204,12 +207,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     {renderCell({
                         row,
                         isStructured,
-                        stickyStartBase: sticky?.stickyStartBase,
+                        stickyStartBase: stickyLayout?.stickyStartBase,
                     })}
 
                     {afterCells.map((cell, i) => (
                         <React.Fragment key={(cell as React.ReactElement).key}>
-                            {withStickyProps(withCustomCellObserver(cell, row.index, 'after', i), sticky?.after[i])}
+                            {withStickyProps(withCustomCellObserver(cell, row.index, 'after', i), stickyLayout?.after[i])}
                         </React.Fragment>
                     ))}
                 </>
@@ -222,20 +225,10 @@ export const DataTable = <T extends NonNullable<unknown>>({
             selectionCellProps,
             i18n?.selectRow,
             withCustomCellObserver,
-            isScrollable,
-            isSelectionSticky,
-            stickyColumnCount,
+            stickyLayout,
         ],
     );
 
-    const headerSticky = isScrollable
-        ? getStickyLayout({
-                before: Array.from({ length: customBeforeCount }, (_, i) => Boolean(customStickyCells.before[i])),
-                isSelectionSticky,
-                stickyColumnCount,
-                after: Array.from({ length: customAfterCount }, (_, i) => Boolean(customStickyCells.after[i])),
-            })
-        : undefined;
     // What the sticky cells are, by their ids for the columns: another column can stick with the same count.
     // And whether the table is shown: it renders nothing until data arrives.
     const isShown = Array.isArray(data) && data.length > 0;
@@ -289,7 +282,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             {Array.from({ length: customBeforeCount }, (_, i) => (
                                 <TableHeadCell
                                     key={`custom-before-header-${i}`}
-                                    {...mergeCellProps({ style: CUSTOM_HEADER_STYLE }, headerSticky?.before[i])}
+                                    {...mergeCellProps({ style: CUSTOM_HEADER_STYLE }, stickyLayout?.before[i])}
                                     width={customHeaderWidths.before[i]}
                                 >
                                     {customColumnLabels?.before?.[i] && <span className={styles.dataTable_hiddenLabel}>{customColumnLabels.before[i]}</span>}
@@ -298,7 +291,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
                             {/* Selection header */}
                             {enableSelection && (
-                                <TableHeadCell width="auto" {...mergeCellProps(selectionCellProps, headerSticky?.selection)}>
+                                <TableHeadCell width="auto" {...mergeCellProps(selectionCellProps, stickyLayout?.selection)}>
                                     <span className={styles.dataTable_hiddenLabel}>{i18n?.selectionColumnLabel || 'Selection'}</span>
                                     <Checkbox
                                         aria-label={i18n?.selectAllRows || 'Select all rows'}
@@ -312,7 +305,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             {/* Data column headers */}
                             {renderHeadCell({
                                 headerGroup,
-                                stickyStartBase: headerSticky?.stickyStartBase,
+                                stickyStartBase: stickyLayout?.stickyStartBase,
                                 enableSorting,
                                 isStructured,
                                 onClickTableHeadCell,
@@ -322,7 +315,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                             {Array.from({ length: customAfterCount }, (_, i) => (
                                 <TableHeadCell
                                     key={`custom-after-header-${i}`}
-                                    {...mergeCellProps({ style: CUSTOM_HEADER_STYLE }, headerSticky?.after[i])}
+                                    {...mergeCellProps({ style: CUSTOM_HEADER_STYLE }, stickyLayout?.after[i])}
                                     width={customHeaderWidths.after[i]}
                                 >
                                     {customColumnLabels?.after?.[i] && <span className={styles.dataTable_hiddenLabel}>{customColumnLabels.after[i]}</span>}
