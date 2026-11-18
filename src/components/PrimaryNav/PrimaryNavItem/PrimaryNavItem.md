@@ -1,11 +1,27 @@
-This component is only used to build the navigation.
+## Example
+```jsx
+import {PrimaryNavItem} from '@jahia/moonstone';
 
-## Specifications:
+<PrimaryNavItem label="Dashboard"/>
+```
 
-When `Navigation-primary` is collapsed only icon should be display, but navigation_item's label must be display on hover with a tooltip from the default title attribute.
+## Do
+- Use it for each destination of the application's primary navigation, inside a [PrimaryNavItemsGroup](?path=/docs/components-primarynavitemsgroup--docs).
+- Use it for an action that belongs in the primary navigation.
+- Use it to link to an external resource. The link opens in a new tab.
+- Use it for the user's own entry.
 
-Only one item can be selected by navigation at once.
+## Don't
+- Don't use it for the navigation inside a section of the application. Use [SecondaryNav](?path=/docs/components-secondarynav--docs) instead.
+- Don't use it for an entry of a dropdown or contextual menu. Use a [MenuItem](?path=/docs/components-menuitem--docs) inside a [Menu](?path=/docs/components-menu--docs) instead.
 
-An element selected cannot be clickable
+## Voice and tone
+- Write `label` and `subtitle` in sentence case.
+- Keep them to a few words, 3 at most, and never a full sentence. They don't wrap and are cut off when they overflow.
+- For an action, start with the verb that names it, such as "Sign out".
+- Be specific and name the real destination or outcome. Never write a vague label such as "OK".
 
-Figma Link : https://www.figma.com/file/939bW74C3TLW5VAzK23uox/moonstone-components?node-id=6%3A0
+## Accessibility
+- Set `isSelected` on one item at a time. It's exposed as `aria-current`, which assumes a single current page or section.
+- Always pass a `label`. It is also shown as a tooltip when the collapsed navigation shows only the icon.
+- Enter or Space activates the focused item. Don't add another click handler or `tabIndex` on a wrapper.

@@ -35,7 +35,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     data,
     columns,
     primaryKey,
-    isStructured = false,
+    isStructured,
     enableSelection = false,
     selection,
     onChangeSelection,

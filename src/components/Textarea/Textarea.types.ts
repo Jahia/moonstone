@@ -2,7 +2,7 @@ import React from 'react';
 
 export type BaseTextareaProps = Omit<React.ComponentPropsWithRef<'textarea'>, 'id' | 'value' | 'defaultValue' | 'onChange' | 'onFocus' | 'onBlur' | 'className'> & {
     /**
-     * Required id
+     * Id of the textarea.
      */
     id?: string;
     /**
@@ -19,14 +19,17 @@ export type BaseTextareaProps = Omit<React.ComponentPropsWithRef<'textarea'>, 'i
     placeholder?: string;
     /**
      * Whether the textarea should be disabled
+     * @default false
      */
     isDisabled?: boolean;
     /**
      * Whether the textarea should be read-only
+     * @default false
      */
     isReadOnly?: boolean;
     /**
      * Whether the textarea should be resizable
+     * @default true
      */
     isResizable?: boolean;
     /**

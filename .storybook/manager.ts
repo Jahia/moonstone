@@ -24,6 +24,13 @@ addons.setConfig({
             //     toolbar: true,
             //   },
         },
+        {
+            tags: 'internal',
+            badge: {
+                text: 'Internal',
+                tooltip: 'Not part of the public API. Hidden from the published docs.',
+            },
+        },
         ...defaultConfig,
     ] satisfies TagBadgeParameters,
 });
