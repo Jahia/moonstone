@@ -136,7 +136,7 @@
         &:hover {
             color: white;
 
-            background-color: var(--moon-color-accent_dark);
+            background-color: palette.$color-blue-60;
         }
     }
 }
@@ -148,7 +148,7 @@
         color: var(--rdp-today-color);
 
         &:hover {
-            color: var(--moon-color-accent_dark);
+            color: palette.$color-blue-60;
         }
     }
 }
