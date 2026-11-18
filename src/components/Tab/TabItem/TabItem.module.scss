@@ -1,6 +1,7 @@
 @use "../../../globals/variants";
 @use "../../../tokens/spacings/spacings" as *;
 @use "../../../utils/mixins" as *;
+@use "../../../tokens/colors/palette";
 
 $selected-line-spacing: 4px;
 $selected-line-spacing-big: var(--moon-spacing-medium);
@@ -86,7 +87,7 @@ $selected-line-spacing-big: var(--moon-spacing-medium);
 .moonstone-tabItem_selected {
     position: relative;
 
-    color: var(--moon-color-accent);
+    color: palette.$color-blue-50;
 
     border-color: transparent;
     cursor: default;
@@ -100,7 +101,7 @@ $selected-line-spacing-big: var(--moon-spacing-medium);
         width: 100%;
         height: 2px;
 
-        background-color: var(--moon-color-accent);
+        background-color: palette.$color-blue-50;
         content: "";
     }
 }

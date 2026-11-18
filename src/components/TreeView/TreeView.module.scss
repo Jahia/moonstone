@@ -1,5 +1,6 @@
 @use "../../tokens/spacings/spacings" as *;
 @use "../../utils/mixins" as *;
+@use "../../tokens/colors/palette";
 
 .treeView {
     margin: 0;
@@ -17,8 +18,8 @@
     --treeItem-color_selected_hover: var(--moon-color-light);
     --treeItem-background: inherit;
     --treeItem-background_hover: var(--moon-color-gray_light40);
-    --treeItem-background_selected: var(--moon-color-accent);
-    --treeItem-background_selected_hover: var(--moon-color-accent);
+    --treeItem-background_selected: #{palette.$color-blue-50};
+    --treeItem-background_selected_hover: #{palette.$color-blue-50};
     --treeItem-background_highlighted: var(--moon-color-gray_light);
 
     &:focus-visible {

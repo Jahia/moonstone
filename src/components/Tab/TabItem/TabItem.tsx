@@ -12,12 +12,12 @@ import styles from './TabItem.module.scss';
 
 export const TabItem: React.FC<TabItemProps> = ({
     component = 'button',
-    label = '',
+    label,
     size = 'default',
-    isReversed = false,
-    isDisabled = false,
-    icon = null,
-    className = null,
+    isReversed,
+    isDisabled,
+    icon,
+    className,
     isSelected = false,
     onClick,
     ...props

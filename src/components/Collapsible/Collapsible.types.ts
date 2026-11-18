@@ -8,6 +8,7 @@ type BasicCollapsibleProps = Omit<React.ComponentPropsWithRef<'div'>, 'className
 
     /**
      * Identifies the element for accessibility purpose
+     * @default null
      */
     id?: string;
 
@@ -37,6 +38,7 @@ type ControlledProps = {
 type UncontrolledProps = {
     /**
      * The expanded state of the collapsible when it is initially rendered. (uncontrolled)
+     * @default false
      */
     isDefaultExpanded?: boolean;
 };

@@ -1,4 +1,5 @@
 @use '../../utils' as *;
+@use "../../tokens/colors/palette";
 
 $cardSelector-height: 58px;
 
@@ -107,9 +108,9 @@ $cardSelector-height: 58px;
     width: 100%;
     height: $cardSelector-height;
 
-    color: var(--moon-color-warning);
+    color: palette.$color-amber-50;
 
-    border: 1px solid var(--moon-color-warning);
+    border: 1px solid var(--moon-color-warning_plain60);
     border-radius: var(--moon-radius-selector);
     background-color: var(--moon-background-selector);
     cursor: pointer;
@@ -124,7 +125,7 @@ $cardSelector-height: 58px;
 
     &:not([disabled]) {
         &:hover {
-            border-color: var(--moon-color-warning_dark);
+            border-color: palette.$color-amber-50;
         }
 
         &:focus-visible {

@@ -9,10 +9,10 @@ import styles from './ButtonGroup.module.scss';
 
 export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(({
     size = 'default',
-    isReversed = false,
+    isReversed,
     variant = 'default',
     color = 'default',
-    className = null,
+    className,
     children,
     ...props
 }, ref) => {

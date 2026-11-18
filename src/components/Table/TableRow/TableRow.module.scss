@@ -1,3 +1,5 @@
+@use "../../../tokens/colors/palette";
+
 $row-regular-height: 40px;
 $row-multiple-line-height: 64px;
 
@@ -14,11 +16,11 @@ $row-multiple-line-height: 64px;
     &.moonstone-TableRow-highlighted {
         color: var(--moon-color-light);
 
-        background-color: var(--moon-color-accent);
+        background-color: palette.$color-blue-50;
 
         &:focus-within,
         &:hover {
-            background-color: var(--moon-color-accent);
+            background-color: palette.$color-blue-50;
         }
 
         .moonstone-checkbox_input {
