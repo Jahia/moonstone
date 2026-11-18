@@ -27,6 +27,9 @@ export default {
         componentSubtitle: 'A select that also handles multiple and nested values.',
         docs: { description: { component: markdownNotes } },
     },
+    args: {
+        icon: <Love/>,
+    },
 };
 export const FlatData = {
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
@@ -89,10 +92,6 @@ export const FlatData = {
             </section>
         );
     },
-
-    args: {
-        icon: <Love/>,
-    },
 };
 
 export const FlatDataMultiple = {
@@ -142,10 +141,6 @@ export const FlatDataMultiple = {
                 />
             </section>
         );
-    },
-
-    args: {
-        icon: <Love/>,
     },
 };
 
@@ -204,10 +199,6 @@ export const GroupedData = {
             </section>
         );
     },
-
-    args: {
-        icon: <Love/>,
-    },
 };
 
 export const GroupedDataMultiple = {
@@ -257,10 +248,6 @@ export const GroupedDataMultiple = {
             </section>
         );
     },
-
-    args: {
-        icon: <Love/>,
-    },
 };
 
 export const TreeData = {
@@ -301,10 +288,6 @@ export const TreeData = {
                 />
             </section>
         );
-    },
-
-    args: {
-        icon: <Love/>,
     },
 };
 
@@ -354,9 +337,5 @@ export const TreeDataMultiple = {
                 />
             </section>
         );
-    },
-
-    args: {
-        icon: <Love/>,
     },
 };
