@@ -30,6 +30,7 @@ export const Fieldset = React.forwardRef<HTMLFieldSetElement, FieldsetProps>(({
                 ['flexCol_nowrap', layout.flexCol_nowrap],
                 className,
             )}
+            data-moonstone="Fieldset"
             id={id}
             ref={ref}
             {...props}

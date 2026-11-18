@@ -29,6 +29,7 @@ export const Tab = React.forwardRef<HTMLDivElement, TabProps>(({ children, class
             render={compositeProps => (
                 <div
                     {...compositeProps}
+                    data-moonstone="Tab"
                     {...mergeHandlers(props, {
                         onKeyDown: rovingTabIndex.onKeyDown(compositeProps.onKeyDown),
                         onBlur: rovingTabIndex.onBlur,

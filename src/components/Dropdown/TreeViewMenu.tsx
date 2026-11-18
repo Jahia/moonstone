@@ -187,6 +187,7 @@ export const TreeViewMenu: React.FC<TreeViewMenuProps> = ({
         <>
             <menu
                 className={clsx('moonstone-menu', styles['moonstone-menu'])}
+                data-moonstone="TreeViewMenu"
                 ref={itemRef}
                 style={styleMenu}
             >

@@ -28,6 +28,7 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(({
                 ['flexRow', layout.flexRow],
                 ['alignCenter', layout.alignCenter],
             )}
+            data-moonstone="ButtonGroup"
             ref={ref}
             role="group"
             {...props}

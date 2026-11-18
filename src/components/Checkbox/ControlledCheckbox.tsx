@@ -19,7 +19,7 @@ export const ControlledCheckbox = React.forwardRef<HTMLInputElement, ControlledC
     }, [indeterminate]);
 
     return (
-        <div className={clsx('moonstone-checkbox', styles['moonstone-checkbox'], className)}>
+        <div className={clsx('moonstone-checkbox', styles['moonstone-checkbox'], className)} data-moonstone="Checkbox">
             <input
                 {...props}
                 disabled={isDisabled}

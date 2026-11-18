@@ -28,6 +28,7 @@ export const IconTextIcon = <C extends React.ElementType = 'div'> ({
                 ['alignCenter', layout.alignCenter],
                 className,
             )}
+            data-moonstone="IconTextIcon"
             {...props}
         >
             <>

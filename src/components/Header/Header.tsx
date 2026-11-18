@@ -31,7 +31,7 @@ export const Header: React.FC<HeaderProps> = ({
     }
 
     return (
-        <header className={clsx('moonstone-header', styles['moonstone-header'], className)} {...props}>
+        <header className={clsx('moonstone-header', styles['moonstone-header'], className)} data-moonstone="Header" {...props}>
             {/* Main area */}
             <div
                 className={clsx(

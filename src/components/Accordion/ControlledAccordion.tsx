@@ -28,6 +28,7 @@ export const ControlledAccordion: React.FC<ControlledAccordionProps> = ({
                         isReversed && ['moonstone-reversed', styles['moonstone-reversed']],
                     )
                 }
+                data-moonstone="Accordion"
                 {...props}
             >
                 {children}

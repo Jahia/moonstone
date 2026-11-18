@@ -44,6 +44,7 @@ const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButto
                 className,
             )}
             data-loading={isLoading}
+            data-moonstone="ControlledButtonToggle"
             icon={iconStart}
             iconEnd={iconEnd}
             label={label}

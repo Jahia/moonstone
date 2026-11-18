@@ -28,6 +28,7 @@ export const ControlledRadioGroup: React.FC<ControlledRadioGroupProps> = ({
         <RadioGroupContext.Provider value={provider}>
             <div
                 aria-readonly={isReadOnly || undefined}
+                data-moonstone="RadioGroup"
                 role="radiogroup"
                 {...props}
                 {...fieldAria}

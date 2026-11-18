@@ -15,11 +15,12 @@ export const Table: React.FC<TableProps> = ({
 }) => React.createElement(
     component,
     {
-        className: clsx(
+        'className': clsx(
             ['moonstone-Table', styles['moonstone-Table']],
             ['flexCol_nowrap', layout.flexCol_nowrap],
             className,
         ),
+        'data-moonstone': 'Table',
         ...props,
     },
     children,

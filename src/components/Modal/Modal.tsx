@@ -75,6 +75,7 @@ const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps
                                 ['flexCol_nowrap', layout.flexCol_nowrap],
                                 className,
                             )}
+                            data-moonstone="Modal"
                             ref={modalRef}
                             {...getFloatingProps(props)}
                         >

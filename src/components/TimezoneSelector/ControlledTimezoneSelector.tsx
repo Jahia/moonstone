@@ -29,6 +29,7 @@ export const ControlledTimezoneSelector: React.FC<ControlledTimezoneSelectorProp
 
     return (
         <Dropdown
+            data-moonstone="TimezoneSelector"
             {...props}
             isDisabled={isDisabled || isReadOnly}
             className={clsx(styles.timezoneSelector, className)}

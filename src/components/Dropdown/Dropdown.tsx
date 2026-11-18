@@ -244,6 +244,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     return (
         <div
             className={clsx('moonstone-dropdown_container', styles['moonstone-dropdown_container'], className)}
+            data-moonstone="Dropdown"
             {...props}
         >
             <div

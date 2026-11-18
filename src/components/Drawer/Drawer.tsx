@@ -65,6 +65,7 @@ export const Drawer = React.forwardRef(<C extends React.ElementType = 'aside'>({
         'ref': mergedRef,
         'component': component || 'aside',
         'className': clsx(styles.drawer, className),
+        'data-moonstone': 'Drawer',
         ...mergeHandlers(props, { onKeyDown: handleKeyDown }) as BasicPaperProps,
         'style': {
             ...style,

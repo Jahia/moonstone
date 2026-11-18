@@ -78,6 +78,7 @@ const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEleme
                 className,
             )}
             component={component}
+            data-moonstone="TableBodyCell"
             style={{ width: width }}
             variant="body"
             {...props}

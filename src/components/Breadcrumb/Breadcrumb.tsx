@@ -16,7 +16,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ children, className, ...
     }
 
     return (
-        <nav aria-label="breadcrumb" className={clsx('moonstone-breadcrumb', styles['moonstone-breadcrumb'], className)} {...props}>
+        <nav aria-label="breadcrumb" className={clsx('moonstone-breadcrumb', styles['moonstone-breadcrumb'], className)} data-moonstone="Breadcrumb" {...props}>
             <ol className={clsx('flexRow_nowrap', layout.flexRow_nowrap, 'alignCenter', layout.alignCenter)}>
                 {allItems.map((item: React.ReactElement, index) => (
                     index < allItems.length - 1

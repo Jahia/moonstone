@@ -250,6 +250,7 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         'aria-orientation': 'vertical',
         'role': 'tree',
         'aria-multiselectable': showCheckbox,
+        'data-moonstone': 'TreeView',
         ...mergeHandlers(props, {
             onKeyDown: rovingTabIndex.onKeyDown(),
             onBlur: rovingTabIndex.onBlur,

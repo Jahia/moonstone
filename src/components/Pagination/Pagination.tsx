@@ -47,6 +47,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                 ['justifyEnd', layout.justifyEnd],
                 className,
             )}
+            data-moonstone="Pagination"
             {...props}
         >
             <div

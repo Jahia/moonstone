@@ -29,6 +29,7 @@ export const RadioItem: React.FC<RadioItemProps> = ({
                 className,
             )}
             component="label"
+            data-moonstone="RadioItem"
             ref={containerRef}
             variant="body"
             weight="default"

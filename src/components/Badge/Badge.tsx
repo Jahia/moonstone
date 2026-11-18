@@ -28,6 +28,7 @@ export const Badge: React.FC<BadgeProps> = ({
         <Typography
             className={classNameProps}
             component="span"
+            data-moonstone="Badge"
             variant="caption"
             weight="bold"
             {...other}

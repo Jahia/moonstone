@@ -92,6 +92,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                     isOpened && ['moonstone-opened', styles['moonstone-opened']],
                     className,
                 )}
+                data-moonstone="CustomDropdown"
                 icon={icon}
                 iconEnd={label && <ChevronDown role="presentation"/>}
                 label={label}
