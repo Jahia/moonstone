@@ -15,6 +15,8 @@ env:
 
 jobs:
   update-screenshots:
+    # The reference screenshots depend on the fonts of this image. Change the image and the
+    # reference screenshots in the same pull request, also in on-code-change.yml.
     runs-on: ubuntu-26.04
 
     # safety first: don't run on main

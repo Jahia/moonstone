@@ -18,7 +18,7 @@ const stories = import.meta.glob<never>('./**/*.stories.{js,jsx,ts,tsx}', { eage
 const ignore = new Set([
     './components/Menu/Menu.stories.tsx-Default',
     './icons/Icons.stories.tsx-_Default',
-    // https://github.com/Jahia/moonstone/issues/1710
+    // This story times out: https://github.com/Jahia/moonstone/issues/1710
     './components/Menu/MenuItem.stories.tsx-Playground',
 ]);
 
@@ -32,8 +32,9 @@ export const runVisualStoriesSuite = () => {
         test.for(Object.entries<ComposedStory>(composeStories(imports, projectAnnotations)))('%s', async ([name, Story], { skip }) => {
             skip(ignore.has(`${file}-${name}`));
             const { container } = await render(<Story/>, {});
-            // The matcher screenshots the CSS path of its target. An id keeps that path unique
-            // when a portal, such as the one of a tooltip, adds a div to the body.
+            // toMatchScreenshot finds its target through a CSS path, such as "html > body > div".
+            // A portal, such as the portal of a tooltip, can add a second div to the body. Then this
+            // path finds two elements, and the screenshot fails. The id makes the path unique.
             container.id = 'visual-story';
             if (Story.play) {
                 await Story.play({ canvasElement: container });
@@ -42,8 +43,11 @@ export const runVisualStoriesSuite = () => {
             // Overlays (menus, calendars) render outside the container's bounding box, so any
             // story with a play function is screenshotted full-page instead of container-only.
             const screenshotTarget = Story.play ? document.body : container;
-            // expect.element retries a failed toMatchScreenshot until the test times out, unless it
-            // gets a locator. The matcher timeout stays below the testTimeout of vite.config.mjs.
+            // Give expect.element a locator, not an element. With an element, expect.element runs a
+            // failed toMatchScreenshot again until the test times out. Then the error shows only
+            // "Test timed out". With a locator, toMatchScreenshot runs one time and shows its error.
+            // The timeout of toMatchScreenshot is less than the testTimeout in vite.config.mjs, so an
+            // unstable screenshot also shows its own error.
             await expect
                 .element(page.elementLocator(screenshotTarget))
                 .toMatchScreenshot(`${file}-${name}`, { timeout: 2000 });

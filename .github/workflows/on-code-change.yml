@@ -9,6 +9,8 @@ on:
 
 jobs:
   build-and-test:
+    # The reference screenshots depend on the fonts of this image. Change the image and the
+    # reference screenshots in the same pull request, also in update-screenshots.yml.
     runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
