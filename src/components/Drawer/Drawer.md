@@ -17,6 +17,8 @@ import {Button, Drawer} from '@jahia/moonstone';
 - Don't use a Drawer for persistent navigation between pages. Use [PrimaryNav](?path=/docs/components-primarynav--docs) or [SecondaryNav](?path=/docs/components-secondarynav--docs) instead.
 - Don't use a Drawer to show or hide a section within the page flow. Use a [Collapsible](?path=/docs/components-collapsible--docs) instead.
 
+It slides in when `isOpen` turns true, and out when `isOpen` turns false. A Drawer rendered open, such as a panel open by default, shows at once, with no slide-in. To animate an opening, keep the Drawer rendered and set `isOpen`: a Drawer that you mount to open it does not slide in.
+
 ## Accessibility
 - By default, the Drawer renders a complementary landmark. Name it with `aria-label` or `aria-labelledby`.
 - Always provide a visible control that closes the Drawer, such as a "Close" [Button](?path=/docs/components-button--docs).

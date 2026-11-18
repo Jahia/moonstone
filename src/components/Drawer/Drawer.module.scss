@@ -9,7 +9,7 @@
     overflow-y: auto;
 }
 
-.drawer[data-state='open'] {
+.drawer[data-state='open']:not(.renderedOpen) {
     @include animation(slide-in var(--drawer-animation-duration) cubic-bezier(0.39, 0.575, 0.565, 1) both); // easeOutSine
 }
 
