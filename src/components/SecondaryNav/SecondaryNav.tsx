@@ -42,7 +42,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
             }
             defaultSize={{
                 height: '0%',
-                width: '300px',
+                width: '280px',
             }}
             enable={isVisible ? ['right'] : []}
             i18n={{
@@ -50,7 +50,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
                 widthUnit: i18n?.widthUnit,
             }}
             maxWidth="900"
-            minWidth={isVisible ? 300 : 0}
+            minWidth={isVisible ? 280 : 0}
             role="navigation"
             size={isVisible
                 ? null
