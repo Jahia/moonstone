@@ -1,6 +1,7 @@
 import { composeStories } from '@storybook/react';
 import { describe, expect, test } from 'vitest';
 import { render } from 'vitest-browser-react';
+import { page } from 'vitest/browser';
 
 // @ts-expect-error preview is js not ts
 import * as projectAnnotations from '../.storybook/preview.jsx';
@@ -38,10 +39,10 @@ export const runVisualStoriesSuite = () => {
             // Overlays (menus, calendars) render outside the container's bounding box, so any
             // story with a play function is screenshotted full-page instead of container-only.
             const screenshotTarget = Story.play ? document.body : container;
+            // expect.element retries a failed toMatchScreenshot until the test times out, unless it
+            // gets a locator. The matcher timeout stays below the testTimeout of vite.config.mjs.
             await expect
-                .element(screenshotTarget)
-                // Below the testTimeout of the visual project (vite.config.mjs), so a failure
-                // reports a mismatch or an unstable screenshot instead of a test timeout.
+                .element(page.elementLocator(screenshotTarget))
                 .toMatchScreenshot(`${file}-${name}`, { timeout: 2000 });
         });
     });
