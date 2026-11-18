@@ -32,6 +32,9 @@ export const runVisualStoriesSuite = () => {
         test.for(Object.entries<ComposedStory>(composeStories(imports, projectAnnotations)))('%s', async ([name, Story], { skip }) => {
             skip(ignore.has(`${file}-${name}`));
             const { container } = await render(<Story/>, {});
+            // The matcher screenshots the CSS path of its target. An id keeps that path unique
+            // when a portal, such as the one of a tooltip, adds a div to the body.
+            container.id = 'visual-story';
             if (Story.play) {
                 await Story.play({ canvasElement: container });
             }
