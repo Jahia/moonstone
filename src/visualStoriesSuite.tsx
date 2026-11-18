@@ -1,14 +1,41 @@
 import { composeStories } from '@storybook/react';
 import { describe, expect, test } from 'vitest';
 import { render } from 'vitest-browser-react';
+import { commands } from 'vitest/browser';
 
 // @ts-expect-error preview is js not ts
 import * as projectAnnotations from '../.storybook/preview.jsx';
 
 import type { JSX } from 'react';
 
-// A composed story is a render function; Storybook attaches its `play` interaction (if any) to it.
-type ComposedStory = (() => JSX.Element) & { play?: (context: { canvasElement: HTMLElement }) => Promise<void> };
+declare module 'vitest/browser' {
+    // oxlint-disable-next-line typescript/consistent-type-definitions -- declaration merging needs an interface
+    interface BrowserCommands {
+        // Defined in the visual project of vite.config.mjs
+        parkPointer: () => Promise<void>;
+    }
+}
+
+// A composed story is a render function; Storybook attaches its args, argTypes and `play`
+// interaction (if any) to it.
+type ComposedStory = ((args: Record<string, unknown>) => JSX.Element) & {
+    args: Record<string, unknown>;
+    argTypes: Record<string, { mapping?: Record<string, unknown> }>;
+    play?: (context: { canvasElement: HTMLElement }) => Promise<void>;
+};
+
+/**
+ * Maps each arg through the `mapping` of its argType, such as `iconArgType` turning `'Love'` into
+ * `<Love/>`. A composed story called as a component renders its raw initial args, so it skips the
+ * mapping that Storybook applies in the Storybook UI and in its Vitest addon.
+ */
+const mapArgs = ({ args, argTypes }: ComposedStory) => Object.fromEntries(
+    Object.entries(args).map(([key, value]) => {
+        const mapping = argTypes[key]?.mapping;
+        const mapValue = (option: unknown) => (mapping && String(option) in mapping ? mapping[String(option)] : option);
+        return [key, Array.isArray(value) ? value.map(mapValue) : mapValue(value)];
+    }),
+);
 
 // Import all stories
 const stories = import.meta.glob<never>('./**/*.stories.{js,jsx,ts,tsx}', { eager: true });
@@ -28,7 +55,10 @@ export const runVisualStoriesSuite = () => {
     describe.for(Object.entries(stories))('%s', ([file, imports]) => {
         test.for(Object.entries<ComposedStory>(composeStories(imports, projectAnnotations)))('%s', async ([name, Story], { skip }) => {
             skip(ignore.has(`${file}-${name}`));
-            const { container } = await render(<Story/>, {});
+            // Chromium on Linux hovers whatever lies under a mouse that never moved, at the story's top-left
+            // corner. Parking the mouse before the render still lets a `play` interaction hover on purpose.
+            await commands.parkPointer();
+            const { container } = await render(<Story {...mapArgs(Story)}/>, {});
             if (Story.play) {
                 await Story.play({ canvasElement: container });
             }

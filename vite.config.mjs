@@ -98,6 +98,14 @@ export default defineConfig({
                         headless: true,
                         provider: playwright(),
                         instances: [{ browser: 'chromium' }],
+                        commands: {
+                            // The orchestrator scales the tester iframe from the page's left top corner,
+                            // so the bottom-right corner of the page lies outside the story
+                            parkPointer: async ({ page }) => {
+                                const { width, height } = page.viewportSize();
+                                await page.mouse.move(width - 1, height - 1);
+                            },
+                        },
                         expect: {
                             toMatchScreenshot: {
                                 // Resolve all screenshots to a single directory
