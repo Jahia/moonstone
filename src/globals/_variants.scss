@@ -1,4 +1,5 @@
 @use "../utils/mixins" as *;
+@use "../tokens/colors/palette";
 
 // Default style
 %variant_ghost {
@@ -54,14 +55,14 @@
 }
 
 %variant_ghost_accent {
-    color: var(--moon-color-accent);
+    color: palette.$color-blue-50;
 
     border: 1px solid transparent;
 
     background-color: transparent;
 
     &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-        color: var(--moon-color-accent_dark);
+        color: palette.$color-blue-60;
     }
 
     &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
@@ -75,7 +76,7 @@
     }
 
     &.moonstone-reverse {
-        // accent is too dark on reversed backgrounds
+        // blue-50 is too dark on reversed backgrounds, and the 2.21 accent gives 4.49:1 on gray_dark
         color: var(--moon-color-accent_light);
 
         &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
@@ -102,14 +103,14 @@
 }
 
 %variant_ghost_danger {
-    color: var(--moon-color-danger);
+    color: palette.$color-red-50;
 
     border: 1px solid transparent;
 
     background-color: transparent;
 
     &:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
-        color: var(--moon-color-danger);
+        color: palette.$color-red-50;
     }
 
     &:focus-visible:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
@@ -119,7 +120,7 @@
     &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
         color: var(--moon-color-white);
 
-        background-color: var(--moon-color-danger);
+        background-color: palette.$color-red-50;
     }
 
     &.moonstone-reverse {
@@ -137,7 +138,7 @@
 
         &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
             border-color: transparent;
-            background-color: var(--moon-color-danger);
+            background-color: palette.$color-red-50;
         }
 
         &[aria-disabled="true"],

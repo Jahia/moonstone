@@ -1,4 +1,5 @@
 @use '../../../utils';
+@use "../../../tokens/colors/palette";
 
 $default-size: 24px;
 $big-size: 32px;
@@ -109,7 +110,7 @@ $min-width: 40px;
         outline: none;
 
         ~ .moonstone-baseInput_icon {
-            color: var(--moon-color-accent);
+            color: palette.$color-blue-50;
         }
     }
 

@@ -1,22 +1,24 @@
 @use "focus" as *;
+@use "palette";
 
-// gray, blue*, green, red and yellow already use Figma "Palette 2" values (WCAG AA contrast fix ahead of the palette migration)
+// 2.21 values, which Jahia modules use: only gray failed WCAG AA, so it takes its Figma "Palette 2" step.
+// Components that fail with these values use _palette.scss instead
 $color-light: #fdfdfd;
 $color-gray-light: #dadada;
-$color-gray: #69737a;
+$color-gray: palette.$color-neutral-50;
 $color-gray-dark: #293136;
 $color-dark: #131c21;
 $color-white: #fff;
 $color-black: #000;
-$color-blue: #0977ba;
-$color-blue-contrast: #0b4369;
-$color-blue-dark: #135d8e;
+$color-blue: #00a0e3;
+$color-blue-contrast: #004781;
+$color-blue-dark: #0072b1;
 $color-blue-light: #63d1ff;
-$color-green: #0e6940;
-$color-green-dark: #084d2d;
-$color-red: #cf1c3b;
+$color-green: #6abb6d;
+$color-green-dark: #267729;
+$color-red: #f44053;
 $color-red-dark: #840d0f;
-$color-yellow: #a35f07;
+$color-yellow: #fb0;
 $color-yellow-dark: #754c0b;
 $color-purple: #8840f4;
 $color-purple-dark: #47168f;
@@ -125,7 +127,7 @@ $color-purple-dark: #47168f;
     --moon-color-purple_plain40: #ceb1f9;
     --moon-color-purple_plain60: #b78cf8;
     --moon-color-purple_dark: #{$color-purple-dark};
-    --moon-color-focus_outer: #{$color-blue};
+    --moon-color-focus_outer: #{palette.$color-blue-50};
     --moon-color-focus_inner: #{$color-white};
 }
 

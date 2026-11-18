@@ -1,11 +1,12 @@
 @use "../../utils";
+@use "../../tokens/colors/palette";
 
 $footerHeight: 24px;
 $gap: 8px;
 
 .moonstone-listSelector {
     .moonstone-draggedOver {
-        outline: solid 2px var(--moon-color-accent);
+        outline: solid 2px palette.$color-blue-50;
     }
 }
 
