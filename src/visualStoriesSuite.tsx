@@ -17,6 +17,8 @@ const stories = import.meta.glob<never>('./**/*.stories.{js,jsx,ts,tsx}', { eage
 const ignore = new Set([
     './components/Menu/Menu.stories.tsx-Default',
     './icons/Icons.stories.tsx-_Default',
+    // https://github.com/Jahia/moonstone/issues/1710
+    './components/Menu/MenuItem.stories.tsx-Playground',
 ]);
 
 /**
