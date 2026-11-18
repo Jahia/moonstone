@@ -129,6 +129,7 @@
 // Selected Date
 .calendarSelectedDate {
     .calendarDayButton:not([disabled]) {
+        font-weight: bold;
         color: white;
 
         background-color: var(--rdp-accent-background-color);
