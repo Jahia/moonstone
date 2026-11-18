@@ -40,7 +40,9 @@ export const runVisualStoriesSuite = () => {
             const screenshotTarget = Story.play ? document.body : container;
             await expect
                 .element(screenshotTarget)
-                .toMatchScreenshot(`${file}-${name}`);
+                // Below the testTimeout of the visual project (vite.config.mjs), so a failure
+                // reports a mismatch or an unstable screenshot instead of a test timeout.
+                .toMatchScreenshot(`${file}-${name}`, { timeout: 2000 });
         });
     });
 };
