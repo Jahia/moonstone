@@ -1,5 +1,6 @@
 @use "../../utils/motion" as *;
 @use "../../utils/mixins" as *;
+@use "../../tokens/colors/palette";
 
 $checkbox-sizeDefault: 16px;
 $checkbox-sizeBig: 20px;
@@ -59,7 +60,7 @@ $checkbox-sizeBig: 20px;
     cursor: pointer;
 
     &:hover {
-        --shadow-color: var(--moon-color-gray);
+        --shadow-color: var(--moon-color-gray60);
         --shadow-size: 2px;
     }
 
@@ -71,10 +72,10 @@ $checkbox-sizeBig: 20px;
     &:checked,
     &:indeterminate {
         --shadow-size: 12px;
-        --shadow-color: var(--moon-color-accent);
+        --shadow-color: #{palette.$color-blue-50};
 
         &:hover {
-            border: 2px solid var(--moon-color-accent_dark);
+            border: 2px solid palette.$color-blue-60;
         }
 
         & ~ .moonstone-checkbox_icon {
@@ -103,7 +104,7 @@ $checkbox-sizeBig: 20px;
 
         &:checked:hover,
         &:indeterminate:hover {
-            --shadow-color: var(--moon-color-accent);
+            --shadow-color: #{palette.$color-blue-50};
             --shadow-size: 12px;
 
             border: none;

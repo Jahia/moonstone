@@ -1,4 +1,5 @@
 @use 'mixins';
+@use "../tokens/colors/palette";
 
 // ---
 // Typography Styles
@@ -57,12 +58,12 @@
 // Defined before %lineThrough so that an explicit `hasLineThrough`
 // takes precedence over the underline a link gets automatically.
 %link {
-    color: var(--moon-color-accent);
+    color: palette.$color-blue-50;
 
     text-decoration-line: underline;
 
     &:hover {
-        color: var(--moon-color-accent_dark);
+        color: palette.$color-blue-60;
     }
 
     &:focus-visible {

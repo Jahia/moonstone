@@ -1,4 +1,5 @@
 @use "../../../utils";
+@use "../../../tokens/colors/palette";
 
 .moonstone-valueList {
     flex-grow: 1;
@@ -39,11 +40,11 @@
     &.selected {
         color: var(--moon-color-white);
 
-        background-color: var(--moon-color-accent);
+        background-color: palette.$color-blue-50;
     }
 
     &:not([disabled]):hover {
-        color: var(--moon-color-accent_dark);
+        color: var(--moon-color-accent_dark_contrast);
 
         background-color: var(--moon-color-gray_light60);
     }

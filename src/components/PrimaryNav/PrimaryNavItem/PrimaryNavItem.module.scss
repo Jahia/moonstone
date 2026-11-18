@@ -1,5 +1,6 @@
 @use "../../../utils/motion" as *;
 @use "../../../utils/mixins" as *;
+@use "../../../tokens/colors/palette";
 
 .moonstone-primaryNavItem {
     @include transition(color 0.2s, background-color 0.2s);
@@ -20,7 +21,7 @@
     &.moonstone-selected {
         color: var(--moon-color-light);
 
-        background-color: var(--moon-color-accent);
+        background-color: palette.$color-blue-50;
         cursor: default;
     }
 
@@ -58,7 +59,7 @@
 }
 
 .moonstone-primaryNavItem:not(.moonstone-selected) .primaryNavItem_control:hover {
-    color: var(--moon-color-accent_light);
+    color: var(--moon-color-accent);
 }
 
 .moonstone-primaryNavItem_iconContainer {
