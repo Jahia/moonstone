@@ -1,3 +1,4 @@
+import markdownNotes from './Header.md?raw';
 import { Header } from './index';
 import {
     Breadcrumb,
@@ -26,6 +27,10 @@ const DropdownData = [
 export default {
     title: 'Components/Header',
     component: Header,
+    parameters: {
+        componentSubtitle: 'The top of a page: its title and main actions.',
+        docs: { description: { component: markdownNotes } },
+    },
     argTypes: {
         title: {
             table: {

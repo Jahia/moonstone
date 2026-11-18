@@ -10,7 +10,7 @@ export const LayoutModule = React.forwardRef(({
     navigation,
     content,
     component = 'main',
-    isLoading = false,
+    isLoading,
 }: LayoutModuleProps, ref: React.ForwardedRef<unknown>) => {
     const classNameProps = clsx(
         ['flexFluid', layout.flexFluid],

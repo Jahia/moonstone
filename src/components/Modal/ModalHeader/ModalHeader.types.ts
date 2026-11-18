@@ -2,17 +2,17 @@ import type { ReactNode } from 'react';
 
 export type ModalHeaderProps = Omit<React.ComponentPropsWithRef<'header'>, 'className' | 'children'> & {
     /**
-     * Title of the ModalHeader
+     * Title of the modal. Nothing renders without it.
      */
     title: string;
 
     /**
-     * Children of the ModalHeader
+     * Text shown under the title.
      */
     children?: ReactNode;
 
     /**
-     * Additional classname
+     * Additional class name.
      */
     className?: string;
 };

@@ -19,6 +19,7 @@ export type ModalProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 
 
     /**
      * Size of the Modal
+     * @default 'medium'
      */
     size?: 'small' | 'medium' | 'large' | 'full';
 

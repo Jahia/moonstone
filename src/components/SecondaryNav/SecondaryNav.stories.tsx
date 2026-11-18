@@ -1,5 +1,5 @@
 import { SecondaryNav, SecondaryNavHeader } from './index';
-import markdownNotes from './SecondaryNav.md';
+import markdownNotes from './SecondaryNav.md?raw';
 import { Love } from '~/icons';
 
 import type { SecondaryNavProps } from './SecondaryNav.types';
@@ -8,6 +8,7 @@ import type { Meta, StoryFn } from '@storybook/react-vite';
 export default {
     title: 'Components/SecondaryNav',
     component: SecondaryNav,
+    subcomponents: { SecondaryNavHeader },
     tags: ['dark-theme'],
     decorators: [
         StoryCmp => (
@@ -19,12 +20,14 @@ export default {
         ),
     ],
     parameters: {
-        notes: { markdown: markdownNotes },
+        componentSubtitle: 'The second-level navigation of an application section.',
+        docs: { description: { component: markdownNotes } },
     },
+    args: { children: 'My content here' },
 } as Meta<typeof SecondaryNav>;
 
 const Template: StoryFn<SecondaryNavProps> = args => (
-    <SecondaryNav {...args}>My content here</SecondaryNav>
+    <SecondaryNav {...args}/>
 );
 
 export const TextTitle = {

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { action } from 'storybook/actions';
 
-import markdownNotes from './Dropdown.md';
+import markdownNotes from './Dropdown.md?raw';
 import { Dropdown } from './index';
-import { iconArgType } from '~/__storybook__/iconArgType';
 import { Pill } from '~/components';
 import {
     dropdownData,
@@ -25,15 +24,8 @@ export default {
 
     parameters: {
         layout: 'centered',
-        notes: { markdown: markdownNotes },
-        docs: {
-            // Fix issues in the doc tab with firefox
-            inlineStories: false,
-            IframeHeight: 500,
-        },
-    },
-    argTypes: {
-        icon: iconArgType,
+        componentSubtitle: 'A select that also handles multiple and nested values.',
+        docs: { description: { component: markdownNotes } },
     },
     args: {
         icon: <Love/>,

@@ -1,6 +1,5 @@
-import markdownNotes from './Button.md';
+import markdownNotes from './Button.md?raw';
 import { Button } from './index';
-import { iconArgType } from '~/__storybook__/iconArgType';
 import { Love, OpenInNew } from '~/icons';
 
 import type { ButtonProps } from './Button.types';
@@ -16,11 +15,8 @@ const meta: Meta<typeof Button> = {
     parameters: {
         layout: 'centered',
         actions: { argTypesRegex: '^on.*' },
-        notes: { markdown: markdownNotes },
-    },
-    argTypes: {
-        icon: iconArgType,
-        iconEnd: iconArgType,
+        componentSubtitle: 'The control that triggers an action when clicked.',
+        docs: { description: { component: markdownNotes } },
     },
 };
 export default meta;

@@ -1,28 +1,33 @@
-## Goals:
+## Example
+```jsx
+import {PrimaryNav, PrimaryNavItem, PrimaryNavItemsGroup} from '@jahia/moonstone';
 
-Create the Navigation-primary component for the main navigation (level 1).
+<PrimaryNav
+    top={(
+        <PrimaryNavItemsGroup>
+            <PrimaryNavItem label="Dashboard"/>
+            <PrimaryNavItem label="Users"/>
+        </PrimaryNavItemsGroup>
+    )}
+/>
+```
 
-## Specifications:
+## Do
+- Use it as the application's single top-level (level-1) navigation.
+- Use it to group the application's destinations into sections with [PrimaryNavItemsGroup](?path=/docs/components-primarynavitemsgroup--docs), each holding one or more [PrimaryNavItem](?path=/docs/components-primarynavitem--docs).
+- Use it when the navigation should collapse to an icon-only rail and expand back on demand. It manages that state itself.
 
-The navigation bar should be collapsable/expandable by clicking on the burger menu.
+## Don't
+- Don't use it for secondary or in-page navigation within a section. Use [SecondaryNav](?path=/docs/components-secondarynav--docs) instead.
+- Don't use it to switch between views inside a single page. Use [Tab](?path=/docs/components-tab--docs) instead.
+- Don't place a [PrimaryNavItem](?path=/docs/components-primarynavitem--docs) directly in `top` or `bottom`. Wrap it in a [PrimaryNavItemsGroup](?path=/docs/components-primarynavitemsgroup--docs) first.
 
-Show or Hide elements depends on the state of the display.
-
-if expanded :
-
- - Switch {{burger-menu}} to {{arrow-back}} icon
- - Show HeaderLogo
- - Show label’s icon
- - Show helping links (documentations ...)
- - Show mail of the user
- - Show sign out button
+## Voice and tone
+- Write `headerCaption` in sentence case and keep it short, such as an environment name ("Production").
+- Write `i18n.toggleButtonLabel` as a short, verb-first accessible label in sentence case, such as "Toggle primary navigation".
 
 ## Accessibility
-
-With the focus inside an expanded navigation, Escape collapses it and returns the focus to the toggle button. The key does not bubble while the navigation is expanded.
-
-## Labels:
-
-The navigation and its toggle button are named in English by default. Pass translated values with `i18n`.
-
-Figma Link : https://www.figma.com/file/939bW74C3TLW5VAzK23uox/moonstone-components?node-id=140%3A0
+- Give `headerLogo` a meaningful `alt` attribute when it's an image, or an empty one if it's purely decorative.
+- If the page has more than one navigation landmark, pass `aria-label` to distinguish this one. It is forwarded to the underlying `<nav>`.
+- Override `i18n`'s navigation and toggle button labels when translating; left unset, they default to English.
+- Escape collapses the expanded navigation and returns the focus to the toggle.

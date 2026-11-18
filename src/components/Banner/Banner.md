@@ -1,0 +1,38 @@
+## Example
+
+```jsx
+import {Banner} from '@jahia/moonstone';
+
+<Banner title="Form errors">
+    Fix the highlighted fields before saving.
+</Banner>
+```
+
+## Do
+- Use it to show a status message, such as a notice, a warning, or an error.
+- Use it for persistent feedback that stays visible until the user acts, such as a form error.
+
+## Don't
+- Don't use a Banner for a validation error on a single form field. Use a [Field](?path=/docs/components-field--docs) instead.
+- Don't use a Banner to interrupt the user and require a response before they continue. Use a [Modal](?path=/docs/components-modal--docs) instead.
+- Don't use a Banner for a heading or body text that carries no status. Use [Typography](?path=/docs/components-typography--docs) instead.
+- Don't use a Banner for brief information shown on hover. Use a [Tooltip](?path=/docs/components-tooltip--docs) instead.
+
+## Appearance
+
+### `variant` for meaning
+
+| Value | Use it for |
+|---|---|
+| `neutral` | Informative messages that require no action from the user. |
+| `info` | Information that requires an action from the user. |
+| `warning` | An error or issue the user needs to fix. |
+| `danger` | A destructive consequence that demands the user's full attention. |
+
+## Voice and tone
+- Write the title in sentence case, using a few words at most (3 maximum). Never write a full sentence.
+- Make the title describe the situation, such as "Connection failed", not ask a question, such as "Are you sure?".
+- Be specific in the content. Say what happened and what the user can do, such as "Fix the highlighted fields before saving." Never write a vague message, such as "Something went wrong."
+
+## Accessibility
+- Don't convey the status by color or icon alone. Write a title that states it.
