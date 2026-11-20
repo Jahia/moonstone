@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import type {
     CustomCellPosition,
     CustomHeaderWidths,
+    CustomStickyCells,
     UseCustomCellsProps,
     UseCustomCellsReturn,
 } from './useCustomCells.types';
@@ -11,6 +12,13 @@ const defaultHeaderWidths = (): CustomHeaderWidths => ({
     before: [],
     after: [],
 });
+
+const defaultStickyCells = (): CustomStickyCells => ({
+    before: [],
+    after: [],
+});
+
+const isSameFlags = (a: boolean[], b: boolean[]) => a.length === b.length && a.every((flag, i) => flag === b[i]);
 
 export function useCustomCells<T extends NonNullable<unknown>>({
     data,
@@ -21,7 +29,9 @@ export function useCustomCells<T extends NonNullable<unknown>>({
     const [customAfterCount, setCustomAfterCount] = useState(0);
     const pendingCustomBefore = useRef(0);
     const pendingCustomAfter = useRef(0);
+    const pendingCustomSticky = useRef<CustomStickyCells>(defaultStickyCells());
     const [customHeaderWidths, setCustomHeaderWidths] = useState<CustomHeaderWidths>(defaultHeaderWidths);
+    const [customStickyCells, setCustomStickyCells] = useState<CustomStickyCells>(defaultStickyCells);
     const observersRef = useRef<{ before: (ResizeObserver | undefined)[];
         after: (ResizeObserver | undefined)[]; }>({
         before: [],
@@ -47,6 +57,7 @@ export function useCustomCells<T extends NonNullable<unknown>>({
         observersRef.current.after.forEach(observer => observer?.disconnect());
         observersRef.current.after = [];
         setCustomHeaderWidths(defaultHeaderWidths());
+        setCustomStickyCells(defaultStickyCells());
     }, [data, primaryKey, renderRow]);
 
     // This effect intentionally runs after every render to flush ref-collected counts
@@ -65,17 +76,27 @@ export function useCustomCells<T extends NonNullable<unknown>>({
             setCustomAfterCount(pendingCustomAfter.current);
         }
 
+        const pendingSticky = pendingCustomSticky.current;
+        if (!isSameFlags(pendingSticky.before, customStickyCells.before) || !isSameFlags(pendingSticky.after, customStickyCells.after)) {
+            setCustomStickyCells(pendingSticky);
+        }
+
         pendingCustomBefore.current = 0;
         pendingCustomAfter.current = 0;
+        pendingCustomSticky.current = defaultStickyCells();
     });
 
-    const registerCustomCellCounts = useCallback((beforeCount: number, afterCount: number) => {
+    const registerCustomCellCounts = useCallback((beforeCount: number, afterCount: number, stickyCells: CustomStickyCells) => {
         if (beforeCount) {
             pendingCustomBefore.current = beforeCount;
         }
 
         if (afterCount) {
             pendingCustomAfter.current = afterCount;
+        }
+
+        if (beforeCount || afterCount) {
+            pendingCustomSticky.current = stickyCells;
         }
     }, []);
 
@@ -124,6 +145,7 @@ export function useCustomCells<T extends NonNullable<unknown>>({
         customBeforeCount,
         customAfterCount,
         customHeaderWidths,
+        customStickyCells,
         registerCustomCellCounts,
         withCustomCellObserver,
     };

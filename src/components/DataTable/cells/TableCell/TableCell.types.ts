@@ -42,4 +42,12 @@ export type TableCellProps = Omit<React.ComponentPropsWithRef<'td' | 'th'>, 'chi
      * @default false
      */
     isScrollable?: boolean;
+
+    /**
+     * Keeps the cell visible while the DataTable scrolls horizontally: on the right edge for a cell
+     * passed to `after`, on the left edge for a cell passed to `before` and for the selection cell
+     * (through `selectionCellProps`)
+     * @default false
+     */
+    isSticky?: boolean;
 };

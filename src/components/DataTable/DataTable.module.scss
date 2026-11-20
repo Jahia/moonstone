@@ -3,3 +3,53 @@
 .dataTable_hiddenLabel {
     @include visually-hidden;
 }
+
+// Set on the table when a cell is sticky. The table scrolls both ways, so the sticky header sticks to it and not to the page
+.scrollable {
+    overflow: auto;
+
+    max-height: 100%;
+    scroll-padding-inline: var(--moon-sticky-start-width, 0) var(--moon-sticky-end-width, 0);
+
+    // Rows: one line, as wide as the widths of their cells
+    > * > * {
+        flex-wrap: nowrap;
+        min-width: max-content;
+
+        // The sticky cells cover a ring drawn on the row: each cell draws its part of the double ring of
+        // focus-ring($inset: true), the outer colour on the edge and the inner one inside it
+        &:focus-visible {
+            $outer: var(--moon-color-focus_outer);
+            $inner: var(--moon-color-focus_inner);
+            $top-bottom: inset 0 2px $outer, inset 0 -2px $outer, inset 0 4px $inner, inset 0 -4px $inner;
+
+            outline: none;
+
+            > * {
+                box-shadow: $top-bottom;
+            }
+
+            > :first-child {
+                box-shadow: inset 2px 0 $outer, $top-bottom, inset 4px 0 $inner;
+            }
+
+            > :last-child {
+                box-shadow: inset -2px 0 $outer, $top-bottom, inset -4px 0 $inner;
+            }
+        }
+    }
+}
+
+// The content of a data cell does not widen its row, so every row has the same width and the columns line up
+.columnCell {
+    contain: inline-size;
+}
+
+// Below the ring of a focused row
+:where(.scrollable[data-scrolled-start]) .stickyEdgeStart {
+    box-shadow: 4px 0 4px -4px var(--moon-color-gray60);
+}
+
+:where(.scrollable[data-scrolled-end]) .stickyEdgeEnd {
+    box-shadow: -4px 0 4px -4px var(--moon-color-gray60);
+}
