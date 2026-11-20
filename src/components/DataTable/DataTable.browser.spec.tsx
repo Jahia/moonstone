@@ -166,6 +166,35 @@ describe('DataTable keyboard', () => {
         expect(toggle).toHaveAttribute('aria-expanded', 'false');
     });
 
+    it('calls the onClick of a clickable structured row for a click on the content of its first cell, without toggling the row', async () => {
+        const onClick = vi.fn();
+        renderTable({ isStructured: true, data: kbStructuredData, rowProps: { onClick } });
+        await userEvent.click(screen.getByText('Alice'));
+        expect(onClick).toHaveBeenCalledTimes(1);
+        expect(screen.getByRole('button', { name: 'Alice' })).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    it('toggles a clickable structured row with a click on its toggle, without calling the onClick of the row', async () => {
+        const onClick = vi.fn();
+        renderTable({ isStructured: true, data: kbStructuredData, rowProps: { onClick } });
+        const toggle = screen.getByRole('button', { name: 'Alice' });
+        await userEvent.click(toggle);
+        expect(toggle).toHaveAttribute('aria-expanded', 'false');
+        expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it('calls the onClick of the first cell of a structured row for a click on its content, without toggling the row', async () => {
+        const onClick = vi.fn();
+        renderTable({
+            isStructured: true,
+            data: kbStructuredData,
+            columns: [{ ...kbColumns[0], cellProps: { onClick } }, kbColumns[1]],
+        });
+        await userEvent.click(screen.getByText('Alice'));
+        expect(onClick).toHaveBeenCalledTimes(1);
+        expect(screen.getByRole('button', { name: 'Alice' })).toHaveAttribute('aria-expanded', 'true');
+    });
+
     describe('TableCellActions actionsOnHover', () => {
         const renderWithActions = () => {
             renderTable({
@@ -214,7 +243,7 @@ describe('DataTable keyboard', () => {
     });
 
     describe('TableCellStatus', () => {
-        const renderWithStatus = (rowProps = {}) => {
+        const renderWithStatus = async (rowProps = {}) => {
             renderTable({
                 enableSorting: false,
                 renderRow: ({ id, render: renderCells }: RenderRowContext<User>) => (
@@ -223,10 +252,12 @@ describe('DataTable keyboard', () => {
                     </TableRow>
                 ),
             });
+            // The status panel also shows on hover: move the pointer that an earlier test left on the first row off the table
+            await userEvent.hover(screen.getByRole('button', { name: 'before' }));
         };
 
         it('shows the status panel while its row has keyboard focus', async () => {
-            renderWithStatus();
+            await renderWithStatus();
             screen.getByRole('button', { name: 'before' }).focus();
             await userEvent.keyboard('{Tab}');
             await userEvent.keyboard('{Tab}');
@@ -235,7 +266,7 @@ describe('DataTable keyboard', () => {
         });
 
         it('hides the status panel with Escape until its row loses focus', async () => {
-            renderWithStatus();
+            await renderWithStatus();
             screen.getByRole('button', { name: 'before' }).focus();
             await userEvent.keyboard('{Tab}');
             await userEvent.keyboard('{Tab}');
@@ -250,7 +281,7 @@ describe('DataTable keyboard', () => {
 
         it('passes the Escape that hides the status panel to the onKeyDown of the row', async () => {
             const onKeyDown = vi.fn();
-            renderWithStatus({ onKeyDown });
+            await renderWithStatus({ onKeyDown });
             screen.getByRole('button', { name: 'before' }).focus();
             await userEvent.keyboard('{Tab}');
             await userEvent.keyboard('{Tab}');
