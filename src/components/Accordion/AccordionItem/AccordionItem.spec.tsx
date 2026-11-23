@@ -35,6 +35,7 @@ describe('AccordionItem', () => {
             'data-custom',
             'extra',
         );
+        expect(screen.getByTestId('id')).toHaveAttribute('data-moonstone', 'AccordionItem');
     });
 
     it('should accept reversed accordion', () => {

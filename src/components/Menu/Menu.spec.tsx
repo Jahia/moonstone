@@ -7,6 +7,7 @@ describe('Menu', () => {
     it('should not display the menu if isDisplayed is false', () => {
         render(<Menu isDisplayed={false} data-testid="moonstone-menu">Here is my content</Menu>);
         expect(screen.getByTestId('moonstone-menu')).toHaveClass('moonstone-hidden');
+        expect(screen.getByTestId('moonstone-menu')).toHaveAttribute('data-moonstone', 'Menu');
     });
 
     it('should not display the menu when children is empty', () => {

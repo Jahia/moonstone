@@ -77,6 +77,7 @@ describe('Typography', () => {
     it('should add extra attribute', () => {
         render(<Typography data-custom="extra" data-testid="typography">Content children</Typography>);
         expect(screen.getByTestId('typography')).toHaveAttribute('data-custom', 'extra');
+        expect(screen.getByTestId('typography')).toHaveAttribute('data-moonstone', 'Typography');
     });
 
     it('should add extra className', () => {

@@ -6,6 +6,7 @@ describe('SortIndicator', () => {
     it('should display', () => {
         render(<SortIndicator data-testid="moonstone-SortIndicator"/>);
         expect(screen.getByTestId('moonstone-SortIndicator')).toBeInTheDocument();
+        expect(screen.getByTestId('moonstone-SortIndicator')).toHaveAttribute('data-moonstone', 'SortIndicator');
     });
 
     it.each(['descending', 'ascending'] as const)('should hide the arrow from assistive technologies on direction %s', (direction) => {

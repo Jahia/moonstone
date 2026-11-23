@@ -37,6 +37,7 @@ describe('Drawer', () => {
     it('should add additional attributes', () => {
         render(<Drawer isOpen data-custom="test" data-testid="moonstone-drawer">Drawer content</Drawer>);
         expect(screen.getByTestId('moonstone-drawer')).toHaveAttribute('data-custom', 'test');
+        expect(screen.getByTestId('moonstone-drawer')).toHaveAttribute('data-moonstone', 'Drawer');
     });
 
     it('should not be modal by default', () => {

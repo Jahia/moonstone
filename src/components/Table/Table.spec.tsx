@@ -9,6 +9,7 @@ describe('Table', () => {
     it('should display', () => {
         render(<Table data-testid="moonstone-Table"/>);
         expect(screen.getByTestId('moonstone-Table')).toBeInTheDocument();
+        expect(screen.getByTestId('moonstone-Table')).toHaveAttribute('data-moonstone', 'Table');
     });
 });
 
@@ -16,10 +17,12 @@ describe('TableHead', () => {
     it('should display', () => {
         render(<TableHead data-testid="moonstone-TableHead"/>);
         expect(screen.getByTestId('moonstone-TableHead')).toBeInTheDocument();
+        expect(screen.getByTestId('moonstone-TableHead')).toHaveAttribute('data-moonstone', 'TableHead');
     });
     it('should display children', () => {
         render(<TableHead><TableHeadCell data-testid="moonstone-TableHeadCell"/></TableHead>);
         expect(screen.getByTestId('moonstone-TableHeadCell')).toBeInTheDocument();
+        expect(screen.getByTestId('moonstone-TableHeadCell')).toHaveAttribute('data-moonstone', 'TableHeadCell');
     });
     it('should be sticky', () => {
         render(<TableHead isSticky data-testid="moonstone-TableHead"/>);
@@ -31,10 +34,12 @@ describe('TableBody', () => {
     it('should display', () => {
         render(<TableBody data-testid="moonstone-TableBody"/>);
         expect(screen.getByTestId('moonstone-TableBody')).toBeInTheDocument();
+        expect(screen.getByTestId('moonstone-TableBody')).toHaveAttribute('data-moonstone', 'TableBody');
     });
     it('should display children', () => {
         render(<TableBody><TableBodyCell data-testid="moonstone-TableBodyCell"/></TableBody>);
         expect(screen.getByTestId('moonstone-TableBodyCell')).toBeInTheDocument();
+        expect(screen.getByTestId('moonstone-TableBodyCell')).toHaveAttribute('data-moonstone', 'TableBodyCell');
     });
 });
 
@@ -42,6 +47,7 @@ describe('TableRow', () => {
     it('should display', () => {
         render(<TableRow data-testid="moonstone-TableRow"/>);
         expect(screen.getByTestId('moonstone-TableRow')).toBeInTheDocument();
+        expect(screen.getByTestId('moonstone-TableRow')).toHaveAttribute('data-moonstone', 'TableRow');
     });
 
     it('should have multiple lines', () => {

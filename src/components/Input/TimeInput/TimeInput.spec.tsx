@@ -10,9 +10,10 @@ const emittedTime = (handleChange: ReturnType<typeof vi.fn>) =>
 
 describe('TimeInput', () => {
     it('should render empty when uncontrolled without a default value', () => {
-        render(<TimeInput/>);
+        const { container } = render(<TimeInput/>);
 
         expect(screen.getByPlaceholderText('hh:mm')).toHaveValue('');
+        expect(container.firstChild).toHaveAttribute('data-moonstone', 'TimeInput');
     });
 
     it('should commit a typed time on blur', async () => {

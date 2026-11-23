@@ -23,5 +23,6 @@ describe('Loader', () => {
     it('should display additional attributes', () => {
         render(<Loader data-custom="test" data-testid="test-loader"/>);
         expect(screen.getByTestId('test-loader')).toHaveAttribute('data-custom', 'test');
+        expect(screen.getByTestId('test-loader')).toHaveAttribute('data-moonstone', 'Loader');
     });
 });

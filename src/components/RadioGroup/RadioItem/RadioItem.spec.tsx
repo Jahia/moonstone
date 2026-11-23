@@ -14,6 +14,7 @@ describe('radio', () => {
             </RadioGroup>,
         );
         expect(container.querySelector('.test')).toBeInTheDocument();
+        expect(container.querySelector('.test')).toHaveAttribute('data-moonstone', 'RadioItem');
     });
 
     it('should be disabled when isDisabled is set', () => {

@@ -22,6 +22,7 @@ describe('TablePagination', () => {
             <TablePagination {...requiredProps} data-testid="table-pagination"/>,
         );
         expect(screen.getByTestId('table-pagination')).toBeInTheDocument();
+        expect(screen.getByTestId('table-pagination')).toHaveAttribute('data-moonstone', 'TablePagination');
     });
 
     it('should error on invalid currentPage', async () => {

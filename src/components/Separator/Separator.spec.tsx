@@ -37,6 +37,7 @@ describe('Separator', () => {
     it('should add extra attribute', () => {
         render(<Separator data-custom="extra"/>);
         expect(screen.getByRole('separator')).toHaveAttribute('data-custom', 'extra');
+        expect(screen.getByRole('separator')).toHaveAttribute('data-moonstone', 'Separator');
     });
 
     it('should add extra classname', () => {

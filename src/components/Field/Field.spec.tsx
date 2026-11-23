@@ -33,6 +33,7 @@ describe('Field', () => {
             </Field>,
         );
         expect(screen.getByTestId('field')).toHaveClass('extra');
+        expect(screen.getByTestId('field')).toHaveAttribute('data-moonstone', 'Field');
     });
 
     it('should display label', () => {

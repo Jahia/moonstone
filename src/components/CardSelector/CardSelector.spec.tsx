@@ -14,6 +14,7 @@ describe('CardSelector', () => {
     it('should display additional class names on the card that holds the button', () => {
         const { container } = render(<CardSelector {...requiredProps} className="extra"/>);
         expect(container.querySelector('.extra')).toContainElement(screen.getByRole('button', { name: 'card name' }));
+        expect(container.querySelector('.extra')).toHaveAttribute('data-moonstone', 'CardSelector');
     });
 
     it('should display displayName', () => {

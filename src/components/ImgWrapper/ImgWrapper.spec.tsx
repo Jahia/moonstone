@@ -30,5 +30,6 @@ describe('ImgWrapper', () => {
     it('should add extra attribute', () => {
         render(<ImgWrapper alt="" data-custom="extra" data-testid="imgwrapper" src="https://toto.jahia.com"/>);
         expect(screen.getByTestId('imgwrapper')).toHaveAttribute('data-custom', 'extra');
+        expect(screen.getByTestId('imgwrapper')).toHaveAttribute('data-moonstone', 'ImgWrapper');
     });
 });

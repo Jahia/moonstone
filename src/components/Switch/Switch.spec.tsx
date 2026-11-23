@@ -16,6 +16,7 @@ describe('Switch', () => {
             'data-custom',
             'test',
         );
+        expect(screen.getByRole('switch').parentElement).toHaveAttribute('data-moonstone', 'Switch');
     });
 
     it('should call onChange function with checked status', async () => {

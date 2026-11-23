@@ -7,6 +7,7 @@ describe('IconTextIcon', () => {
     it('should display', () => {
         render(<IconTextIcon data-testid="moonstone-IconTextIcon"/>);
         expect(screen.getByTestId('moonstone-IconTextIcon')).toBeInTheDocument();
+        expect(screen.getByTestId('moonstone-IconTextIcon')).toHaveAttribute('data-moonstone', 'IconTextIcon');
     });
 
     it('should have extra classname', () => {

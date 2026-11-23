@@ -15,6 +15,7 @@ describe('FieldBoolean', () => {
     it('should display additional class names', () => {
         render(<FieldBoolean {...requiredProps} className="extra" data-testid="fieldBoolean"/>);
         expect(screen.getByTestId('fieldBoolean')).toHaveClass('extra');
+        expect(screen.getByTestId('fieldBoolean')).toHaveAttribute('data-moonstone', 'FieldBoolean');
     });
 
     it('should display label', () => {

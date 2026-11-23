@@ -20,6 +20,7 @@ describe('Textarea', () => {
         expect(
             container.querySelector('[data-test="test"]'),
         ).toBeInTheDocument();
+        expect(container.querySelector('[data-test="test"]')).toHaveAttribute('data-moonstone', 'Textarea');
     });
 
     it('should forward aria-invalid and aria-describedby to the textarea', () => {

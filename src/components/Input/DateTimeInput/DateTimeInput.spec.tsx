@@ -43,7 +43,8 @@ describe('DateTimeInput', () => {
         const user = userEvent.setup();
         const handleChange = vi.fn();
 
-        render(<DateTimeInput {...localeProps} placeholder="Select a date" type="date" onChange={handleChange}/>);
+        const { container } = render(<DateTimeInput {...localeProps} placeholder="Select a date" type="date" onChange={handleChange}/>);
+        expect(container.firstChild).toHaveAttribute('data-moonstone', 'DateTimeInput');
 
         await user.click(dateField());
         await user.click(screen.getByText('Today'));

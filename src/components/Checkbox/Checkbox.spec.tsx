@@ -22,6 +22,7 @@ describe('Checkbox', () => {
             'data-custom',
             customAttribute,
         );
+        expect(screen.getByRole('checkbox').parentElement).toHaveAttribute('data-moonstone', 'Checkbox');
     });
 
     it('should call onChange function with checked status', async () => {

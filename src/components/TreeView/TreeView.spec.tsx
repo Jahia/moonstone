@@ -228,6 +228,7 @@ describe('TreeView', () => {
             'data-custom',
             'test',
         );
+        expect(screen.getByTestId('moonstone-treeView')).toHaveAttribute('data-moonstone', 'TreeView');
     });
 
     it('should highlight the item set with highltedItem', () => {

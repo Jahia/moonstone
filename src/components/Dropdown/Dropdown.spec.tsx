@@ -62,6 +62,7 @@ describe('Dropdown', () => {
             'data-custom',
             'test',
         );
+        expect(screen.getByTestId('moonstone-dropdown')).toHaveAttribute('data-moonstone', 'Dropdown');
     });
 
     it('should add dropdown-disabled class if the dropdown is disabled', () => {
@@ -559,6 +560,7 @@ describe('TreeViewMenu', () => {
     it('should display', () => {
         render(<TreeViewMenu isDisplayed handleSelect={handleSelect} treeData={dropdownDataTree} onClose={onClose}/>);
         expect(screen.getByRole('list')).toBeInTheDocument();
+        expect(screen.getByRole('list')).toHaveAttribute('data-moonstone', 'TreeViewMenu');
     });
 
     it('should have a selected value', () => {

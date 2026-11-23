@@ -6,6 +6,7 @@ describe('Chip', () => {
     it('should render', () => {
         render(<Chip data-testid="moonstone-chip"/>);
         expect(screen.getByTestId('moonstone-chip')).toBeInTheDocument();
+        expect(screen.getByTestId('moonstone-chip')).toHaveAttribute('data-moonstone', 'Chip');
     });
 
     it('should display additional className', () => {

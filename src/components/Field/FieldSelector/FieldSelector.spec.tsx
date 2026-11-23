@@ -23,6 +23,7 @@ describe('FieldSelector', () => {
             />,
         );
         expect(screen.getByTestId('field-selector')).toHaveClass('extra');
+        expect(screen.getByTestId('field-selector')).toHaveAttribute('data-moonstone', 'FieldSelector');
     });
 
     it('should display the selector', () => {

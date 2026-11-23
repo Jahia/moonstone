@@ -25,6 +25,7 @@ describe('SearchContextInput', () => {
     it('should have the role search', () => {
         render(<SearchContextInput {...requiredProps}/>);
         expect(screen.getByRole('search')).toBeInTheDocument();
+        expect(screen.getByRole('search')).toHaveAttribute('data-moonstone', 'SearchContextInput');
     });
 
     it('should always have big size', async () => {

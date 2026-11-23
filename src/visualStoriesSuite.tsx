@@ -8,7 +8,7 @@ import * as projectAnnotations from '../.storybook/preview.jsx';
 import type { JSX } from 'react';
 
 // A composed story is a render function; Storybook attaches its `play` interaction (if any) to it.
-export type ComposedStory = (() => JSX.Element) & { play?: (context: { canvasElement: HTMLElement }) => Promise<void> };
+type ComposedStory = (() => JSX.Element) & { play?: (context: { canvasElement: HTMLElement }) => Promise<void> };
 
 // Import all stories
 const stories = import.meta.glob<never>('./**/*.stories.{js,jsx,ts,tsx}', { eager: true });

@@ -16,6 +16,7 @@ describe('ButtonToggle', () => {
         expect(
             screen.getByTestId('moonstone-buttonToggle'),
         ).toBeInTheDocument();
+        expect(screen.getByTestId('moonstone-buttonToggle')).toHaveAttribute('data-moonstone', 'ButtonToggle');
     });
 
     it('should display additional className', () => {

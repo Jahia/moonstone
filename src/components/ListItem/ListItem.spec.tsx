@@ -30,6 +30,7 @@ describe('ListItem', () => {
             'data-custom',
             'test',
         );
+        expect(screen.getByTestId('moonstone-listItem')).toHaveAttribute('data-moonstone', 'ListItem');
     });
 
     it('should display iconStart', () => {

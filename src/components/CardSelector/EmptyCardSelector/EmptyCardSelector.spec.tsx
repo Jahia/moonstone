@@ -13,6 +13,7 @@ describe('EmptyCardSelector', () => {
             />,
         );
         expect(screen.getByTestId('empty-card-selector')).toHaveClass('extra');
+        expect(screen.getByTestId('empty-card-selector')).toHaveAttribute('data-moonstone', 'EmptyCardSelector');
     });
 
     it('should display label', () => {

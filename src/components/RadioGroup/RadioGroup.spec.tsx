@@ -31,6 +31,7 @@ describe('RadioGroup', () => {
             </RadioGroup>,
         );
         expect(screen.getByTestId('moonstone-radioGroup')).toBeInTheDocument();
+        expect(screen.getByTestId('moonstone-radioGroup')).toHaveAttribute('data-moonstone', 'RadioGroup');
     });
 
     it('should display additional className', () => {

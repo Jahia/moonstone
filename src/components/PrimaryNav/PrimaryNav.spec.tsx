@@ -38,6 +38,7 @@ describe('PrimaryNav', () => {
     it('should add extra attribute', () => {
         render(<PrimaryNav data-custom="extra" {...props}/>);
         expect(screen.getByRole('navigation')).toHaveAttribute('data-custom', 'extra');
+        expect(screen.getByRole('navigation')).toHaveAttribute('data-moonstone', 'PrimaryNav');
     });
 
     it('should name the navigation', () => {

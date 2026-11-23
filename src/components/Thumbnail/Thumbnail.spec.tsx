@@ -8,6 +8,7 @@ describe('Thumbnail', () => {
         render(<Thumbnail alt=""/>);
         const figure = document.querySelector('.moonstone-thumbnail');
         expect(figure).toBeInTheDocument();
+        expect(figure).toHaveAttribute('data-moonstone', 'Thumbnail');
         expect(figure?.querySelector('svg')).toHaveAttribute('aria-hidden', 'true');
     });
 

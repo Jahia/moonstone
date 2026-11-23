@@ -72,6 +72,7 @@ describe('ButtonGroup', () => {
             </ButtonGroup>,
         );
         expect(screen.getByRole('group')).toHaveAttribute('data-custom', 'extra');
+        expect(screen.getByRole('group')).toHaveAttribute('data-moonstone', 'ButtonGroup');
     });
 
     it('should forward the ref to the group', () => {

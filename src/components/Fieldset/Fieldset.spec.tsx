@@ -15,6 +15,7 @@ describe('Fieldset', () => {
     it('should display additional class names', () => {
         render(<Fieldset {...requiredProps} className="extra" data-testid="fieldset"><FieldSelector selector={<textarea placeholder="Input value"/>}/></Fieldset>);
         expect(screen.getByTestId('fieldset')).toHaveClass('extra');
+        expect(screen.getByTestId('fieldset')).toHaveAttribute('data-moonstone', 'Fieldset');
     });
 
     it('should display label', () => {

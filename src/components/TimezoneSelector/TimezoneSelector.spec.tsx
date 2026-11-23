@@ -10,9 +10,10 @@ const baseDate = '2026-01-15';
 
 describe('TimezoneSelector', () => {
     it('should render the placeholder when no timezone is selected', () => {
-        render(<TimezoneSelector placeholder="Select timezone"/>);
+        render(<TimezoneSelector data-testid="timezone-selector" placeholder="Select timezone"/>);
 
         expect(screen.getByRole('listbox', { name: 'Select timezone' })).toBeInTheDocument();
+        expect(screen.getByTestId('timezone-selector')).toHaveAttribute('data-moonstone', 'TimezoneSelector');
     });
 
     it('should render the selected timezone as city and utc offset', () => {

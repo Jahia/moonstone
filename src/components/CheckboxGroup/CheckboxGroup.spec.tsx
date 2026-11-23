@@ -28,6 +28,7 @@ describe('CheckboxGroup', () => {
         expect(
             screen.getByTestId('moonstone-checkboxGroup'),
         ).toBeInTheDocument();
+        expect(screen.getByTestId('moonstone-checkboxGroup')).toHaveAttribute('data-moonstone', 'CheckboxGroup');
     });
 
     it('should display additional className', () => {

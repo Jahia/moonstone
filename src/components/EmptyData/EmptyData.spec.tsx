@@ -13,6 +13,7 @@ describe('EmptyData', () => {
             />,
         );
         expect(screen.getByTestId('empty-data')).toHaveClass('extra');
+        expect(screen.getByTestId('empty-data')).toHaveAttribute('data-moonstone', 'EmptyData');
     });
 
     it('should display title as a level 3 heading', () => {

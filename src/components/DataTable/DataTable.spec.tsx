@@ -104,6 +104,7 @@ describe('DataTable', () => {
 
         expect(screen.getByText('Name')).toBeVisible();
         expect(screen.getByText('Age')).toBeVisible();
+        expect(screen.getByRole('table')).toHaveAttribute('data-moonstone', 'DataTable');
     });
 
     it('should render rows', () => {

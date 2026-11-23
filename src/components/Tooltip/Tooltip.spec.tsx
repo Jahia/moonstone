@@ -12,6 +12,7 @@ describe('Tooltip', () => {
     it('should not display if not hovered', () => {
         render(<Tooltip {...requiredProps} data-testid="moonstone-tooltip"><Button label="Button"/></Tooltip>);
         expect(screen.queryByText('Tooltip')).not.toBeInTheDocument();
+        expect(screen.getByTestId('moonstone-tooltip')).toHaveAttribute('data-moonstone', 'Tooltip');
     });
 
     it('should not render if no children', () => {

@@ -6,6 +6,7 @@ describe('Banner', () => {
     it('should display additional className', () => {
         render(<Banner className="extra" data-testid="banner" title="Test banner">Banner content</Banner>);
         expect(screen.getByTestId('banner')).toHaveClass('extra');
+        expect(screen.getByTestId('banner')).toHaveAttribute('data-moonstone', 'Banner');
     });
 
     it('should display children', () => {
