@@ -339,3 +339,32 @@ export const TreeDataMultiple = {
         );
     },
 };
+
+export const States = {
+    render: (args: DropdownProps) => (
+        <section className="storyGrid">
+            <Dropdown {...args} placeholder="Rest"/>
+            <Dropdown {...args} placeholder="Hover"/>
+            <Dropdown {...args} placeholder="Active"/>
+            <Dropdown {...args} placeholder="Focus"/>
+            <Dropdown {...args} isDisabled placeholder="Disabled"/>
+            <Dropdown {...args} placeholder="Outlined" variant="outlined"/>
+            <Dropdown {...args} placeholder="Outlined hover" variant="outlined"/>
+            <Dropdown {...args} placeholder="Outlined focus" variant="outlined"/>
+            <Dropdown {...args} isDisabled placeholder="Outlined disabled" variant="outlined"/>
+        </section>
+    ),
+
+    args: {
+        data: dropdownData,
+        value: null as string,
+    },
+
+    parameters: {
+        pseudo: {
+            hover: ['[role="listbox"][aria-label="Hover"]', '[role="listbox"][aria-label="Outlined hover"]'],
+            active: '[role="listbox"][aria-label="Active"]',
+            focusVisible: ['[role="listbox"][aria-label="Focus"]', '[role="listbox"][aria-label="Outlined focus"]'],
+        },
+    },
+};

@@ -40,3 +40,21 @@ export const Icon: Story = {
     },
     render: Template,
 };
+
+export const States: Story = {
+    render: args => (
+        <div style={{ display: 'grid', gap: '8px', padding: '8px' }}>
+            <EmptyCardSelector {...args} label="Rest"/>
+            <EmptyCardSelector {...args} id="hover" label="Hover"/>
+            <EmptyCardSelector {...args} id="focus-visible" label="Focus"/>
+            <EmptyCardSelector {...args} isDisabled label="Disabled"/>
+        </div>
+    ),
+
+    parameters: {
+        pseudo: {
+            hover: '#hover',
+            focusVisible: '#focus-visible',
+        },
+    },
+};

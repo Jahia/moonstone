@@ -142,3 +142,23 @@ export const SizeBig: StoryObj<TabProps> = {
         );
     },
 };
+
+export const States: StoryObj<TabProps> = {
+    render: args => (
+        <Tab {...args}>
+            <TabItem isSelected label="Selected"/>
+            <TabItem label="Rest"/>
+            <TabItem id="hover" label="Hover"/>
+            <TabItem id="active" label="Active"/>
+            <TabItem id="focus-visible" label="Focus"/>
+            <TabItem isDisabled label="Disabled"/>
+        </Tab>
+    ),
+    parameters: {
+        pseudo: {
+            hover: '#hover',
+            active: '#active',
+            focusVisible: '#focus-visible',
+        },
+    },
+};

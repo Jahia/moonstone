@@ -49,3 +49,21 @@ export const Controlled: Story = {
         return <Textarea value="Default value" {...args} onChange={onChange}/>;
     },
 };
+
+export const States: Story = {
+    render: () => (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', padding: '8px' }}>
+            <Textarea placeholder="Rest"/>
+            <Textarea id="hover" placeholder="Hover"/>
+            <Textarea id="focus-visible" placeholder="Focus"/>
+            <Textarea isDisabled placeholder="Disabled"/>
+            <Textarea isReadOnly placeholder="Read-only"/>
+        </div>
+    ),
+    parameters: {
+        pseudo: {
+            hover: '#hover',
+            focusVisible: '#focus-visible',
+        },
+    },
+};

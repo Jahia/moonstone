@@ -82,3 +82,36 @@ export const Actions = () => (
         </div>
     </ResizableBox>
 );
+
+export const States: Story = {
+    render: args => (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <ResizableBox {...args}>
+                <div style={{ height: '64px', background: 'yellow' }}>Rest</div>
+            </ResizableBox>
+            <ResizableBox {...args} id="hover">
+                <div style={{ height: '64px', background: 'yellow' }}>Hover</div>
+            </ResizableBox>
+            <ResizableBox {...args} id="active">
+                <div style={{ height: '64px', background: 'yellow' }}>Active</div>
+            </ResizableBox>
+            <ResizableBox {...args} id="focus-visible">
+                <div style={{ height: '64px', background: 'yellow' }}>Focus</div>
+            </ResizableBox>
+        </div>
+    ),
+
+    args: {
+        minWidth: 50,
+        maxWidth: 600,
+    },
+
+    parameters: {
+        pseudo: {
+            // The handle has the hover and active styles, and its separator takes the focus
+            hover: '#hover div:has(> [role="separator"])',
+            active: '#active div:has(> [role="separator"])',
+            focusVisible: '#focus-visible [role="separator"]',
+        },
+    },
+};

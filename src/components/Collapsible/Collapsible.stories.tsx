@@ -122,3 +122,25 @@ export const StickyCollapsibles = () => {
         </>
     );
 };
+
+export const States: StoryObj<CollapsibleProps> = {
+    render: args => (
+        <div style={{ padding: '8px' }}>
+            <Collapsible {...args} label="Rest"/>
+            <Collapsible {...args} id="hover" label="Hover"/>
+            <Collapsible {...args} id="focus-visible" label="Focus"/>
+            <Collapsible {...args} isDefaultExpanded label="Expanded"/>
+        </div>
+    ),
+
+    args: {
+        children: 'Content',
+    },
+
+    parameters: {
+        pseudo: {
+            hover: '[aria-controls="hover"]',
+            focusVisible: '[aria-controls="focus-visible"]',
+        },
+    },
+};

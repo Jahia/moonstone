@@ -6,7 +6,7 @@ import { AccordionItem } from '~/components/Accordion/AccordionItem';
 import { BarSquare, Bug, Love } from '~/icons';
 
 import type { AccordionProps } from './Accordion.types';
-import type { Meta, StoryFn } from '@storybook/react-vite';
+import type { Meta, StoryFn, StoryObj } from '@storybook/react-vite';
 
 const accordionIds = ['01', '02', '03'];
 
@@ -215,5 +215,29 @@ export const Reversed = {
     args: {
         isReversed: true,
         defaultOpenedItem: accordionIds[1],
+    },
+};
+
+export const States: StoryObj<AccordionProps> = {
+    render: args => (
+        <Accordion {...args}>
+            <AccordionItem id="rest" label="Rest">Content</AccordionItem>
+            <AccordionItem id="hover" label="Hover">Content</AccordionItem>
+            <AccordionItem id="active" label="Active">Content</AccordionItem>
+            <AccordionItem id="focus-visible" label="Focus">Content</AccordionItem>
+            <AccordionItem id="selected" label="Selected">Content of the selected item</AccordionItem>
+        </Accordion>
+    ),
+
+    args: {
+        defaultOpenedItem: 'selected',
+    },
+
+    parameters: {
+        pseudo: {
+            hover: '[aria-controls="hover"]',
+            active: '[aria-controls="active"]',
+            focusVisible: '[aria-controls="focus-visible"]',
+        },
     },
 };

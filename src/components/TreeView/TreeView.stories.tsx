@@ -187,3 +187,30 @@ export const ControlledWithLoading = {
         );
     },
 };
+
+export const States = {
+    render: (args: TreeViewProps) => (
+        <div style={{ padding: '8px' }}>
+            <TreeView
+                {...args}
+                data={[
+                    { id: 'rest', label: 'Rest' },
+                    { id: 'hover', label: 'Hover' },
+                    { id: 'focus', label: 'Focus' },
+                    { id: 'selected', label: 'Selected' },
+                    { id: 'highlighted', label: 'Highlighted' },
+                    { id: 'disabled', label: 'Disabled', isDisabled: true },
+                ]}
+                highlightedItems={['highlighted']}
+                selectedItems={['selected']}
+            />
+        </div>
+    ),
+    parameters: {
+        pseudo: {
+            // The hover style is on the row inside the tree item, the focus ring on the tree item
+            hover: '[role="treeitem"]:nth-child(2) > div',
+            focusVisible: '[role="treeitem"]:nth-child(3)',
+        },
+    },
+};

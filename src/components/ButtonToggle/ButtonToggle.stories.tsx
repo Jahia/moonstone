@@ -5,6 +5,8 @@ import { Apps } from '~/icons';
 import type { ButtonToggleProps } from './ButtonToggle.types';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
+import '~/__storybook__/storybook.scss';
+
 const meta: Meta<typeof ButtonToggle> = {
     title: 'Components/ButtonToggle',
     component: ButtonToggle,
@@ -41,5 +43,34 @@ export const Disabled: Story = {
         iconStart: <Apps/>,
         label: 'ButtonToggle',
         isDisabled: true,
+    },
+};
+
+export const States: Story = {
+    render: args => (
+        <section className="storyGrid">
+            <ButtonToggle {...args} label="Rest"/>
+            <ButtonToggle {...args} id="hover" label="Hover"/>
+            <ButtonToggle {...args} id="active" label="Active"/>
+            <ButtonToggle {...args} id="focus-visible" label="Focus"/>
+            <ButtonToggle {...args} isDisabled label="Disabled"/>
+            <ButtonToggle {...args} isPressed label="Pressed"/>
+            <ButtonToggle {...args} isPressed id="pressed-hover" label="Pressed and hover"/>
+            <ButtonToggle {...args} isPressed id="pressed-active" label="Pressed and active"/>
+            <ButtonToggle {...args} isPressed id="pressed-focus-visible" label="Pressed and focus"/>
+        </section>
+    ),
+
+    args: {
+        iconStart: <Apps/>,
+    },
+
+    parameters: {
+        pseudo: {
+            hover: ['#hover', '#pressed-hover'],
+            active: ['#active', '#pressed-active'],
+            focusVisible: ['#focus-visible', '#pressed-focus-visible'],
+        },
+        controls: { exclude: ['label', 'isDisabled', 'isPressed'] },
     },
 };

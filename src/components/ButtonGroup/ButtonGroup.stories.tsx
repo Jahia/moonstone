@@ -69,3 +69,25 @@ export const ButtonGroupWith1Button: StoryObj<ButtonGroupProps> = {
         size: 'big',
     },
 };
+
+export const States: StoryObj<ButtonGroupProps> = {
+    render: args => (
+        <div style={{ padding: '8px' }}>
+            <ButtonGroup {...args}>
+                <Button label="Rest"/>
+                <Button id="hover" label="Hover"/>
+                <Button id="active" label="Active"/>
+                <Button id="focus-visible" label="Focus"/>
+                <Button isDisabled label="Disabled"/>
+            </ButtonGroup>
+        </div>
+    ),
+
+    parameters: {
+        pseudo: {
+            hover: '#hover',
+            active: '#active',
+            focusVisible: '#focus-visible',
+        },
+    },
+};

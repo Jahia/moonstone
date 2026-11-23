@@ -65,3 +65,20 @@ export const WithHeaderComponent = {
         ),
     },
 };
+
+export const States = {
+    render: (args: SecondaryNavProps) => (
+        <>
+            <SecondaryNav {...args} header="Rest"/>
+            <SecondaryNav {...args} header="Hover" id="hover"/>
+            <SecondaryNav {...args} header="Focus" id="focus-visible"/>
+        </>
+    ),
+
+    parameters: {
+        pseudo: {
+            hover: '#hover button[aria-expanded]',
+            focusVisible: '#focus-visible button[aria-expanded]',
+        },
+    },
+};

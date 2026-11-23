@@ -2,7 +2,8 @@ import markdownNotes from './CheckboxGroup.md?raw';
 import { CheckboxItem } from './CheckboxItem';
 import { CheckboxGroup } from './index';
 
-import type { Meta, StoryFn } from '@storybook/react-vite';
+import type { CheckboxGroupProps } from './CheckboxGroup.types';
+import type { Meta, StoryFn, StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/CheckboxGroup',
@@ -55,5 +56,34 @@ export const Disabled = {
     args: {
         name: 'disabled',
         isDisabled: true,
+    },
+};
+
+export const States: StoryObj<CheckboxGroupProps> = {
+    render: args => (
+        <div style={{ display: 'grid', gap: '24px', padding: '8px' }}>
+            <CheckboxGroup {...args} aria-label="Enabled" name="enabled">
+                <CheckboxItem id="rest" label="Rest" value="rest"/>
+                <CheckboxItem id="hover" label="Hover" value="hover"/>
+                <CheckboxItem id="focus-visible" label="Focus" value="focus"/>
+                <CheckboxItem defaultChecked id="checked" label="Checked" value="checked"/>
+                <CheckboxItem defaultChecked id="checked-hover" label="Checked and hover" value="checked-hover"/>
+            </CheckboxGroup>
+            <CheckboxGroup {...args} isDisabled aria-label="Disabled" name="disabled">
+                <CheckboxItem id="disabled" label="Disabled" value="disabled"/>
+                <CheckboxItem defaultChecked id="disabled-checked" label="Disabled and checked" value="disabled-checked"/>
+            </CheckboxGroup>
+            <CheckboxGroup {...args} isReadOnly aria-label="Read-only" name="read-only">
+                <CheckboxItem id="read-only" label="Read-only" value="read-only"/>
+                <CheckboxItem id="read-only-focus-visible" label="Read-only and focus" value="read-only-focus"/>
+            </CheckboxGroup>
+        </div>
+    ),
+
+    parameters: {
+        pseudo: {
+            hover: ['#hover', '#checked-hover'],
+            focusVisible: ['#focus-visible', '#read-only-focus-visible'],
+        },
     },
 };
