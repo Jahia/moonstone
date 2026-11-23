@@ -1,10 +1,12 @@
+@use "../../tokens/colors/palette";
+
 .moonstone-field {
     padding-left: 32px;
 
     border-left: 3px solid transparent;
 
     &.moonstone-field_error {
-        border-color: var(--moon-color-warning);
+        border-color: palette.$color-amber-50;
 
         // background-color: var(--moon-color-warning20);
     }

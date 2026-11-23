@@ -15,10 +15,10 @@
     &:active,
     &:hover,
     &:has(.moonstone-resizable_handle_control:focus-visible) {
-        color: var(--moon-color-accent);
+        color: var(--moon-color-focus_outer);
 
         // A simple border along the panel edge shows where to resize, for the mouse and the keyboard
-        box-shadow: inset 2px 0 0 var(--moon-color-accent);
+        box-shadow: inset 2px 0 0 var(--moon-color-focus_outer);
     }
 }
 
