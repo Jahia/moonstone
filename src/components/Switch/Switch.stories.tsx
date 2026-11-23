@@ -6,6 +6,8 @@ import markdownNotes from './Switch.md?raw';
 import type { SwitchProps } from './Switch.types';
 import type { StoryObj } from '@storybook/react-vite';
 
+import '~/__storybook__/storybook.scss';
+
 export default {
     title: 'Components/Switch',
     component: Switch,
@@ -34,5 +36,26 @@ export const Controlled: StoryObj<SwitchProps> = {
         return (
             <Switch checked={checked} onChange={() => handleOnChange()} {...args}/>
         );
+    },
+};
+
+export const States: StoryObj<SwitchProps> = {
+    render: args => (
+        <section className="storyGrid">
+            <Switch {...args} aria-label="Rest"/>
+            <Switch {...args} aria-label="Hover" id="hover"/>
+            <Switch {...args} aria-label="Focus" id="focus-visible"/>
+            <Switch {...args} defaultChecked aria-label="Checked"/>
+            <Switch {...args} defaultChecked aria-label="Checked and hover" id="checked-hover"/>
+            <Switch {...args} isDisabled aria-label="Disabled"/>
+            <Switch {...args} isDisabled defaultChecked aria-label="Checked and disabled"/>
+        </section>
+    ),
+    parameters: {
+        pseudo: {
+            // The hover style is on the wrapper of the input
+            hover: [':has(> #hover)', ':has(> #checked-hover)'],
+            focusVisible: '#focus-visible',
+        },
     },
 };

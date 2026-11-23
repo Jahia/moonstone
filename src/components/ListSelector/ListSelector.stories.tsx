@@ -62,3 +62,23 @@ export const Controlled: StoryObj<typeof ListSelector> = {
         );
     },
 };
+
+export const States: StoryObj<typeof ListSelector> = {
+    args: {
+        options: [
+            { value: '1', label: 'Rest' },
+            { value: '2', label: 'Hover' },
+            { value: '3', label: 'Focus' },
+            { value: '4', label: 'Right list' },
+        ],
+        values: ['4'],
+        onChange: fn(),
+    },
+
+    parameters: {
+        pseudo: {
+            hover: '[data-list="left"] li:nth-child(2)',
+            focusVisible: '[data-list="left"] li:nth-child(3)',
+        },
+    },
+};

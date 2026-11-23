@@ -61,3 +61,23 @@ export const InputWithDefaultValue: Story = {
         defaultValue: 'Default value',
     },
 };
+
+export const States: Story = {
+    render: args => (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', padding: '8px' }}>
+            <Input {...args} placeholder="Rest"/>
+            <Input {...args} id="hover" placeholder="Hover"/>
+            <Input {...args} id="focus-visible" placeholder="Focus"/>
+            <Input {...args} isDisabled placeholder="Disabled"/>
+            <Input {...args} isReadOnly placeholder="Read-only"/>
+        </div>
+    ),
+
+    parameters: {
+        pseudo: {
+            // The id is on the input, and the field around it has the hover style
+            hover: 'div:has(> div > #hover)',
+            focusVisible: '#focus-visible',
+        },
+    },
+};

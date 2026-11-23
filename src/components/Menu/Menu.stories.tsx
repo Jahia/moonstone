@@ -310,3 +310,32 @@ export const Reversed = () => (
         </Menu>
     </div>
 );
+
+export const States: StoryObj<MenuProps> = {
+    render: args => (
+        <div style={{ position: 'relative', width: '200px', height: '200px' }}>
+            <Menu {...args}>
+                <MenuItem id="focus-visible" label="Focus"/>
+                <MenuItem label="Rest"/>
+                <MenuItem id="hover" label="Hover"/>
+                <MenuItem id="active" label="Active"/>
+                <MenuItem isDisabled label="Disabled"/>
+            </Menu>
+        </div>
+    ),
+
+    args: {
+        isDisplayed: true,
+        position: 'absolute',
+        anchorElOrigin: { vertical: 'top', horizontal: 'left' },
+        hasOverlay: false,
+    },
+
+    parameters: {
+        pseudo: {
+            hover: '#hover',
+            active: '#active',
+            focusVisible: '#focus-visible',
+        },
+    },
+};
