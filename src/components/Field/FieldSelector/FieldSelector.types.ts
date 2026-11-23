@@ -13,6 +13,7 @@ export type FieldSelectorProps = Omit<React.ComponentPropsWithRef<'div'>, 'class
 
     /**
      * FieldSelector isDraggable
+     * @default false
      */
     isDraggable?: boolean;
 

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Fieldset } from '../Fieldset';
+import markdownNotes from './Modal.md?raw';
 import { Button, Chip, Dropdown, Field, FieldSelector, Input, Modal, Typography } from '~/components';
 import { ModalBody, ModalFooter, ModalHeader } from '~/components';
 import { Add, Language, MoreVert } from '~/icons';
@@ -11,10 +12,13 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 const meta: Meta<typeof Modal> = {
     title: 'Components/Modal',
     component: Modal,
+    subcomponents: { ModalHeader, ModalBody, ModalFooter },
     tags: ['beta'],
 
     parameters: {
         layout: 'centered',
+        componentSubtitle: 'A dialog above the page that interrupts the current flow.',
+        docs: { description: { component: markdownNotes } },
         // Overrides onOpenChange
         // actions: {argTypesRegex: '^on.*'}
     },

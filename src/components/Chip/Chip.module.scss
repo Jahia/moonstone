@@ -1,4 +1,5 @@
 @use "../../tokens/spacings/spacings" as *;
+@use "../../tokens/colors/palette";
 
 .moonstone-chip {
     display: inline-flex;
@@ -91,7 +92,7 @@
     &.moonstone-color_danger {
         color: var(--moon-color-light);
 
-        background-color: var(--moon-color-danger);
+        background-color: palette.$color-red-50;
     }
 
     &.moonstone-color_default {
@@ -101,9 +102,9 @@
     }
 
     &.moonstone-color_success {
-        color: var(--moon-color-light);
+        color: var(--moon-color-white);
 
-        background-color: var(--moon-color-success);
+        background-color: palette.$color-green-50;
     }
 
     &.moonstone-color_warning {

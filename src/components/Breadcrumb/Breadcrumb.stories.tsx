@@ -1,4 +1,4 @@
-import markdownNotes from './Breadcrumb.md';
+import markdownNotes from './Breadcrumb.md?raw';
 import { Breadcrumb, BreadcrumbItem } from '~/components';
 
 import type { BreadcrumbProps } from './Breadcrumb.types';
@@ -16,8 +16,9 @@ export default {
         ),
     ],
     parameters: {
+        componentSubtitle: 'The current page\'s path, with a link to each ancestor.',
         layout: 'centered',
-        notes: { markdown: markdownNotes },
+        docs: { description: { component: markdownNotes } },
     },
 } as Meta<typeof Breadcrumb>;
 

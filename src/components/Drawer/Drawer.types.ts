@@ -15,11 +15,12 @@ export type BasicDrawerProps = PaperCustomProps & {
 
     /**
      * Whether the Drawer is open
+     * @default false
      */
     isOpen?: boolean;
 
     /**
-     * Called with `false` when Escape is pressed inside the Drawer. Escape closes it only when this callback is set
+     * Called with `false` when Escape is pressed inside the Drawer. Escape closes the Drawer only when this callback is set.
      */
     onOpenChange?: (open: boolean) => void;
 

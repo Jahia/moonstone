@@ -10,14 +10,14 @@ import styles from './PrimaryNavItem.module.scss';
 
 export const PrimaryNavItem: React.FC<PrimaryNavItemProps> = ({
     label = '',
-    icon = null,
-    className = null,
-    subtitle = null,
-    url = null,
-    button = null,
+    icon,
+    className,
+    subtitle,
+    url,
+    button,
     isSelected = false,
     onClick,
-    badge = null,
+    badge,
     'aria-describedby': ariaDescribedBy,
     ...props
 }) => {

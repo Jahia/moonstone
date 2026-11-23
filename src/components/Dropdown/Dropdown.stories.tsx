@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { action } from 'storybook/actions';
 
-import markdownNotes from './Dropdown.md';
+import markdownNotes from './Dropdown.md?raw';
 import { Dropdown } from './index';
-import { iconArgType } from '~/__storybook__/iconArgType';
 import { Pill } from '~/components';
 import {
     dropdownData,
@@ -15,6 +14,7 @@ import {
     dropdownDataTree,
     dropdownDataTreePill,
 } from '~/data';
+import { Love } from '~/icons';
 
 import type { DropdownDataOption, DropdownProps } from './Dropdown.types';
 
@@ -24,15 +24,11 @@ export default {
 
     parameters: {
         layout: 'centered',
-        notes: { markdown: markdownNotes },
-        docs: {
-            // Fix issues in the doc tab with firefox
-            inlineStories: false,
-            IframeHeight: 500,
-        },
+        componentSubtitle: 'A select that also handles multiple and nested values.',
+        docs: { description: { component: markdownNotes } },
     },
-    argTypes: {
-        icon: iconArgType,
+    args: {
+        icon: <Love/>,
     },
 };
 export const FlatData = {
@@ -96,10 +92,6 @@ export const FlatData = {
             </section>
         );
     },
-
-    args: {
-        icon: 'Love',
-    },
 };
 
 export const FlatDataMultiple = {
@@ -149,10 +141,6 @@ export const FlatDataMultiple = {
                 />
             </section>
         );
-    },
-
-    args: {
-        icon: 'Love',
     },
 };
 
@@ -211,10 +199,6 @@ export const GroupedData = {
             </section>
         );
     },
-
-    args: {
-        icon: 'Love',
-    },
 };
 
 export const GroupedDataMultiple = {
@@ -264,10 +248,6 @@ export const GroupedDataMultiple = {
             </section>
         );
     },
-
-    args: {
-        icon: 'Love',
-    },
 };
 
 export const TreeData = {
@@ -308,10 +288,6 @@ export const TreeData = {
                 />
             </section>
         );
-    },
-
-    args: {
-        icon: 'Love',
     },
 };
 
@@ -361,9 +337,5 @@ export const TreeDataMultiple = {
                 />
             </section>
         );
-    },
-
-    args: {
-        icon: 'Love',
     },
 };

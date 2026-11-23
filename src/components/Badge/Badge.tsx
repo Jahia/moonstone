@@ -8,7 +8,7 @@ import type React from 'react';
 import styles from './Badge.module.scss';
 
 export const Badge: React.FC<BadgeProps> = ({
-    label = null,
+    label,
     color = 'accent',
     className,
     ...other

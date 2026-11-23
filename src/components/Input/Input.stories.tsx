@@ -2,7 +2,7 @@ import React from 'react';
 import { useArgs } from 'storybook/preview-api';
 
 import { Input } from './index';
-import { iconArgType } from '~/__storybook__/iconArgType';
+import markdownNotes from './Input.md?raw';
 import { Love } from '~/icons';
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
@@ -19,6 +19,8 @@ export default {
     ],
     parameters: {
         layout: 'centered',
+        componentSubtitle: 'Short, single-line free text.',
+        docs: { description: { component: markdownNotes } },
     },
     args: {
         placeholder: 'Placeholder text',
@@ -28,7 +30,6 @@ export default {
         onClick: { action: 'onClick' },
         onBlur: { action: 'onBlur' },
         onFocus: { action: 'onFocus' },
-        icon: iconArgType,
     },
 } as Meta<typeof Input>;
 
