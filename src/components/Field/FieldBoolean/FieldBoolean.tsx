@@ -35,10 +35,10 @@ export const FieldBoolean = React.forwardRef<HTMLDivElement, FieldBooleanProps>(
                 hasError && ['moonstone-field_error', fieldStyles['moonstone-field_error']],
                 className,
             )}
-            data-moonstone="FieldBoolean"
             id={id}
             ref={ref}
             {...props}
+            data-moonstone="FieldBoolean"
         >
             <div
                 className={clsx(

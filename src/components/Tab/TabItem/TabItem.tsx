@@ -41,8 +41,8 @@ export const TabItem: React.FC<TabItemProps> = ({
             'disabled': isDisabled,
             ...rovingItemProps,
             onClick,
-            'data-moonstone': 'TabItem',
             ...props,
+            'data-moonstone': 'TabItem',
         },
         (
             <>

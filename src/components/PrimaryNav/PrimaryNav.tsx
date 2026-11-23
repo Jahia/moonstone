@@ -102,13 +102,13 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
         <PrimaryNavContext.Provider value={contextValue}>
             <nav
                 aria-label={i18n?.navigationLabel || 'Primary'}
-                data-moonstone="PrimaryNav"
                 {...mergeHandlers(props, { onKeyDown: handleKeyDown })}
                 className={clsx(
                     ['moonstone-primaryNav', styles['moonstone-primaryNav']],
                     isExpanded && ['moonstone-expanded', styles['moonstone-expanded']],
                     ['flexCol_nowrap', layout.flexCol_nowrap],
                 )}
+                data-moonstone="PrimaryNav"
                 id={navId}
             >
                 <div className={clsx(

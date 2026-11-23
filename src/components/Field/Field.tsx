@@ -43,10 +43,10 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
                 hasError && ['moonstone-field_error', styles['moonstone-field_error']],
                 className,
             )}
-            data-moonstone="Field"
             id={id}
             ref={ref}
             {...props}
+            data-moonstone="Field"
         >
             <div
                 className={clsx(

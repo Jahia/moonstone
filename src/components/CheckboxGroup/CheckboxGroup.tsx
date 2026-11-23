@@ -21,7 +21,6 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
     return (
         <CheckboxGroupContext.Provider value={provider}>
             <div
-                data-moonstone="CheckboxGroup"
                 role="group"
                 {...props}
                 {...fieldAria}
@@ -31,6 +30,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
                     ['flexCol', layout.flexCol],
                     className,
                 )}
+                data-moonstone="CheckboxGroup"
             >
                 {children}
             </div>

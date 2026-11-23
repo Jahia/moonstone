@@ -20,11 +20,11 @@ export const SortIndicator: React.FC<SortIndicatorProps> = ({
     );
 
     if (direction === 'descending') {
-        return <ArrowDown data-moonstone="SortIndicator" {...props} className={classNameProps}/>;
+        return <ArrowDown {...props} className={classNameProps} data-moonstone="SortIndicator"/>;
     }
 
     if (direction === 'ascending') {
-        return <ArrowUp data-moonstone="SortIndicator" {...props} className={classNameProps}/>;
+        return <ArrowUp {...props} className={classNameProps} data-moonstone="SortIndicator"/>;
     }
 };
 

@@ -83,7 +83,6 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
             anchorEl={anchorEl}
             anchorPosition={anchorPosition}
             autoAddSearchLimit={autoAddSearchLimit}
-            data-moonstone="DropdownMenu"
             i18n={i18n}
             maxHeight={maxHeight}
             maxWidth={maxWidth}

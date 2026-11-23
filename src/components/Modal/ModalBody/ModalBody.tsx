@@ -15,9 +15,9 @@ const ModalBodyForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalB
         && (
             <div
                 className={clsx('moonstone-modalBody', styles['moonstone-modalBody'], className)}
-                data-moonstone="ModalBody"
                 ref={ref}
                 {...props}
+                data-moonstone="ModalBody"
             >
                 {children}
             </div>

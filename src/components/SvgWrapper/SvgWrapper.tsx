@@ -22,10 +22,10 @@ export const SvgWrapper: React.FC<SvgWrapperProps> = ({
     return (
         <svg
             className={css}
-            data-moonstone="SvgWrapper"
             fill={fill}
             viewBox={viewBox}
             {...props}
+            data-moonstone="SvgWrapper"
         >
             {children}
         </svg>

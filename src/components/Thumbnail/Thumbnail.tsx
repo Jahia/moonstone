@@ -25,7 +25,7 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({
 
     if (!src) {
         return (
-            <div className={rootClassName} data-moonstone="Thumbnail" {...props}>
+            <div className={rootClassName} {...props} data-moonstone="Thumbnail">
                 <Image color="gray" size="big"/>
             </div>
         );
@@ -37,7 +37,7 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({
         }
 
         return (
-            <div className={rootClassName} data-moonstone="Thumbnail" {...props}>
+            <div className={rootClassName} {...props} data-moonstone="Thumbnail">
                 <img
                     alt={alt}
                     className={clsx([`moonstone-thumbnail_${variant}`, styles[`moonstone-thumbnail_${variant}`]])}
@@ -49,7 +49,7 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({
     }
 
     return (
-        <div className={rootClassName} data-moonstone="Thumbnail" {...props}>
+        <div className={rootClassName} {...props} data-moonstone="Thumbnail">
             <src.type
                 {...src.props}
                 className={clsx([`moonstone-thumbnail_${variant}`, styles[`moonstone-thumbnail_${variant}`]], src.props.className)}

@@ -250,11 +250,11 @@ const ControlledTreeViewForwardRef: React.ForwardRefRenderFunction<HTMLUListElem
         'aria-orientation': 'vertical',
         'role': 'tree',
         'aria-multiselectable': showCheckbox,
-        'data-moonstone': 'TreeView',
         ...mergeHandlers(props, {
             onKeyDown: rovingTabIndex.onKeyDown(),
             onBlur: rovingTabIndex.onBlur,
         }),
+        'data-moonstone': 'TreeView',
         'className': clsx(styles.treeView, className),
     }, treeItems.map((treeItem, index) => React.cloneElement(treeItem, {
         ...mergeHandlers(treeItem.props, { onFocus: () => onNavigate(index) }),

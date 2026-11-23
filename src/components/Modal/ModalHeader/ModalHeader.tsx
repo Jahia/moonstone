@@ -26,9 +26,9 @@ const ModalHeaderForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, Moda
                     ['flexCol_nowrap', layout.flexCol_nowrap],
                     className,
                 )}
-                data-moonstone="ModalHeader"
                 ref={ref}
                 {...props}
+                data-moonstone="ModalHeader"
             >
                 <Typography component="h4" id={titleId} variant="heading" weight="bold">
                     {title}

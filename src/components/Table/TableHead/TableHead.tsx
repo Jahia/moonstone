@@ -19,8 +19,8 @@ export const TableHead: React.FC<TableHeadProps> = ({
             isSticky && ['moonstone-tableHead-sticky', styles['moonstone-tableHead-sticky']],
             className,
         ),
-        'data-moonstone': 'TableHead',
         ...props,
+        'data-moonstone': 'TableHead',
     },
     children,
 );

@@ -22,9 +22,9 @@ const ModalFooterForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, Moda
                     ['flexRow_reverse', layout.flexRow_reverse],
                     className,
                 )}
-                data-moonstone="ModalFooter"
                 ref={ref}
                 {...props}
+                data-moonstone="ModalFooter"
             >
                 {children}
             </footer>

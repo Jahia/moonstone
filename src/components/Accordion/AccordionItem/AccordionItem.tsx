@@ -38,7 +38,6 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
 
     return (
         <section
-            data-moonstone="AccordionItem"
             {...props}
             className={clsx(
                 ['moonstone-accordionItem', styles['moonstone-accordionItem']],
@@ -47,6 +46,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
                 open ? ['flexFluid', layout.flexFluid] : null,
                 className,
             )}
+            data-moonstone="AccordionItem"
         >
             <Typography component="h3">
                 <Typography

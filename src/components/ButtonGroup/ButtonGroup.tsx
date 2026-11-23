@@ -28,11 +28,11 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(({
                 ['flexRow', layout.flexRow],
                 ['alignCenter', layout.alignCenter],
             )}
-            data-moonstone="ButtonGroup"
             ref={ref}
             role="group"
             {...props}
             data-color={color}
+            data-moonstone="ButtonGroup"
             data-size={size}
             data-variant={variant}
         >

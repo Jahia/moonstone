@@ -53,12 +53,12 @@ export const CardSelector = React.forwardRef<HTMLButtonElement, CardSelectorProp
                     (isDisabled || isReadOnly) && ['moonstone-cardSelector_disabled', styles['moonstone-cardSelector_disabled']],
                     ['flexRow_center', layout.flexRow_center],
                     ['alignCenter', layout.alignCenter])}
-                data-moonstone="CardSelector"
                 id={id}
                 ref={ref}
                 type="button"
                 onClick={e => handleOnClick(e)}
                 {...props}
+                data-moonstone="CardSelector"
             >
                 <FileBroken/>
                 <Typography

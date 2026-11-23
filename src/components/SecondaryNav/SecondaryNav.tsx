@@ -40,7 +40,6 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
                     !isVisible && ['moonstone-secondaryNav_hidden', styles['moonstone-secondaryNav_hidden']],
                 )
             }
-            data-moonstone="SecondaryNav"
             defaultSize={{
                 height: '0%',
                 width: '300px',
@@ -60,6 +59,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
                         width: 0,
                     }}
             {...props}
+            data-moonstone="SecondaryNav"
         >
             <button
                 aria-controls={wrapperId}

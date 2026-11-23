@@ -31,7 +31,6 @@ export const TableHeadCell: React.FC<TableCellProps> = ({
     return (
         <Typography
             aria-sort={ariaSort}
-            data-moonstone="TableHeadCell"
             {...props}
             className={clsx(
                 typeof width === 'undefined' && ['flexFluid', layout.flexFluid],
@@ -41,6 +40,7 @@ export const TableHeadCell: React.FC<TableCellProps> = ({
                 className,
             )}
             component={component}
+            data-moonstone="TableHeadCell"
             style={{
                 ...props.style,
                 width: width,

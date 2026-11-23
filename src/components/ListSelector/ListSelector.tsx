@@ -61,8 +61,8 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                 ['flexRow_nowrap', layout.flexRow_nowrap],
                 ['moonstone-listSelector', styles['moonstone-listSelector']],
             )}
-            data-moonstone="ListSelector"
             {...props}
+            data-moonstone="ListSelector"
         >
             <section
                 className={clsx(
