@@ -90,8 +90,8 @@ export default defineConfig({
                 test: {
                     name: 'visual',
                     include: ['src/visual*.spec.tsx'],
-                    // It's super fast to take a screenshot, but Vitest will wait until
-                    // the default timeout of 15s in case the screenshot does not match
+                    // A visual test renders one story and takes one screenshot in less than 1 second.
+                    // Keep the timeout of toMatchScreenshot in src/visualStoriesSuite.tsx below this value.
                     testTimeout: 3000,
                     browser: {
                         enabled: true,
