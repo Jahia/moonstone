@@ -1,12 +1,20 @@
 import { composeStories } from '@storybook/react';
 import { describe, expect, test } from 'vitest';
 import { render } from 'vitest-browser-react';
-import { page } from 'vitest/browser';
+import { commands, page } from 'vitest/browser';
 
 // @ts-expect-error preview is js not ts
 import * as projectAnnotations from '../.storybook/preview.jsx';
 
 import type { JSX } from 'react';
+
+declare module 'vitest/browser' {
+    // oxlint-disable-next-line typescript/consistent-type-definitions -- declaration merging needs an interface
+    interface BrowserCommands {
+        // Defined in the visual project of vite.config.mjs
+        moveMouseOutOfStory: () => Promise<void>;
+    }
+}
 
 // A composed story is a render function; Storybook attaches its `play` interaction (if any) to it.
 type ComposedStory = (() => JSX.Element) & { play?: (context: { canvasElement: HTMLElement }) => Promise<void> };
@@ -31,6 +39,10 @@ export const runVisualStoriesSuite = () => {
     describe.for(Object.entries(stories))('%s', ([file, imports]) => {
         test.for(Object.entries<ComposedStory>(composeStories(imports, projectAnnotations)))('%s', async ([name, Story], { skip }) => {
             skip(ignore.has(`${file}-${name}`));
+            // On Linux, Chromium hovers the element under a mouse that never moved, at the top-left
+            // corner of the story. Move the mouse out before the render, so a `play` function can
+            // still hover an element on purpose.
+            await commands.moveMouseOutOfStory();
             const { container } = await render(<Story/>, {});
             // toMatchScreenshot finds its target through a CSS path, such as "html > body > div".
             // A portal, such as the portal of a tooltip, can add a second div to the body. Then this

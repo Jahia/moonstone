@@ -98,6 +98,14 @@ export default defineConfig({
                         headless: true,
                         provider: playwright(),
                         instances: [{ browser: 'chromium' }],
+                        commands: {
+                            // The orchestrator scales the tester iframe from the top-left corner of the
+                            // page, so the bottom-right corner of the page is outside the story
+                            moveMouseOutOfStory: async ({ page }) => {
+                                const { width, height } = page.viewportSize();
+                                await page.mouse.move(width - 1, height - 1);
+                            },
+                        },
                         expect: {
                             toMatchScreenshot: {
                                 // Resolve all screenshots to a single directory
