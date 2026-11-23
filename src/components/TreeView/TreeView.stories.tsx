@@ -5,6 +5,7 @@ import markdownNotes from './TreeView.md?raw';
 import { treeData, treeDataFlat, treeDataRootClosable } from '~/data';
 
 import type { TreeViewData, TreeViewProps } from './TreeView.types';
+import type { StoryObj } from '@storybook/react-vite';
 
 const css = {
     transform: 'scale(1)',
@@ -188,8 +189,8 @@ export const ControlledWithLoading = {
     },
 };
 
-export const States = {
-    render: (args: TreeViewProps) => (
+export const States: StoryObj<typeof TreeView> = {
+    render: args => (
         <div style={{ padding: '8px' }}>
             <TreeView
                 {...args}

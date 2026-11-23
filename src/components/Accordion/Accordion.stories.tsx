@@ -235,6 +235,7 @@ export const States: StoryObj<AccordionProps> = {
 
     parameters: {
         pseudo: {
+            // The id goes to the panel, so the header button is found by its aria-controls
             hover: '[aria-controls="hover"]',
             active: '[aria-controls="active"]',
             focusVisible: '[aria-controls="focus-visible"]',

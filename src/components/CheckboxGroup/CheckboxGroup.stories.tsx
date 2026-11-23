@@ -63,17 +63,17 @@ export const States: StoryObj<CheckboxGroupProps> = {
     render: args => (
         <div style={{ display: 'grid', gap: '24px', padding: '8px' }}>
             <CheckboxGroup {...args} aria-label="Enabled" name="enabled">
-                <CheckboxItem id="rest" label="Rest" value="rest"/>
+                <CheckboxItem label="Rest" value="rest"/>
                 <CheckboxItem id="hover" label="Hover" value="hover"/>
-                <CheckboxItem defaultChecked id="checked" label="Checked" value="checked"/>
+                <CheckboxItem defaultChecked label="Checked" value="checked"/>
                 <CheckboxItem defaultChecked id="checked-hover" label="Checked and hover" value="checked-hover"/>
             </CheckboxGroup>
             <CheckboxGroup {...args} isDisabled aria-label="Disabled" name="disabled">
-                <CheckboxItem id="disabled" label="Disabled" value="disabled"/>
-                <CheckboxItem defaultChecked id="disabled-checked" label="Disabled and checked" value="disabled-checked"/>
+                <CheckboxItem label="Disabled" value="disabled"/>
+                <CheckboxItem defaultChecked label="Checked and disabled" value="disabled-checked"/>
             </CheckboxGroup>
             <CheckboxGroup {...args} isReadOnly aria-label="Read-only" name="read-only">
-                <CheckboxItem id="read-only" label="Read-only" value="read-only"/>
+                <CheckboxItem label="Read-only" value="read-only"/>
                 <CheckboxItem id="read-only-focus-visible" label="Read-only and focus" value="read-only-focus"/>
             </CheckboxGroup>
         </div>

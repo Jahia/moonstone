@@ -46,14 +46,14 @@ export const Controlled: StoryObj<CheckboxProps> = {
 };
 
 export const States: StoryObj<CheckboxProps> = {
-    render: () => (
+    render: args => (
         <div style={{ display: 'flex', gap: '16px', padding: '8px' }}>
-            <Checkbox aria-label="rest"/>
-            <Checkbox aria-label="hover" id="hover"/>
-            <Checkbox aria-label="focus" id="focus-visible"/>
-            <Checkbox defaultChecked aria-label="checked"/>
-            <Checkbox defaultChecked aria-label="checked and hover" id="checked-hover"/>
-            <Checkbox isDisabled aria-label="disabled"/>
+            <Checkbox {...args} aria-label="Rest"/>
+            <Checkbox {...args} aria-label="Hover" id="hover"/>
+            <Checkbox {...args} aria-label="Focus" id="focus-visible"/>
+            <Checkbox {...args} defaultChecked aria-label="Checked"/>
+            <Checkbox {...args} defaultChecked aria-label="Checked and hover" id="checked-hover"/>
+            <Checkbox {...args} isDisabled aria-label="Disabled"/>
         </div>
     ),
     parameters: {

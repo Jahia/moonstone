@@ -139,6 +139,7 @@ export const States: StoryObj<CollapsibleProps> = {
 
     parameters: {
         pseudo: {
+            // The id goes to the content, so the header button is found by its aria-controls
             hover: '[aria-controls="hover"]',
             focusVisible: '[aria-controls="focus-visible"]',
         },

@@ -40,15 +40,15 @@ export const Controlled: StoryObj<SwitchProps> = {
 };
 
 export const States: StoryObj<SwitchProps> = {
-    render: () => (
+    render: args => (
         <section className="storyGrid">
-            <Switch aria-label="rest"/>
-            <Switch aria-label="hover" id="hover"/>
-            <Switch aria-label="focus" id="focus-visible"/>
-            <Switch defaultChecked aria-label="checked"/>
-            <Switch defaultChecked aria-label="checked and hover" id="checked-hover"/>
-            <Switch isDisabled aria-label="disabled"/>
-            <Switch isDisabled defaultChecked aria-label="checked and disabled"/>
+            <Switch {...args} aria-label="Rest"/>
+            <Switch {...args} aria-label="Hover" id="hover"/>
+            <Switch {...args} aria-label="Focus" id="focus-visible"/>
+            <Switch {...args} defaultChecked aria-label="Checked"/>
+            <Switch {...args} defaultChecked aria-label="Checked and hover" id="checked-hover"/>
+            <Switch {...args} isDisabled aria-label="Disabled"/>
+            <Switch {...args} isDisabled defaultChecked aria-label="Checked and disabled"/>
         </section>
     ),
     parameters: {

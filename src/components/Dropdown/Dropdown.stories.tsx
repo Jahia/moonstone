@@ -17,6 +17,9 @@ import {
 import { Love } from '~/icons';
 
 import type { DropdownDataOption, DropdownProps } from './Dropdown.types';
+import type { StoryObj } from '@storybook/react-vite';
+
+import '~/__storybook__/storybook.scss';
 
 export default {
     title: 'Components/Dropdown',
@@ -340,8 +343,8 @@ export const TreeDataMultiple = {
     },
 };
 
-export const States = {
-    render: (args: DropdownProps) => (
+export const States: StoryObj<typeof Dropdown> = {
+    render: args => (
         <section className="storyGrid">
             <Dropdown {...args} placeholder="Rest"/>
             <Dropdown {...args} placeholder="Hover"/>
@@ -357,11 +360,11 @@ export const States = {
 
     args: {
         data: dropdownData,
-        value: null as string,
     },
 
     parameters: {
         pseudo: {
+            // The Dropdown takes no id, so its trigger is found by its role and its aria-label
             hover: ['[role="listbox"][aria-label="Hover"]', '[role="listbox"][aria-label="Outlined hover"]'],
             active: '[role="listbox"][aria-label="Active"]',
             focusVisible: ['[role="listbox"][aria-label="Focus"]', '[role="listbox"][aria-label="Outlined focus"]'],

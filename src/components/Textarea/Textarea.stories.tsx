@@ -51,13 +51,13 @@ export const Controlled: Story = {
 };
 
 export const States: Story = {
-    render: () => (
+    render: args => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', padding: '8px' }}>
-            <Textarea placeholder="Rest"/>
-            <Textarea id="hover" placeholder="Hover"/>
-            <Textarea id="focus-visible" placeholder="Focus"/>
-            <Textarea isDisabled placeholder="Disabled"/>
-            <Textarea isReadOnly placeholder="Read-only"/>
+            <Textarea {...args} placeholder="Rest"/>
+            <Textarea {...args} id="hover" placeholder="Hover"/>
+            <Textarea {...args} id="focus-visible" placeholder="Focus"/>
+            <Textarea {...args} isDisabled placeholder="Disabled"/>
+            <Textarea {...args} isReadOnly placeholder="Read-only"/>
         </div>
     ),
     parameters: {
