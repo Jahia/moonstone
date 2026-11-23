@@ -171,3 +171,22 @@ export const InsertCells: Story = {
     },
     name: 'Insert custom cells (renderRow)',
 };
+
+export const States: Story = {
+    render: (args) => {
+        return <DataTable {...args}/>;
+    },
+    args: {
+        data: tableFlat.slice(0, 5),
+        columns: dataColumnsUser,
+        primaryKey: 'id',
+        enableSorting: true,
+        defaultSortBy: 'progress',
+    },
+    parameters: {
+        pseudo: {
+            hover: ['tbody tr:nth-child(2)', 'thead th:nth-child(2)'],
+            focusVisible: ['tbody tr:nth-child(4)', 'thead th:nth-child(4) button'],
+        },
+    },
+};
