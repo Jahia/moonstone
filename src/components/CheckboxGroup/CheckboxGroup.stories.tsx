@@ -65,7 +65,6 @@ export const States: StoryObj<CheckboxGroupProps> = {
             <CheckboxGroup {...args} aria-label="Enabled" name="enabled">
                 <CheckboxItem id="rest" label="Rest" value="rest"/>
                 <CheckboxItem id="hover" label="Hover" value="hover"/>
-                <CheckboxItem id="focus-visible" label="Focus" value="focus"/>
                 <CheckboxItem defaultChecked id="checked" label="Checked" value="checked"/>
                 <CheckboxItem defaultChecked id="checked-hover" label="Checked and hover" value="checked-hover"/>
             </CheckboxGroup>
@@ -83,7 +82,7 @@ export const States: StoryObj<CheckboxGroupProps> = {
     parameters: {
         pseudo: {
             hover: ['#hover', '#checked-hover'],
-            focusVisible: ['#focus-visible', '#read-only-focus-visible'],
+            focusVisible: '#read-only-focus-visible',
         },
     },
 };
