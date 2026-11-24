@@ -315,6 +315,7 @@ export const States: StoryObj<MenuProps> = {
     render: args => (
         <div style={{ position: 'relative', width: '200px', height: '200px' }}>
             <Menu {...args}>
+                {/* The menu focuses its first item when it shows, so the Focus item comes first. */}
                 <MenuItem id="focus-visible" label="Focus"/>
                 <MenuItem label="Rest"/>
                 <MenuItem id="hover" label="Hover"/>

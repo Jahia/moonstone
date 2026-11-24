@@ -76,6 +76,7 @@ export const States: StoryObj<typeof ListSelector> = {
     },
 
     parameters: {
+        // An option takes no id, so each selector targets an item of the left list by its position.
         pseudo: {
             hover: '[data-list="left"] li:nth-child(2)',
             focusVisible: '[data-list="left"] li:nth-child(3)',
