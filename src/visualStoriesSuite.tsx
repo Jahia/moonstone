@@ -32,10 +32,20 @@ type DomNode = {
 };
 
 // The test runs in an iframe of the page that the DevTools session sees.
-const findDocument = (node: DomNode): DomNode | undefined =>
-    node.contentDocument?.documentURL === location.href
-        ? node.contentDocument
-        : [...(node.children ?? []), ...(node.contentDocument ? [node.contentDocument] : [])].map(findDocument).find(Boolean);
+const findDocument = (node: DomNode): DomNode | undefined => {
+    if (node.contentDocument?.documentURL === location.href) {
+        return node.contentDocument;
+    }
+
+    for (const child of [...(node.children ?? []), node.contentDocument]) {
+        const found = child && findDocument(child);
+        if (found) {
+            return found;
+        }
+    }
+
+    return undefined;
+};
 
 /**
  * Forces the states that a story declares in `parameters.pseudo`, such as `{ hover: '#hover' }`,
@@ -101,8 +111,8 @@ const ignore = new Set([
 
 /**
  * Registers one visual test per story: render it, run its `play` interaction if it has one,
- * then compare a screenshot. Shared by visual.spec.tsx and visual-legacy.spec.tsx so the two
- * suites cannot drift apart.
+ * force the states of its `parameters.pseudo`, then compare a screenshot. Shared by
+ * visual.spec.tsx and visual-legacy.spec.tsx so the two suites cannot drift apart.
  */
 export const runVisualStoriesSuite = () => {
     describe.for(Object.entries(stories))('%s', ([file, imports]) => {
