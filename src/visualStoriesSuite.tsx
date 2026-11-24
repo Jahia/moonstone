@@ -31,9 +31,9 @@ const ignore = new Set([
 ]);
 
 /**
- * Registers one visual test per story: render it, run its `play` interaction if it has one,
- * then compare a screenshot. Shared by visual.spec.tsx and visual-legacy.spec.tsx so the two
- * suites cannot drift apart.
+ * Registers one visual test per story: move the mouse out of the story, render it, run its
+ * `play` interaction if it has one, then compare a screenshot. Shared by visual.spec.tsx and
+ * visual-legacy.spec.tsx so the two suites cannot drift apart.
  */
 export const runVisualStoriesSuite = () => {
     describe.for(Object.entries(stories))('%s', ([file, imports]) => {
