@@ -1,5 +1,7 @@
 import markdownNotes from './Button.md?raw';
+import { buttonColors, buttonSizes, buttonVariants } from './Button.types';
 import { Button } from './index';
+import { PropValues } from '~/__storybook__/PropValues';
 import { Love, OpenInNew } from '~/icons';
 
 import type { ButtonProps } from './Button.types';
@@ -23,23 +25,6 @@ export default meta;
 
 type Story = StoryObj<ButtonProps>;
 
-export const Overview: Story = {
-    render: args => (
-        <>
-            <section className="storyGrid">
-                <Button label="default" {...args} variant="default"/>
-                <Button label="outlined" {...args} variant="outlined"/>
-                <Button label="ghost" {...args} variant="ghost"/>
-            </section>
-            <section className="storyGrid" style={{ backgroundColor: 'var(--moon-color-gray_dark)' }}>
-                <Button isReversed label="default" {...args} variant="default"/>
-                <Button isReversed label="outlined" {...args} variant="outlined"/>
-                <Button isReversed label="ghost" {...args} variant="ghost"/>
-            </section>
-        </>
-    ),
-};
-
 export const Default: Story = {
     args: {
         icon: <Love/>,
@@ -47,20 +32,35 @@ export const Default: Story = {
     },
 };
 
-export const Ghost: Story = {
+export const VariantsAndColors: Story = {
     args: {
-        variant: 'ghost',
-        icon: <Love/>,
         label: 'Button',
+    },
+    render: args => (
+        <PropValues
+            args={args}
+            component={Button}
+            prop="color"
+            rowProp="variant"
+            rowValues={buttonVariants}
+            values={buttonColors}
+        />
+    ),
+};
+
+export const Reversed: Story = {
+    ...VariantsAndColors,
+    args: {
+        label: 'Button',
+        isReversed: true,
     },
 };
 
-export const Outlined: Story = {
+export const Sizes: Story = {
     args: {
-        variant: 'outlined',
-        icon: <Love/>,
         label: 'Button',
     },
+    render: args => <PropValues args={args} component={Button} prop="size" values={buttonSizes}/>,
 };
 
 const IconAndLabelTemplate = (args: ButtonProps) => {
@@ -96,7 +96,7 @@ export const IconAndLabel: Story = {
     render: IconAndLabelTemplate,
 };
 
-export const OnlyLabel = {
+export const OnlyLabel: Story = {
     render: (args: ButtonProps) => {
         return (
             <section className="storyGrid">
@@ -124,7 +124,7 @@ export const OnlyLabel = {
     },
 };
 
-export const OnlyIcon = {
+export const OnlyIcon: Story = {
     render: (args: ButtonProps) => {
         return (
             <section className="storyGrid">
@@ -145,7 +145,7 @@ export const OnlyIcon = {
     },
 };
 
-export const Disabled = {
+export const Disabled: Story = {
     render: (args: ButtonProps) => {
         return (
             <section className="storyGrid">

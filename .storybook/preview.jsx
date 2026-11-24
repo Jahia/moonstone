@@ -162,7 +162,8 @@ export const parameters = {
     },
 };
 
-export const tags = ['autodocs'];
+// `visual`: the story has a screenshot in the visual tests. A story removes it with `!visual`.
+export const tags = ['autodocs', 'visual'];
 
 export const argTypesEnhancers = [controlArgs, categorizeArgs];
 export const argsEnhancers = [nameIconArgs];

@@ -9,7 +9,10 @@ import * as projectAnnotations from '../.storybook/preview.jsx';
 import type { JSX } from 'react';
 
 // A composed story is a render function; Storybook attaches its `play` interaction (if any) to it.
-type ComposedStory = (() => JSX.Element) & { play?: (context: { canvasElement: HTMLElement }) => Promise<void> };
+type ComposedStory = (() => JSX.Element) & {
+    tags: string[];
+    play?: (context: { canvasElement: HTMLElement }) => Promise<void>;
+};
 
 // Import all stories
 const stories = import.meta.glob<never>('./**/*.stories.{js,jsx,ts,tsx}', { eager: true });
@@ -30,7 +33,8 @@ const ignore = new Set([
 export const runVisualStoriesSuite = () => {
     describe.for(Object.entries(stories))('%s', ([file, imports]) => {
         test.for(Object.entries<ComposedStory>(composeStories(imports, projectAnnotations)))('%s', async ([name, Story], { skip }) => {
-            skip(ignore.has(`${file}-${name}`));
+            // A story leaves the visual tests with the `!visual` tag, which removes the `visual` tag of the preview
+            skip(ignore.has(`${file}-${name}`) || !Story.tags.includes('visual'));
             const { container } = await render(<Story/>, {});
             // toMatchScreenshot finds its target through a CSS path, such as "html > body > div".
             // A portal, such as the portal of a tooltip, can add a second div to the body. Then this

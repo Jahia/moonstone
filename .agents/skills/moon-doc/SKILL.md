@@ -1,6 +1,6 @@
 ---
 name: moon-doc
-description: Write or review the documentation of a Moonstone component (its `<Component>.md`, the props' JSDoc, and its Storybook wiring). Use when asked to document a component, update its docs, review them, or list the pending design decisions. Not for README, CHANGELOG, or migration guides.
+description: Write or review the documentation of a Moonstone component (its `<Component>.md`, the props' JSDoc, its Storybook wiring, and its stories). Use when asked to document a component, update its docs, review them, or list the pending design decisions. Not for README, CHANGELOG, or migration guides.
 argument-hint: "[review | pending] <Component> [<Component>…]"
 ---
 
@@ -11,8 +11,8 @@ names.
 
 ## Before anything
 
-Read `references/structure.md`, `references/style.md`, `references/ui-copy.md`, and
-`references/component-rules.md`. They hold
+Read `references/structure.md`, `references/style.md`, `references/ui-copy.md`,
+`references/component-rules.md`, and `references/stories.md`. They hold
 every rule; this file only holds the workflow.
 
 Ground every claim in the code. Read `<Component>.types.ts` (props and JSDoc), `<Component>.tsx`,
@@ -27,7 +27,8 @@ Ground every claim in the code. Read `<Component>.types.ts` (props and JSDoc), `
 2. Fix the props' JSDoc in `<Component>.types.ts`: edit only the `/** … */` blocks. Never change
    a type, a default, or a `.tsx` file. When the JSDoc and the code disagree, the code is right:
    fix the JSDoc and handle the gap as a code bug (see *Code bugs*).
-3. Edit nothing else. Any other story change is emitted as a copy-paste snippet.
+3. Edit the stories only to make them obey `references/stories.md`. Edit nothing else. Any
+   other story change is emitted as a copy-paste snippet.
 4. Verify by re-reading what you wrote against every rule in the references, the content of
    each section as well as the structure. Then read `git diff` on every `*.types.ts` you
    touched: every changed line must sit inside a `/** … */` block. If a line of code changed,
