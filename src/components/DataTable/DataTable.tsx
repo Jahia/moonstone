@@ -5,12 +5,12 @@ import {
     getSortedRowModel,
     useReactTable,
 } from '@tanstack/react-table';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 
 import { useCustomCells, useExpansion, usePagination, useSelection, useSorting } from './hooks';
 import { createTableColumns } from './shared';
 import { renderCell, renderHeadCell } from './utils';
-import { Checkbox } from '~/components';
+import { Button, Checkbox, Loader } from '~/components';
 import {
     Table,
     TableBody,
@@ -18,17 +18,33 @@ import {
     TableHead,
     TableHeadCell,
     TableRow,
+    TableStructuredCell,
 } from '~/components/DataTable';
 import { Pagination } from '~/components/Pagination';
 import { toNodeArray } from '~/utils/helpers';
 
 import type { DataTableProps, RenderOptions } from './DataTable.types';
 import type { Row } from '@tanstack/react-table';
+import type { ButtonProps } from '~/components/Button/Button.types';
 
 import styles from './DataTable.module.scss';
 
 // Styles for custom column headers (no padding to match measured cell widths)
 const CUSTOM_HEADER_STYLE = { padding: 0 };
+
+// When the last page of sub-rows loads, the button goes away: it gives the focus to the row above it
+const LoadMoreButton = ({ label, onClick }: Pick<ButtonProps, 'label' | 'onClick'>) => {
+    const ref = useRef<HTMLButtonElement>(null);
+    useLayoutEffect(() => {
+        const row = ref.current?.closest('tr');
+        return () => {
+            if (row?.contains(document.activeElement)) {
+                (row.previousElementSibling as HTMLElement | null)?.focus();
+            }
+        };
+    }, []);
+    return <Button label={label} ref={ref} variant="ghost" onClick={onClick}/>;
+};
 
 export const DataTable = <T extends NonNullable<unknown>>({
     className,
@@ -49,6 +65,9 @@ export const DataTable = <T extends NonNullable<unknown>>({
     expandedRows,
     defaultExpandedRows,
     onExpandChange,
+    canExpand,
+    hasMoreSubRows,
+    onLoadMoreSubRows,
     renderRow,
     customColumnLabels,
     onClickTableHeadCell,
@@ -70,7 +89,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
 }: DataTableProps<T>) => {
     const { expanded, handleExpandedChange } = useExpansion({
         expandedRows,
-        defaultExpandedRows: defaultExpandedRows ?? (isStructured ? true : undefined),
+        // Rows whose sub-rows load when they open start closed
+        defaultExpandedRows: defaultExpandedRows ?? (isStructured && !canExpand ? true : undefined),
         onExpandChange,
     });
 
@@ -133,6 +153,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         rowCount: isPaginationControlled ? totalItems : undefined,
         // Enables hierarchical/structured table rendering by allowing TanStack to access nested subRows
         getSubRows: (row: T) => (row as T & { subRows?: T[] }).subRows,
+        getRowCanExpand: canExpand && (row => row.subRows.length > 0 || canExpand(row.original)),
         onPaginationChange: enablePagination ? handlePaginationChange : undefined,
         enableSorting,
         // UX decision: Toggle between asc/desc only, no unsorted state to prevent user confusion
@@ -214,6 +235,34 @@ export const DataTable = <T extends NonNullable<unknown>>({
         [renderRow, renderRowContent, rowProps],
     );
 
+    const columnCount = customBeforeCount + (enableSelection ? 1 : 0) + table.getVisibleLeafColumns().length + customAfterCount;
+    // A row that is not data, under the sub-rows of `parent`: no checkbox, and out of the selection
+    const renderSubRowsRow = (parent: Row<T>, key: string, content: React.ReactNode) => (
+        <TableRow key={`${parent.id}-${key}`} tabIndex={-1}>
+            <TableStructuredCell colSpan={columnCount} depth={parent.depth + 1}>{content}</TableStructuredCell>
+        </TableRow>
+    );
+
+    // The data rows, with a loader under an open row whose sub-rows are not loaded (`originalSubRows` is
+    // what `getSubRows` returned), and a "Show more" row after the last loaded sub-row of a row that has more
+    const rows = table.getRowModel().rows;
+    const renderBodyRows = () => rows.flatMap((row, i) => {
+        const isOpen = row.getIsExpanded() && row.getCanExpand();
+        // This row and its parents whose last loaded sub-row this row is, deepest first
+        const nextDepth = rows[i + 1]?.depth ?? 0;
+        const endingRows = [row, ...row.getParentRows().reverse()].filter(ending => ending.depth >= nextDepth);
+        return [
+            renderRowWithCustomization(row),
+            isOpen && row.originalSubRows === undefined
+            && renderSubRowsRow(row, 'loading', <Loader i18n={{ loadingLabel: i18n?.loadingRowsLabel }} size="small"/>),
+            ...endingRows
+                .filter(ending => ending.getIsExpanded() && ending.originalSubRows && hasMoreSubRows?.(ending.original))
+                .map(ending => renderSubRowsRow(ending, 'more', (
+                    <LoadMoreButton label={i18n?.loadMoreRows || 'Show more'} onClick={() => onLoadMoreSubRows?.(ending.original)}/>
+                ))),
+        ];
+    });
+
     if (!data || !Array.isArray(data) || data.length === 0) {
         return null;
     }
@@ -270,7 +319,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     ))}
                 </TableHead>
                 <TableBody>
-                    {table.getRowModel().rows.map(row => renderRowWithCustomization(row))}
+                    {renderBodyRows()}
                 </TableBody>
             </Table>
             {enablePagination && (
