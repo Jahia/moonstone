@@ -66,19 +66,34 @@ describe('TableStructuredCell', () => {
     });
 
     describe('Expand/Collapse', () => {
-        it('should call onToggleExpand when clicked', async () => {
+        it('should call onToggleExpand when the toggle is clicked', async () => {
             const onToggle = vi.fn();
             const user = userEvent.setup();
             render(
                 <TableWrapper>
-                    <TableStructuredCell depth={0} onToggleExpand={onToggle}>
-                        Clickable
+                    <TableStructuredCell isExpandable depth={0} onToggleExpand={onToggle}>
+                        Parent
                     </TableStructuredCell>
                 </TableWrapper>,
             );
 
-            await user.click(screen.getByText('Clickable'));
+            await user.click(screen.getByRole('button', { name: 'Parent' }));
             expect(onToggle).toHaveBeenCalledTimes(1);
+        });
+
+        it('should not call onToggleExpand when the content is clicked', async () => {
+            const onToggle = vi.fn();
+            const user = userEvent.setup();
+            render(
+                <TableWrapper>
+                    <TableStructuredCell isExpandable depth={0} onToggleExpand={onToggle}>
+                        Parent
+                    </TableStructuredCell>
+                </TableWrapper>,
+            );
+
+            await user.click(screen.getByText('Parent'));
+            expect(onToggle).not.toHaveBeenCalled();
         });
     });
 
