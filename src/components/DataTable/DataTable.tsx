@@ -80,11 +80,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         customHeaderWidths,
         registerCustomCellCounts,
         withCustomCellObserver,
-    } = useCustomCells({
-        data,
-        primaryKey,
-        renderRow,
-    });
+    } = useCustomCells({ renderRow });
 
     const { sorting, isSortingControlled, handleSortingChange } = useSorting<T>({
         sortBy,
