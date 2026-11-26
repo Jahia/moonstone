@@ -70,6 +70,7 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
     label: string;
     /**
      * Optional custom render function for the cell content.
+     * The cell shows "-" when the content is `undefined`, `null`, `false` or `''`. Return an empty fragment to keep the cell empty.
      * @param context - Cell context with value, data, id, and meta.
      */
     render?: (context: RenderCellContext<T, Exclude<keyof T, SubRowKey>>) => React.ReactNode;

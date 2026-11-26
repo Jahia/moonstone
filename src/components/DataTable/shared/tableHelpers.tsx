@@ -1,6 +1,9 @@
 import type { DataTableProps, SubRowKey } from '../DataTable.types';
 import type { ColumnDef } from '@tanstack/react-table';
 
+// TableCell defaults its children to '-', but flexRender always passes it an element
+const orDash = (content: React.ReactNode) => (content === undefined || content === null || content === false || content === '' ? '-' : content);
+
 /**
  * Transforms user-friendly DataTable column definitions into TanStack Table compatible ColumnDef format.
  * This abstraction keeps the public API clean and framework-agnostic while leveraging TanStack internally.
@@ -33,7 +36,7 @@ export const createTableColumns = <T extends Record<string, unknown>>(
             const value = getValue();
 
             if (col.render) {
-                return col.render({
+                return orDash(col.render({
                     id: row.id,
                     value: value as T[Exclude<keyof T, SubRowKey>],
                     data: row.original,
@@ -42,10 +45,10 @@ export const createTableColumns = <T extends Record<string, unknown>>(
                         isSelected: row.getIsSelected(),
                         isExpanded: row.getIsExpanded(),
                     },
-                });
+                }));
             }
 
-            return value as React.ReactNode;
+            return orDash(value as React.ReactNode);
         },
     }));
 };
