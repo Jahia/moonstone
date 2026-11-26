@@ -28,8 +28,7 @@ const ignore = new Set([
     // The reversed rule of BaseInput applies only with the global styles, so the two suites render
     // the search input differently and cannot share one reference.
     './components/Menu/Menu.stories.tsx-Reversed',
-    // The end of the italic placeholder moves by one pixel between the Update Visual Regression
-    // Screenshots workflow and the check, so the check never matches the reference.
+    // Unstable: the end of the italic placeholder moves by one pixel in some runs, in either suite.
     './components/Fieldset/Fieldset.stories.tsx-SingleField',
     // Unstable: differs from its reference by one pixel in some runs, with the global styles.
     './components/Menu/Menu.stories.tsx-SmallImageMenuItems',
