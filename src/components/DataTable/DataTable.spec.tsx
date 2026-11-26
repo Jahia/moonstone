@@ -1346,6 +1346,25 @@ describe('DataTable search', () => {
         expect(screen.getByText('No results')).toBeInTheDocument();
     });
 
+    it('should translate the no-results message', async () => {
+        const user = userEvent.setup();
+        render(
+            <DataTable<TestData>
+                enableSearch
+                columns={columns}
+                data={data}
+                i18n={{ noResults: 'Aucun résultat' }}
+                primaryKey="id"
+                searchColumns={['name']}
+                searchInputProps={{ 'aria-label': 'Search' }}
+            />,
+        );
+
+        await user.type(screen.getByRole('searchbox'), 'zzz');
+
+        expect(screen.getByText('Aucun résultat')).toBeInTheDocument();
+    });
+
     it('should not show the no-results message when data is empty without a query', () => {
         render(
             <DataTable<TestData>

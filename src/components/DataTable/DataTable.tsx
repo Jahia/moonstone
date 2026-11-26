@@ -33,9 +33,6 @@ import styles from './DataTable.module.scss';
 // Styles for custom column headers (no padding to match measured cell widths)
 const CUSTOM_HEADER_STYLE = { padding: 0 };
 
-// Not translatable yet: the table-level i18n prop has its own ticket
-const NO_RESULTS_MESSAGE = 'No results';
-
 const hasNoSearchResult = (enableSearch: boolean, query: string, rowCount: number) => enableSearch && query !== '' && rowCount === 0;
 
 export const DataTable = <T extends NonNullable<unknown>>({
@@ -319,7 +316,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 <TableBody>
                     {showNoResults && (
                         <TableRow>
-                            <TableCell align="center" aria-live="polite" colSpan={columnCount}>{NO_RESULTS_MESSAGE}</TableCell>
+                            <TableCell align="center" aria-live="polite" colSpan={columnCount}>{i18n?.noResults || 'No results'}</TableCell>
                         </TableRow>
                     )}
                     {rows.map(row => renderRowWithCustomization(row))}

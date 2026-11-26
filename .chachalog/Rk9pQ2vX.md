@@ -3,4 +3,4 @@
 "@jahia/moonstone": minor
 ---
 
-Add search to the `DataTable` component 
+Add a search field to `DataTable` with `enableSearch` (#1412)

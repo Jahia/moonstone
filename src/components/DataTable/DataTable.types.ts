@@ -186,6 +186,11 @@ export type DataTableI18n = NonNullable<PaginationProps['i18n']> & {
      * @default 'Selection'
      */
     selectionColumnLabel?: string;
+    /**
+     * Message of the row shown when the search matches no row
+     * @default 'No results'
+     */
+    noResults?: string;
 };
 
 export type SelectionProps
