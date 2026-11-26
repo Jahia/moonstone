@@ -53,3 +53,4 @@ const columns = [
 - Enter or Space on the toggle of an expandable row expands or collapses it.
 - Enter or Space activates a clickable row.
 - A row with keyboard focus, or a control inside it, shows the `actionsOnHover` of its **TableCellActions**, as on hover.
+- Escape hides the panel of a **TableCellStatus**, shown on hover or on the keyboard focus of its row.
