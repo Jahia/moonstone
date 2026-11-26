@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 
@@ -305,5 +305,41 @@ describe('DataTable keyboard', () => {
             await userEvent.keyboard('{Escape}');
             expect(onOpenChange).toHaveBeenCalledWith(false, expect.anything(), 'escape-key');
         });
+    });
+});
+
+describe('DataTable custom cells', () => {
+    it('keeps the header cell of a custom cell when data changes', async () => {
+        const renderRow = ({ id, render: renderCells }: RenderRowContext<User>) => (
+            <TableRow key={id}>
+                {renderCells({ before: <TableCellStatus color="success">{`Status ${id}`}</TableCellStatus> })}
+            </TableRow>
+        );
+        const table = (data: User[]) => (
+            <DataTable
+                columns={kbColumns}
+                data={data}
+                enablePagination={false}
+                primaryKey="id"
+                renderRow={renderRow}
+            />
+        );
+        const { rerender } = render(table(kbData));
+        const headerRow = screen.getAllByRole('row')[0];
+        await waitFor(() => expect(within(headerRow).getAllByRole('columnheader')).toHaveLength(3));
+
+        // React renders the short header and the full one in the same task: count the removed cells, not the final ones
+        let removedCells = 0;
+        const observer = new MutationObserver((records) => {
+            records.forEach((record) => {
+                removedCells += record.removedNodes.length;
+            });
+        });
+        observer.observe(headerRow, { childList: true });
+        rerender(table([...kbData]));
+        await waitFor(() => expect(within(headerRow).getAllByRole('columnheader')).toHaveLength(3));
+        observer.disconnect();
+
+        expect(removedCells).toBe(0);
     });
 });

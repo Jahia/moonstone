@@ -7,8 +7,6 @@ export type CustomCellPosition = 'before' | 'after';
 export type CustomHeaderWidths = Record<CustomCellPosition, string[]>;
 
 export type UseCustomCellsProps<T extends NonNullable<unknown>> = {
-    data: T[];
-    primaryKey: string;
     renderRow?: DataTableProps<T>['renderRow'];
 };
 

@@ -13,8 +13,6 @@ const defaultHeaderWidths = (): CustomHeaderWidths => ({
 });
 
 export function useCustomCells<T extends NonNullable<unknown>>({
-    data,
-    primaryKey,
     renderRow,
 }: UseCustomCellsProps<T>): UseCustomCellsReturn {
     const [customBeforeCount, setCustomBeforeCount] = useState(0);
@@ -32,22 +30,6 @@ export function useCustomCells<T extends NonNullable<unknown>>({
         observersRef.current.before.forEach(observer => observer?.disconnect());
         observersRef.current.after.forEach(observer => observer?.disconnect());
     }, []);
-
-    useEffect(() => {
-        if (!renderRow) {
-            return;
-        }
-
-        pendingCustomBefore.current = 0;
-        pendingCustomAfter.current = 0;
-        setCustomBeforeCount(0);
-        setCustomAfterCount(0);
-        observersRef.current.before.forEach(observer => observer?.disconnect());
-        observersRef.current.before = [];
-        observersRef.current.after.forEach(observer => observer?.disconnect());
-        observersRef.current.after = [];
-        setCustomHeaderWidths(defaultHeaderWidths());
-    }, [data, primaryKey, renderRow]);
 
     // This effect intentionally runs after every render to flush ref-collected counts
     // (written during render) into state without triggering setState during render.
