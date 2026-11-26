@@ -1,5 +1,6 @@
-import {Temporal} from 'temporal-polyfill';
-import type {Meridiem, TimeFormat} from './TimeInput.types';
+import { Temporal } from 'temporal-polyfill';
+
+import type { Meridiem, TimeFormat } from './TimeInput.types';
 
 /** The two editable segments of the field. */
 export type TimeSegment = 'hour' | 'minute';
@@ -10,14 +11,17 @@ export type TimeSegment = 'hour' | 'minute';
  */
 export const splitTime = (time: Temporal.PlainTime | null, timeFormat: TimeFormat) => {
     if (!time) {
-        return {hour: '', minute: ''};
+        return {
+            hour: '',
+            minute: '',
+        };
     }
 
     const displayHour = timeFormat === '12h' ? time.hour % 12 || 12 : time.hour;
 
     return {
         hour: String(displayHour).padStart(2, '0'),
-        minute: String(time.minute).padStart(2, '0')
+        minute: String(time.minute).padStart(2, '0'),
     };
 };
 
@@ -32,7 +36,10 @@ const sliceSegment = (digits: string, max: number) => {
     const isTwoDigit = !isSingleDigit && digits.length >= 2 && Number(digits.slice(0, 2)) <= max;
     const value = digits.slice(0, isTwoDigit ? 2 : 1);
 
-    return {value, isComplete: isSingleDigit || value.length === 2};
+    return {
+        value,
+        isComplete: isSingleDigit || value.length === 2,
+    };
 };
 
 /**
@@ -48,7 +55,7 @@ const splitTimeDigits = (input: string | null | undefined, timeFormat: TimeForma
         hour: hour.value,
         minute: minute.value,
         isHourComplete: hour.isComplete || minute.value.length > 0,
-        isMinuteComplete: minute.isComplete
+        isMinuteComplete: minute.isComplete,
     };
 };
 
@@ -57,7 +64,9 @@ const splitTimeDigits = (input: string | null | undefined, timeFormat: TimeForma
  * the one being typed shows as-is. The colon appears with the first minute digit. `146` -> `14:06`.
  */
 export const formatTimeInput = (input: string | null | undefined, timeFormat: TimeFormat) => {
-    const {hour, minute, isHourComplete, isMinuteComplete} = splitTimeDigits(input, timeFormat);
+    const {
+        hour, minute, isHourComplete, isMinuteComplete,
+    } = splitTimeDigits(input, timeFormat);
 
     if (hour === '') {
         return '';
@@ -82,9 +91,9 @@ export function parseTimeInput(input: string | null | undefined, timeFormat: '12
 export function parseTimeInput(
     input: string | null | undefined,
     timeFormat: TimeFormat,
-    meridiem?: Meridiem
+    meridiem?: Meridiem,
 ): Temporal.PlainTime | null {
-    const {hour, minute} = splitTimeDigits(input, timeFormat);
+    const { hour, minute } = splitTimeDigits(input, timeFormat);
 
     if (hour === '') {
         return null;
@@ -94,7 +103,10 @@ export function parseTimeInput(
     const hour24 = timeFormat === '12h' ? (hourNumber % 12) + (meridiem === 'PM' ? 12 : 0) : hourNumber;
 
     try {
-        return Temporal.PlainTime.from({hour: hour24, minute: minute === '' ? 0 : Number(minute)}, {overflow: 'reject'});
+        return Temporal.PlainTime.from({
+            hour: hour24,
+            minute: minute === '' ? 0 : Number(minute),
+        }, { overflow: 'reject' });
     } catch {
         return null;
     }
@@ -108,31 +120,43 @@ export const stepTimeSegment = (
     time: Temporal.PlainTime,
     segment: TimeSegment,
     delta: number,
-    timeFormat: TimeFormat
+    timeFormat: TimeFormat,
 ): Temporal.PlainTime => {
     if (segment === 'minute') {
-        return time.with({minute: (time.minute + delta + 60) % 60});
+        return time.with({ minute: (time.minute + delta + 60) % 60 });
     }
 
     if (timeFormat === '12h') {
         // Cycle the 1-12 display value within the current AM/PM half.
         const half = time.hour < 12 ? 0 : 12;
-        return time.with({hour: half + (((time.hour % 12) + delta + 12) % 12)});
+        return time.with({ hour: half + (((time.hour % 12) + delta + 12) % 12) });
     }
 
-    return time.with({hour: (time.hour + delta + 24) % 24});
+    return time.with({ hour: (time.hour + delta + 24) % 24 });
 };
 
 /**
  * The hour/minute selection ranges of an `HH:MM` display. The caret's segment is whichever range
  * contains it (`caretIndex > hour.end` -> minute); each range also places the caret on a segment.
  */
-export const getTimeSegments = (text: string): Record<TimeSegment, {start: number; end: number}> => {
+export const getTimeSegments = (text: string): Record<TimeSegment, { start: number;
+    end: number; }> => {
     const colon = text.indexOf(':');
     const hourEnd = colon < 0 ? text.length : colon;
 
     return {
-        hour: {start: 0, end: hourEnd},
-        minute: colon < 0 ? {start: text.length, end: text.length} : {start: colon + 1, end: text.length}
+        hour: {
+            start: 0,
+            end: hourEnd,
+        },
+        minute: colon < 0
+            ? {
+                    start: text.length,
+                    end: text.length,
+                }
+            : {
+                    start: colon + 1,
+                    end: text.length,
+                },
     };
 };

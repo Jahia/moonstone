@@ -1,3 +1,5 @@
+@use "../../tokens/colors/palette";
+
 .moonstone-banner {
     gap: var(--moon-spacing-small);
     width: 100%;
@@ -23,7 +25,7 @@
 .moonstone-banner_warning {
     color: var(--moon-color-warning_dark);
 
-    border: 2px solid var(--moon-color-warning);
+    border: 2px solid palette.$color-amber-50;
     background-color: var(--moon-color-warning_plain20);
 }
 

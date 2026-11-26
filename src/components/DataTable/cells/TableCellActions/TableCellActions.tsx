@@ -1,8 +1,11 @@
-import React from 'react';
 import clsx from 'clsx';
-import {TableCell} from '../TableCell';
-import type {TableCellActionsProps} from './TableCellActions.types';
-import {layout} from '~/globals/css-utils.js';
+import React from 'react';
+
+import { TableCell } from '../TableCell';
+import { layout } from '~/globals/css-utils.js';
+
+import type { TableCellActionsProps } from './TableCellActions.types';
+
 import style from './TableCellActions.module.scss';
 
 const TableCellActionsForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellActionsProps> = (
@@ -12,9 +15,9 @@ const TableCellActionsForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEl
         className,
         ...props
     },
-    ref
+    ref,
 ) => (
-    <TableCell ref={ref} className={clsx(layout.flexRow_reverse, layout.alignCenter, style.tableCellActions, className)} align="right" {...props}>
+    <TableCell align="right" className={clsx(layout.flexRow_reverse, layout.alignCenter, style.tableCellActions, className)} ref={ref} {...props}>
         {actionsOnHover && (
             <div className={clsx(layout.flexRow_nowrap, layout.alignCenter, style.displayHover)}>{actionsOnHover}</div>
         )}

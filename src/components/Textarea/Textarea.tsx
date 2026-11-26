@@ -1,14 +1,16 @@
 import React from 'react';
-import type {TextareaProps} from './Textarea.types';
-import {UncontrolledTextarea} from './UncontrolledTextarea';
-import {ControlledTextarea} from './ControlledTextarea';
 
-export const Textarea: React.FC<TextareaProps> = ({value, onChange, ...props}) => {
+import { ControlledTextarea } from './ControlledTextarea';
+import { UncontrolledTextarea } from './UncontrolledTextarea';
+
+import type { TextareaProps } from './Textarea.types';
+
+export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({ value, onChange, ...props }, ref) => {
     if (typeof value === 'undefined') {
-        return <UncontrolledTextarea onChange={onChange} {...props}/>;
+        return <UncontrolledTextarea ref={ref} onChange={onChange} {...props}/>;
     }
 
-    return <ControlledTextarea value={value} onChange={onChange} {...props}/>;
-};
+    return <ControlledTextarea ref={ref} value={value} onChange={onChange} {...props}/>;
+});
 
 Textarea.displayName = 'Textarea';

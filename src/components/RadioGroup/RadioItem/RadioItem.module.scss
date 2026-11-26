@@ -1,3 +1,7 @@
+@use "../../../utils/motion" as *;
+@use "../../../utils/mixins" as *;
+@use "../../../tokens/colors/palette";
+
 $radio-sizeDefault: 16px;
 
 .moonstone-radio-container {
@@ -7,13 +11,17 @@ $radio-sizeDefault: 16px;
         margin-top: var(--moon-spacing-medium);
     }
 
-    &[aria-disabled="true"],
-    &[aria-readonly="true"] {
+    &.moonstone-readonly,
+    &:has(.moonstone-radio_input:disabled) {
         cursor: default;
         opacity: 0.4;
 
         // Prevent :hover on disabled and read-only
         pointer-events: none;
+
+        &:has(.moonstone-radio_input:focus-visible) {
+            opacity: 1;
+        }
     }
 
     .radioItem_wrapper {
@@ -27,7 +35,7 @@ $radio-sizeDefault: 16px;
     .moonstone-radio-description {
         margin-left: var(--moon-spacing-large);
 
-        color: var(--moon-color-gray60);
+        color: var(--moon-color-gray);
     }
 
     .moonstone-radio {
@@ -38,6 +46,8 @@ $radio-sizeDefault: 16px;
     }
 
     .moonstone-radio_icon {
+        @include animation(radioBounce 0.1s linear forwards 0.05s);
+
         position: absolute;
         top: 0;
         left: 0;
@@ -46,8 +56,6 @@ $radio-sizeDefault: 16px;
         stroke: none;
 
         transform: scale(0) translateZ(0);
-
-        animation: radioBounce 0.1s linear forwards 0.05s;
 
         pointer-events: none;
         stroke-width: 0;
@@ -64,10 +72,15 @@ $radio-sizeDefault: 16px;
         appearance: none;
 
         border: none;
+        border-radius: 50%;
         outline: none;
         background: transparent;
 
         cursor: pointer;
+
+        &:focus-visible {
+            @include focus-ring;
+        }
 
         &:checked ~ .moonstone-radio_iconUnchecked,
         &:not(:checked) ~ .moonstone-radio_iconChecked {
@@ -80,15 +93,11 @@ $radio-sizeDefault: 16px;
         }
 
         &:checked ~ .moonstone-radio_icon {
-            fill: var(--moon-color-accent);
+            fill: palette.$color-blue-50;
         }
 
         &:hover ~ .moonstone-radio_icon {
-            fill: var(--moon-color-accent_dark);
-        }
-
-        &:focus-visible:not([aria-disabled="true"], [aria-readonly="true"]) ~ .moonstone-radio_icon {
-            fill: var(--moon-color-accent_dark_contrast);
+            fill: palette.$color-blue-60;
         }
     }
 }

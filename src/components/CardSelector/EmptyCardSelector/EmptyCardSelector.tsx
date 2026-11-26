@@ -1,8 +1,11 @@
-import React from 'react';
 import clsx from 'clsx';
-import type {EmptyCardSelectorProps} from './EmptyCardSelector.types';
-import {Typography} from '~/components';
-import {layout} from '~/globals/css-utils.js';
+import React from 'react';
+
+import { Typography } from '~/components';
+import { layout } from '~/globals/css-utils.js';
+
+import type { EmptyCardSelectorProps } from './EmptyCardSelector.types';
+
 import styles from './EmptyCardSelector.module.scss';
 
 export const EmptyCardSelector = React.forwardRef<HTMLButtonElement, EmptyCardSelectorProps>(({
@@ -10,38 +13,37 @@ export const EmptyCardSelector = React.forwardRef<HTMLButtonElement, EmptyCardSe
     iconStart,
     id,
     className,
-    isDisabled = false,
-    isReadOnly = false,
+    isDisabled,
+    isReadOnly,
     onClick,
     ...props
 }, ref) => {
-    const handleOnClick: React.MouseEventHandler = e => {
+    const handleOnClick: React.MouseEventHandler = (e) => {
         if (isDisabled || isReadOnly) {
             return;
         }
 
-        onClick(e);
-        (e.currentTarget as HTMLElement).blur();
+        onClick?.(e);
     };
 
     return (
         <button
-            ref={ref}
-            id={id}
-            type="button"
+            disabled={isDisabled || isReadOnly}
             className={clsx(
                 ['moonstone-emptyCardSelector', styles['moonstone-emptyCardSelector']],
                 (isDisabled || isReadOnly) && ['moonstone-emptyCardSelector_disabled', styles['moonstone-emptyCardSelector_disabled']],
                 ['flexRow_center', layout.flexRow_center],
                 ['flexFluid', layout.flexFluid],
                 ['alignCenter', layout.alignCenter],
-                className
+                className,
             )}
-            disabled={isDisabled || isReadOnly}
+            id={id}
+            ref={ref}
+            type="button"
             onClick={e => handleOnClick(e)}
             {...props}
         >
-            {iconStart && iconStart}
+            {iconStart}
             {label && <Typography data-testid="emptyCardSelector-label">{label}</Typography>}
         </button>
     );

@@ -1,17 +1,18 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {CustomDropdown, Typography} from '~/components';
-import {Love} from '~/icons';
+
+import { CustomDropdown, MenuItem, Typography } from '~/components';
+import { Love } from '~/icons';
 
 describe('CustomDropdown', () => {
     it('should display', () => {
         render(
             <CustomDropdown
-                label="dropdown action"
                 data-testid="moonstone-dropdown"
+                label="dropdown action"
             >
                 <Typography>Dropdown children</Typography>
-            </CustomDropdown>
+            </CustomDropdown>,
         );
         expect(screen.getByTestId('moonstone-dropdown')).toBeInTheDocument();
     });
@@ -19,27 +20,27 @@ describe('CustomDropdown', () => {
     it('should display icon', () => {
         render(
             <CustomDropdown
-                label="dropdown action"
                 icon={<Love data-testid="dropdown-icon"/>}
+                label="dropdown action"
             >
                 <Typography>Dropdown children</Typography>
-            </CustomDropdown>
+            </CustomDropdown>,
         );
-        expect(screen.queryByTestId('dropdown-icon')).toBeInTheDocument();
+        expect(screen.getByTestId('dropdown-icon')).toBeInTheDocument();
     });
 
     it('should add dropdown_loading class if the dropdown is loading', () => {
         render(
             <CustomDropdown
                 isLoading
-                label="dropdown action"
                 data-testid="moonstone-dropdown"
+                label="dropdown action"
             >
                 <Typography>Dropdown children</Typography>
-            </CustomDropdown>
+            </CustomDropdown>,
         );
         expect(screen.getByTestId('moonstone-dropdown')).toHaveClass(
-            'moonstone-button_loading'
+            'moonstone-button_loading',
         );
     });
 
@@ -47,25 +48,25 @@ describe('CustomDropdown', () => {
         render(
             <CustomDropdown
                 isLoading
-                label="dropdown action"
                 data-testid="moonstone-dropdown"
+                label="dropdown action"
             >
                 <Typography>Dropdown children</Typography>
-            </CustomDropdown>
+            </CustomDropdown>,
         );
         expect(screen.getByTestId('moonstone-dropdown')).toHaveAttribute(
-            'aria-busy'
+            'aria-busy',
         );
     });
 
     it('should not display the menu dropdown by default', () => {
         render(
             <CustomDropdown
-                label="dropdown action"
                 data-testid="moonstone-dropdown"
+                label="dropdown action"
             >
                 <Typography>Dropdown children</Typography>
-            </CustomDropdown>
+            </CustomDropdown>,
         );
         expect(screen.queryByRole('list')).not.toBeInTheDocument();
     });
@@ -74,11 +75,11 @@ describe('CustomDropdown', () => {
         const user = userEvent.setup();
         render(
             <CustomDropdown
-                label="dropdown action"
                 data-testid="moonstone-dropdown"
+                label="dropdown action"
             >
                 <Typography>Dropdown children</Typography>
-            </CustomDropdown>
+            </CustomDropdown>,
         );
 
         await user.click(screen.getByRole('button'));
@@ -89,15 +90,60 @@ describe('CustomDropdown', () => {
         const user = userEvent.setup();
         render(
             <CustomDropdown
-                label="dropdown action"
                 data-testid="moonstone-dropdown"
+                label="dropdown action"
             >
                 <Typography>Dropdown children</Typography>
-            </CustomDropdown>
+            </CustomDropdown>,
         );
 
         await user.keyboard('[Tab]');
         await user.keyboard('[Enter]');
         expect(screen.getByRole('list')).toBeInTheDocument();
+    });
+
+    it('should not call onBlur when no onFocus was delivered', async () => {
+        const user = userEvent.setup();
+        const onBlur = vi.fn();
+        render(
+            <>
+                <CustomDropdown label="dropdown action" onBlur={onBlur}>
+                    <Typography>Dropdown children</Typography>
+                </CustomDropdown>
+                <button type="button">after</button>
+            </>,
+        );
+
+        await user.tab();
+        await user.tab();
+
+        expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
+        expect(onBlur).not.toHaveBeenCalled();
+    });
+
+    it('should call onFocus once and onBlur once across a round trip through the menu', async () => {
+        const user = userEvent.setup();
+        const onFocus = vi.fn();
+        const onBlur = vi.fn();
+        render(
+            <>
+                <CustomDropdown label="dropdown action" onBlur={onBlur} onFocus={onFocus}>
+                    <MenuItem label="item"/>
+                </CustomDropdown>
+                <button type="button">after</button>
+            </>,
+        );
+        const trigger = screen.getByRole('button', { name: 'dropdown action' });
+
+        await user.click(trigger);
+        expect(screen.getByRole('list')).toBeInTheDocument();
+        expect(trigger).not.toHaveFocus();
+        await user.keyboard('{Escape}');
+        expect(trigger).toHaveFocus();
+        expect(screen.queryByRole('list')).not.toBeInTheDocument();
+        await user.tab();
+
+        expect(onFocus).toHaveBeenCalledTimes(1);
+        expect(onBlur).toHaveBeenCalledTimes(1);
     });
 });

@@ -4,20 +4,21 @@ export type LayoutModuleProps = {
     /**
      * Navigation of the module (SecondaryNavigation)
      */
-     navigation?: React.ReactNode;
+    navigation?: React.ReactNode;
 
     /**
      * Content of the page
      */
-     content?: React.ReactNode;
+    content?: React.ReactNode;
 
     /**
      * The HTML markup used for the content node
+     * @default 'main'
      */
-     component?: string;
+    component?: string;
 
     /**
      * Replace the content by a loader
      */
-     isLoading?: boolean;
-}
+    isLoading?: boolean;
+};

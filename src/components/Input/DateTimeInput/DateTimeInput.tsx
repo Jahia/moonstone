@@ -1,10 +1,12 @@
 import React from 'react';
-import {ControlledDateTimeInput} from './ControlledDateTimeInput';
-import {UncontrolledDateTimeInput} from './UncontrolledDateTimeInput';
+
+import { ControlledDateTimeInput } from './ControlledDateTimeInput';
+import { UncontrolledDateTimeInput } from './UncontrolledDateTimeInput';
+
 import type {
     ControlledDateTimeInputProps,
     DateTimeInputProps,
-    UncontrolledDateTimeInputProps
+    UncontrolledDateTimeInputProps,
 } from './DateTimeInput.types';
 
 export const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputProps>((props, ref) => {

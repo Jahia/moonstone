@@ -8,11 +8,13 @@ export type TablePaginationProps = Omit<React.ComponentPropsWithoutRef<'div'>, '
 
     /**
      * Current rows per page
+     * @default 10
      */
     rowsPerPage?: number;
 
     /**
      * Choices for rows per pages value
+     * @default [5, 10, 25]
      */
     rowsPerPageOptions?: number[];
 
@@ -20,7 +22,7 @@ export type TablePaginationProps = Omit<React.ComponentPropsWithoutRef<'div'>, '
      * Callback when rowsPerPage value changes
      * @param rowsPerPage
      */
-    onRowsPerPageChange: (rowsPerPage: number) => void
+    onRowsPerPageChange: (rowsPerPage: number) => void;
 
     /**
      * How many rows there will be in total for all the pages currently available (total number of records to display)
@@ -42,7 +44,35 @@ export type TablePaginationProps = Omit<React.ComponentPropsWithoutRef<'div'>, '
      * Pagination labels
      */
     label?: {
-        rowsPerPage: string,
-        of: string
-    }
+        /**
+         * Label before the rows per page selector
+         * @default 'Rows per page'
+         */
+        rowsPerPage?: string;
+        /**
+         * Word between the visible range and the total, as in "1-10 of 50"
+         * @default 'of'
+         */
+        of?: string;
+        /**
+         * Accessible name of the first page button
+         * @default 'First page'
+         */
+        firstPage?: string;
+        /**
+         * Accessible name of the previous page button
+         * @default 'Previous page'
+         */
+        previousPage?: string;
+        /**
+         * Accessible name of the next page button
+         * @default 'Next page'
+         */
+        nextPage?: string;
+        /**
+         * Accessible name of the last page button
+         * @default 'Last page'
+         */
+        lastPage?: string;
+    };
 };

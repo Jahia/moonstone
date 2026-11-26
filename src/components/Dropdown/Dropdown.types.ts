@@ -1,5 +1,6 @@
 import React from 'react';
-import type {TreeViewData} from '~/components/TreeView/TreeView.types';
+
+import type { TreeViewData } from '~/components/TreeView/TreeView.types';
 
 type DropdownVariant = 'ghost' | 'outlined';
 
@@ -17,15 +18,15 @@ export type DropdownDataOption = {
     attributes?: React.HTMLAttributes<HTMLElement>;
     image?: React.ReactElement;
     imageSize?: DropdownImageSize;
-}
+};
 
 export type DropdownDataGrouped = {
     groupLabel: string;
     options: DropdownDataOption[];
-}
+};
 
 export type DropdownData = DropdownDataOption[] | DropdownDataGrouped[];
-export type DropdownDataTree = TreeViewData[]
+export type DropdownDataTree = TreeViewData[];
 
 export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: DropdownDataOption) => void;
 
@@ -34,15 +35,25 @@ export type HandleSelect = (e: React.MouseEvent | React.KeyboardEvent, item?: Dr
  */
 export type BaseDropdownProps = {
     /**
+     * Accessible name of the trigger
+     * @default the label, else the label of the selected option, else the placeholder
+     */
+    'aria-label'?: string;
+
+    /**
+     * Id of the element that names the trigger. It replaces the label of a surrounding Field
+     */
+    'aria-labelledby'?: string;
+    // The quoted keys stay in their own object, or quote-props quotes every key of the type
+} & {
+    /**
      * Text for dropdown, when no value is selected
      */
     placeholder?: string;
 
     /**
-     * Label of the dropdown
-     * @deprecated Label is deprecated and will be removed in a future release.
-     * Use `placeholder` to show text when no value is selected; otherwise,
-     * the label for the selected value is automatically displayed.'
+     * Text shown in the field in place of the selected value.
+     * @deprecated Use `placeholder` instead. Once a value is selected, its label shows on its own.
      */
     label?: string;
 
@@ -53,11 +64,13 @@ export type BaseDropdownProps = {
 
     /**
      * Dropdown's variants
+     * @default 'ghost'
      */
     variant?: DropdownVariant;
 
     /**
      * Dropdown's sizes
+     * @default 'medium'
      */
     size?: DropdownSize;
 
@@ -86,14 +99,15 @@ export type BaseDropdownProps = {
 
     /**
      * Autosearch is triggered when data items exceed this limit
-     * Applies only when autosearch is enabled (i.e. hasSearch is undefined)
-     * Defaults to 7 if undefined or < 0
+     * Applies only when autosearch is enabled, that is when `hasSearch` is undefined.
      * Autosearch is when search input is automatically added in the dropdown
+     * @default 7
      */
     autoAddSearchLimit?: number;
 
     /**
      * The text to display if the Dropdown Menu has a search input and the search doesn't have any results
+     * @default 'No results found.'
      */
     searchEmptyText?: string;
 
@@ -108,6 +122,22 @@ export type BaseDropdownProps = {
     onClear?: React.MouseEventHandler;
 
     /**
+     * Texts of the component, shown on screen or read by screen readers. Translate them with the rest of the UI.
+     */
+    i18n?: {
+        /**
+         * Accessible name of the clear button
+         * @default 'Reset'
+         */
+        clearButton?: string;
+        /**
+         * Accessible name of the search input of the menu
+         * @default 'Search'
+         */
+        searchLabel?: string;
+    };
+
+    /**
      * Function triggered on focus of the checkbox value
      */
     onFocus?: React.FocusEventHandler;
@@ -117,7 +147,7 @@ export type BaseDropdownProps = {
      */
     onBlur?: React.FocusEventHandler;
 
- /**
+    /**
      * Function trigger on change with the current option as param
      * @param {object} event - Mouse event
      * @param {object} item - The current item selected
@@ -138,7 +168,7 @@ type WithDataProps = {
      * Not allowed when using regular data
      */
     treeData?: never;
-}
+};
 
 /**
  * Props when using tree data
@@ -153,7 +183,7 @@ type WithTreeDataProps = {
      * Content of the dropdown, if tree
      */
     treeData: DropdownDataTree;
-}
+};
 
 /**
  * Props for single value dropdown
@@ -193,6 +223,6 @@ type MultipleValuesProps = {
  * Using both will result in a TypeScript error
  */
 export type DropdownProps = BaseDropdownProps & (
-     (SingleValueProps | MultipleValuesProps) &
-     (WithTreeDataProps | WithDataProps)
+     (SingleValueProps | MultipleValuesProps)
+     & (WithTreeDataProps | WithDataProps)
 );

@@ -1,4 +1,5 @@
 @use "sass:math";
+@use "../../tokens/colors/palette";
 
 $pi: 3.14159;
 $loader-sizes: (
@@ -22,7 +23,7 @@ $loader-sizes: (
 
     fill: none;
 
-    stroke: var(--moon-color-accent);
+    stroke: palette.$color-blue-50;
     stroke-linecap: round;
 }
 
@@ -63,6 +64,8 @@ $loader-sizes: (
             stroke-dasharray: $circumference;
             stroke-width: 1.6px;
 
+            // Keeps spinning with reduced motion: the spin is the loading signal
+            // stylelint-disable-next-line property-disallowed-list
             animation: animation-loader_#{$sizeName} 1s cubic-bezier(1, 1, 1, 1) 0s infinite;
         }
 

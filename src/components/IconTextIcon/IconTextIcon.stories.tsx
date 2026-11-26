@@ -1,17 +1,15 @@
-import {IconTextIcon} from './index';
-import {Apps, Love} from '~/icons';
-import {iconArgType} from '~/__storybook__/iconArgType';
+import markdownNotes from './IconTextIcon.md?raw';
+import { IconTextIcon } from './index';
+import { Apps, Love } from '~/icons';
 
 export default {
     title: 'Components/IconTextIcon',
     component: IconTextIcon,
     parameters: {
-        layout: 'centered'
+        layout: 'centered',
+        componentSubtitle: 'Keeps short text and its icons aligned on one line.',
+        docs: { description: { component: markdownNotes } },
     },
-    argTypes: {
-        iconStart: iconArgType,
-        iconEnd: iconArgType
-    }
 };
 
 export const Default = {
@@ -20,6 +18,6 @@ export const Default = {
     args: {
         iconStart: <Love/>,
         iconEnd: <Apps/>,
-        children: 'This is text sandwiched by icons'
-    }
+        children: 'This is text sandwiched by icons',
+    },
 };

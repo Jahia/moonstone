@@ -1,10 +1,12 @@
-import {queryByText, render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {Dropdown, DropdownMenu, TreeViewMenu} from './index';
-import {dropdownData} from '~/data/dropdownData';
-import {dropdownDataGrouped} from '~/data/dropdownDataGrouped';
-import {dropdownDataTree} from '~/data/dropdownDataTree';
-import {Love} from '~/icons';
+
+import { Dropdown, DropdownMenu, TreeViewMenu } from './index';
+import { Field } from '~/components/Field';
+import { dropdownData } from '~/data/dropdownData';
+import { dropdownDataGrouped } from '~/data/dropdownDataGrouped';
+import { dropdownDataTree } from '~/data/dropdownDataTree';
+import { Love } from '~/icons';
 
 describe('Dropdown', () => {
     it('should display', () => {
@@ -14,7 +16,7 @@ describe('Dropdown', () => {
                 data-testid="moonstone-dropdown"
                 value=""
                 onChange={() => 'testing'}
-            />
+            />,
         );
         expect(screen.getByTestId('moonstone-dropdown')).toBeInTheDocument();
     });
@@ -25,9 +27,9 @@ describe('Dropdown', () => {
                 data={dropdownData}
                 icon={<Love data-testid="dropdown-icon"/>}
                 value=""
-            />
+            />,
         );
-        expect(screen.queryByTestId('dropdown-icon')).toBeInTheDocument();
+        expect(screen.getByTestId('dropdown-icon')).toBeInTheDocument();
     });
 
     it('should add additional class names', () => {
@@ -39,26 +41,26 @@ describe('Dropdown', () => {
                 data-testid="moonstone-dropdown"
                 value=""
                 onChange={() => 'testing'}
-            />
+            />,
         );
         expect(screen.getByTestId('moonstone-dropdown')).toHaveClass(
-            testClassName
+            testClassName,
         );
     });
 
     it('should add additional attributes', () => {
         render(
             <Dropdown
-                data-custom="test"
                 data={dropdownData}
+                data-custom="test"
                 data-testid="moonstone-dropdown"
                 value=""
                 onChange={() => 'testing'}
-            />
+            />,
         );
         expect(screen.getByTestId('moonstone-dropdown')).toHaveAttribute(
             'data-custom',
-            'test'
+            'test',
         );
     });
 
@@ -70,10 +72,10 @@ describe('Dropdown', () => {
                 data-testid="moonstone-dropdown"
                 value=""
                 onChange={() => 'testing'}
-            />
+            />,
         );
         expect(screen.getByTestId('moonstone-dropdown').firstChild).toHaveClass(
-            'moonstone-disabled'
+            'moonstone-disabled',
         );
     });
 
@@ -85,14 +87,14 @@ describe('Dropdown', () => {
                 data-testid="moonstone-dropdown"
                 value=""
                 onChange={() => 'testing'}
-            />
+            />,
         );
         expect(screen.getByTestId('moonstone-dropdown').firstChild).toHaveClass(
-            'moonstone-dropdown_loading'
+            'moonstone-dropdown_loading',
         );
     });
 
-    it('should add aria-busy attribute if the dropdown is loading', () => {
+    it('should mark a loading dropdown busy and hide its loader from screen readers', () => {
         render(
             <Dropdown
                 isLoading
@@ -100,11 +102,12 @@ describe('Dropdown', () => {
                 data-testid="moonstone-dropdown"
                 value=""
                 onChange={() => 'testing'}
-            />
+            />,
         );
         expect(screen.getByTestId('moonstone-dropdown').firstChild).toHaveAttribute(
-            'aria-busy'
+            'aria-busy',
         );
+        expect(screen.queryByRole('status')).not.toBeInTheDocument();
     });
 
     it('should not display the menu dropdown by default', () => {
@@ -114,7 +117,7 @@ describe('Dropdown', () => {
                 data-testid="moonstone-dropdown"
                 value=""
                 onChange={() => 'testing'}
-            />
+            />,
         );
         expect(screen.queryByRole('list')).not.toBeInTheDocument();
     });
@@ -127,7 +130,7 @@ describe('Dropdown', () => {
                 data-testid="moonstone-dropdown"
                 value=""
                 onChange={() => 'testing'}
-            />
+            />,
         );
 
         await user.click(screen.getByRole('listbox'));
@@ -138,15 +141,76 @@ describe('Dropdown', () => {
         const user = userEvent.setup();
         render(
             <Dropdown
-                treeData={dropdownDataTree}
                 data-testid="moonstone-dropdown"
+                treeData={dropdownDataTree}
                 value=""
                 onChange={() => 'testing'}
-            />
+            />,
         );
 
         await user.click(screen.getByRole('listbox'));
         expect(screen.getByRole('tree')).toBeInTheDocument();
+    });
+
+    it('should name the trigger with the aria-label of the consumer', () => {
+        render(<Dropdown aria-label="Language" data={dropdownDataGrouped} value="" onChange={() => 'testing'}/>);
+        expect(screen.getByRole('listbox')).toHaveAccessibleName('Language');
+    });
+
+    it('should name the trigger with the aria-label of the consumer inside a Field', () => {
+        render(
+            <Field id="language" label="Field label">
+                <Dropdown aria-label="Language" data={dropdownDataGrouped} value="" onChange={() => 'testing'}/>
+            </Field>,
+        );
+        expect(screen.getByRole('listbox')).toHaveAccessibleName('Language');
+    });
+
+    it('should name the trigger with the aria-label of the consumer followed by the value', () => {
+        render(<Dropdown aria-label="Language" data={[{ label: 'French', value: 'fr' }]} value="fr" onChange={() => null}/>);
+        expect(screen.getByRole('listbox')).toHaveAccessibleName('Language French');
+    });
+
+    it('should name the trigger with the aria-labelledby of the consumer followed by the value', () => {
+        render(
+            <>
+                <span id="language-label">Language</span>
+                <Dropdown aria-labelledby="language-label" data={[{ label: 'French', value: 'fr' }]} value="fr" onChange={() => null}/>
+            </>,
+        );
+        expect(screen.getByRole('listbox')).toHaveAccessibleName('Language French');
+    });
+
+    it('should name the search input of the menu with i18n.searchLabel', async () => {
+        const user = userEvent.setup();
+        render(
+            <Dropdown
+                hasSearch
+                data={dropdownDataGrouped}
+                i18n={{ searchLabel: 'Find' }}
+                value=""
+                onChange={() => 'testing'}
+            />,
+        );
+
+        await user.click(screen.getByRole('listbox'));
+        expect(screen.getByRole('searchbox')).toHaveAccessibleName('Find');
+    });
+
+    it('should name the search input of the tree menu with i18n.searchLabel', async () => {
+        const user = userEvent.setup();
+        render(
+            <Dropdown
+                hasSearch
+                i18n={{ searchLabel: 'Find' }}
+                treeData={dropdownDataTree}
+                value=""
+                onChange={() => 'testing'}
+            />,
+        );
+
+        await user.click(screen.getByRole('listbox'));
+        expect(screen.getByRole('searchbox')).toHaveAccessibleName('Find');
     });
 
     it('should update searchbar when I click on the dropdown and start typing', async () => {
@@ -157,7 +221,7 @@ describe('Dropdown', () => {
                 data={dropdownDataGrouped}
                 value=""
                 onChange={() => 'testing'}
-            />
+            />,
         );
 
         await user.click(screen.getByRole('listbox'));
@@ -173,7 +237,7 @@ describe('Dropdown', () => {
                 data={dropdownDataGrouped}
                 value=""
                 onChange={() => 'testing'}
-            />
+            />,
         );
 
         await user.click(screen.getByRole('listbox'));
@@ -183,17 +247,34 @@ describe('Dropdown', () => {
         expect(screen.queryByText(/option 3/i)).not.toBeInTheDocument();
     });
 
+    it('should announce the empty search text through a live region', async () => {
+        const user = userEvent.setup();
+        render(
+            <Dropdown
+                hasSearch
+                data={dropdownDataGrouped}
+                searchEmptyText="Nothing found"
+                value=""
+                onChange={() => 'testing'}
+            />,
+        );
+
+        await user.click(screen.getByRole('listbox'));
+        await user.type(screen.getByRole('searchbox'), 'no match at all');
+        expect(screen.getByRole('status')).toHaveTextContent('Nothing found');
+    });
+
     it('should call onChange when I select a value', async () => {
         const user = userEvent.setup();
         const onChange = vi.fn();
         render(
             <Dropdown
                 hasSearch
-                label="select something"
                 data={dropdownDataGrouped}
+                label="select something"
                 values={['4']}
                 onChange={onChange}
-            />
+            />,
         );
 
         await user.click(screen.getByRole('listbox'));
@@ -209,7 +290,7 @@ describe('Dropdown', () => {
                 data-testid="moonstone-dropdown"
                 value=""
                 onChange={() => 'testing'}
-            />
+            />,
         );
 
         await user.click(screen.getByRole('listbox'));
@@ -224,10 +305,10 @@ describe('Dropdown', () => {
                 data="not an array"
                 data-testid="moonstone-dropdown"
                 onChange={() => 'testing'}
-            />
+            />,
         );
         expect(
-            screen.queryByTestId('moonstone-dropdown')
+            screen.queryByTestId('moonstone-dropdown'),
         ).not.toBeInTheDocument();
     });
 
@@ -238,35 +319,32 @@ describe('Dropdown', () => {
                 data-testid="moonstone-dropdown"
                 value=""
                 onChange={() => 'testing'}
-            />
+            />,
         );
         expect(
-            screen.queryByTestId('moonstone-dropdown').firstChild
+            screen.queryByTestId('moonstone-dropdown').firstChild,
         ).toHaveClass('moonstone-disabled');
     });
 
-    it('should not add "dropdown-disabled" class if data is empty when "isDisabled=false" ', () => {
+    it('should not add "dropdown-disabled" class if data is empty when "isDisabled=false"', () => {
         render(
             <Dropdown
-                data={[]}
                 isDisabled={false}
+                data={[]}
                 data-testid="moonstone-dropdown"
                 value=""
                 onChange={() => 'testing'}
-            />
+            />,
         );
         expect(
-            screen.queryByTestId('moonstone-dropdown').firstChild
+            screen.queryByTestId('moonstone-dropdown').firstChild,
         ).not.toHaveClass('moonstone-disabled');
     });
 
     it('should display the value', () => {
         render(<Dropdown data={dropdownData} value={dropdownData[3].value}/>);
         expect(
-            queryByText(
-                document.querySelector('.moonstone-typography'),
-                dropdownData[3].label
-            )
+            screen.getByText(dropdownData[3].label),
         ).toBeInTheDocument();
     });
 
@@ -288,9 +366,7 @@ describe('Dropdown', () => {
 
     it('should display tags for multiple values', () => {
         render(<Dropdown data={dropdownData} values={[dropdownData[3].value]}/>);
-        expect(
-            queryByText(document.querySelector('.moonstone-tag'), dropdownData[3].label)
-        ).toBeInTheDocument();
+        expect(screen.getByText(dropdownData[3].label)).toBeInTheDocument();
     });
 
     it('should show checkboxes for multiple select', async () => {
@@ -304,21 +380,28 @@ describe('Dropdown', () => {
     it('should display the reset button', () => {
         const onClear = vi.fn();
         render(
-            <Dropdown data={dropdownData} values={['4']} onClear={onClear}/>
+            <Dropdown data={dropdownData} values={['4']} onClear={onClear}/>,
         );
-        expect(screen.getByRole('button', {name: /reset/i})).toHaveAttribute(
+        expect(screen.getByRole('button', { name: /reset/i })).toHaveAttribute(
             'aria-label',
-            'Reset'
+            'Reset',
         );
+    });
+
+    it('should let the consumer translate the reset button name', () => {
+        render(
+            <Dropdown data={dropdownData} i18n={{ clearButton: 'Effacer' }} values={['4']} onClear={vi.fn()}/>,
+        );
+        expect(screen.getByRole('button', { name: 'Effacer' })).toBeInTheDocument();
     });
 
     it('should call onClear when the reset button is clicked', async () => {
         const user = userEvent.setup();
         const onClear = vi.fn();
         render(
-            <Dropdown data={dropdownData} values={['4']} onClear={onClear}/>
+            <Dropdown data={dropdownData} values={['4']} onClear={onClear}/>,
         );
-        await user.click(screen.getByRole('button', {name: /reset/i}));
+        await user.click(screen.getByRole('button', { name: /reset/i }));
         expect(onClear).toHaveBeenCalled();
     });
 
@@ -330,7 +413,7 @@ describe('Dropdown', () => {
 
         expect(dropdownData.length).toBeGreaterThan(7); // Triggers auto-adding search input
         await user.click(screen.getByRole('listbox'));
-        expect(screen.queryByRole('search')).toBeInTheDocument();
+        expect(screen.getByRole('search')).toBeInTheDocument();
     });
 
     it('should not show search input when autoSearch is enabled (hasSearch=undefined) and does not exceed limit', async () => {
@@ -351,16 +434,16 @@ describe('Dropdown', () => {
 
         render(
             <Dropdown
+                autoAddSearchLimit={limit}
                 data={dData}
                 data-testid="moonstone-dropdown"
-                autoAddSearchLimit={limit}
                 value=""
-            />
+            />,
         );
 
         expect(dropdownData.length).toBeGreaterThan(limit); // Triggers auto-adding search input
         await user.click(screen.getByRole('listbox'));
-        expect(screen.queryByRole('search')).toBeInTheDocument();
+        expect(screen.getByRole('search')).toBeInTheDocument();
     });
 
     it('should show search input when hasSearch is enabled', async () => {
@@ -368,11 +451,11 @@ describe('Dropdown', () => {
         const dData = dropdownData.slice(0, 3);
 
         render(
-            <Dropdown hasSearch data={dData} data-testid="moonstone-dropdown" value=""/>
+            <Dropdown hasSearch data={dData} data-testid="moonstone-dropdown" value=""/>,
         );
 
         await user.click(screen.getByRole('listbox'));
-        expect(screen.queryByRole('search')).toBeInTheDocument();
+        expect(screen.getByRole('search')).toBeInTheDocument();
     });
 
     it('should not show search input when hasSearch is disabled', async () => {
@@ -381,11 +464,11 @@ describe('Dropdown', () => {
 
         render(
             <Dropdown
+                hasSearch={false}
                 data={dData}
                 data-testid="moonstone-dropdown"
-                hasSearch={false}
                 value=""
-            />
+            />,
         );
 
         await user.click(screen.getByRole('listbox'));
@@ -398,14 +481,56 @@ describe('Dropdown', () => {
 
         render(
             <Dropdown
+                autoAddSearchLimit={3}
                 data={dData}
                 data-testid="moonstone-dropdown"
-                autoAddSearchLimit={3}
                 value=""
-            />
+            />,
         );
         await user.click(screen.getByRole('listbox'));
-        expect(screen.queryByRole('search')).toBeInTheDocument();
+        expect(screen.getByRole('search')).toBeInTheDocument();
+    });
+
+    it('should not link the search box of a tree to a Field around it', async () => {
+        const user = userEvent.setup();
+        render(
+            <Field helper="Help" id="page" label="Page">
+                <Dropdown hasSearch treeData={dropdownDataTree} value="" onChange={() => null}/>
+            </Field>,
+        );
+        await user.click(screen.getByRole('listbox'));
+        expect(screen.getByRole('searchbox')).not.toHaveAttribute('aria-describedby');
+    });
+
+    it('should not call onBlur when no onFocus was delivered', async () => {
+        const user = userEvent.setup();
+        const onBlur = vi.fn();
+        render(<><Dropdown data={dropdownData} value="" onBlur={onBlur}/><button type="button">after</button></>);
+
+        await user.tab();
+        await user.tab();
+
+        expect(screen.getByRole('button', { name: 'after' })).toHaveFocus();
+        expect(onBlur).not.toHaveBeenCalled();
+    });
+
+    it('should call onFocus once and onBlur once across a round trip through the menu', async () => {
+        const user = userEvent.setup();
+        const onFocus = vi.fn();
+        const onBlur = vi.fn();
+        render(<><Dropdown data={dropdownData} value="" onBlur={onBlur} onFocus={onFocus}/><button type="button">after</button></>);
+        const trigger = screen.getByRole('listbox');
+
+        await user.click(trigger);
+        expect(screen.getByRole('list')).toBeInTheDocument();
+        expect(trigger).not.toHaveFocus();
+        await user.keyboard('{Escape}');
+        expect(trigger).toHaveFocus();
+        expect(screen.queryByRole('list')).not.toBeInTheDocument();
+        await user.tab();
+
+        expect(onFocus).toHaveBeenCalledTimes(1);
+        expect(onBlur).toHaveBeenCalledTimes(1);
     });
 });
 
@@ -417,10 +542,10 @@ describe('DropdownMenu', () => {
                 isDisplayed
                 data={[]}
                 data-testid="moonstone-dropdownMenu"
-            />
+            />,
         );
         expect(
-            screen.queryByTestId('moonstone-dropdownMenu')
+            screen.queryByTestId('moonstone-dropdownMenu'),
         ).not.toBeInTheDocument();
     });
 });
@@ -438,10 +563,16 @@ describe('TreeViewMenu', () => {
 
     it('should have a selected value', () => {
         render(
-            <TreeViewMenu isDisplayed handleSelect={handleSelect} treeData={dropdownDataTree} value="a2" onClose={onClose}/>
+            <TreeViewMenu
+                isDisplayed
+                handleSelect={handleSelect}
+                treeData={dropdownDataTree}
+                value="a2"
+                onClose={onClose}
+            />,
         );
         expect(
-            screen.getByRole('treeitem', {name: 'A-2 level1'})
+            screen.getByRole('treeitem', { name: 'A-2 level1' }),
         ).toHaveAttribute('aria-selected', 'true');
     });
 
@@ -453,27 +584,33 @@ describe('TreeViewMenu', () => {
                 treeData={dropdownDataTree}
                 values={['a2', 'a1']}
                 onClose={onClose}
-            />
+            />,
         );
         expect(
-            screen.getByRole('treeitem', {name: 'A-2 level1'})
+            screen.getByRole('treeitem', { name: 'A-2 level1' }),
         ).toHaveAttribute('aria-selected', 'true');
         expect(
-            screen.getByRole('treeitem', {name: 'A-1 level1'})
+            screen.getByRole('treeitem', { name: 'A-1 level1' }),
         ).toHaveAttribute('aria-selected', 'true');
     });
 
     it('should have working search bar', async () => {
         const user = userEvent.setup();
-        render(<TreeViewMenu isDisplayed hasSearch treeData={dropdownDataTree} handleSelect={handleSelect}/>);
+        render(<TreeViewMenu hasSearch isDisplayed handleSelect={handleSelect} treeData={dropdownDataTree}/>);
         await user.type(screen.getByRole('searchbox'), 'test');
         expect(screen.getByRole('searchbox')).toHaveValue('test');
     });
 
-    test.each(TreeViewMenuSizes)('should have the right size', size => {
-        const props = {[size]: '50px'};
+    test.each(TreeViewMenuSizes)('should have the right size', (size) => {
+        const props = { [size]: '50px' };
         render(
-            <TreeViewMenu isDisplayed handleSelect={handleSelect} treeData={dropdownDataTree} onClose={onClose} {...props}/>
+            <TreeViewMenu
+                isDisplayed
+                handleSelect={handleSelect}
+                treeData={dropdownDataTree}
+                onClose={onClose}
+                {...props}
+            />,
         );
         expect(screen.getByRole('list')).toHaveStyle(props);
     });

@@ -1,4 +1,4 @@
-import {Temporal} from 'temporal-polyfill';
+import { Temporal } from 'temporal-polyfill';
 
 /**
  * Foundation adapter for the date/time components.
@@ -42,7 +42,7 @@ export const toPlainTime = (value?: PlainTimeInput | null): Temporal.PlainTime |
 
     try {
         // Overflow 'reject' so an out-of-range time fails instead of clamping silently.
-        return Temporal.PlainTime.from(value, {overflow: 'reject'});
+        return Temporal.PlainTime.from(value, { overflow: 'reject' });
     } catch {
         return null;
     }
@@ -89,7 +89,7 @@ export const dateToPlainDate = (value: Date): Temporal.PlainDate =>
     Temporal.PlainDate.from({
         year: value.getFullYear(),
         month: value.getMonth() + 1,
-        day: value.getDate()
+        day: value.getDate(),
     });
 
 /** Today's calendar date in the system time zone. */

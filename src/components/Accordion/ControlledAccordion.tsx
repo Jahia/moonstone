@@ -1,28 +1,34 @@
-import React from 'react';
 import clsx from 'clsx';
-import {AccordionContext} from './Accordion.context';
-import {layout} from '~/globals/css-utils.js';
-import styles from './Accordion.module.scss';
-import type {ControlledAccordionProps} from './Accordion.types';
+import React from 'react';
 
-export const ControlledAccordion: React.FC<ControlledAccordionProps> = ({children, openedItem, isReversed = false, className, onSetOpenedItem, ...props}) => {
-    const provider = {
+import { AccordionContext } from './Accordion.context';
+import { layout } from '~/globals/css-utils.js';
+
+import type { ControlledAccordionProps } from './Accordion.types';
+
+import styles from './Accordion.module.scss';
+
+export const ControlledAccordion: React.FC<ControlledAccordionProps> = ({
+    children, openedItem, isReversed = false, className, onSetOpenedItem, ...props
+}) => {
+    const provider = React.useMemo(() => ({
         currentItem: openedItem,
         onSetOpenedItem,
-        isReversed
-    };
+        isReversed,
+    }), [openedItem, onSetOpenedItem, isReversed]);
 
     return (
         <AccordionContext.Provider value={provider}>
-            <div className={
-                clsx(
-                    className,
-                    ['flexFluid', layout.flexFluid],
-                    ['moonstone-accordion', styles['moonstone-accordion']],
-                    isReversed && ['moonstone-reversed', styles['moonstone-reversed']]
-                )
-            }
-                 {...props}
+            <div
+                className={
+                    clsx(
+                        className,
+                        ['flexFluid', layout.flexFluid],
+                        ['moonstone-accordion', styles['moonstone-accordion']],
+                        isReversed && ['moonstone-reversed', styles['moonstone-reversed']],
+                    )
+                }
+                {...props}
             >
                 {children}
             </div>

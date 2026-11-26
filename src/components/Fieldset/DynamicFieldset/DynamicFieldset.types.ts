@@ -1,5 +1,6 @@
 import React from 'react';
-import type {FieldsetProps} from '../Fieldset.types';
+
+import type { FieldsetProps } from '../Fieldset.types';
 
 type BaseProps = Omit<FieldsetProps, 'children'> & {
     /**
@@ -18,11 +19,12 @@ type ControlledProps = {
      * Dynamic fieldset's function onChange
      */
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+};
 
 type UncontrolledProps = {
     /**
      * Whether dynamic fieldset is checked by default
+     * @default false
      */
     defaultChecked?: boolean;
 
@@ -30,7 +32,7 @@ type UncontrolledProps = {
      * Dynamic fieldset's function onChange
      */
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+};
 
 export type DynamicFieldsetProps = BaseProps & Partial<ControlledProps> & Partial<UncontrolledProps>;
 export type ControlledDynamicFieldsetProps = BaseProps & ControlledProps;

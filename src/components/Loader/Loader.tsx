@@ -1,28 +1,32 @@
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
 
-import type {LoaderProps} from './Loader.types';
+import type { LoaderProps } from './Loader.types';
+
 import styles from './Loader.module.scss';
 
 export const Loader: React.FC<LoaderProps> = ({
     size,
     className,
-    isReversed = false,
+    isReversed,
+    i18n,
     ...props
 }) => {
     return (
-        <svg role="status"
-             className={clsx(
+        <svg
+            aria-label={i18n?.loadingLabel || 'Loading'}
+            className={clsx(
                 ['moonstone-loader', styles['moonstone-loader']],
                 [`moonstone-loader_${size}`, styles[`moonstone-loader_${size}`]],
-                className
-             )}
-             {...props}
+                className,
+            )}
+            role="status"
+            {...props}
         >
             <circle
                 className={clsx(
                     ['moonstone-loader_circle', styles['moonstone-loader_circle']],
-                    ['moonstone-loader_background', styles['moonstone-loader_background']]
+                    ['moonstone-loader_background', styles['moonstone-loader_background']],
                 )}
                 cx="50%"
                 cy="50%"
@@ -31,7 +35,7 @@ export const Loader: React.FC<LoaderProps> = ({
                 className={clsx(
                     ['moonstone-loader_circle', styles['moonstone-loader_circle']],
                     ['moonstone-loader_animation', styles['moonstone-loader_animation']],
-                    isReversed && ['moonstone-loader_reversed', styles['moonstone-loader_reversed']]
+                    isReversed && ['moonstone-loader_reversed', styles['moonstone-loader_reversed']],
                 )}
                 cx="50%"
                 cy="50%"

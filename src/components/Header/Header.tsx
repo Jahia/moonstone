@@ -1,14 +1,17 @@
-import React from 'react';
 import clsx from 'clsx';
+import React from 'react';
 
-import {HeaderProps} from './Header.types';
-import {Separator, Typography} from '~/components';
+import { Separator, Typography } from '~/components';
+import { layout } from '~/globals/css-utils.js';
+import { warnOnce } from '~/utils/warnOnce';
+
+import type { HeaderProps } from './Header.types';
+
 import styles from './Header.module.scss';
-import {layout} from '~/globals/css-utils.js';
 
 export const Header: React.FC<HeaderProps> = ({
     title,
-    search = null,
+    search,
     mainActions,
     status,
     contentType,
@@ -16,6 +19,7 @@ export const Header: React.FC<HeaderProps> = ({
     toolbarLeft,
     backButton = null,
     breadcrumb,
+    i18n,
     className,
     ...props
 }: HeaderProps) => {
@@ -23,7 +27,7 @@ export const Header: React.FC<HeaderProps> = ({
     const hasToolbar = Boolean(toolbarLeft || toolbarRight);
 
     if (backButton !== null) {
-        console.warn('backButton is deprecated and will be removed in a future release.');
+        warnOnce('Header.backButton', 'backButton is deprecated and will be removed in a future release.');
     }
 
     return (
@@ -34,7 +38,7 @@ export const Header: React.FC<HeaderProps> = ({
                     ['moonstone-header_main', styles['moonstone-header_main']],
                     ['flexRow', layout.flexRow],
                     ['alignCenter', layout.alignCenter],
-                    ['flexFluid', layout.flexFluid]
+                    ['flexFluid', layout.flexFluid],
                 )}
             >
                 { backButton && (
@@ -45,13 +49,14 @@ export const Header: React.FC<HeaderProps> = ({
 
                 <Typography
                     isNowrap
-                    component="h1"
-                    variant="title"
                     className={clsx(
                         ['flexFluid', layout.flexFluid],
-                        ['moonstone-header_title', styles['moonstone-header_title']]
+                        ['moonstone-header_title', styles['moonstone-header_title']],
                     )}
-                >{title}
+                    component="h1"
+                    variant="title"
+                >
+                    {title}
                 </Typography>
 
                 { search && (
@@ -66,7 +71,7 @@ export const Header: React.FC<HeaderProps> = ({
                             'moonstone-header_mainActions',
                             ['moonstone-header_actions', styles['moonstone-header_actions']],
                             ['flexRow', layout.flexRow],
-                            ['alignCenter', layout.alignCenter]
+                            ['alignCenter', layout.alignCenter],
                         )}
                     >
                         { mainActions }
@@ -79,7 +84,7 @@ export const Header: React.FC<HeaderProps> = ({
                     className={clsx(
                         ['flexRow_between', layout.flexRow_between],
                         ['alignCenter', layout.alignCenter],
-                        ['moonstone-header_information', styles['moonstone-header_information']]
+                        ['moonstone-header_information', styles['moonstone-header_information']],
                     )}
                 >
                     <div
@@ -87,11 +92,11 @@ export const Header: React.FC<HeaderProps> = ({
                             ['flexRow_nowrap', layout.flexRow_nowrap],
                             ['alignCenter', layout.alignCenter],
                             ['flexFluid', layout.flexFluid],
-                            ['moonstone-header_informationLeft', styles['moonstone-header_informationLeft']]
+                            ['moonstone-header_informationLeft', styles['moonstone-header_informationLeft']],
                         )}
                     >
                         { breadcrumb }
-                        <Separator variant="vertical" spacing="small" invisible="firstOrLastChild"/>
+                        <Separator invisible="firstOrLastChild" spacing="small" variant="vertical"/>
                         { contentType }
                     </div>
                     {status && (
@@ -99,7 +104,7 @@ export const Header: React.FC<HeaderProps> = ({
                             className={clsx(
                                 ['flexRow_reverse', layout.flexRow_reverse],
                                 ['moonstone-header_informationRight', styles['moonstone-header_informationRight']],
-                                ['moonstone-header_actions', styles['moonstone-header_actions']]
+                                ['moonstone-header_actions', styles['moonstone-header_actions']],
                             )}
                         >
                             { status }
@@ -112,19 +117,20 @@ export const Header: React.FC<HeaderProps> = ({
                 <>
                     {hasInformationArea && <Separator spacing="none"/>}
                     <div
-                        role="toolbar"
+                        aria-label={i18n?.toolbarLabel || 'Page actions'}
                         className={clsx(
                             ['flexRow_between', layout.flexRow_between],
                             ['alignCenter', layout.alignCenter],
-                            ['moonstone-header_toolbar', styles['moonstone-header_toolbar']]
+                            ['moonstone-header_toolbar', styles['moonstone-header_toolbar']],
                         )}
+                        role="group"
                     >
                         <div
                             className={clsx(
                                 ['flexRow', layout.flexRow],
                                 ['alignCenter', layout.alignCenter],
                                 ['flexFluid', layout.flexFluid],
-                                ['moonstone-header_actions', styles['moonstone-header_actions']]
+                                ['moonstone-header_actions', styles['moonstone-header_actions']],
                             )}
                         >
                             { toolbarLeft }

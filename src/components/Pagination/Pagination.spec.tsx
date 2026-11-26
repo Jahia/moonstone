@@ -1,7 +1,7 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import {Pagination} from './index';
+import { Pagination } from './index';
 
 describe('Pagination', () => {
     const defaultProps = {
@@ -10,7 +10,7 @@ describe('Pagination', () => {
         itemsPerPage: 10,
         itemsPerPageOptions: [5, 10, 25],
         onPageChange: vi.fn(),
-        onItemsPerPageChange: vi.fn()
+        onItemsPerPageChange: vi.fn(),
     };
 
     beforeEach(() => {
@@ -26,12 +26,12 @@ describe('Pagination', () => {
         render(
             <Pagination
                 {...defaultProps}
-                data-testid="moonstone-pagination"
                 className="test-className"
-            />
+                data-testid="moonstone-pagination"
+            />,
         );
         expect(screen.getByTestId('moonstone-pagination')).toHaveClass(
-            'test-className'
+            'test-className',
         );
     });
 
@@ -46,7 +46,7 @@ describe('Pagination', () => {
     });
 
     it('should display correct range info on last page with partial items', () => {
-        render(<Pagination {...defaultProps} totalOfItems={95} currentPage={10}/>);
+        render(<Pagination {...defaultProps} currentPage={10} totalOfItems={95}/>);
         expect(screen.getByTestId('pagination-total-items')).toHaveTextContent('91-95 of 95');
     });
 
@@ -124,11 +124,40 @@ describe('Pagination', () => {
         render(
             <Pagination
                 {...defaultProps}
-                label={{itemsPerPage: 'Rows', of: 'out of'}}
-            />
+                label={{ itemsPerPage: 'Rows', of: 'out of' }}
+            />,
         );
         expect(screen.getByTestId('pagination-total-items')).toHaveTextContent('1-10 out of 100');
         expect(screen.getByText('Rows')).toBeInTheDocument();
+    });
+
+    it('should name the navigation buttons', () => {
+        render(<Pagination {...defaultProps}/>);
+        expect(screen.getByRole('button', { name: 'First page' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Previous page' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Next page' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Last page' })).toBeInTheDocument();
+    });
+
+    it('should let the consumer translate the navigation button names', () => {
+        render(
+            <Pagination
+                {...defaultProps}
+                i18n={{ itemsPerPage: 'Éléments', of: 'sur', firstPage: 'Première page', previousPage: 'Page précédente', nextPage: 'Page suivante', lastPage: 'Dernière page' }}
+            />,
+        );
+        expect(screen.getByRole('button', { name: 'Première page' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Page précédente' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Page suivante' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Dernière page' })).toBeInTheDocument();
+    });
+
+    it('should keep the default labels the consumer does not translate', () => {
+        render(<Pagination {...defaultProps} i18n={{ firstPage: 'Première page' }}/>);
+        expect(screen.getByRole('button', { name: 'Première page' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Last page' })).toBeInTheDocument();
+        expect(screen.getByText('Items')).toBeInTheDocument();
+        expect(screen.getByTestId('pagination-total-items')).toHaveTextContent('1-10 of 100');
     });
 
     it('should render the items per page dropdown', () => {
@@ -137,14 +166,14 @@ describe('Pagination', () => {
     });
 
     it('should calculate lastPage correctly with different itemsPerPage', () => {
-        render(<Pagination {...defaultProps} itemsPerPage={25} currentPage={4}/>);
+        render(<Pagination {...defaultProps} currentPage={4} itemsPerPage={25}/>);
         // With 100 items and 25 per page, last page is 4
         expect(screen.getByTestId('pagination-button-next-page')).toBeDisabled();
         expect(screen.getByTestId('pagination-button-last-page')).toBeDisabled();
     });
 
     it('should show correct range when totalOfItems is less than itemsPerPage', () => {
-        render(<Pagination {...defaultProps} totalOfItems={3} itemsPerPage={10}/>);
+        render(<Pagination {...defaultProps} itemsPerPage={10} totalOfItems={3}/>);
         expect(screen.getByTestId('pagination-total-items')).toHaveTextContent('1-3 of 3');
     });
 });

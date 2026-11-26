@@ -1,7 +1,8 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {BaseInput} from './index';
-import {Love} from '~/icons';
+
+import { BaseInput } from './index';
+import { Love } from '~/icons';
 
 describe('BaseInput', () => {
     it('should render', () => {
@@ -10,31 +11,43 @@ describe('BaseInput', () => {
     });
 
     it('should display additional className', () => {
-        const {container} = render(<BaseInput className="test-class"/>);
+        const { container } = render(<BaseInput className="test-class"/>);
         expect(container.querySelector('.test-class')).toBeInTheDocument();
     });
 
     it('should display additional attributes', () => {
-        const {container} = render(<BaseInput data-test="test"/>);
+        const { container } = render(<BaseInput data-test="test"/>);
         expect(
-            container.querySelector('[data-test="test"]')
+            container.querySelector('[data-test="test"]'),
         ).toBeInTheDocument();
     });
 
+    it('should forward aria-invalid and aria-describedby to the input', () => {
+        render(
+            <>
+                <BaseInput aria-describedby="error" aria-invalid="true" aria-label="Title"/>
+                <span id="error">Required</span>
+            </>,
+        );
+        const input = screen.getByRole('textbox', { name: 'Title' });
+        expect(input).toBeInvalid();
+        expect(input).toHaveAccessibleDescription('Required');
+    });
+
     it('should have specified id', () => {
-        const {container} = render(<BaseInput id="test-id"/>);
+        const { container } = render(<BaseInput id="test-id"/>);
         expect(container.querySelector('#test-id')).toBeInTheDocument();
     });
 
     it('should have specified placeholder', () => {
         render(<BaseInput placeholder="test-placeholder"/>);
         expect(
-            screen.getByPlaceholderText('test-placeholder')
+            screen.getByPlaceholderText('test-placeholder'),
         ).toBeInTheDocument();
     });
 
     it('should display size class for big input', () => {
-        const {container} = render(<BaseInput size="big"/>);
+        const { container } = render(<BaseInput size="big"/>);
         expect(container.querySelector('.moonstone-big')).toBeInTheDocument();
     });
 
@@ -46,7 +59,7 @@ describe('BaseInput', () => {
     it('should be read only', () => {
         render(<BaseInput isReadOnly data-testid="moonstone-input"/>);
         expect(screen.getByTestId('moonstone-input')).toHaveAttribute(
-            'readonly'
+            'readonly',
         );
     });
 
@@ -63,13 +76,18 @@ describe('BaseInput', () => {
 
         expect(screen.getByDisplayValue('type a value')).toBeInTheDocument();
     });
+
+    it('should let the consumer translate the clear button name', () => {
+        render(<BaseInput defaultValue="test-default-value" i18n={{ clearButton: 'Effacer' }} onClear={() => {}}/>);
+        expect(screen.getByRole('button', { name: 'Effacer' })).toBeInTheDocument();
+    });
 });
 
 describe('UncontrolledBaseInput', () => {
     it('should have specified defaultValue', () => {
         render(<BaseInput defaultValue="test-default-value"/>);
         expect(
-            screen.getByDisplayValue('test-default-value')
+            screen.getByDisplayValue('test-default-value'),
         ).toBeInTheDocument();
     });
 
@@ -80,12 +98,12 @@ describe('UncontrolledBaseInput', () => {
             <BaseInput
                 data-testid="moonstone-input"
                 defaultValue="test-default-value"
-            />
+            />,
         );
         await user.type(screen.getByTestId('moonstone-input'), '-updated');
 
         expect(
-            screen.getByDisplayValue('test-default-value-updated')
+            screen.getByDisplayValue('test-default-value-updated'),
         ).toBeInTheDocument();
     });
 
@@ -98,7 +116,7 @@ describe('UncontrolledBaseInput', () => {
                 data-testid="moonstone-input"
                 defaultValue="test-default-value"
                 onChange={handleChange}
-            />
+            />,
         );
         await user.type(screen.getByTestId('moonstone-input'), '1');
 
@@ -111,10 +129,10 @@ describe('UncontrolledBaseInput', () => {
 
         render(
             <BaseInput
-                variant="search"
                 defaultValue="test-default-value"
+                variant="search"
                 onClear={handleClear}
-            />
+            />,
         );
         await user.click(screen.getByLabelText('Reset'));
 
@@ -137,7 +155,7 @@ describe('ControlledBaseInput', () => {
                 data-testid="moonstone-input"
                 value="test-value"
                 onChange={handleChange}
-            />
+            />,
         );
         await user.type(screen.getByTestId('moonstone-input'), '1');
 
@@ -150,11 +168,11 @@ describe('ControlledBaseInput', () => {
 
         render(
             <BaseInput
-                variant="search"
                 value="test-value"
+                variant="search"
                 onChange={() => null}
                 onClear={handleClear}
-            />
+            />,
         );
         await user.click(screen.getByLabelText('Reset'));
 

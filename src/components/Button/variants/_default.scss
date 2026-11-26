@@ -1,4 +1,5 @@
 @use "../../../utils/mixins" as *;
+@use "../../../tokens/colors/palette";
 
 @mixin default_disabled {
     color: var(--moon-color-gray_dark);
@@ -18,20 +19,20 @@
     }
 
     &:hover:not(:disabled) {
-        color: var(--moon-color-accent);
+        color: palette.$color-blue-50;
 
-        border-color: var(--moon-color-accent);
+        border-color: palette.$color-blue-50;
     }
 
     &:focus-visible:not(:disabled) {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:active:not(:disabled) {
         color: var(--moon-color-white);
 
         border-color: var(--moon-color-white);
-        background-color: var(--moon-color-accent);
+        background-color: palette.$color-blue-50;
     }
 
     &.moonstone-reverse {
@@ -51,8 +52,8 @@
 @mixin variant_default_accent {
     color: var(--moon-color-white);
 
-    border: 1px solid var(--moon-color-accent);
-    background-color: var(--moon-color-accent);
+    border: 1px solid palette.$color-blue-50;
+    background-color: palette.$color-blue-50;
 
     &:disabled {
         @include default_disabled;
@@ -61,12 +62,12 @@
     &:hover:not(:disabled) {
         color: var(--moon-color-light);
 
-        border-color: var(--moon-color-accent_dark);
-        background-color: var(--moon-color-accent_dark);
+        border-color: palette.$color-blue-60;
+        background-color: palette.$color-blue-60;
     }
 
     &:focus-visible:not(:disabled) {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:active:not(:disabled) {
@@ -80,8 +81,8 @@
 @mixin variant_default_danger {
     color: var(--moon-color-white);
 
-    border: 1px solid var(--moon-color-danger);
-    background-color: var(--moon-color-danger);
+    border: 1px solid palette.$color-red-50;
+    background-color: palette.$color-red-50;
 
     &:disabled {
         @include default_disabled;

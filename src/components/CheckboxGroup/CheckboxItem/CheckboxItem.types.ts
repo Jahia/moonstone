@@ -1,10 +1,10 @@
-import type {BasicCheckboxProps} from '~/components/Checkbox/Checkbox.types';
+import type { BasicCheckboxProps } from '~/components/Checkbox/Checkbox.types';
 
 type BasicCheckboxItemProps = Omit<BasicCheckboxProps, 'size' | 'id'> & {
     /**
      * Identifier added to the input element
      */
-    id: string;
+    id?: string;
 
     /**
      * Checkbox description
@@ -15,7 +15,7 @@ type BasicCheckboxItemProps = Omit<BasicCheckboxProps, 'size' | 'id'> & {
      * Checkbox label
      */
     label: string;
-}
+};
 
 type ControlledProps = {
     /**
@@ -27,11 +27,12 @@ type ControlledProps = {
      * Function triggered on change of the checkboxItem value
      */
     onChange: (event: React.ChangeEvent<HTMLInputElement>, value: string, checked: boolean) => void;
-}
+};
 
 type UncontrolledProps = {
     /**
      * Whether the checkbox should be checked by default. (uncontrolled)
+     * @default false
      */
     defaultChecked?: boolean;
 
@@ -39,7 +40,7 @@ type UncontrolledProps = {
      * Function triggered on change of the checkboxItem value
      */
     onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: string, checked: boolean) => void;
-}
+};
 
 export type CheckboxItemProps = BasicCheckboxItemProps & Partial<ControlledProps> & Partial<UncontrolledProps>;
 export type ControlledCheckboxItemProps = BasicCheckboxItemProps & ControlledProps;

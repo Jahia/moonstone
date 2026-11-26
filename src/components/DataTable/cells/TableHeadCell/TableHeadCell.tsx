@@ -1,7 +1,10 @@
-import {ArrowDown, ArrowUp} from '~/icons';
 import clsx from 'clsx';
-import {TableCell} from '../TableCell';
-import type {TableHeadCellProps} from './TableHeadCell.types';
+
+import { TableCell } from '../TableCell';
+import { ArrowDown, ArrowUp } from '~/icons';
+
+import type { TableHeadCellProps } from './TableHeadCell.types';
+
 import styles from './TableHeadCell.module.scss';
 
 export const TableHeadCell = ({
@@ -20,24 +23,30 @@ export const TableHeadCell = ({
 
     return (
         <TableCell
+            aria-sort={isSortActive ? sorting?.direction : undefined}
+            scope="col"
             {...props}
+            align={align}
+            className={clsx(styles.tableHeadCell, { [styles.sortable]: isSortable }, className)}
             component="th"
             width={width}
-            align={align}
-            className={clsx(styles.tableHeadCell, {[styles.sortable]: isSortable}, className)}
-            aria-sort={isSortActive ? sorting?.direction : undefined}
             onClick={onClick}
         >
-            {children}
-            {isSortable && (
-                <SortIcon
-                    aria-hidden="true"
-                    className={clsx(
-                        {[styles.sort]: !isSortActive},
-                        {[styles.sortActive]: isSortActive}
-                    )}
-                />
-            )}
+            {isSortable
+                ? (
+                        // The click of the button bubbles to the onClick of the th, which sorts
+                        <button className={styles.sortButton} type="button">
+                            {children}
+                            <SortIcon
+                                className={clsx(
+                                    { [styles.sort]: !isSortActive },
+                                    { [styles.sortActive]: isSortActive },
+                                )}
+                            />
+                        </button>
+                    )
+                // The fragment keeps a header with no label empty: TableCell prints '-' for undefined children
+                : <>{children}</>}
         </TableCell>
     );
 };

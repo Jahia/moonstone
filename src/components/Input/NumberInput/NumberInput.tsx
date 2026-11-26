@@ -1,12 +1,15 @@
-import React, {useRef, useEffect, useImperativeHandle} from 'react';
-import type {NumberInputProps} from './NumberInput.types';
-import {BaseInput} from '../BaseInput';
-import {onArrowIncrementation} from '~/hooks';
-import {filterNumberInputValue} from '~/utils/filterNumberInputValue';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
+
+import { BaseInput } from '../BaseInput';
+import { mergeHandlers, onArrowIncrementation } from '~/hooks';
+import { filterNumberInputValue } from '~/utils/filterNumberInputValue';
+import { warnOnce } from '~/utils/warnOnce';
+
+import type { NumberInputProps } from './NumberInput.types';
 
 const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(({
-    allowNegative = false,
-    allowDecimal = false,
+    allowNegative,
+    allowDecimal,
     separator = '.',
     step = 1,
     min,
@@ -15,11 +18,11 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(({
     ...props
 }, ref) => {
     if (((max && max < 0) || (min && min < 0)) && !allowNegative) {
-        console.warn('Warning: A min or max prop has been set to a negative but allowNegative is set to false.');
+        warnOnce('NumberInput.allowNegative', 'Warning: A min or max prop has been set to a negative but allowNegative is set to false.');
     }
 
     if (max && min && max < min) {
-        console.warn('Warning: Maximum value is inferior to minimum value.');
+        warnOnce('NumberInput.min-max', 'Warning: Maximum value is inferior to minimum value.');
     }
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -53,20 +56,26 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(({
 
     return (
         <BaseInput
-            ref={inputRef}
-            filterFunction={filterNumberInputValue}
-            inputMode={allowDecimal ? 'decimal' : 'numeric'}
-            min={min}
-            max={max}
             allowDecimal={allowDecimal}
             allowNegative={allowNegative}
+            filterFunction={filterNumberInputValue}
+            inputMode={allowDecimal ? 'decimal' : 'numeric'}
+            max={max}
+            min={min}
+            ref={inputRef}
             separator={separator}
-            {...props}
+            {...mergeHandlers(props, onArrowIncrementation({
+                ref: inputRef,
+                step: step,
+                allowNegative: allowNegative,
+                min: min,
+                max: max,
+                separator: separator,
+            }))}
             onChange={handleOnChange}
-            {...onArrowIncrementation({ref: inputRef, step: step, allowNegative: allowNegative, min: min, max: max, separator: separator})}
-            />
+        />
     );
 });
 
 NumberInput.displayName = 'NumberInput';
-export {NumberInput};
+export { NumberInput };

@@ -1,13 +1,19 @@
-import React, {useEffect} from 'react';
+import { useMergeRefs } from '@floating-ui/react';
 import clsx from 'clsx';
-import {Cancel} from '~/icons';
-import {Button} from '~/components';
-import type {ControlledBaseInputProps} from './BaseInput.types';
-import {layout} from '~/globals/css-utils.js';
+import React, { useEffect, useRef } from 'react';
+
+import { Button } from '~/components';
+import { useFieldAria, useFieldControlId } from '~/components/Field/Field.context';
+import { layout } from '~/globals/css-utils.js';
+import { Cancel } from '~/icons';
+import { warnOnce } from '~/utils/warnOnce';
+
+import type { ControlledBaseInputProps } from './BaseInput.types';
+
 import styles from './BaseInput.module.scss';
 
 const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInputProps>(({
-    value = '',
+    value,
     id,
     role,
     placeholder,
@@ -18,10 +24,12 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
     icon,
     variant = 'outlined',
     isShowClearButton,
+    i18n,
     prefixComponents,
     postfixComponents,
     onClick,
     onKeyPress,
+    onKeyDown,
     onKeyUp,
     onClear,
     onChange,
@@ -31,16 +39,18 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
     ...props
 }, ref) => {
     const isFilled = value !== '';
+    const fieldAria = useFieldAria(props);
+    const { id: controlId, ref: fieldRef } = useFieldControlId(id);
     const classNameProps = clsx(
         ['moonstone-baseInput', styles['moonstone-baseInput']],
         [`moonstone-${size}`, size === 'big' && styles[`moonstone-${size}`]],
         [`moonstone-${variant}`, variant === 'outlined' && styles[`moonstone-${variant}`]],
-        className
+        className,
     );
 
     useEffect(() => {
         if (focusOnField && !isDisabled && !isReadOnly && ref && typeof ref === 'object') {
-            ref.current.focus({preventScroll: true});
+            ref.current.focus({ preventScroll: true });
         }
     }, [focusOnField, isDisabled, isReadOnly, ref]);
 
@@ -53,14 +63,28 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
         };
     }
 
+    // DateTimeInput forwards a callback ref, so the input is reached through an inner one
+    const inputRef = useRef<HTMLInputElement>(null);
+    const mergedRef = useMergeRefs([inputRef, ref, fieldRef]);
+    const pressedKeys = useRef(new Set<string>());
+
+    const handleClear: React.MouseEventHandler = (e) => {
+        onClear(e);
+        // Unless onClear moved it, focus goes back to the field
+        if (document.activeElement === e.currentTarget) {
+            inputRef.current.focus();
+        }
+    };
+
     return (
+        // oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- the consumer's onClick; the input inside takes the keyboard
         <div className={classNameProps} role={role} onClick={onClick}>
             {icon && (
                 <div
                     className={clsx(
                         ['moonstone-baseInput_icon', styles['moonstone-baseInput_icon']],
                         ['flexRow_nowrap', layout.flexRow_nowrap],
-                        ['alignCenter', layout.alignCenter]
+                        ['alignCenter', layout.alignCenter],
                     )}
                 >
                     <icon.type {...icon.props} focusable="false"/>
@@ -71,49 +95,59 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
                     ['flexRow', layout.flexRow],
                     ['alignCenter', layout.alignCenter],
                     ['flexFluid', layout.flexFluid],
-                    ['moonstone-baseInput_elementsWrapper', styles['moonstone-baseInput_elementsWrapper']]
+                    ['moonstone-baseInput_elementsWrapper', styles['moonstone-baseInput_elementsWrapper']],
                 )}
             >
                 {prefixComponents}
                 <input
-                    ref={ref}
-                    className={clsx(
-                        ['moonstone-baseInput-element', styles['moonstone-baseInput-element']],
-                        [`moonstone-${size}`, size === 'big' && styles[`moonstone-${size}`]]
-                    )}
-                    type="text"
-                    value={value}
-                    role={role === 'search' ? 'searchbox' : undefined}
-                    id={id}
-                    placeholder={placeholder}
                     disabled={isDisabled}
                     readOnly={isReadOnly}
-                    onChange={onChange}
+                    className={clsx(
+                        ['moonstone-baseInput-element', styles['moonstone-baseInput-element']],
+                        [`moonstone-${size}`, size === 'big' && styles[`moonstone-${size}`]],
+                    )}
+                    id={controlId}
+                    placeholder={placeholder}
+                    ref={mergedRef}
+                    role={role === 'search' ? 'searchbox' : undefined}
+                    type="text"
+                    value={value}
                     onBlur={onBlur}
+                    onChange={onChange}
                     onFocus={onFocus}
-                    onKeyUp={e => {
+                    onKeyDown={(e) => {
+                        pressedKeys.current.add(e.key);
+                        onKeyDown?.(e);
+                    }}
+                    onKeyUp={(e) => {
+                        // Pressed elsewhere, e.g. Enter on the clear button, which moves focus here on keydown
+                        if (!pressedKeys.current.delete(e.key)) {
+                            return;
+                        }
+
                         if (onKeyPress) {
-                            console.warn('onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
+                            warnOnce('BaseInput.onKeyPress', 'onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.');
                             onKeyPress(e);
                         }
 
                         onKeyUp?.(e);
                     }}
                     {...props}
+                    {...fieldAria}
                 />
                 {postfixComponents}
             </div>
             { onClear && isFilled && !isDisabled && !isReadOnly && (
                 <Button
+                    aria-label={i18n?.clearButton || 'Reset'}
                     className={clsx(
                         ['moonstone-baseInput_clearButton', styles['moonstone-baseInput_clearButton']],
                         ['flexRow_center', layout.flexRow_center],
-                        ['alignCenter', layout.alignCenter]
+                        ['alignCenter', layout.alignCenter],
                     )}
-                    variant="ghost"
                     icon={<Cancel/>}
-                    aria-label="Reset"
-                    onClick={onClear}
+                    variant="ghost"
+                    onClick={handleClear}
                 />
             )}
         </div>
@@ -121,4 +155,4 @@ const ControlledBaseInput = React.forwardRef<HTMLInputElement, ControlledBaseInp
 });
 
 ControlledBaseInput.displayName = 'ControlledBaseInput';
-export {ControlledBaseInput};
+export { ControlledBaseInput };

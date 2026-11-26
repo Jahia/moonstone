@@ -1,19 +1,39 @@
-import React from 'react';
 import clsx from 'clsx';
-import {Typography} from '~/components/Typography';
-import {AccordionContext} from '~/components/Accordion/Accordion.context';
-import type {AccordionItemProps} from './AccordionItem.types';
-import {onAccessibleClick} from '~/hooks';
-import {icons, layout} from '~/globals/css-utils.js';
+import React, { useId } from 'react';
+
+import { AccordionContext } from '~/components/Accordion/Accordion.context';
+import { Typography } from '~/components/Typography';
+import { icons, layout } from '~/globals/css-utils.js';
+import { shouldIgnoreKey } from '~/hooks';
+
+import type { AccordionItemProps } from './AccordionItem.types';
+
 import styles from './AccordionItem.module.scss';
 
-export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = null, onClick = () => undefined, className, children, ...props}) => {
+export const AccordionItem: React.FC<AccordionItemProps> = ({
+    id, label, icon, onClick, className, children, ...props
+}) => {
     const context = React.useContext(AccordionContext);
     const open = context.currentItem === id;
+    const buttonId = useId();
 
-    const handleClick = (e: React.MouseEvent | React.KeyboardEvent, isOpen: boolean) => {
-        onClick(e, !isOpen);
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        onClick?.(e, !open);
         context.onSetOpenedItem(id);
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+        if (shouldIgnoreKey(e) || (e.key !== 'ArrowDown' && e.key !== 'ArrowUp')) {
+            return;
+        }
+
+        const accordion = e.currentTarget.closest('.moonstone-accordion');
+        const headers = Array.from(accordion?.querySelectorAll<HTMLButtonElement>('.moonstone-accordionItem_header') ?? []);
+        const next = headers[headers.indexOf(e.currentTarget) + (e.key === 'ArrowDown' ? 1 : -1)];
+        if (next) {
+            e.preventDefault();
+            next.focus();
+        }
     };
 
     return (
@@ -24,52 +44,58 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({id, label, icon = n
                 context.isReversed && ['moonstone-reversed', styles['moonstone-reversed']],
                 ['flexCol', layout.flexCol],
                 open ? ['flexFluid', layout.flexFluid] : null,
-                className
+                className,
             )}
         >
-            <header
-                className={clsx(
-                    ['moonstone-accordionItem_header', styles['moonstone-accordionItem_header']],
-                    open && ['moonstone-selected', styles['moonstone-selected']],
-                    context.isReversed && ['moonstone-reversed', styles['moonstone-reversed']],
-                    ['flexRow', layout.flexRow],
-                    ['alignCenter', layout.alignCenter]
-                )}
-                aria-controls={id}
-                aria-expanded={open}
-                {...onAccessibleClick({onClick: e => handleClick(e, open)})}
-                role="accordion-item"
-            >
-                {icon &&
-                    (
-                        <div className={clsx(
-                            ['moonstone-accordionItem_iconContainer', styles['moonstone-accordionItem_iconContainer']],
-                            ['flexRow_center', layout.flexRow_center],
-                            ['alignCenter', layout.alignCenter]
-                        )}
-                        >
-                            {icon && <icon.type {...icon.props} size="big" className={clsx('moonstone-icon_big', icons['moonstone-icon_big'], icon.props.className)}/>}
-                        </div>
-                    )}
+            <Typography component="h3">
                 <Typography
-                    isNowrap
-                    variant="subheading"
-                    weight={open ? 'bold' : 'default'}
-                    className={clsx('flexFluid', layout.flexFluid)}
+                    // Kept while closed: referencing an unrendered panel is valid when aria-expanded is false
+                    aria-controls={id}
+                    aria-expanded={open}
+                    className={clsx(
+                        ['moonstone-accordionItem_header', styles['moonstone-accordionItem_header']],
+                        open && ['moonstone-selected', styles['moonstone-selected']],
+                        context.isReversed && ['moonstone-reversed', styles['moonstone-reversed']],
+                        ['flexRow', layout.flexRow],
+                        ['alignCenter', layout.alignCenter],
+                    )}
+                    component="button"
+                    id={buttonId}
+                    type="button"
+                    onClick={handleClick}
+                    onKeyDown={handleKeyDown}
                 >
-                    {label}
+                    {icon && (
+                        <icon.type
+                            {...icon.props}
+                            className={clsx('moonstone-icon_big', icons['moonstone-icon_big'], styles.accordionItem_icon, icon.props.className)}
+                            size="big"
+                        />
+                    )}
+                    <Typography
+                        isNowrap
+                        className={clsx('flexFluid', layout.flexFluid)}
+                        component="span"
+                        variant="subheading"
+                        weight={open ? 'bold' : 'default'}
+                    >
+                        {label}
+                    </Typography>
                 </Typography>
-            </header>
+            </Typography>
 
             {/* Accordion content */}
-            {open &&
-                (
-                    <div className={clsx(
-                        ['moonstone-accordionItem_content', styles['moonstone-accordionItem_content']],
-                        ['flexFluid', layout.flexFluid],
-                        ['flexCol_nowrap', layout.flexCol_nowrap]
-                    )}
-                         role="region"
+            {open
+                && (
+                    <div
+                        aria-labelledby={buttonId}
+                        className={clsx(
+                            ['moonstone-accordionItem_content', styles['moonstone-accordionItem_content']],
+                            ['flexFluid', layout.flexFluid],
+                            ['flexCol_nowrap', layout.flexCol_nowrap],
+                        )}
+                        id={id}
+                        role="region"
                     >
                         {children}
                     </div>

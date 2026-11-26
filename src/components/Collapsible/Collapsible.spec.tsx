@@ -1,20 +1,21 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {Collapsible} from './index';
+
+import { Collapsible } from './index';
 
 describe('Collapsible', () => {
     it('should display additional className', () => {
         render(
             <Collapsible
+                className="extra"
                 data-testid="moonstone-collapsible"
                 label="test"
-                className="extra"
             >
                 content here
-            </Collapsible>
+            </Collapsible>,
         );
         expect(screen.getByTestId('moonstone-collapsible')).toHaveClass(
-            'extra'
+            'extra',
         );
     });
 });
@@ -23,13 +24,13 @@ describe('UncontrolledCollapsible', () => {
     it('should be collapsed by default', () => {
         render(<Collapsible label="test">content here</Collapsible>);
         expect(
-            screen.getByRole('button', {expanded: false})
+            screen.getByRole('button', { expanded: false }),
         ).toBeInTheDocument();
     });
     it('should be expanded when isDefaultExpanded is set to true', () => {
         render(<Collapsible isDefaultExpanded label="test">content here</Collapsible>);
         expect(
-            screen.getByRole('button', {expanded: true})
+            screen.getByRole('button', { expanded: true }),
         ).toBeInTheDocument();
     });
 
@@ -40,14 +41,14 @@ describe('UncontrolledCollapsible', () => {
         await user.click(screen.getByRole('button'));
 
         expect(
-            screen.getByRole('button', {expanded: false})
+            screen.getByRole('button', { expanded: false }),
         ).toBeInTheDocument();
     });
 
     it('should be collapsed when isDefaultExpanded is set to false', () => {
         render(<Collapsible isDefaultExpanded={false} label="test">content here</Collapsible>);
         expect(
-            screen.getByRole('button', {expanded: false})
+            screen.getByRole('button', { expanded: false }),
         ).toBeInTheDocument();
     });
 
@@ -58,7 +59,7 @@ describe('UncontrolledCollapsible', () => {
         await user.click(screen.getByRole('button'));
 
         expect(
-            screen.getByRole('button', {expanded: true})
+            screen.getByRole('button', { expanded: true }),
         ).toBeInTheDocument();
     });
 
@@ -71,27 +72,39 @@ describe('UncontrolledCollapsible', () => {
 
         expect(onClick).toHaveBeenCalled();
     });
+
+    it('should not throw when clicked without onClick', async () => {
+        const user = userEvent.setup();
+        const onError = vi.fn();
+        window.addEventListener('error', onError);
+
+        render(<Collapsible label="test">content here</Collapsible>);
+        await user.click(screen.getByRole('button'));
+
+        window.removeEventListener('error', onError);
+        expect(onError).not.toHaveBeenCalled();
+    });
 });
 
 describe('ControlledCollapsible', () => {
     it('should be collapsed by default', () => {
         render(<Collapsible label="test">content here</Collapsible>);
         expect(
-            screen.getByRole('button', {expanded: false})
+            screen.getByRole('button', { expanded: false }),
         ).toBeInTheDocument();
     });
 
     it('should be expanded when isExpanded is set to true', () => {
         render(<Collapsible isExpanded label="test">content here</Collapsible>);
         expect(
-            screen.getByRole('button', {expanded: true})
+            screen.getByRole('button', { expanded: true }),
         ).toBeInTheDocument();
     });
 
     it('should be collapsed when isExpanded is set to false', () => {
         render(<Collapsible isExpanded={false} label="test">content here</Collapsible>);
         expect(
-            screen.getByRole('button', {expanded: false})
+            screen.getByRole('button', { expanded: false }),
         ).toBeInTheDocument();
     });
 
@@ -103,5 +116,17 @@ describe('ControlledCollapsible', () => {
         await user.click(screen.getByRole('button'));
 
         expect(onClick).toHaveBeenCalled();
+    });
+
+    it('should not throw when clicked without onClick', async () => {
+        const user = userEvent.setup();
+        const onError = vi.fn();
+        window.addEventListener('error', onError);
+
+        render(<Collapsible isExpanded label="test">content here</Collapsible>);
+        await user.click(screen.getByRole('button'));
+
+        window.removeEventListener('error', onError);
+        expect(onError).not.toHaveBeenCalled();
     });
 });

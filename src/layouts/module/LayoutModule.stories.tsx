@@ -1,54 +1,56 @@
-import {Meta, StoryObj} from '@storybook/react-vite';
-import {LayoutModule} from './index';
+import { LayoutModule } from './index';
+import markdownNotes from './LayoutModule.md?raw';
 import {
+    FakeContent,
     FakeSecondaryNavigation,
-    FakeContent
 } from '~/__storybook__/FakeComponents';
-import markdownNotes from './LayoutModule.md';
-import type {LayoutModuleProps} from './LayoutModule.types';
+
+import type { LayoutModuleProps } from './LayoutModule.types';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Layouts/LayoutModule',
     component: LayoutModule,
     parameters: {
-        notes: {markdown: markdownNotes}
+        componentSubtitle: 'A module\'s screen, with its own navigation.',
+        docs: { description: { component: markdownNotes } },
     },
     argTypes: {
         navigation: {
-            control: false
+            control: false,
         },
         content: {
-            control: false
-        }
-    }
+            control: false,
+        },
+    },
 } as Meta<typeof LayoutModule>;
 
-type Story = StoryObj<typeof LayoutModule>
+type Story = StoryObj<typeof LayoutModule>;
 
 const Template = (args: LayoutModuleProps) => (
     <div
-    style={{
-      width: '100vw',
-      height: '100vh',
-      display: 'flex'
-    }}
+        style={{
+            width: '100vw',
+            height: '100vh',
+            display: 'flex',
+        }}
     >
         <LayoutModule
-      navigation={<FakeSecondaryNavigation/>}
-      content={<FakeContent/>}
-      {...args}
-    />
+            content={<FakeContent/>}
+            navigation={<FakeSecondaryNavigation/>}
+            {...args}
+        />
     </div>
 );
 
 export const Default: Story = {
-    render: Template
+    render: Template,
 };
 
 export const Loading: Story = {
     render: Template,
 
     args: {
-        isLoading: true
-    }
+        isLoading: true,
+    },
 };

@@ -1,63 +1,67 @@
-import React, {useState} from 'react';
-import {StoryObj, Meta} from '@storybook/react-vite';
+import React, { useState } from 'react';
+
+import { SearchContextInput } from './index';
+import markdownNotes from './SearchContextInput.md?raw';
+import { Dropdown } from '~/components';
+import { Collections, Person, SiteWeb } from '~/icons';
+
+import type { SearchContextInputProps } from './SearchContextInput.types';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { DropdownDataOption } from '~/components/Dropdown/Dropdown.types';
+
 import '~/__storybook__/storybook.scss';
 
-import {SearchContextInput} from './index';
-import type {SearchContextInputProps} from './SearchContextInput.types';
-
-import {Person, SiteWeb, Collections} from '~/icons';
-import {Dropdown} from '~/components';
-import {DropdownDataOption} from '~/components/Dropdown/Dropdown.types';
-
 export default {
-    title: 'Components/Input',
+    title: 'Components/SearchContextInput',
     component: SearchContextInput,
     decorators: [
         StoryCmp => (
-            <div style={{width: '50vw'}}>
+            <div style={{ width: '50vw' }}>
                 <StoryCmp/>
             </div>
-        )
+        ),
     ],
     parameters: {
-        layout: 'centered'
+        layout: 'centered',
+        componentSubtitle: 'A search box where the user also picks the scope.',
+        docs: { description: { component: markdownNotes } },
     },
     args: {
         placeholder: 'Placeholder text',
-        defaultValue: 'Default value'
+        defaultValue: 'Default value',
     },
     argTypes: {
-        onChange: {action: 'onChange'},
-        onClick: {action: 'onClick'},
-        onBlur: {action: 'onBlur'},
-        onFocus: {action: 'onFocus'}
-    }
+        onChange: { action: 'onChange' },
+        onClick: { action: 'onClick' },
+        onBlur: { action: 'onBlur' },
+        onFocus: { action: 'onFocus' },
+    },
 } as Meta<typeof SearchContextInput>;
 
 const searchContextData: DropdownDataOption[] = [
     {
         label: 'Global users',
         value: 'globalUser',
-        iconStart: <Person/>
+        iconStart: <Person/>,
     },
     {
         label: 'Media',
         value: 'media',
-        iconStart: <Collections/>
+        iconStart: <Collections/>,
     },
     {
         label: 'Site',
         value: 'site',
-        iconStart: <SiteWeb/>
-    }
+        iconStart: <SiteWeb/>,
+    },
 ];
 
 export const SearchContext: StoryObj<SearchContextInputProps> = {
-    render: args => {
+    render: (args) => {
         const [contextOption, setContextOption] = useState(searchContextData[0]);
         const handleDropdownOnChange = (
             e: React.MouseEvent,
-            item: DropdownDataOption
+            item: DropdownDataOption,
         ) => {
             setContextOption(item);
         };
@@ -65,19 +69,19 @@ export const SearchContext: StoryObj<SearchContextInputProps> = {
         return (
             <section className="storyWrapper">
                 <SearchContextInput
-          searchContext={
-              <Dropdown
-              data={searchContextData}
-              label={contextOption.label}
-              icon={contextOption.iconStart}
-              value={contextOption.value}
-              onChange={handleDropdownOnChange}
-            />
-          }
-          placeholder="Search and press Enter"
-          {...args}
-        />
+                    placeholder="Search and press Enter"
+                    searchContext={(
+                        <Dropdown
+                            data={searchContextData}
+                            icon={contextOption.iconStart}
+                            label={contextOption.label}
+                            value={contextOption.value}
+                            onChange={handleDropdownOnChange}
+                        />
+                    )}
+                    {...args}
+                />
             </section>
         );
-    }
+    },
 };

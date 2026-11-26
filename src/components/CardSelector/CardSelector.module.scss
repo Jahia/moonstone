@@ -1,20 +1,28 @@
 @use '../../utils' as *;
+@use "../../tokens/colors/palette";
 
 $cardSelector-height: 58px;
 
 .moonstone-cardSelector {
+    @include transition(all 0.2s ease-in-out);
+
+    position: relative;
+
     gap: var(--moon-spacing-small);
+    box-sizing: border-box;
     width: 100%;
     height: $cardSelector-height;
     padding: var(--moon-spacing-nano);
 
+    // box-sizing, color and cursor: the defaults of the native button the card used to be
+    color: ButtonText;
+
     border: var(--moon-border-selector);
     border-radius: var(--moon-radius-selector);
     background-color: var(--moon-background-selector);
+    cursor: default;
 
-    transition: all 0.2s ease-in-out;
-
-    &:not([disabled]) {
+    &:not(.moonstone-cardSelector_disabled) {
         &:hover {
             border: var(--moon-border-selector_hover);
             box-shadow: 0 1px 6px var(--moon-color-gray20);
@@ -24,8 +32,12 @@ $cardSelector-height: 58px;
             border: var(--moon-border-selector_active);
         }
 
-        &:focus-visible {
-            @extend %is-focused;
+        &:has(> .cardSelector_button:focus-visible) {
+            @include focus-ring;
+
+            &:hover {
+                @include focus-ring(false, 0 1px 6px var(--moon-color-gray20));
+            }
         }
     }
 
@@ -36,6 +48,32 @@ $cardSelector-height: 58px;
 
         cursor: not-allowed;
     }
+}
+
+.cardSelector_button {
+    gap: var(--moon-spacing-small);
+    align-self: stretch;
+    padding: 0;
+
+    color: inherit;
+
+    border: 0;
+    outline: none;
+    background: none;
+    cursor: inherit;
+
+    // Stretches the click target of the button over the whole card
+    &::after {
+        content: '';
+
+        position: absolute;
+        inset: 0;
+    }
+}
+
+// Above the ::after of the button, so a click on the action does not reach the button
+.moonstone-cardSelector_actions {
+    position: relative;
 }
 
 .moonstone-cardSelector_body {
@@ -64,18 +102,18 @@ $cardSelector-height: 58px;
 }
 
 .moonstone-cardSelector_error {
+    @include transition(all 0.2s ease-in-out);
+
     gap: var(--moon-spacing-nano);
     width: 100%;
     height: $cardSelector-height;
 
-    color: var(--moon-color-warning);
+    color: palette.$color-amber-50;
 
     border: 1px solid var(--moon-color-warning_plain60);
     border-radius: var(--moon-radius-selector);
     background-color: var(--moon-background-selector);
     cursor: pointer;
-
-    transition: all 0.2s ease-in-out;
 
     &[disabled] {
         @extend %selector_disabled;
@@ -87,11 +125,11 @@ $cardSelector-height: 58px;
 
     &:not([disabled]) {
         &:hover {
-            border-color: var(--moon-color-warning);
+            border-color: palette.$color-amber-50;
         }
 
         &:focus-visible {
-            @extend %is-focused;
+            @include focus-ring;
         }
     }
 }

@@ -1,18 +1,23 @@
 @use '../../utils/index' as *;
+@use '../../tokens/colors/focus' as *;
 
 $primaryNavExpanded: 300px;
 $primaryNav: 56px;
 
 .moonstone-primaryNav_logoCaptionGroup {
+    @include transition(visibility 0.15s, opacity 0.2s);
+
     padding-right: 40px;
 
     visibility: hidden;
     opacity: 0;
-
-    transition: visibility 0.15s, opacity 0.2s;
 }
 
 .moonstone-primaryNav {
+    @include transition(width 0.3s);
+
+    @include focus-reversed;
+
     position: fixed;
     top: 0;
     left: 0;
@@ -25,8 +30,6 @@ $primaryNav: 56px;
 
     background: var(--moon-color-dark);
     overflow: hidden;
-
-    transition: width 0.3s;
 
     &.moonstone-expanded {
         z-index: 9000;
@@ -88,6 +91,10 @@ $primaryNav: 56px;
     outline: none;
     background: inherit;
     cursor: pointer;
+
+    &:focus-visible {
+        @include focus-ring;
+    }
 
     &:hover {
         color: var(--moon-color-accent);

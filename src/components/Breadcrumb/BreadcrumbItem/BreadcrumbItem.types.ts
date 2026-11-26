@@ -1,9 +1,8 @@
-import type {ButtonProps} from '~/components/Button/Button.types';
+import type { ButtonProps } from '~/components/Button/Button.types';
 
 export type BreadcrumbItemProps = Omit<ButtonProps, 'variant' | 'size' | 'label'> & {
     /**
-     * Label of the BreadcrumbItem
+     * Name of the page or section the item leads to.
      */
     label?: string;
-}
-
+};

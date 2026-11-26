@@ -1,3 +1,4 @@
+@use "../../utils/motion" as *;
 @use "../../tokens/spacings/spacings" as *;
 @use "../../utils/mixins" as *;
 
@@ -22,7 +23,7 @@
     }
 
     &:focus-visible {
-        @extend %is-focused;
+        @include focus-ring;
     }
 }
 
@@ -33,7 +34,7 @@
 }
 
 .moonstone-collapsible_button_expanded {
-    transition: box-shadow 0.2s ease-in-out 0s;
+    @include transition(box-shadow 0.2s ease-in-out 0s);
 }
 
 .moonstone-collapsible_button_sticky {
@@ -43,15 +44,19 @@
 
     background: var(--moon-color-white);
     box-shadow: -4px 4px 4px -4px var(--moon-color-gray60);
+
+    &:focus-visible {
+        @include focus-ring(false, -4px 4px 4px -4px var(--moon-color-gray60));
+    }
 }
 
 // Chevron icon animation
 .moonstone-collapsible_icon {
+    @include transition(transform 0.2s ease-in-out);
+
     margin-right: $spacing-icon_big;
 
     transform: rotate(0);
-
-    transition: transform 0.2s ease-in-out;
 }
 
 .moonstone-collapsible_icon_expanded {

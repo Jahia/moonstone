@@ -1,6 +1,11 @@
+@use "focus" as *;
+@use "palette";
+
+// 2.21 values, which Jahia modules use: only gray failed WCAG AA, so it takes its Figma "Palette 2" step.
+// Components that fail with these values use _palette.scss instead
 $color-light: #fdfdfd;
 $color-gray-light: #dadada;
-$color-gray: #7a7f88;
+$color-gray: palette.$color-neutral-50;
 $color-gray-dark: #293136;
 $color-dark: #131c21;
 $color-white: #fff;
@@ -122,4 +127,11 @@ $color-purple-dark: #47168f;
     --moon-color-purple_plain40: #ceb1f9;
     --moon-color-purple_plain60: #b78cf8;
     --moon-color-purple_dark: #{$color-purple-dark};
+    --moon-color-focus_outer: #{palette.$color-blue-50};
+    --moon-color-focus_inner: #{$color-white};
+}
+
+.moonstone-reverse,
+.moonstone-reversed {
+    @include focus-reversed;
 }

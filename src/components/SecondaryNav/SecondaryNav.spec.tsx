@@ -1,42 +1,57 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {SecondaryNav, SecondaryNavHeader} from './index';
+
+import { SecondaryNav, SecondaryNavHeader } from './index';
 
 const requiredProps = {
-    header: 'test header'
+    header: 'test header',
 };
 
 describe('SecondaryNav', () => {
     it('should display children content', () => {
         render(<SecondaryNav {...requiredProps}>content here</SecondaryNav>);
-        expect(screen.queryByText('content here')).toBeInTheDocument();
+        expect(screen.getByText('content here')).toBeInTheDocument();
     });
     it('should display a string in the header', () => {
         render(<SecondaryNav {...requiredProps}>content here</SecondaryNav>);
-        expect(screen.queryByText(requiredProps.header)).toBeInTheDocument();
+        expect(screen.getByText(requiredProps.header)).toBeInTheDocument();
     });
 
     it('should add extra attribute', () => {
         render(
-            <SecondaryNav {...requiredProps} data-testid="secondary-nav" data-custom="extra">
+            <SecondaryNav {...requiredProps} data-custom="extra" data-testid="secondary-nav">
                 content here
-            </SecondaryNav>
+            </SecondaryNav>,
         );
         expect(screen.getByTestId('secondary-nav')).toHaveAttribute(
             'data-custom',
-            'extra'
+            'extra',
         );
+    });
+
+    it('should name the resize handle after the navigation by default', () => {
+        render(<SecondaryNav {...requiredProps}>content here</SecondaryNav>);
+        expect(screen.getByRole('separator', { name: 'Secondary' })).toBeInTheDocument();
+    });
+
+    it('should name the resize handle from i18n', () => {
+        render(
+            <SecondaryNav {...requiredProps} i18n={{ resizeHandleLabel: 'Redimensionner', widthUnit: 'pixels' }}>
+                content here
+            </SecondaryNav>,
+        );
+        expect(screen.getByRole('separator', { name: 'Redimensionner' })).toBeInTheDocument();
     });
 
     it('should not be expanded when the menu is hidden', () => {
         render(
-            <SecondaryNav {...requiredProps} data-testid="secondary-nav" isDefaultVisible={false}>
+            <SecondaryNav {...requiredProps} isDefaultVisible={false} data-testid="secondary-nav">
                 content here
-            </SecondaryNav>
+            </SecondaryNav>,
         );
-        expect(screen.getByTestId('secondary-nav')).toHaveAttribute(
+        expect(screen.getByRole('button', { name: 'Toggle secondary navigation' })).toHaveAttribute(
             'aria-expanded',
-            'false'
+            'false',
         );
     });
 
@@ -44,19 +59,19 @@ describe('SecondaryNav', () => {
         render(
             <SecondaryNav {...requiredProps} data-testid="secondary-nav">
                 content here
-            </SecondaryNav>
+            </SecondaryNav>,
         );
-        expect(screen.getByTestId('secondary-nav')).toHaveAttribute(
+        expect(screen.getByRole('button', { name: 'Toggle secondary navigation' })).toHaveAttribute(
             'aria-expanded',
-            'true'
+            'true',
         );
     });
 
     it('should set width to zero when the menu is hidden', () => {
         render(
-            <SecondaryNav {...requiredProps} data-testid="secondary-nav" isDefaultVisible={false}>
+            <SecondaryNav {...requiredProps} isDefaultVisible={false} data-testid="secondary-nav">
                 content here
-            </SecondaryNav>
+            </SecondaryNav>,
         );
         expect(screen.getByTestId('secondary-nav').style.width).toBe('0px');
     });
@@ -67,18 +82,18 @@ describe('SecondaryNav', () => {
         render(
             <SecondaryNav
                 {...requiredProps}
+                isDefaultVisible={false}
                 data-testid="secondary-nav"
                 id="test"
-                isDefaultVisible={false}
             >
                 content here
-            </SecondaryNav>
+            </SecondaryNav>,
         );
         await user.click(screen.getByLabelText('Toggle secondary navigation'));
 
-        expect(screen.getByTestId('secondary-nav')).toHaveAttribute(
+        expect(screen.getByRole('button', { name: 'Toggle secondary navigation' })).toHaveAttribute(
             'aria-expanded',
-            'true'
+            'true',
         );
     });
 
@@ -88,13 +103,13 @@ describe('SecondaryNav', () => {
         render(
             <SecondaryNav {...requiredProps} data-testid="secondary-nav">
                 content here
-            </SecondaryNav>
+            </SecondaryNav>,
         );
         await user.click(screen.getByLabelText('Toggle secondary navigation'));
 
-        expect(screen.getByTestId('secondary-nav')).toHaveAttribute(
+        expect(screen.getByRole('button', { name: 'Toggle secondary navigation' })).toHaveAttribute(
             'aria-expanded',
-            'false'
+            'false',
         );
     });
 
@@ -103,7 +118,7 @@ describe('SecondaryNav', () => {
         render(
             <SecondaryNav {...requiredProps} data-testid="secondary-nav">
                 content here
-            </SecondaryNav>
+            </SecondaryNav>,
         );
         // No error should occur when there is no onClick defined
         await user.click(screen.getByLabelText('Toggle secondary navigation'));
@@ -114,11 +129,32 @@ describe('SecondaryNav', () => {
         const clickHandler = vi.fn();
 
         render(
-            <SecondaryNav {...requiredProps} onToggled={clickHandler}>content here</SecondaryNav>
+            <SecondaryNav {...requiredProps} onToggled={clickHandler}>content here</SecondaryNav>,
         );
         await user.click(screen.getByLabelText('Toggle secondary navigation'));
 
         expect(clickHandler).toHaveBeenCalled();
+    });
+
+    it('should be a named navigation landmark', () => {
+        render(<SecondaryNav {...requiredProps}>content here</SecondaryNav>);
+        expect(screen.getByRole('navigation', { name: 'Secondary' })).toBeInTheDocument();
+    });
+
+    it('should use the given labels', () => {
+        render(
+            <SecondaryNav {...requiredProps} i18n={{ navigationLabel: 'Navigation secondaire', toggleButtonLabel: 'Afficher la navigation' }}>
+                content here
+            </SecondaryNav>,
+        );
+        expect(screen.getByRole('navigation', { name: 'Navigation secondaire' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Afficher la navigation' })).toBeInTheDocument();
+    });
+
+    it('should point the toggle button to the content it hides', () => {
+        render(<SecondaryNav {...requiredProps}>content here</SecondaryNav>);
+        const controlledId = screen.getByRole('button', { name: 'Toggle secondary navigation' }).getAttribute('aria-controls');
+        expect(document.getElementById(controlledId)).toHaveTextContent('content here');
     });
 });
 
@@ -127,8 +163,8 @@ describe('SecondaryNavHeader', () => {
         render(
             <SecondaryNavHeader data-testid="moonstone-SecondaryNavHeader">
                 <span>required children</span>
-            </SecondaryNavHeader>
+            </SecondaryNavHeader>,
         );
-        expect(screen.queryByLabelText('moonstone-secondaryNavHeader')).toBeInTheDocument();
+        expect(screen.getByText('required children')).toBeInTheDocument();
     });
 });

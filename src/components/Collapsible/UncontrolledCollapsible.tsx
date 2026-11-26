@@ -1,22 +1,24 @@
-import React, {useState} from 'react';
-import type {UncontrolledCollapsibleProps} from './Collapsible.types';
-import {ControlledCollapsible} from './ControlledCollapsible';
+import React, { useState } from 'react';
+
+import { ControlledCollapsible } from './ControlledCollapsible';
+
+import type { UncontrolledCollapsibleProps } from './Collapsible.types';
 
 const UncontrolledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, UncontrolledCollapsibleProps> = ({
     children,
-    onClick = () => undefined,
+    onClick,
     isDefaultExpanded = false,
     ...other
 }, ref) => {
     const [isExpanded, setIsExpanded] = useState(isDefaultExpanded);
 
-    const handleOnClick: React.MouseEventHandler = e => {
+    const handleOnClick: React.MouseEventHandler = (e) => {
         setIsExpanded(!isExpanded);
-        onClick(e);
+        onClick?.(e);
     };
 
     return (
-        <ControlledCollapsible ref={ref} isExpanded={isExpanded} onClick={e => handleOnClick(e)} {...other}>
+        <ControlledCollapsible isExpanded={isExpanded} ref={ref} onClick={e => handleOnClick(e)} {...other}>
             {children}
         </ControlledCollapsible>
     );

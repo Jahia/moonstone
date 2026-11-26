@@ -1,5 +1,6 @@
-import {render, screen, waitForElementToBeRemoved} from '@testing-library/react';
-import {Drawer} from './index';
+import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
+
+import { Drawer } from './index';
 
 describe('Drawer', () => {
     it('should display content when open', () => {
@@ -8,7 +9,7 @@ describe('Drawer', () => {
     });
 
     it('should keep content mounted while closing, then remove it', async () => {
-        const {rerender} = render(<Drawer isOpen data-testid="moonstone-drawer">Drawer content</Drawer>);
+        const { rerender } = render(<Drawer isOpen data-testid="moonstone-drawer">Drawer content</Drawer>);
 
         rerender(<Drawer isOpen={false} data-testid="moonstone-drawer">Drawer content</Drawer>);
         // Stays in the DOM in the closed state while the exit animation plays...
@@ -29,12 +30,12 @@ describe('Drawer', () => {
     });
 
     it('should add extra classname', () => {
-        render(<Drawer isOpen data-testid="moonstone-drawer" className="extra">Drawer content</Drawer>);
+        render(<Drawer isOpen className="extra" data-testid="moonstone-drawer">Drawer content</Drawer>);
         expect(screen.getByTestId('moonstone-drawer')).toHaveClass('extra');
     });
 
     it('should add additional attributes', () => {
-        render(<Drawer isOpen data-testid="moonstone-drawer" data-custom="test">Drawer content</Drawer>);
+        render(<Drawer isOpen data-custom="test" data-testid="moonstone-drawer">Drawer content</Drawer>);
         expect(screen.getByTestId('moonstone-drawer')).toHaveAttribute('data-custom', 'test');
     });
 

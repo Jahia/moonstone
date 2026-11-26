@@ -1,11 +1,14 @@
 import clsx from 'clsx';
-import React from 'react';
-import {ChevronDown, ChevronRight} from '~/icons';
+import React, { useId } from 'react';
 
-import {TableCell} from '../TableCell';
-import {Typography} from '~/components';
-import type {TableStructuredCellProps} from './TableStructuredCell.types';
-import {layout} from '~/globals/css-utils.js';
+import { TableCell } from '../TableCell';
+import { Typography } from '~/components';
+import { layout } from '~/globals/css-utils.js';
+import { mergeHandlers } from '~/hooks';
+import { ChevronDown, ChevronRight } from '~/icons';
+
+import type { TableStructuredCellProps } from './TableStructuredCell.types';
+
 import styles from './TableStructuredCell.module.scss';
 
 // Spacing constants for tree structure alignment
@@ -23,26 +26,25 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
             onToggleExpand,
             ...props
         },
-        ref
+        ref,
     ) => {
+        const contentId = useId();
+
         // Render nothing when no children are provided to avoid empty HTML markup
         if (!children) {
             return null;
         }
 
         const indent = depth * indentSpace;
-        const handleToggleExpand: React.MouseEventHandler = event => {
+        const handleToggleExpand: React.MouseEventHandler = (event) => {
             event.stopPropagation();
             onToggleExpand?.();
         };
-
         return (
             <TableCell
-                ref={ref}
                 className={clsx(styles.tableStructuredCell, className)}
-                aria-expanded={isExpanded}
-                onClick={handleToggleExpand}
-                {...props}
+                ref={ref}
+                {...mergeHandlers(props, { onClick: handleToggleExpand })}
             >
                 <div
                     className={clsx(
@@ -51,34 +53,45 @@ export const TableStructuredCell = React.forwardRef<HTMLTableCellElement, TableS
                         layout.alignCenter,
                         {
                             [styles.expandable]: isExpandable,
-                            [styles.scrollable]: isScrollable && !isExpandable
-                        }
+                            [styles.scrollable]: isScrollable && !isExpandable,
+                        },
                     )}
-                    style={{marginLeft: indent}}
+                    style={{ marginLeft: indent }}
                 >
-                    {isExpandable ? (
-                        <>
-                            {isExpanded ?
-                                <ChevronDown/> :
-                                <ChevronRight/>}
-                            <Typography
-                                isNowrap
-                                component="div"
-                                className={clsx(
-                                    layout.flexRow_nowrap,
-                                    layout.alignCenter,
-                                    {[styles.scrollable]: isScrollable}
-                                )}
-                            >
-                                {children}
-                            </Typography>
-                        </>
-                    ) :
-                    children}
+                    {isExpandable
+                        ? (
+                                <>
+                                    {/* Only the chevron is the button: the content may hold a link or a button. Its click bubbles to the onClick of the cell */}
+                                    <Typography
+                                        aria-expanded={isExpanded}
+                                        aria-labelledby={contentId}
+                                        className={styles.toggle}
+                                        component="button"
+                                        type="button"
+                                    >
+                                        {isExpanded
+                                            ? <ChevronDown/>
+                                            : <ChevronRight/>}
+                                    </Typography>
+                                    <Typography
+                                        isNowrap
+                                        className={clsx(
+                                            layout.flexRow_nowrap,
+                                            layout.alignCenter,
+                                            { [styles.scrollable]: isScrollable },
+                                        )}
+                                        component="div"
+                                        id={contentId}
+                                    >
+                                        {children}
+                                    </Typography>
+                                </>
+                            )
+                        : children}
                 </div>
             </TableCell>
         );
-    }
+    },
 );
 
 TableStructuredCell.displayName = 'TableStructuredCell';

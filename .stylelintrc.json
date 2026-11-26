@@ -5,6 +5,9 @@
             "height": ["%"]
         },
         "declaration-no-important": true,
-        "value-keyword-case": ["lower", {"ignoreProperties": ["composes"]}]
+        "value-keyword-case": ["lower", {"ignoreProperties": ["composes"]}],
+        "property-disallowed-list": [["/^transition/", "/^animation/"], {
+            "message": "Use the transition() / animation() mixins from utils/_motion.scss: they turn the motion off for users who enabled \"reduce motion\" in their OS (accessibility, WCAG 2.3.3)."
+        }]
     }
 }

@@ -9,15 +9,14 @@
 // in the compiled CSS output, and thus will be overridden by any styles that come after it
 // import './globals/reset.module.scss';
 
+import '@fontsource-variable/nunito-sans'; // Embed Nunito Sans font
+
 // Prefixed CSS variables
 import './globals/_variables.scss';
 import './tokens/spacings/spacings.scss';
 import './tokens/colors/colors.scss';
 import './tokens/borders/borders.scss';
-
-import '@fontsource-variable/nunito-sans'; // Embed Nunito Sans font
 // }
-
 // Expose the following resources to consumers: {
 import './legacy-global-bundle.css'; // Global styles for legacy HTML/CSS usage
 
@@ -28,5 +27,5 @@ export * from './icons';
 // Re-export Temporal so consumers can build/read the date-time component values without
 // installing temporal-polyfill themselves, and stay instance-compatible with Moonstone.
 // When browsers ship native Temporal, the polyfill defers to it transparently.
-export {Temporal} from 'temporal-polyfill';
+export { Temporal } from 'temporal-polyfill';
 // }

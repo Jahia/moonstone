@@ -35,4 +35,4 @@ export type EmptyCardSelectorProps = Omit<React.ComponentPropsWithRef<'button'>,
      * Function trigger on click
      */
     onClick?: React.MouseEventHandler;
-}
+};

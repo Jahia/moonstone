@@ -1,22 +1,28 @@
-/* eslint-disable complexity */
-import React, {MutableRefObject, useEffect, useMemo, useRef, useState} from 'react';
 import clsx from 'clsx';
-import {layout} from '~/globals/css-utils.js';
-import styles from './Dropdown.module.scss';
-import baseInputStyles from '../Input/BaseInput/BaseInput.module.scss';
+/* eslint-disable complexity */
+import React, { useEffect, useId, useMemo, useRef, useState } from 'react';
+
+import { Tag } from '../Tag';
+import { Button, Loader, Typography } from '~/components';
+import { DropdownMenu, TreeViewMenu } from '~/components/Dropdown';
+import { useFieldAria } from '~/components/Field/Field.context';
+import { layout } from '~/globals/css-utils.js';
+import { onAccessibleClick, shouldIgnoreKey } from '~/hooks';
+import { Cancel, ChevronDown } from '~/icons';
+import { warnOnce } from '~/utils/warnOnce';
 
 import type {
     DropdownData,
-    DropdownDataOption,
     DropdownDataGrouped,
+    DropdownDataOption,
     DropdownProps,
-    HandleSelect
+    HandleSelect,
 } from './Dropdown.types';
-import {DropdownMenu, TreeViewMenu} from '~/components/Dropdown';
-import {Tag} from '../Tag';
-import type {TreeViewData} from '~/components/TreeView/TreeView.types';
-import {Button, Loader, Typography} from '~/components';
-import {Cancel, ChevronDown} from '~/icons';
+import type { MutableRefObject } from 'react';
+import type { TreeViewData } from '~/components/TreeView/TreeView.types';
+
+import baseInputStyles from '../Input/BaseInput/BaseInput.module.scss';
+import styles from './Dropdown.module.scss';
 
 const flatten = (data: TreeViewData[]): TreeViewData[] => {
     const res: TreeViewData[] = [];
@@ -60,7 +66,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     value,
     values,
     isDisabled,
-    isLoading = false,
+    isLoading,
     variant = 'ghost',
     size = 'medium',
     icon,
@@ -69,47 +75,62 @@ export const Dropdown: React.FC<DropdownProps> = ({
     searchEmptyText = 'No results found.',
     imageSize,
     onClear,
+    i18n,
     onChange,
     onBlur,
     onFocus,
     className,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
     ...props
 }) => {
     if (value !== undefined && values !== undefined) {
-        console.warn('The Dropdown component cannot receive both `value` and `values` props.');
+        warnOnce('Dropdown.value-values', 'The Dropdown component cannot receive both `value` and `values` props.');
     }
 
     if (data !== undefined && treeData !== undefined) {
-        console.warn('The Dropdown component cannot receive both `data` and `treeData` props.');
+        warnOnce('Dropdown.data-treeData', 'The Dropdown component cannot receive both `data` and `treeData` props.');
     }
 
     if (label !== undefined) {
-        console.warn('The property `label` is deprecated in the Dropdown component. Use `placeholder` to show text when no value is selected; otherwise, the label for the selected value is automatically displayed.');
+        warnOnce('Dropdown.label', 'The property `label` is deprecated in the Dropdown component. Use `placeholder` to show text when no value is selected; otherwise, the label for the selected value is automatically displayed.');
     }
 
     const [isOpened, setIsOpened] = useState(false);
-    const [focusData, setFocusData] = useState({focused: false, event: null, lastSent: false});
+    const [isFocused, setIsFocused] = useState(false);
+    // A blur owed to the consumer but not delivered yet. It sits in a ref because queuing it
+    // must not trigger a render, and the event object has to survive until the menu closes:
+    // `onBlur` takes the original FocusEvent, and there is none left at that point.
+    const pendingBlurEventRef = useRef<React.FocusEvent | null>(null);
+    // The contract of the published 2.21.1 (ddf86190): onFocus fires once when focus enters, and onBlur only follows a delivered onFocus
+    const isFocusSentRef = useRef(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [minWidth, setMinWith] = useState(null);
     const ref: MutableRefObject<HTMLDivElement> = useRef();
+    const triggerId = useId();
+    const valueId = `${triggerId}-value`;
+    const fieldAria = useFieldAria({ 'aria-label': ariaLabel });
+    const nameIds = ariaLabelledBy ?? fieldAria['aria-labelledby'] ?? (ariaLabel && triggerId);
 
     const isTree = Array.isArray(treeData);
     const flatData = useMemo(() => isTree ? flatten(treeData) : data, [treeData, data, isTree]);
     const isEmpty = flatData.length === 0;
 
+    // Opening the menu moves focus off the trigger; that must not read as leaving the
+    // component, so a queued blur is only reported once the menu is closed again.
     useEffect(() => {
-        if (focusData.focused && focusData.event && !focusData.lastSent && onFocus) {
-            onFocus(focusData.event);
-            setFocusData(p => ({...p, lastSent: true}));
+        if (isFocused || isOpened || !pendingBlurEventRef.current) {
+            return;
         }
-    }, [onFocus, focusData]);
 
-    useEffect(() => {
-        if (!focusData.focused && !isOpened && focusData.event && focusData.lastSent && onBlur) {
-            onBlur(focusData.event);
-            setFocusData(p => ({...p, lastSent: false}));
+        const event = pendingBlurEventRef.current;
+
+        pendingBlurEventRef.current = null;
+        if (isFocusSentRef.current) {
+            isFocusSentRef.current = false;
+            onBlur?.(event);
         }
-    }, [onBlur, isOpened, focusData]);
+    }, [isFocused, isOpened, onBlur]);
 
     // Return nothing if `data` isn't an array
     if (!Array.isArray(flatData)) {
@@ -119,7 +140,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     const menuMinWidth = 80;
     const anchorPosition = {
         top: 4,
-        left: 0
+        left: 0,
     };
     let menuMaxWidth;
     let menuMaxHeight;
@@ -159,12 +180,18 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 }
             } else {
                 let canClose: boolean | void = !item.isDisabled;
+                const focusedOption = document.activeElement;
                 if (!item.isDisabled && item.value !== value) {
                     e.stopPropagation();
                     canClose = (onChange as (e: React.MouseEvent | React.KeyboardEvent, item: DropdownDataOption) => void)(e, item);
                 }
 
                 if (canClose !== false) {
+                    // Unless onChange moved it, focus goes back to the trigger: the menu unmounts with it inside
+                    if (document.activeElement === focusedOption) {
+                        ref.current.focus();
+                    }
+
                     setIsOpened(false);
                 }
             }
@@ -182,6 +209,18 @@ export const Dropdown: React.FC<DropdownProps> = ({
         }
     };
 
+    const triggerKeys = onAccessibleClick({ onClick: handleOpenMenu });
+    const handleTriggerKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'ArrowDown' && e.target === e.currentTarget && !shouldIgnoreKey(e)) {
+            e.preventDefault();
+            handleOpenMenu(e);
+        } else {
+            triggerKeys.onKeyDown(e);
+        }
+    };
+
+    const canOpen = !isDisabled && !isLoading;
+
     // ---
     // CSS classes
     // ---
@@ -197,7 +236,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         ((typeof isDisabled === 'undefined' && isEmpty) || isDisabled) && ['moonstone-disabled', styles['moonstone-disabled']],
         isLoading && ['moonstone-dropdown_loading', styles['moonstone-dropdown_loading']],
         isFilled && ['moonstone-filled', styles['moonstone-filled']],
-        isOpened && ['moonstone-opened', styles['moonstone-opened']]
+        isOpened && ['moonstone-opened', styles['moonstone-opened']],
     );
 
     const View = isTree ? TreeViewMenu : DropdownMenu;
@@ -208,85 +247,99 @@ export const Dropdown: React.FC<DropdownProps> = ({
             {...props}
         >
             <div
+                aria-busy={isLoading ? true : undefined}
+                aria-describedby={fieldAria['aria-describedby']}
+                aria-disabled={isDisabled || isEmpty}
+                aria-invalid={fieldAria['aria-invalid']}
+                aria-label={ariaLabel ?? (label || getDataItem(flatData, value)?.label || placeholder)}
+                // The consumer or Field name, then the value: "Language French"
+                aria-labelledby={nameIds && `${nameIds} ${valueId}`}
+                className={clsx(cssDropdown)}
+                id={triggerId}
                 ref={ref}
                 role="listbox"
-                aria-label={label || getDataItem(flatData, value)?.label || placeholder}
-                aria-disabled={isDisabled || isEmpty}
-                aria-busy={isLoading ? true : undefined}
-                className={clsx(cssDropdown)}
                 tabIndex={0}
-                onClick={(!isDisabled && !isLoading) ? handleOpenMenu : undefined}
-                onKeyUp={e => {
-                    if (e.key === 'Enter' && !isDisabled && !isLoading) {
-                        handleOpenMenu(e);
+                onBlur={(event) => {
+                    setIsFocused(false);
+                    pendingBlurEventRef.current = event;
+                }}
+                onClick={canOpen ? handleOpenMenu : undefined}
+                onFocus={(event) => {
+                    setIsFocused(true);
+                    // Focus came back before the menu closed: the queued blur never happened.
+                    pendingBlurEventRef.current = null;
+                    if (onFocus && !isFocusSentRef.current) {
+                        isFocusSentRef.current = true;
+                        onFocus(event);
                     }
                 }}
-                onBlur={event => {
-                    setFocusData(p => ({...p, focused: false, event}));
-                }}
-                onFocus={event => {
-                    setFocusData(p => ({...p, focused: true, event}));
-                }}
+                onKeyDown={canOpen ? handleTriggerKeyDown : undefined}
+                onKeyUp={canOpen ? triggerKeys.onKeyUp : undefined}
             >
-                {icon && !isLoading && <icon.type {...icon.props} size="default" className={clsx('moonstone-dropdown_icon', styles['moonstone-dropdown_icon'])} role="presentation"/>}
-                {isLoading && <Loader size="small" className={clsx({'moonstone-dropdown_loaderOverlay': !icon})}/>}
-                {!label && values && values.length > 0 ? (
-                    <div
-                        className={clsx(
-                            ['moonstone-dropdown_tags', styles['moonstone-dropdown_tags']],
-                            ['flexFluid', layout.flexFluid],
-                            ['flexRow', layout.flexRow]
+                {icon && !isLoading && <icon.type {...icon.props} className={clsx('moonstone-dropdown_icon', styles['moonstone-dropdown_icon'])} role="presentation" size="default"/>}
+                {isLoading && <Loader aria-hidden className={clsx({ 'moonstone-dropdown_loaderOverlay': !icon })} size="small"/>}
+                {!label && values && values.length > 0
+                    ? (
+                            <div
+                                className={clsx(
+                                    ['moonstone-dropdown_tags', styles['moonstone-dropdown_tags']],
+                                    ['flexFluid', layout.flexFluid],
+                                    ['flexRow', layout.flexRow],
+                                )}
+                                id={valueId}
+                            >
+                                {values.map((v) => {
+                                    const item = getDataItem(flatData, v);
+                                    return item && (
+                                        <Tag
+                                            isDisabled={isDisabled}
+                                            key={item.value}
+                                            label={item.label}
+                                            // oxlint-disable-next-line jsx-a11y/role-has-required-aria-props -- #1604
+                                            role="option"
+                                            size={size}
+                                            value={item.value}
+                                            onClick={(e) => {
+                                                ref.current.focus();
+                                                if (!isDisabled) {
+                                                    handleSelect(e, item);
+                                                }
+                                            }}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        )
+                    : (
+                            <Typography
+                                isNowrap
+                                className={clsx(
+                                    ['flexFluid', layout.flexFluid],
+                                    ['moonstone-dropdown_label', styles['moonstone-dropdown_label']],
+                                )}
+                                component="span"
+                                id={valueId}
+                                // oxlint-disable-next-line jsx-a11y/role-has-required-aria-props -- #1604
+                                role="option"
+                                title={label}
+                                variant={size === 'small' ? 'caption' : 'body'}
+                            >
+                                {label || getDataItem(flatData, value)?.label || placeholder}
+                            </Typography>
                         )}
-                    >
-                        {values.map(v => {
-                            const item = getDataItem(flatData, v);
-                            return item && (
-                                <Tag key={item.value}
-                                     label={item.label}
-                                     value={item.value}
-                                     size={size}
-                                     isDisabled={isDisabled}
-                                     role="option"
-                                     onClick={e => {
-                                         ref.current.focus();
-                                         ref.current.blur();
-                                         if (!isDisabled) {
-                                             handleSelect(e, item);
-                                         }
-                                     }}
-                                />
-                            );
-                        })}
-                    </div>
-                ) : (
-                    <Typography
-                        isNowrap
-                        variant={size === 'small' ? 'caption' : 'body'}
-                        component="span"
-                        className={clsx(
-                            ['flexFluid', layout.flexFluid],
-                            ['moonstone-dropdown_label', styles['moonstone-dropdown_label']]
-                        )}
-                        title={label}
-                        role="option"
-                    >
-                        {label || getDataItem(flatData, value)?.label || placeholder}
-                    </Typography>
-                )}
                 {onClear && isFilled && !isDisabled && (
                     <Button
+                        aria-label={i18n?.clearButton || 'Reset'}
                         className={clsx(
                             ['moonstone-baseInput_clearButton', baseInputStyles['moonstone-baseInput_clearButton']],
                             ['flexRow_center', layout.flexRow_center],
-                            ['alignCenter', layout.alignCenter]
+                            ['alignCenter', layout.alignCenter],
                         )}
-                        variant="ghost"
                         icon={<Cancel/>}
-                        aria-label="Reset"
-                        onClick={e => {
+                        variant="ghost"
+                        onClick={(e) => {
                             e.stopPropagation();
                             ref.current.focus();
-                            ref.current.blur();
                             onClear(e);
                         }}
                     />
@@ -296,22 +349,23 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
             {isOpened && (
                 <View
+                    hasSearch={hasSearch}
                     isDisplayed
+                    anchorEl={anchorEl}
+                    anchorPosition={anchorPosition}
+                    autoAddSearchLimit={autoAddSearchLimit}
                     data={data}
+                    handleKeyPress={handleKeyPress}
+                    handleSelect={handleSelect}
+                    i18n={i18n}
+                    imageSize={imageSize}
+                    maxHeight={menuMaxHeight}
+                    maxWidth={menuMaxWidth}
+                    minWidth={minWidth}
+                    searchEmptyText={searchEmptyText}
                     treeData={treeData}
                     value={value}
                     values={values}
-                    anchorPosition={anchorPosition}
-                    minWidth={minWidth}
-                    maxWidth={menuMaxWidth}
-                    maxHeight={menuMaxHeight}
-                    anchorEl={anchorEl}
-                    hasSearch={hasSearch}
-                    autoAddSearchLimit={autoAddSearchLimit}
-                    searchEmptyText={searchEmptyText}
-                    handleKeyPress={handleKeyPress}
-                    handleSelect={handleSelect}
-                    imageSize={imageSize}
                     onClose={handleCloseMenu}
                 />
             )}

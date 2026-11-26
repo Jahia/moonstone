@@ -1,7 +1,8 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {SearchInput} from './index';
-import {Love} from '~/icons';
+
+import { SearchInput } from './index';
+import { Love } from '~/icons';
 
 describe('SearchInput', () => {
     it('should render', () => {
@@ -18,6 +19,16 @@ describe('SearchInput', () => {
         render(<SearchInput/>);
         expect(screen.getByRole('search')).toBeInTheDocument();
     });
+
+    it('should not show the reset button on an empty field', () => {
+        render(<SearchInput/>);
+        expect(screen.queryByRole('button', { name: 'Reset' })).not.toBeInTheDocument();
+    });
+
+    it('should let the consumer translate the clear button name', () => {
+        render(<SearchInput defaultValue="test-default-value" i18n={{ clearButton: 'Effacer' }}/>);
+        expect(screen.getByRole('button', { name: 'Effacer' })).toBeInTheDocument();
+    });
 });
 
 describe('UncontrolledInput', () => {
@@ -28,7 +39,7 @@ describe('UncontrolledInput', () => {
             <SearchInput
                 data-testid="moonstone-input"
                 defaultValue="test-default-value"
-            />
+            />,
         );
         await user.click(screen.getByLabelText('Reset'));
 
@@ -43,7 +54,7 @@ describe('UncontrolledInput', () => {
             <SearchInput
                 defaultValue="test-default-value"
                 onClear={handleClear}
-            />
+            />,
         );
         await user.click(screen.getByLabelText('Reset'));
 
@@ -61,7 +72,7 @@ describe('ControlledInput', () => {
                 value="test-value"
                 onChange={() => null}
                 onClear={handleClear}
-            />
+            />,
         );
         await user.click(screen.getByLabelText('Reset'));
 

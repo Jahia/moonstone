@@ -1,5 +1,6 @@
-import {render, screen} from '@testing-library/react';
-import {ModalBody} from '../index';
+import { render, screen } from '@testing-library/react';
+
+import { ModalBody } from '../index';
 
 describe('ModalBody', () => {
     it('should display content', () => {
@@ -8,7 +9,7 @@ describe('ModalBody', () => {
     });
 
     it('should add extra classname', () => {
-        render(<ModalBody data-testid="moonstone-modalBody" className="extra">ModalBody content</ModalBody>);
+        render(<ModalBody className="extra" data-testid="moonstone-modalBody">ModalBody content</ModalBody>);
         expect(screen.getByTestId('moonstone-modalBody')).toHaveClass('extra');
     });
 });

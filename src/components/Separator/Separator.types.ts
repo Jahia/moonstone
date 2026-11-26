@@ -1,27 +1,30 @@
 export type SeparatorProps = Omit<React.ComponentPropsWithoutRef<'hr'>, 'className'> & {
     /**
-     * Variants: Horizontal or Vertical
+     * The orientation of the separator
+     * @default 'horizontal'
      */
-    variant?: 'horizontal' | 'vertical',
+    variant?: 'horizontal' | 'vertical';
 
     /**
-     * Vertical spacings
+     * The margin applied around the separator
+     * @default 'small'
      */
-    spacing?: 'none' | 'small' | 'medium' | 'big',
+    spacing?: 'none' | 'small' | 'medium' | 'big';
 
     /**
-     * Size
+     * How much of the container's width (or height, when vertical) the separator spans
+     * @default 'full'
      */
-    size?: 'medium' | 'large' | 'full',
+    size?: 'medium' | 'large' | 'full';
 
     /**
      * Hide the separator if it is the firstChild, lastChild, onlyChild or firstOrLastChild
      * If you don't pass this property then the separator will always be visible
      */
-    invisible?: 'firstChild' | 'lastChild' | 'onlyChild' | 'firstOrLastChild',
+    invisible?: 'firstChild' | 'lastChild' | 'onlyChild' | 'firstOrLastChild';
 
     /**
      * Additional classname
      */
-    className?: string
-}
+    className?: string;
+};

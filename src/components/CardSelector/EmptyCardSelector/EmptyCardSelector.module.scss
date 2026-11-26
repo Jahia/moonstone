@@ -1,6 +1,10 @@
+@use "../../../utils/motion" as *;
+@use "../../../utils/mixins" as *;
 @use '../CardSelector.module.scss' as *;
 
 .moonstone-emptyCardSelector {
+    @include transition(all 0.2s ease-in-out);
+
     gap: var(--moon-spacing-nano);
     width: 100%;
     min-height: $cardSelector-height;
@@ -12,8 +16,6 @@
     background-color: var(--moon-background-selector);
     cursor: pointer;
 
-    transition: all 0.2s ease-in-out;
-
     &[disabled] {
         @extend %selector_disabled;
 
@@ -23,7 +25,7 @@
     }
 
     &:focus-visible:not([disabled]) {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:hover:not([disabled]) {

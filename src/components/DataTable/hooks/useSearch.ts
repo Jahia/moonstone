@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 
 type UseSearchProps = {
     searchValue?: string;
@@ -6,7 +6,7 @@ type UseSearchProps = {
     onSearchChange?: (searchValue: string) => void;
 };
 
-export function useSearch({searchValue, defaultSearchValue = '', onSearchChange}: UseSearchProps) {
+export function useSearch({ searchValue, defaultSearchValue = '', onSearchChange }: UseSearchProps) {
     const isSearchControlled = searchValue !== undefined;
 
     const [state, setState] = useState(defaultSearchValue);
@@ -27,5 +27,9 @@ export function useSearch({searchValue, defaultSearchValue = '', onSearchChange}
         onSearchChange?.(next);
     };
 
-    return {globalFilter, isSearchControlled, handleGlobalFilterChange};
+    return {
+        globalFilter,
+        isSearchControlled,
+        handleGlobalFilterChange,
+    };
 }

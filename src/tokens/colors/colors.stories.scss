@@ -122,6 +122,10 @@ $colorsPalette: (
     'purple_plain20',
     'purple_dark'
 );
+$colorsState: (
+    'focus_outer',
+    'focus_inner'
+);
 
 @each $name in $colorsAccent {
     .color-#{$name} {
@@ -148,6 +152,14 @@ $colorsPalette: (
 }
 
 @each $name in $colorsPalette {
+    .color-#{$name} {
+        @include colorValue($name);
+
+        background-color: var(--moon-color-#{$name});
+    }
+}
+
+@each $name in $colorsState {
     .color-#{$name} {
         @include colorValue($name);
 

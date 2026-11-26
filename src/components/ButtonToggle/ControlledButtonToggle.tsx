@@ -1,8 +1,11 @@
-import React from 'react';
 import clsx from 'clsx';
-import {Button} from '~/components/Button';
-import type {ControlledButtonToggleProps} from './ButtonToggle.types';
-import {layout} from '~/globals/css-utils.js';
+import React from 'react';
+
+import { Button } from '~/components/Button';
+import { layout } from '~/globals/css-utils.js';
+
+import type { ControlledButtonToggleProps } from './ButtonToggle.types';
+
 import styles from './ButtonToggle.module.scss';
 
 const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButtonElement, ControlledButtonToggleProps> = ({
@@ -11,42 +14,42 @@ const ControlledButtonToggleForwardRef: React.ForwardRefRenderFunction<HTMLButto
     isReversed = false,
     isDisabled = false,
     isLoading = false,
-    isPressed = false,
+    isPressed,
     iconStart,
     iconEnd,
     className,
-    onChange = () => undefined,
+    onChange,
     onClick,
     ...props
 }, ref) => {
-    const handleOnClick: React.MouseEventHandler = e => {
-        onClick(e);
-        (e.currentTarget as HTMLElement).blur();
+    const handleOnClick: React.MouseEventHandler = (e) => {
+        onClick?.(e);
         if (!isDisabled && !isLoading) {
-            onChange(e, !isPressed);
+            onChange?.(e, !isPressed);
         }
     };
 
     return (
         <Button
-            ref={ref}
-            label={label}
-            size={size}
-            variant="ghost"
-            isReversed={isReversed}
+            disabled={isDisabled || isLoading}
             isDisabled={isDisabled}
             isLoading={isLoading}
-            icon={iconStart}
-            iconEnd={iconEnd}
+            isReversed={isReversed}
+            aria-pressed={isPressed}
             className={clsx(
                 ['moonstone-buttonToggle', styles['moonstone-buttonToggle']],
                 isPressed && ['moonstone-buttonToggle_pressed', styles['moonstone-buttonToggle_pressed']],
+                isReversed && styles['reversed'],
                 ['flexRow_center', layout.flexRow_center],
-                className
+                className,
             )}
-            disabled={isDisabled || isLoading}
-            aria-pressed={isPressed}
             data-loading={isLoading}
+            icon={iconStart}
+            iconEnd={iconEnd}
+            label={label}
+            ref={ref}
+            size={size}
+            variant="ghost"
             onClick={e => handleOnClick(e)}
             {...props}
         />

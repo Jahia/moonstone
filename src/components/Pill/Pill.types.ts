@@ -1,14 +1,14 @@
-export type PillProps = Omit<React.ComponentPropsWithoutRef<'span'>, 'className' | 'content'> & {
+export type PillProps = Omit<React.ComponentPropsWithoutRef<'span'>, 'className' | 'children'> & {
     /**
-     * ListItem label
-     * @deprecated label is deprecated and will be removed in a future release. Use `content` instead.
+     * Label of the pill
+     * @deprecated Use `children` instead.
      */
     label?: string;
 
     /**
      * Content of the Pill (text or icon element)
      */
-    content: React.ReactElement | string;
+    children: React.ReactElement | string;
 
     /**
      * Whether the component should use reversed colors, it useful with dark background
@@ -19,4 +19,4 @@ export type PillProps = Omit<React.ComponentPropsWithoutRef<'span'>, 'className'
      * Additional classname
      */
     className?: string;
-}
+};

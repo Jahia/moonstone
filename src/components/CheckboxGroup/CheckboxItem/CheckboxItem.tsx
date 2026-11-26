@@ -1,10 +1,11 @@
 import React from 'react';
 
-import type {CheckboxItemProps} from './CheckboxItem.types';
-import {UncontrolledCheckboxItem} from './UncontrolledCheckboxItem';
-import {ControlledCheckboxItem} from './ControlledCheckboxItem';
+import { ControlledCheckboxItem } from './ControlledCheckboxItem';
+import { UncontrolledCheckboxItem } from './UncontrolledCheckboxItem';
 
-export const CheckboxItem: React.FC<CheckboxItemProps> = ({checked, ...props}) => {
+import type { CheckboxItemProps } from './CheckboxItem.types';
+
+export const CheckboxItem: React.FC<CheckboxItemProps> = ({ checked, ...props }) => {
     if (typeof checked === 'undefined') {
         return <UncontrolledCheckboxItem {...props}/>;
     }

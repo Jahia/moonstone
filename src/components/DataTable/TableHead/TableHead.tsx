@@ -1,7 +1,8 @@
+import clsx from 'clsx';
 import React from 'react';
 
-import type {TableHeadProps} from './TableHead.types';
-import clsx from 'clsx';
+import type { TableHeadProps } from './TableHead.types';
+
 import styles from './TableHead.module.scss';
 
 export const TableHead: React.FC<TableHeadProps> = ({
@@ -19,9 +20,9 @@ export const TableHead: React.FC<TableHeadProps> = ({
         component,
         {
             className: clsx(styles.tableHead, isSticky && styles.sticky, className),
-            ...props
+            ...props,
         },
-        children
+        children,
     );
 };
 

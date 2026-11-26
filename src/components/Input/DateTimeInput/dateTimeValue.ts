@@ -1,6 +1,8 @@
-import {Temporal} from 'temporal-polyfill';
-import {toInstant, toPlainDate, toPlainDateTime, type InstantInput} from '../utils/temporal';
-import type {DateTimeInputType} from './DateTimeInput.types';
+import { Temporal } from 'temporal-polyfill';
+
+import { type InstantInput, toInstant, toPlainDate, toPlainDateTime } from '../utils/temporal';
+
+import type { DateTimeInputType } from './DateTimeInput.types';
 
 /**
  * Internal helpers that bridge the single canonical `DateTimeInput` value and the
@@ -26,10 +28,18 @@ export const getCurrentValue = (type: DateTimeInputType): DateTimeValue => {
     }
 
     if (type === 'zonedDateTime') {
-        return Temporal.Now.instant().round({smallestUnit: 'minute', roundingMode: 'trunc'});
+        return Temporal.Now.instant().round({
+            smallestUnit: 'minute',
+            roundingMode: 'trunc',
+        });
     }
 
-    return Temporal.Now.plainDateTimeISO().with({second: 0, millisecond: 0, microsecond: 0, nanosecond: 0});
+    return Temporal.Now.plainDateTimeISO().with({
+        second: 0,
+        millisecond: 0,
+        microsecond: 0,
+        nanosecond: 0,
+    });
 };
 
 /** Coerces a consumer value (Temporal instance or ISO string) to the canonical value for the type. */
@@ -75,7 +85,7 @@ export const assembleValue = (
     plainDate: Temporal.PlainDate | null,
     plainTime: Temporal.PlainTime | null,
     timeZone: string,
-    type: DateTimeInputType
+    type: DateTimeInputType,
 ): DateTimeValue | null => {
     if (!plainDate) {
         return null;

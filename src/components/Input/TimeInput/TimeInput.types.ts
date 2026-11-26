@@ -1,7 +1,8 @@
 import React from 'react';
-import type {Temporal} from 'temporal-polyfill';
-import type {DropdownProps} from '~/components/Dropdown/Dropdown.types';
-import type {BaseInputProps} from '../BaseInput/BaseInput.types';
+
+import type { BaseInputProps } from '../BaseInput/BaseInput.types';
+import type { Temporal } from 'temporal-polyfill';
+import type { DropdownProps } from '~/components/Dropdown/Dropdown.types';
 
 /** Time display format */
 export type TimeFormat = '24h' | '12h';
@@ -10,34 +11,39 @@ export type TimeFormat = '24h' | '12h';
 export type Meridiem = 'AM' | 'PM';
 
 export type TimeInputMeridiemDropdownProps = Omit<DropdownProps,
-    'data' |
-    'treeData' |
-    'value' |
-    'values' |
-    'onChange' |
-    'size' |
-    'variant' |
-    'isDisabled'
+    'data'
+    | 'treeData'
+    | 'value'
+    | 'values'
+    | 'onChange'
+    | 'size'
+    | 'variant'
+    | 'isDisabled'
 > & Omit<React.ComponentPropsWithoutRef<'div'>, keyof DropdownProps> & Record<string, unknown>;
 
 /** Props common to both modes. */
 type TimeInputBaseProps = Omit<BaseInputProps,
-    'isShowClearButton' |
-    'value' |
-    'defaultValue' |
-    'onChange' |
-    'onBlur' |
-    'onClear' |
-    'icon' |
-    'role' |
-    'min' |
-    'max' |
-    'step' |
-    'variant' |
-    'filterFunction' |
-    'allowDecimal' |
-    'allowNegative'
+    'isShowClearButton'
+    | 'value'
+    | 'defaultValue'
+    | 'onChange'
+    | 'onBlur'
+    | 'onClear'
+    | 'i18n'
+    | 'icon'
+    | 'role'
+    | 'min'
+    | 'max'
+    | 'step'
+    | 'variant'
+    | 'filterFunction'
+    | 'allowDecimal'
+    | 'allowNegative'
 > & {
+    /**
+     * Visual style of the field and of its AM/PM dropdown
+     * @default 'outlined'
+     */
     variant?: DropdownProps['variant'];
 
     /**
@@ -50,6 +56,15 @@ type TimeInputBaseProps = Omit<BaseInputProps,
 
     /** Additional props forwarded to the internal AM/PM dropdown in 12h mode. */
     meridiemDropdownProps?: TimeInputMeridiemDropdownProps;
+
+    /** I18n labels of the `TimeInput` */
+    i18n?: {
+        /**
+         * aria-label of the AM/PM dropdown in 12h mode
+         * @default 'AM/PM'
+         */
+        meridiemLabel?: string;
+    };
 };
 
 /**

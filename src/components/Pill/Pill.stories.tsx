@@ -1,29 +1,30 @@
-import {StoryObj} from '@storybook/react-vite';
-import markdownNotes from './Pill.md';
+import { Pill } from './index';
+import markdownNotes from './Pill.md?raw';
+import { Language } from '~/icons';
 
-import {Pill} from './index';
-import type {PillProps} from './Pill.types';
-
-import {Language} from '~/icons';
+import type { PillProps } from './Pill.types';
+import type { StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/Pill',
     component: Pill,
+    tags: ['dark-theme'],
 
     parameters: {
         layout: 'centered',
-        notes: {markdown: markdownNotes}
-    }
+        componentSubtitle: 'A dropdown item\'s extra detail.',
+        docs: { description: { component: markdownNotes } },
+    },
 };
 
 export const Default: StoryObj<PillProps> = {
     args: {
-        content: 'ListItem label'
-    }
+        children: 'ListItem label',
+    },
 };
 
 export const IconContent: StoryObj<PillProps> = {
     args: {
-        content: <Language size="small"/>
-    }
+        children: <Language size="small"/>,
+    },
 };

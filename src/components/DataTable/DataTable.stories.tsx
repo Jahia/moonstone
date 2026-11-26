@@ -1,57 +1,62 @@
-import {tableStructured, tableFlat, dataColumnsUser, getStatus} from '~/data/dataTable';
-import type {DataUser, DataUserKeys} from '~/data/dataTable';
-import type {Meta, StoryObj} from '@storybook/react';
-import {DataTable, TableRow, TableCellActions, TableCellStatus} from './index';
-import {useState} from 'react';
-import {Button, Tooltip} from '~/components';
-import {Visibility, Edit, Delete, MoreVert} from '~/icons';
+import { useState } from 'react';
+
+import markdownNotes from './DataTable.md?raw';
+import { DataTable, TableCellActions, TableCellStatus, TableRow } from './index';
+import { Button, Tooltip } from '~/components';
+import { dataColumnsUser, getStatus, tableFlat, tableStructured } from '~/data/dataTable';
+import { Delete, Edit, MoreVert, Visibility } from '~/icons';
+
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { DataUser, DataUserKeys } from '~/data/dataTable';
 
 export default {
     title: 'Components/DataTable',
     component: DataTable,
     tags: ['beta'],
     parameters: {
-        controls: {expanded: true}
+        controls: { expanded: true },
+        componentSubtitle: 'Builds a table from your records and columns.',
+        docs: { description: { component: markdownNotes } },
     },
     argTypes: {
-        onChangeSelection: {action: 'onChangeSelection'},
-        enablePagination: {control: 'boolean'},
-        defaultItemsPerPage: {control: 'number'},
-        itemsPerPageOptions: {control: 'object'},
-        i18n: {control: 'object'},
-        searchColumns: {control: 'object'}
-    }
+        onChangeSelection: { action: 'onChangeSelection' },
+        enablePagination: { control: 'boolean' },
+        defaultItemsPerPage: { control: 'number' },
+        itemsPerPageOptions: { control: 'object' },
+        i18n: { control: 'object' },
+        searchColumns: { control: 'object' },
+    },
 } satisfies Meta<typeof DataTable<DataUser>>;
 
 type Story = StoryObj<typeof DataTable<DataUser>>;
 
 export const DefaultDataTable: Story = {
-    render: args => {
+    render: (args) => {
         return <DataTable {...args}/>;
     },
     args: {
         data: tableFlat,
         columns: dataColumnsUser,
-        primaryKey: 'id'
+        primaryKey: 'id',
     },
-    name: 'Default DataTable (uncontrolled)'
+    name: 'Default DataTable (uncontrolled)',
 };
 
 export const StructuredDataTable: Story = {
-    render: args => {
+    render: (args) => {
         return <DataTable {...args}/>;
     },
     args: {
         data: tableStructured,
         isStructured: true,
         columns: dataColumnsUser,
-        primaryKey: 'id'
+        primaryKey: 'id',
     },
-    name: 'Structured DataTable (uncontrolled)'
+    name: 'Structured DataTable (uncontrolled)',
 };
 
 export const SelectableDataTable: Story = {
-    render: args => {
+    render: (args) => {
         return <DataTable {...args}/>;
     },
     args: {
@@ -59,13 +64,13 @@ export const SelectableDataTable: Story = {
         columns: dataColumnsUser,
         primaryKey: 'id',
         enableSelection: true,
-        defaultSortBy: 'progress'
+        defaultSortBy: 'progress',
     },
-    name: 'Selectable DataTable (uncontrolled)'
+    name: 'Selectable DataTable (uncontrolled)',
 };
 
 export const DefaultSelectionDataTable: Story = {
-    render: args => {
+    render: (args) => {
         return <DataTable {...args}/>;
     },
     args: {
@@ -74,9 +79,9 @@ export const DefaultSelectionDataTable: Story = {
         primaryKey: 'id',
         defaultSortBy: 'progress',
         enableSelection: true,
-        defaultSelection: ['1', '6']
+        defaultSelection: ['1', '6'],
     },
-    name: 'Default Selection (uncontrolled)'
+    name: 'Default Selection (uncontrolled)',
 };
 
 export const ControlledDataTable: Story = {
@@ -92,33 +97,33 @@ export const ControlledDataTable: Story = {
 
         return (
             <DataTable
+                enablePagination
                 enableSelection
                 enableSorting
-                enablePagination
-                data={tableFlat}
                 columns={dataColumnsUser}
+                currentPage={currentPage}
+                data={tableFlat}
+                itemsPerPage={itemsPerPage}
                 primaryKey="id"
+                selection={selection}
                 sortBy={sortBy}
                 sortDirection={sortDirection}
-                selection={selection}
-                currentPage={currentPage}
-                itemsPerPage={itemsPerPage}
                 totalItems={tableFlat.length}
+                onChangeSelection={setSelection}
+                onItemsPerPageChange={setItemsPerPage}
+                onPageChange={setCurrentPage}
                 onSortChange={(newSortBy, newSortDirection) => {
-                    setSortBy(newSortBy as DataUserKeys);
+                    setSortBy(newSortBy);
                     setSortDirection(newSortDirection);
                 }}
-                onChangeSelection={setSelection}
-                onPageChange={setCurrentPage}
-                onItemsPerPageChange={setItemsPerPage}
             />
         );
     },
-    name: 'Controlled DataTable'
+    name: 'Controlled DataTable',
 };
 
 export const SearchableDataTable: Story = {
-    render: args => {
+    render: (args) => {
         return <DataTable {...args}/>;
     },
     args: {
@@ -127,13 +132,13 @@ export const SearchableDataTable: Story = {
         primaryKey: 'id',
         enableSearch: true,
         searchColumns: ['firstName', 'status', 'progress'],
-        searchInputProps: {'aria-label': 'Search users', placeholder: 'Search by user, status or progress'}
+        searchInputProps: { 'aria-label': 'Search users', 'placeholder': 'Search by user, status or progress' },
     },
-    name: 'Searchable DataTable (uncontrolled)'
+    name: 'Searchable DataTable (uncontrolled)',
 };
 
 export const ServerSideSearchDataTable: Story = {
-    render: ({columns, primaryKey, searchInputProps}) => {
+    render: ({ columns, primaryKey, searchInputProps }) => {
         const [searchValue, setSearchValue] = useState('');
         const [currentPage, setCurrentPage] = useState(1);
         const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -144,41 +149,41 @@ export const ServerSideSearchDataTable: Story = {
 
         return (
             <DataTable
-                enableSearch
                 enablePagination
+                enableSearch
+                columns={columns}
+                currentPage={currentPage}
+                data={pageRows}
                 // Sorting is off: the table holds a single server-fetched page, so it would reorder that page alone
                 enableSorting={false}
-                data={pageRows}
-                columns={columns}
+                itemsPerPage={itemsPerPage}
                 primaryKey={primaryKey}
                 searchInputProps={searchInputProps}
                 searchValue={searchValue}
-                currentPage={currentPage}
-                itemsPerPage={itemsPerPage}
                 totalItems={matchingRows.length}
-                onSearchChange={value => {
+                onItemsPerPageChange={setItemsPerPage}
+                onPageChange={setCurrentPage}
+                onSearchChange={(value) => {
                     setSearchValue(value);
                     setCurrentPage(1);
                 }}
-                onPageChange={setCurrentPage}
-                onItemsPerPageChange={setItemsPerPage}
             />
         );
     },
     args: {
         columns: dataColumnsUser,
         primaryKey: 'id',
-        searchInputProps: {'aria-label': 'Search users', placeholder: 'Search on the server'}
+        searchInputProps: { 'aria-label': 'Search users', 'placeholder': 'Search on the server' },
     },
-    name: 'Server-side search (the consumer filters)'
+    name: 'Server-side search (the consumer filters)',
 };
 
 export const InsertCells: Story = {
-    render: args => {
+    render: (args) => {
         return (
             <DataTable
                 {...args}
-                renderRow={({id, data, render: renderCells}) => (
+                renderRow={({ id, data, render: renderCells }) => (
                     <TableRow
                         key={id}
                     >
@@ -192,22 +197,22 @@ export const InsertCells: Story = {
                             ),
                             after: (
                                 <TableCellActions
-                                    actionsOnHover={
+                                    actions={<Button aria-label="Actions" icon={<MoreVert/>} variant="ghost"/>}
+                                    actionsOnHover={(
                                         <>
                                             <Tooltip label="View">
-                                                <Button icon={<Visibility/>} variant="ghost"/>
+                                                <Button aria-label="View" icon={<Visibility/>} variant="ghost"/>
                                             </Tooltip>
                                             <Tooltip label="Edit">
-                                                <Button icon={<Edit/>} variant="ghost"/>
+                                                <Button aria-label="Edit" icon={<Edit/>} variant="ghost"/>
                                             </Tooltip>
                                             <Tooltip label="Delete">
-                                                <Button icon={<Delete/>} variant="ghost"/>
+                                                <Button aria-label="Delete" icon={<Delete/>} variant="ghost"/>
                                             </Tooltip>
                                         </>
-                                    }
-                                    actions={<Button icon={<MoreVert/>} variant="ghost" aria-label="Actions"/>}
+                                    )}
                                 />
-                            )
+                            ),
                         })}
                     </TableRow>
                 )}
@@ -218,7 +223,8 @@ export const InsertCells: Story = {
         data: tableFlat,
         columns: dataColumnsUser,
         primaryKey: 'id',
-        enableSelection: true
+        enableSelection: true,
+        customColumnLabels: { before: ['Status'], after: ['Actions'] },
     },
-    name: 'Insert custom cells (renderRow)'
+    name: 'Insert custom cells (renderRow)',
 };

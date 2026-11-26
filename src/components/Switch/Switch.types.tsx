@@ -20,21 +20,23 @@ type BasicProps = Omit<React.ComponentPropsWithRef<'input'>, 'onChange' | 'value
      * Function triggered on change
      */
     onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: string, checked: boolean) => void;
-}
+};
 
 type ControlledProps = {
     /**
      * Whether the component should be checked (controlled)
+     * @default false
      */
     checked?: boolean;
-}
+};
 
 type UncontrolledProps = {
     /**
      * Whether the component should be checked - default value (uncontrolled)
+     * @default false
      */
     defaultChecked?: boolean;
-}
+};
 
 export type SwitchProps = BasicProps & Partial<ControlledProps> & Partial<UncontrolledProps>;
 export type ControlledSwitchProps = BasicProps & ControlledProps;

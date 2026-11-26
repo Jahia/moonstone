@@ -1,16 +1,17 @@
 import React from 'react';
-import type {DataAttributes} from '~/types/DataAttributes.types';
+
+import type { DataAttributes } from '~/types/DataAttributes.types';
 
 type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | 'value' | 'role' | 'placeholder' | 'className'> & DataAttributes & {
     /**
      * ID of the input
      */
-    id?: string,
+    id?: string;
 
     /**
      * Role of the input
      */
-    role?: string,
+    role?: string;
 
     /**
      * Initial placeholder text to appear in the input field
@@ -19,16 +20,19 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
 
     /**
      * Whether the component should be disabled
+     * @default false
      */
     isDisabled?: boolean;
 
     /**
      * Whether the input should be read-only. It's still submittable.
+     * @default false
      */
     isReadOnly?: boolean;
 
     /**
      * Whether the input should be focused when displayed.
+     * @default false
      */
     focusOnField?: boolean;
 
@@ -39,6 +43,7 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
 
     /**
      * Whether the size of the input should be default or big
+     * @default 'default'
      */
     size?: 'default' | 'big';
 
@@ -48,8 +53,9 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
     icon?: React.ReactElement;
 
     /**
-     * Which icon to use at the beginning of the input
-     * @deprecated Values 'text' and 'search' use specific component instead
+     * Visual style of the field.
+     * @deprecated Use SearchInput instead of `search`, and Input instead of `text`. `ghost` will be removed: a field is always outlined.
+     * @default 'outlined'
      */
     variant?: 'text' | 'search' | 'outlined' | 'ghost';
 
@@ -57,6 +63,17 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
      * Whether the input should have a clear button. If onClear is not specified, clear button will set the value to empty value
      */
     isShowClearButton?: boolean;
+
+    /**
+     * Texts of the component, shown on screen or read by screen readers. Translate them with the rest of the UI.
+     */
+    i18n?: {
+        /**
+         * Accessible name of the clear button
+         * @default 'Reset'
+         */
+        clearButton?: string;
+    };
 
     /**
      * Component(s) to render before the input field.
@@ -74,7 +91,7 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
     onClick?: React.MouseEventHandler;
 
     /**
-     * @deprecated onKeyPress is deprecated and will be removed in a future release. You should use onKeyUp instead.
+     * @deprecated Use `onKeyUp` instead.
      */
     onKeyPress?: React.KeyboardEventHandler;
 
@@ -94,7 +111,7 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 
     /**
-     * Function triggered on blur of the input (i.e., focussing away from the input)
+     * Function triggered on blur of the input, when the focus leaves it
      */
     onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 
@@ -102,14 +119,14 @@ type BasicBaseInputProps = Omit<React.ComponentPropsWithRef<'input'>, 'size' | '
      * Function triggered on focus of the input
      */
     onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
-}
+};
 
 type ControlledProps = {
     /**
      * Value to exist in the input field. Define the component as controlled when it set. (Controlled)
      */
     value: string;
-}
+};
 
 type UncontrolledProps = {
     /**
@@ -134,9 +151,10 @@ type UncontrolledProps = {
 
     /**
      * Character to use as a separator
+     * @default '.'
      */
     separator?: '.' | ',';
-}
+};
 
 export type BaseInputProps = BasicBaseInputProps & Partial<ControlledProps> & Partial<UncontrolledProps>;
 export type ControlledBaseInputProps = BasicBaseInputProps & ControlledProps;

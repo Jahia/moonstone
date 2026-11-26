@@ -1,13 +1,13 @@
-import {ReactNode} from 'react';
+import type { ReactNode } from 'react';
 
 export type ModalBodyProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 'children'> & {
     /**
-     * Children of the ModalBody
+     * Content of the modal.
      */
     children: ReactNode;
 
     /**
-     * Additional classname
+     * Additional class name.
      */
     className?: string;
-}
+};

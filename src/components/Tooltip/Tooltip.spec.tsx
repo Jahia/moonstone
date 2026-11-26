@@ -1,10 +1,11 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {Button} from '~/components';
-import {Tooltip} from './index';
+
+import { Tooltip } from './index';
+import { Button } from '~/components';
 
 const requiredProps = {
-    label: 'Tooltip'
+    label: 'Tooltip',
 };
 
 describe('Tooltip', () => {
@@ -37,5 +38,41 @@ describe('Tooltip', () => {
         render(<Tooltip {...requiredProps} data-testid="moonstone-tooltip"><Button isDisabled label="Button"/></Tooltip>);
         await user.hover(screen.getByText('Button'));
         expect(screen.getByText(requiredProps.label)).toBeInTheDocument();
+    });
+
+    it('should give each tooltip its own id', async () => {
+        const user = userEvent.setup();
+        render(
+            <>
+                <Tooltip label="First tooltip"><Button label="First"/></Tooltip>
+                <Tooltip label="Second tooltip"><Button label="Second"/></Tooltip>
+            </>,
+        );
+
+        await user.hover(screen.getByRole('button', { name: 'First' }));
+        const firstId = screen.getByRole('tooltip').id;
+        await user.unhover(screen.getByRole('button', { name: 'First' }));
+        await user.hover(screen.getByRole('button', { name: 'Second' }));
+
+        expect(screen.getByRole('tooltip').id).not.toBe(firstId);
+    });
+
+    it('should describe the anchor with the tooltip', async () => {
+        const user = userEvent.setup();
+        render(<Tooltip {...requiredProps}><Button label="Button"/></Tooltip>);
+        await user.hover(screen.getByRole('button'));
+        expect(screen.getByRole('button')).toHaveAccessibleDescription(requiredProps.label);
+    });
+
+    it('should keep the anchor\'s own description', async () => {
+        const user = userEvent.setup();
+        render(
+            <>
+                <span id="own-description">Own description</span>
+                <Tooltip {...requiredProps}><Button aria-describedby="own-description" label="Button"/></Tooltip>
+            </>,
+        );
+        await user.hover(screen.getByRole('button'));
+        expect(screen.getByRole('button')).toHaveAccessibleDescription(`Own description ${requiredProps.label}`);
     });
 });

@@ -1,40 +1,43 @@
-import React, {useState} from 'react';
-import {StoryObj, StoryFn, Meta} from '@storybook/react-vite';
+import React, { useState } from 'react';
 
-import {RadioGroup} from './index';
-import {RadioItem} from './RadioItem';
+import { RadioGroup } from './index';
+import markdownNotes from './RadioGroup.md?raw';
+import { RadioItem } from './RadioItem';
+
+import type { Meta, StoryFn, StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/RadioGroup',
     component: RadioGroup,
-    subcomponents: {RadioItem},
+    subcomponents: { RadioItem },
     parameters: {
         layout: 'centered',
-        knobs: {disable: true},
-        storysource: {disable: true},
-        componentSubtitle: 'RadioGroup & RadioItem',
-        actions: {argTypesRegex: '^on.*'}
+        knobs: { disable: true },
+        storysource: { disable: true },
+        componentSubtitle: 'Lets the user choose exactly one option.',
+        docs: { description: { component: markdownNotes } },
+        actions: { argTypesRegex: '^on.*' },
     },
     argTypes: {
         children: {
             table: {
-                disable: true
-            }
-        }
-    }
+                disable: true,
+            },
+        },
+    },
 } as Meta<typeof RadioGroup>;
 
 const Template: StoryFn<typeof RadioGroup> = args => (
     <RadioGroup {...args}>
-        <RadioItem id="cat" label="Cat" description="Miaouw" value="cat"/>
-        <RadioItem id="dog" label="Dog" description="Ouah-ouah" value="dog"/>
+        <RadioItem description="Miaouw" id="cat" label="Cat" value="cat"/>
+        <RadioItem description="Ouah-ouah" id="dog" label="Dog" value="dog"/>
         <RadioItem
-      isDisabled
-      id="horse"
-      label="Horse"
-      description="Disabled element"
-      value="horse"
-    />
+            isDisabled
+            description="Disabled element"
+            id="horse"
+            label="Horse"
+            value="horse"
+        />
         <RadioItem id="bird" label="Bird without description" value="bird"/>
     </RadioGroup>
 );
@@ -43,8 +46,8 @@ export const NoDefaultValue = {
     render: Template,
 
     args: {
-        name: 'no-default-value'
-    }
+        name: 'no-default-value',
+    },
 };
 
 export const WithDefaultValue = {
@@ -52,8 +55,8 @@ export const WithDefaultValue = {
 
     args: {
         name: 'default-value',
-        defaultValue: 'dog'
-    }
+        defaultValue: 'dog',
+    },
 };
 
 export const Disabled = {
@@ -61,12 +64,12 @@ export const Disabled = {
 
     args: {
         name: 'disabled',
-        isDisabled: true
-    }
+        isDisabled: true,
+    },
 };
 
 export const Controlled: StoryObj<typeof RadioGroup> = {
-    render: args => {
+    render: (args) => {
         const [value, setValue] = useState('cat');
 
         const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,15 +78,15 @@ export const Controlled: StoryObj<typeof RadioGroup> = {
 
         return (
             <RadioGroup
-        {...args}
-        name="controlled"
-        value={value}
-        onChange={event => handleChange(event)}
+                {...args}
+                name="controlled"
+                value={value}
+                onChange={event => handleChange(event)}
             >
-                <RadioItem id="dog1" label="Dog" description="Ouah-ouah" value="dog"/>
-                <RadioItem id="cat" label="Cat" description="Miaow" value="cat"/>
-                <RadioItem id="fish" label="Fish" description="blop" value="fish"/>
+                <RadioItem description="Ouah-ouah" id="dog1" label="Dog" value="dog"/>
+                <RadioItem description="Miaow" id="cat" label="Cat" value="cat"/>
+                <RadioItem description="blop" id="fish" label="Fish" value="fish"/>
             </RadioGroup>
         );
-    }
+    },
 };

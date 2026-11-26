@@ -1,9 +1,10 @@
-import {Banner} from '~/components';
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+
+import { Banner } from '~/components';
 
 describe('Banner', () => {
     it('should display additional className', () => {
-        render(<Banner data-testid="banner" className="extra" title="Test banner">Banner content</Banner>);
+        render(<Banner className="extra" data-testid="banner" title="Test banner">Banner content</Banner>);
         expect(screen.getByTestId('banner')).toHaveClass('extra');
     });
 
@@ -20,19 +21,33 @@ describe('Banner', () => {
     const bannerVariants = ['neutral', 'info', 'warning', 'danger'] as const;
     test.each(bannerVariants)(
         'should use the specified variant %s',
-        variant => {
+        (variant) => {
             render(
                 <Banner
-                        data-testid="moonstone-banner"
-                        variant={variant}
-                        title="Test banner"
+                    data-testid="moonstone-banner"
+                    title="Test banner"
+                    variant={variant}
                 >
                     Banner content
-                </Banner>
+                </Banner>,
             );
             expect(screen.getByTestId('moonstone-banner')).toHaveClass(
-                `moonstone-banner_${variant}`
+                `moonstone-banner_${variant}`,
             );
-        }
+        },
     );
+
+    test.each([['neutral', 'status'], ['info', 'status'], ['warning', 'alert'], ['danger', 'alert']] as const)(
+        'should announce a %s banner with the %s role',
+        (variant, role) => {
+            render(<Banner title="Test banner" variant={variant}>Banner content</Banner>);
+            expect(screen.getByRole(role)).toHaveTextContent('Banner content');
+        },
+    );
+
+    it('should let the consumer override the role', () => {
+        render(<Banner role="region" title="Test banner" variant="danger">Banner content</Banner>);
+        expect(screen.getByRole('region')).toBeInTheDocument();
+        expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    });
 });

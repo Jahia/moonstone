@@ -1,24 +1,21 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
+import markdownNotes from './EmptyCardSelector.md?raw';
+import { EmptyCardSelector } from './index';
+import { File } from '~/icons';
 
-import {EmptyCardSelector} from './index';
-import type {EmptyCardSelectorProps} from './EmptyCardSelector.types';
-import markdownNotes from './EmptyCardSelector.md';
-import {File} from '~/icons';
-import {iconArgType} from '~/__storybook__/iconArgType';
+import type { EmptyCardSelectorProps } from './EmptyCardSelector.types';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof EmptyCardSelector> = {
-    title: 'Components/CardSelector/EmptyCardSelector',
+    title: 'Components/EmptyCardSelector',
     component: EmptyCardSelector,
     tags: ['new'],
 
     parameters: {
+        componentSubtitle: 'An empty picker field, before the user selects an item.',
+        docs: { description: { component: markdownNotes } },
         layout: 'padded',
-        actions: {argTypesRegex: '^on.*'},
-        notes: {markdown: markdownNotes}
+        actions: { argTypesRegex: '^on.*' },
     },
-    argTypes: {
-        iconStart: iconArgType
-    }
 };
 export default meta;
 
@@ -31,15 +28,15 @@ export const Default: Story = {
     args: {
         label: 'No item selected',
         isReadOnly: false,
-        isDisabled: false
+        isDisabled: false,
     },
-    render: Template
+    render: Template,
 };
 
 export const Icon: Story = {
     args: {
         ...Default.args,
-        iconStart: <File/>
+        iconStart: <File/>,
     },
-    render: Template
+    render: Template,
 };

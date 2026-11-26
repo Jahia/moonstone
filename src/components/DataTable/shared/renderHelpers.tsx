@@ -1,5 +1,7 @@
 import React from 'react';
-import {Typography} from '~/components';
+
+import { Typography } from '~/components';
+import { warnOnce } from '~/utils/warnOnce';
 
 type LocaleProp = string | string[];
 
@@ -15,7 +17,7 @@ export type LocaleOptions = {
 
 export const renderString = (value: string): React.ReactNode => {
     if (typeof value !== 'string') {
-        console.warn('renderString expects a string, received:', typeof value, value);
+        warnOnce('renderString', `renderString expects a string, received: ${typeof value}`);
         return null;
     }
 
@@ -23,33 +25,33 @@ export const renderString = (value: string): React.ReactNode => {
 };
 
 export const renderNumber = (
-    {value, locale, localeOptions}: Extract<LocaleOptions, { value: number | bigint }>
+    { value, locale, localeOptions }: Extract<LocaleOptions, { value: number | bigint }>,
 ): React.ReactNode => {
     if (value === null || value === undefined) {
         return null;
     }
 
     if (typeof value !== 'number' && typeof value !== 'bigint') {
-        console.warn('renderNumber expects a number or bigint, received:', typeof value, value);
+        warnOnce('renderNumber', `renderNumber expects a number or bigint, received: ${typeof value}`);
         return null;
     }
 
-    const formattedValue = typeof value === 'bigint' ?
-        value.toLocaleString(locale, localeOptions as BigIntToLocaleStringOptions) :
-        value.toLocaleString(locale, localeOptions);
+    const formattedValue = typeof value === 'bigint'
+        ? value.toLocaleString(locale, localeOptions as BigIntToLocaleStringOptions)
+        : value.toLocaleString(locale, localeOptions);
 
     return <Typography isNowrap component="span">{formattedValue}</Typography>;
 };
 
 export const renderDate = (
-    {value, locale, localeOptions}: Extract<LocaleOptions, { value: Date | null | undefined }>
+    { value, locale, localeOptions }: Extract<LocaleOptions, { value: Date | null | undefined }>,
 ): React.ReactNode => {
     if (value === null || value === undefined) {
         return null;
     }
 
     if (!(value instanceof Date)) {
-        console.warn('renderDate expects a Date object, received:', typeof value, value);
+        warnOnce('renderDate', `renderDate expects a Date object, received: ${typeof value}`);
         return null;
     }
 

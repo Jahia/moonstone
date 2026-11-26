@@ -1,7 +1,8 @@
+@use "../../utils/motion" as *;
+
 .drawer {
     display: flex;
     flex-direction: column;
-    min-width: 100%;
 
     height: stretch;
     min-height: 0;
@@ -9,11 +10,11 @@
 }
 
 .drawer[data-state='open'] {
-    animation: slide-in var(--drawer-animation-duration) cubic-bezier(0.39, 0.575, 0.565, 1) both; // easeOutSine
+    @include animation(slide-in var(--drawer-animation-duration) cubic-bezier(0.39, 0.575, 0.565, 1) both); // easeOutSine
 }
 
 .drawer[data-state='closed'] {
-    animation: slide-out var(--drawer-animation-duration) cubic-bezier(0.39, 0.575, 0.565, 1) both; // easeOutSine
+    @include animation(slide-out var(--drawer-animation-duration) cubic-bezier(0.39, 0.575, 0.565, 1) both); // easeOutSine
 }
 
 @keyframes slide-in {
@@ -33,12 +34,5 @@
 
     to {
         transform: translateX(100%);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .drawer[data-state='open'],
-    .drawer[data-state='closed'] {
-        animation: none;
     }
 }

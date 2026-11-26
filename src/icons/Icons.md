@@ -18,3 +18,5 @@ The icon API allows for 3 sizes which map to the following values:
 | small   | 0.75x0.75 | 12x12 |  
 | default | 1x1       | 16x16 |  
 | big     | 1.5x1.5   | 24x24 |  
+
+Every icon renders its name in a `data-icon` attribute, such as `data-icon="Add"`, to find which icon a page uses in a test or while debugging.

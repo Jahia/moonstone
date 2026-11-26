@@ -1,4 +1,4 @@
-import type {BaseInputProps} from '../BaseInput/BaseInput.types';
+import type { BaseInputProps } from '../BaseInput/BaseInput.types';
 
 export type BasicNumberInputProps = Omit<BaseInputProps, 'isShowClearButton' | 'value' | 'defaultValue' | 'onChange' | 'role' | 'variant'> & {
     /**
@@ -13,11 +13,13 @@ export type BasicNumberInputProps = Omit<BaseInputProps, 'isShowClearButton' | '
 
     /**
      * Character to use as a separator
+     * @default '.'
      */
     separator?: '.' | ',';
 
     /**
      * Step to increase & decrease the value by
+     * @default 1
      */
     step?: number;
 
@@ -37,21 +39,21 @@ export type BasicNumberInputProps = Omit<BaseInputProps, 'isShowClearButton' | '
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 
     variant?: 'ghost' | 'outlined';
-}
+};
 
 type ControlledProps = {
     /**
      * Value to exist in the input field. Define the component as controlled when it set. (Controlled)
      */
     value: string;
-}
+};
 
 type UncontrolledProps = {
     /**
      * Default value when the component is rendered (Uncontrolled)
      */
     defaultValue?: string;
-}
+};
 
 export type NumberInputProps = BasicNumberInputProps & Partial<ControlledProps> & Partial<UncontrolledProps>;
 export type ControlledNumberInputProps = BasicNumberInputProps & ControlledProps;

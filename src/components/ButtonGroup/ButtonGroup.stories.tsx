@@ -1,22 +1,22 @@
-import {StoryObj, Meta} from '@storybook/react-vite';
+import markdownNotes from './ButtonGroup.md?raw';
+import { ButtonGroup } from './index';
+import { Button } from '~/components/Button';
+import { ChevronDown } from '~/icons';
 
-import markdownNotes from './ButtonGroup.md';
-import {ButtonGroup} from './index';
-import type {ButtonGroupProps} from './ButtonGroup.types';
-import {Button} from '~/components/Button';
-import {ChevronDown} from '~/icons';
+import type { ButtonGroupProps } from './ButtonGroup.types';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/ButtonGroup',
     component: ButtonGroup,
-    subcomponents: {Button},
+    tags: ['dark-theme'],
 
     parameters: {
+        docs: { description: { component: markdownNotes } },
         layout: 'centered',
-        componentSubtitle: 'ButtonGroup',
-        notes: {markdown: markdownNotes},
-        actions: {argTypesRegex: '^on.*'}
-    }
+        componentSubtitle: 'Related actions, joined as one unit.',
+        actions: { argTypesRegex: '^on.*' },
+    },
 } as Meta<typeof ButtonGroup>;
 
 export const Default: StoryObj<ButtonGroupProps> = {
@@ -29,26 +29,43 @@ export const Default: StoryObj<ButtonGroupProps> = {
     ),
 
     args: {
-        size: 'big'
-    }
+        size: 'big',
+    },
 };
 
-export const ButtonWithActions = () => (
-    <ButtonGroup color="accent" size="big">
-        <Button label="Actions" onClick={() => null}/>
-        <Button icon={<ChevronDown/>} aria-label="button with down arrow icon" onClick={() => null}/>
-    </ButtonGroup>
-);
+export const ButtonWithActions: StoryObj<ButtonGroupProps> = {
+    render: args => (
+        <ButtonGroup {...args}>
+            <Button label="Actions" onClick={() => null}/>
+            <Button aria-label="button with down arrow icon" icon={<ChevronDown/>} onClick={() => null}/>
+        </ButtonGroup>
+    ),
 
-export const ButtonOutlinedWithActions = () => (
-    <ButtonGroup color="accent" size="big" variant="outlined">
-        <Button label="Actions" onClick={() => null}/>
-        <Button icon={<ChevronDown/>} aria-label="button with down arrow icon" onClick={() => null}/>
-    </ButtonGroup>
-);
+    args: {
+        color: 'accent',
+        size: 'big',
+    },
+};
 
-export const ButtonGroupWith1Button = () => (
-    <ButtonGroup color="accent" size="big">
-        <Button label="Actions" onClick={() => null}/>
-    </ButtonGroup>
-);
+export const ButtonOutlinedWithActions: StoryObj<ButtonGroupProps> = {
+    ...ButtonWithActions,
+
+    args: {
+        color: 'accent',
+        size: 'big',
+        variant: 'outlined',
+    },
+};
+
+export const ButtonGroupWith1Button: StoryObj<ButtonGroupProps> = {
+    render: args => (
+        <ButtonGroup {...args}>
+            <Button label="Actions" onClick={() => null}/>
+        </ButtonGroup>
+    ),
+
+    args: {
+        color: 'accent',
+        size: 'big',
+    },
+};

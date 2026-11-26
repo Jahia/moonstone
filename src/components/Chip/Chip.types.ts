@@ -7,10 +7,12 @@ export type ChipProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className'>
     label?: string;
     /**
      * Chip color
+     * @default 'default'
      */
     color?: 'default' | 'accent' | 'success' | 'warning' | 'danger' | 'reassuring' | 'light';
     /**
      * Color variant
+     * @default 'default'
      */
     variant?: 'default' | 'bright';
     /**
@@ -25,5 +27,4 @@ export type ChipProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className'>
      * Whether the component should be disabled
      */
     isDisabled?: boolean;
-}
-
+};

@@ -1,16 +1,14 @@
-import {useRef} from 'react';
+import { warnOnce } from '~/utils/warnOnce';
 
 // Search and pagination must be done on the same side (table or consumer), otherwise the item count is wrong
 export function useSearchPaginationWarning(isEnabled: boolean, isTableFiltering: boolean, isTablePaginating: boolean) {
-    const hasWarned = useRef(false);
-
-    if (!isEnabled || isTableFiltering === isTablePaginating || hasWarned.current) {
+    if (!isEnabled || isTableFiltering === isTablePaginating) {
         return;
     }
 
-    hasWarned.current = true;
-    console.warn(isTableFiltering ?
-        'DataTable: the table filters the rows (`searchColumns`) but you paginate them (`currentPage`, `totalItems`), so the item count ignores the search. Do both on the same side.' :
-        'DataTable: you filter the rows (no `searchColumns`) but the table paginates them, so the item count only reflects the rows it was given. Do both on the same side, or set `enablePagination={false}`.'
-    );
+    if (isTableFiltering) {
+        warnOnce('DataTable.searchTablePaginationConsumer', 'DataTable: the table filters the rows (`searchColumns`) but you paginate them (`currentPage`, `totalItems`), so the item count ignores the search. Do both on the same side.');
+    } else {
+        warnOnce('DataTable.searchConsumerPaginationTable', 'DataTable: you filter the rows (no `searchColumns`) but the table paginates them, so the item count only reflects the rows it was given. Do both on the same side, or set `enablePagination={false}`.');
+    }
 }

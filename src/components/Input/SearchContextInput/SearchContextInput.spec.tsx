@@ -1,15 +1,19 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {SearchContextInput} from './index';
-import {Dropdown} from '~/components';
-import {dropdownData} from '~/data/dropdownData';
+
+import { SearchContextInput } from './index';
+import { Dropdown } from '~/components';
+import { Field } from '~/components/Field';
+import { dropdownData } from '~/data/dropdownData';
 
 const requiredProps = {
-    searchContext: <Dropdown
-                data-testid="test-searchContext"
-                data={dropdownData}
-                value=""
-            />
+    searchContext: (
+        <Dropdown
+            data={dropdownData}
+            data-testid="test-searchContext"
+            value=""
+        />
+    ),
 };
 
 describe('SearchContextInput', () => {
@@ -34,9 +38,20 @@ describe('SearchContextInput', () => {
 
     it('should display search context', () => {
         render(
-            <SearchContextInput {...requiredProps}/>
+            <SearchContextInput {...requiredProps}/>,
         );
         expect(screen.getByTestId('test-searchContext')).toBeInTheDocument();
+    });
+
+    it('should not link the search context to a Field around it', () => {
+        render(
+            <Field helper="Help" id="search" label="Search">
+                <SearchContextInput {...requiredProps}/>
+            </Field>,
+        );
+        const dropdown = screen.getByRole('listbox');
+        expect(dropdown).not.toHaveAttribute('aria-labelledby');
+        expect(dropdown).not.toHaveAttribute('aria-describedby');
     });
 });
 
@@ -49,7 +64,7 @@ describe('UncontrolledSearchContextInput', () => {
                 {...requiredProps}
                 data-testid="moonstone-input"
                 defaultValue="test-default-value"
-            />
+            />,
         );
         await user.click(screen.getByLabelText('Reset'));
 
@@ -66,7 +81,7 @@ describe('UncontrolledSearchContextInput', () => {
                 data-testid="moonstone-input"
                 defaultValue="test-default-value"
                 onChange={handleChange}
-            />
+            />,
         );
         await user.type(screen.getByTestId('moonstone-input'), '1');
 
@@ -82,7 +97,7 @@ describe('UncontrolledSearchContextInput', () => {
                 {...requiredProps}
                 defaultValue="test-default-value"
                 onClear={handleClear}
-            />
+            />,
         );
         await user.click(screen.getByLabelText('Reset'));
 
@@ -101,7 +116,7 @@ describe('ControlledSearchContextInput', () => {
                 data-testid="moonstone-input"
                 value="test-value"
                 onChange={handleChange}
-            />
+            />,
         );
         await user.type(screen.getByTestId('moonstone-input'), '1');
 
@@ -118,7 +133,7 @@ describe('ControlledSearchContextInput', () => {
                 value="test-value"
                 onChange={() => null}
                 onClear={handleClear}
-            />
+            />,
         );
         await user.click(screen.getByLabelText('Reset'));
 

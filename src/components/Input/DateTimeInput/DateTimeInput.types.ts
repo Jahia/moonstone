@@ -1,31 +1,32 @@
 import React from 'react';
-import type {Temporal} from 'temporal-polyfill';
-import type {BaseInputProps} from '../BaseInput/BaseInput.types';
-import type {TimeFormat, TimeInputProps} from '../TimeInput';
-import type {ControlledTimezoneSelectorProps} from '../../TimezoneSelector';
-import type {DateTimeValue, DateTimeValueInput} from './dateTimeValue';
-import type {DataAttributes} from '~/types/DataAttributes.types';
-import type {InstantInput} from '../utils/temporal';
+
+import type { ControlledTimezoneSelectorProps } from '../../TimezoneSelector';
+import type { BaseInputProps } from '../BaseInput/BaseInput.types';
+import type { TimeFormat, TimeInputProps } from '../TimeInput';
+import type { InstantInput } from '../utils/temporal';
+import type { DateTimeValue, DateTimeValueInput } from './dateTimeValue';
+import type { Temporal } from 'temporal-polyfill';
+import type { DataAttributes } from '~/types/DataAttributes.types';
 
 /**
  * Selects the component's mode, which fields it renders, and the emitted value type:
- * - `'date'`          : calendar only            → `Temporal.PlainDate`
- * - `'dateTime'`      : calendar + time          → `Temporal.PlainDateTime`
- * - `'zonedDateTime'` : calendar + time + zone   → `Temporal.Instant` (the zone is display-only)
+ * - `'date'`: calendar only, gives a `Temporal.PlainDate`
+ * - `'dateTime'`: calendar and time, gives a `Temporal.PlainDateTime`
+ * - `'zonedDateTime'`: calendar, time, and zone, gives a `Temporal.Instant` (the zone is display-only)
  */
 export type DateTimeInputType = 'date' | 'dateTime' | 'zonedDateTime';
 
 /**
  * LDML date pattern for the trigger input, overriding the order guessed from `locale`.
  * Supports `yyyy`/`yy`, `MMMM`/`MMM`/`MM`/`M`, `dd`/`d`; other characters are separators.
- * Tokens still render via `Intl` in `locale`, so names stay localized (`'d MMMM yyyy'` + fr → `5 mars 2026`).
- * An invalid pattern (no token, or stray letters, e.g. `'toto'`) falls back to the locale format.
+ * Tokens still render via `Intl` in `locale`, so names stay localized (`'d MMMM yyyy'` in `fr` gives `5 mars 2026`).
+ * An invalid pattern (no token, or stray letters such as `'toto'`) falls back to the locale format.
  */
 export type DateFormat = string;
 
 /**
  * A calendar date accepted by the bounds / disabled-date props.
- * Accepts a `Temporal.PlainDate` or an ISO date string (e.g. `'2026-06-19'`).
+ * Accepts a `Temporal.PlainDate` or an ISO date string, such as `'2026-06-19'`.
  */
 export type CalendarDate = Temporal.PlainDate | string;
 
@@ -43,56 +44,85 @@ export type DisabledDateRange = {
 
 /** I18n labels for the calendar actions of the `DateTimeInput` */
 export type DateTimeInputI18n = {
-    /** Label for the "Today" shortcut button in the calendar footer */
+    /**
+     * Label for the "Today" shortcut button in the calendar footer
+     * @default 'Today'
+     */
     todayButton?: string;
-    /** Accessible label for the next month button */
+    /**
+     * Accessible label for the next month button
+     * @default 'Go to the next month'
+     */
     nextMonth?: string;
-    /** Accessible label for the previous month button */
+    /**
+     * Accessible label for the previous month button
+     * @default 'Go to the previous month'
+     */
     previousMonth?: string;
-    /** Label shown before the timezone selector (`type='zonedDateTime'`) */
+    /**
+     * Label shown before the timezone selector (`type='zonedDateTime'`)
+     * @default 'Timezone'
+     */
     timezone?: string;
+    /**
+     * Accessible name of the clear button
+     * @default 'Reset'
+     */
+    clearButton?: string;
+    /**
+     * aria-label of the time input (`type='dateTime'` or `'zonedDateTime'`), after the name of the date input
+     * @default 'Time'
+     */
+    timeLabel?: string;
+    /**
+     * aria-label of the AM/PM dropdown (`timeFormat='12h'`)
+     * @default 'AM/PM'
+     */
+    meridiemLabel?: string;
 };
 
 export type DateTimeInputTimeInputProps = Omit<TimeInputProps,
-    'defaultValue' |
-    'value' |
-    'onChange' |
-    'timeFormat' |
-    'size' |
-    'variant' |
-    'isDisabled' |
-    'isReadOnly' |
-    'focusOnField'
+    'defaultValue'
+    | 'value'
+    | 'onChange'
+    | 'timeFormat'
+    | 'size'
+    | 'variant'
+    | 'isDisabled'
+    | 'isReadOnly'
+    | 'focusOnField'
+    | 'i18n'
 > & DataAttributes;
 
 export type DateTimeInputTimezoneSelectorProps = Omit<ControlledTimezoneSelectorProps,
-    'value' |
-    'onChange' |
-    'referenceDate' |
-    'size' |
-    'variant' |
-    'isDisabled' |
-    'isReadOnly'
+    'value'
+    | 'onChange'
+    | 'referenceDate'
+    | 'size'
+    | 'variant'
+    | 'isDisabled'
+    | 'isReadOnly'
 > & DataAttributes;
 
 /** Props common to every mode of the `DateTimeInput`. */
 export type DateTimeInputSharedProps = Omit<BaseInputProps,
-    'defaultValue' |
-    'value' |
-    'onChange' |
-    'onClear' |
-    'icon' |
-    'role' |
-    'type' |
-    'min' |
-    'max' |
-    'step' |
-    'filterFunction' |
-    'allowDecimal' |
-    'allowNegative' |
-    'separator' |
-    'disabled' |
-    'readOnly'
+    'defaultValue'
+    | 'i18n'
+    | 'value'
+    | 'onChange'
+    | 'onClear'
+    | 'icon'
+    | 'role'
+    | 'type'
+    | 'min'
+    | 'max'
+    | 'step'
+    | 'filterFunction'
+    | 'allowDecimal'
+    | 'allowNegative'
+    | 'separator'
+    | 'disabled'
+    | 'readOnly'
 > & {
     variant?: 'ghost' | 'outlined';
 
@@ -124,7 +154,7 @@ export type DateTimeInputSharedProps = Omit<BaseInputProps,
      */
     locale?: Intl.ResolvedDateTimeFormatOptions['locale'];
 
-    /** LDML pattern for the date input (e.g. `'dd/MM/yyyy'`), overriding the locale order. See {@link DateFormat}. */
+    /** LDML pattern for the date input, such as `'dd/MM/yyyy'`, overriding the locale order. See {@link DateFormat}. */
     dateFormat?: DateFormat;
 
     /**
@@ -134,7 +164,9 @@ export type DateTimeInputSharedProps = Omit<BaseInputProps,
      */
     weekStartsOn?: DayOfWeek;
 
-    /** I18n labels for calendar actions */
+    /**
+     * Texts of the component, shown on screen or read by screen readers. Translate them with the rest of the UI.
+     */
     i18n?: DateTimeInputI18n;
 
     /** Additional props forwarded to the internal TimeInput (`type='dateTime'` or `'zonedDateTime'`). */
@@ -168,13 +200,13 @@ type Uncontrolled<V, I = V | string> = {
 
 type ControlMode<V, I = V | string> = Controlled<V, I> | Uncontrolled<V, I>;
 
-/** `type='date'` — value is a `Temporal.PlainDate` (or ISO date string). */
+/** `type='date'`: value is a `Temporal.PlainDate` (or ISO date string). */
 type DateModeProps = {
     type: 'date';
     timeFormat?: never;
 } & ControlMode<Temporal.PlainDate>;
 
-/** `type='dateTime'` — value is a `Temporal.PlainDateTime` (or ISO date-time string). */
+/** `type='dateTime'`: value is a `Temporal.PlainDateTime` (or ISO date-time string). */
 type DateTimeModeProps = {
     type: 'dateTime';
     /**
@@ -186,7 +218,7 @@ type DateTimeModeProps = {
 } & ControlMode<Temporal.PlainDateTime>;
 
 /**
- * `type='zonedDateTime'` — value is a `Temporal.Instant` (or ISO instant string such as
+ * `type='zonedDateTime'`: value is a `Temporal.Instant` (or ISO instant string such as
  * `'2026-06-19T12:30:00Z'`); it carries no zone. The timezone selector only picks the zone the
  * instant is displayed in: changing it re-projects the date and time without emitting `onChange`.
  */
@@ -199,7 +231,7 @@ type ZonedModeProps = {
      */
     timeFormat?: TimeFormat;
     /**
-     * IANA timezone the value is initially displayed in (e.g. `'Europe/Paris'`).
+     * IANA timezone the value is initially displayed in, such as `'Europe/Paris'`.
      * Uncontrolled: the user can switch it from the timezone selector. An unknown zone is ignored.
      * @default the browser's timezone
      */
@@ -227,4 +259,4 @@ export type UncontrolledDateTimeInputProps = DateTimeInputImplProps & {
     defaultValue?: DateTimeValueInput;
 };
 
-export type {TimeFormat} from '../TimeInput';
+export type { TimeFormat } from '../TimeInput';

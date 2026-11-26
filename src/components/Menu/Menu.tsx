@@ -1,15 +1,24 @@
-import React, {useState, useEffect} from 'react';
-import {usePositioning, useEnterExitCallbacks} from '~/hooks';
+import { Composite } from '@floating-ui/react';
 import clsx from 'clsx';
-import type {MenuProps} from './Menu.types';
-import {SearchInput} from '~/components/Input';
-import {Typography} from '~/components/Typography';
+import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
+
+import { MenuItem } from './MenuItem';
+import { WithoutField } from '~/components/Field/Field.context';
+import { SearchInput } from '~/components/Input';
+import { Typography } from '~/components/Typography';
+import { getInitialIndex, mergeHandlers, shouldIgnoreKey, useEnterExitCallbacks, usePositioning, useRovingTabIndex } from '~/hooks';
+
+import type { MenuProps } from './Menu.types';
+import type { MenuItemProps } from './MenuItem.types';
+
 import styles from './Menu.module.scss';
 
 const getFlatChildren = (children: [React.ReactElement]) => {
-    if (children[0].props['data-option-type'] === 'group') {
+    // The first child can be `false`, `null` or text, as in `{cond && <MenuItem/>}`
+    if (children[0]?.props?.['data-option-type'] === 'group') {
         return children.reduce((acc, curr) => {
-            return [...acc, ...curr.props.children[2]];
+            acc.push(...curr.props.children[2]);
+            return acc;
         }, []);
     }
 
@@ -18,7 +27,7 @@ const getFlatChildren = (children: [React.ReactElement]) => {
 
 // Filtering function
 const getFilteredChildren = (child: React.ReactElement, inputValue: string) => {
-    if (child.props && (child.props.label || child.props.description)) {
+    if (child?.props && (child.props.label || child.props.description)) {
         const containsLabel = child.props.label ? child.props.label.toLowerCase().includes(inputValue.toLowerCase()) : false;
         const containsDescription = child.props.description ? child.props.description.toLowerCase().includes(inputValue.toLowerCase()) : false;
         return (containsLabel || containsDescription) && child.props.variant !== 'title';
@@ -29,7 +38,7 @@ const getFilteredChildren = (child: React.ReactElement, inputValue: string) => {
 
 const getFilteredGroups = (children: [React.ReactElement], inputValue: string) => {
     // If group then filter each child by inputValue while keeping title & separator
-    if (children.length > 0 && children[0].props?.['data-option-type'] === 'group') {
+    if (children.length > 0 && children[0]?.props?.['data-option-type'] === 'group') {
         return children.reduce((acc, curr) => {
             const groupChildren = curr.props.children[2] || [];
             const filteredChildren = groupChildren.filter((child: React.ReactElement) => getFilteredChildren(child, inputValue));
@@ -46,9 +55,9 @@ const getFilteredGroups = (children: [React.ReactElement], inputValue: string) =
                             // Title
                             curr.props.children[1],
                             // Filtered children
-                            filteredChildren
-                        ]
-                    }
+                            filteredChildren,
+                        ],
+                    },
                 };
                 acc.push(filteredGroup);
             }
@@ -62,18 +71,18 @@ const getFilteredGroups = (children: [React.ReactElement], inputValue: string) =
 
 const defaultAnchorElOrigin = {
     horizontal: 'left',
-    vertical: 'bottom'
-}as const;
+    vertical: 'bottom',
+} as const;
 
 const defaultTransformElOrigin = {
     vertical: 'top',
-    horizontal: 'left'
-}as const;
+    horizontal: 'left',
+} as const;
 
 const defaultAnchorPosition = {
     top: 0,
-    left: 0
-}as const;
+    left: 0,
+} as const;
 
 export const Menu: React.FC<MenuProps> = ({
     children,
@@ -86,7 +95,7 @@ export const Menu: React.FC<MenuProps> = ({
     style,
     onMouseEnter,
     onMouseLeave,
-    anchorEl = null,
+    anchorEl,
     anchorElOrigin = defaultAnchorElOrigin,
     transformElOrigin = defaultTransformElOrigin,
     anchorPosition = defaultAnchorPosition,
@@ -99,29 +108,55 @@ export const Menu: React.FC<MenuProps> = ({
     hasSearch,
     autoAddSearchLimit = 7,
     searchEmptyText = 'No results found.',
+    i18n,
     ...props
 }) => {
     const [stylePosition, itemRef] = usePositioning(isDisplayed, anchorPosition, anchorEl, anchorElOrigin, transformElOrigin, position);
     useEnterExitCallbacks(isDisplayed, onExiting, onExited, onEntering, onEntered);
+    const rovingTabIndex = useRovingTabIndex();
     const [inputValue, setInputValue] = useState('');
-    const [filteredChildren, setFilteredChildren] = useState(children);
-    const [isEmptySearch, setIsEmptySearch] = useState(false);
-    // UseEffect hook to filter the search results and determine whether to show the no search results text
-    useEffect(() => {
-        if (inputValue !== '' && Array.isArray(children)) {
-            const _filtered = getFilteredGroups(children as [React.ReactElement], inputValue);
-            setFilteredChildren(_filtered);
+    // Search results are derived from the query, not stored: no effect, no extra render.
+    // `null` means "no active search", so the unfiltered children are rendered as-is.
+    const filteredChildren = useMemo(
+        () => (inputValue !== '' && Array.isArray(children)
+            ? getFilteredGroups(children as [React.ReactElement], inputValue)
+            : null),
+        [inputValue, children],
+    );
+    const isEmptySearch = filteredChildren !== null && filteredChildren.length === 0;
 
-            if (_filtered.length === 0) {
-                setIsEmptySearch(true);
-            } else {
-                setIsEmptySearch(false);
+    // Focus moves into the menu when it shows, and back when it hides with focus inside.
+    // On mount, every item still has tabindex="-1", so the items are found by `data-roving-item`.
+    const searchRef = useRef<HTMLInputElement>(null);
+    const returnFocusTo = useRef<HTMLElement | null>(null);
+    useLayoutEffect(() => {
+        const menu = itemRef.current;
+        if (isDisplayed) {
+            // StrictMode runs the effect twice on mount: the second run must not save a focus already inside
+            if (!menu?.contains(document.activeElement)) {
+                returnFocusTo.current = document.activeElement as HTMLElement | null;
             }
-        } else {
-            setFilteredChildren(null);
-            setIsEmptySearch(false);
+
+            const target = searchRef.current
+                ?? menu?.querySelector<HTMLElement>('[data-roving-item].moonstone-selected:not([aria-disabled="true"])')
+                ?? menu?.querySelector<HTMLElement>('[data-roving-item]:not([aria-disabled="true"])');
+            target?.focus({ preventScroll: true });
+        } else if (menu?.contains(document.activeElement)) {
+            returnFocusTo.current?.focus();
         }
-    }, [inputValue, children]);
+    }, [isDisplayed, itemRef]);
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLMenuElement>) => {
+        if (shouldIgnoreKey(e) || e.key !== 'Escape' || !onClose) {
+            return;
+        }
+
+        // Stops a Drawer or a Modal around the menu from closing on the same Escape
+        e.stopPropagation();
+        // Before onClose: a Dropdown unmounts its menu, which then cannot give the focus back
+        returnFocusTo.current?.focus();
+        onClose(e);
+    };
 
     if (!children || React.Children.count(children) < 1) {
         return null;
@@ -133,13 +168,19 @@ export const Menu: React.FC<MenuProps> = ({
         hasAutoSearch = React.Children.count(flatChildren) > autoAddSearchLimit;
     }
 
+    // Focus enters the menu on its selected item, else on its first enabled one, among the MenuItems that are items of the Composite
+    const shownChildren = filteredChildren || children;
+    const items = (Array.isArray(shownChildren) && shownChildren.length > 0 ? getFlatChildren(shownChildren as [React.ReactElement]) : [])
+        .filter((item): item is React.ReactElement<MenuItemProps> => React.isValidElement<MenuItemProps>(item) && item.type === MenuItem && item.props.variant !== 'title' && item.props.tabIndex !== -1);
+    const initialIndex = getInitialIndex(items.map(item => item.props));
+
     // ---
     // Styling
     // ---
     const styleMenu: React.CSSProperties = {
         position,
-        ...stylePosition as React.CSSProperties,
-        ...style
+        ...stylePosition,
+        ...style,
     };
 
     if (minWidth) {
@@ -159,47 +200,71 @@ export const Menu: React.FC<MenuProps> = ({
     // ---
     return (
         <>
-            <menu
+            <Composite
+                {...rovingTabIndex.getCompositeProps(initialIndex)}
+                orientation="vertical"
                 ref={itemRef}
-                style={styleMenu}
-                role="list"
-                className={clsx(
-                    ['moonstone-menu', styles['moonstone-menu']],
-                    className,
-                    (!isDisplayed || !stylePosition) && ['moonstone-hidden', styles['moonstone-hidden']]
+                render={compositeProps => (
+                    // oxlint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- #1604
+                    <menu
+                        {...compositeProps}
+                        // A <menu> is a list, which takes no aria-orientation
+                        aria-orientation={undefined}
+                        className={clsx(
+                            ['moonstone-menu', styles['moonstone-menu']],
+                            className,
+                            (!isDisplayed || !stylePosition) && ['moonstone-hidden', styles['moonstone-hidden']],
+                        )}
+                        style={styleMenu}
+                        onMouseEnter={onMouseEnter}
+                        onMouseLeave={onMouseLeave}
+                        {...mergeHandlers(props, {
+                            onKeyDown: rovingTabIndex.onKeyDown(compositeProps.onKeyDown),
+                            onBlur: rovingTabIndex.onBlur,
+                        }, { onKeyDown: handleKeyDown })}
+                    />
                 )}
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
-                {...props}
             >
                 { hasAutoSearch && (
-                    <div className={clsx('moonstone-menu_searchInput', styles['moonstone-menu_searchInput'])}>
-                        <SearchInput
-                            focusOnField
-                            value={inputValue}
-                            onChange={e => setInputValue(e.target.value)}
-                            onKeyUp={e => {
-                                if (e.key === 'Enter') {
-                                    const list = React.Children.toArray(filteredChildren);
-                                    if (list.length > 0) {
-                                        (list[0] as React.ReactElement).props.onClick(e);
+                    // The search box of a menu is not the control of a Field around it
+                    <WithoutField>
+                        <div className={clsx('moonstone-menu_searchInput', styles['moonstone-menu_searchInput'])}>
+                            <SearchInput
+                                aria-label={i18n?.searchLabel || 'Search'}
+                                ref={searchRef}
+                                value={inputValue}
+                                onChange={e => setInputValue(e.target.value)}
+                                onClear={() => setInputValue('')}
+                                onKeyDown={(e) => {
+                                    if (shouldIgnoreKey(e)) {
+                                        return;
                                     }
-                                }
-                            }}
-                            onClear={() => setInputValue('')}
-                        />
-                    </div>
+
+                                    if (e.key === 'ArrowDown') {
+                                        e.preventDefault();
+                                        // The first enabled item, found in the DOM so that a group title is skipped
+                                        itemRef.current?.querySelector<HTMLElement>('[data-roving-item]:not([aria-disabled="true"])')?.focus();
+                                    }
+                                }}
+                            />
+                        </div>
+                    </WithoutField>
                 )}
                 {filteredChildren || children}
-                {isEmptySearch && (
-                    <Typography
-                        className={clsx('moonstone-menu_emptySearchText', styles['moonstone-menu_emptySearchText'])}
-                        variant="caption"
-                    >
-                        {searchEmptyText}
-                    </Typography>
+                {/* Stays mounted while the search exists so the empty state is announced when it appears */}
+                {hasAutoSearch && (
+                    <div role="status">
+                        {isEmptySearch && (
+                            <Typography
+                                className={clsx('moonstone-menu_emptySearchText', styles['moonstone-menu_emptySearchText'])}
+                                variant="caption"
+                            >
+                                {searchEmptyText}
+                            </Typography>
+                        )}
+                    </div>
                 )}
-            </menu>
+            </Composite>
             {
                 hasOverlay && isDisplayed && (
                     <div

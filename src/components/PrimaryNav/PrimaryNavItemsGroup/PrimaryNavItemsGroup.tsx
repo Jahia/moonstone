@@ -1,8 +1,11 @@
-import React, {useContext} from 'react';
 import clsx from 'clsx';
-import type {PrimaryNavItemsGroupProps} from './PrimaryNavItemsGroup.types';
-import {PrimaryNavContext} from '../PrimaryNav.context';
-import {Separator} from '~/components';
+import React, { useContext } from 'react';
+
+import { PrimaryNavContext } from '../PrimaryNav.context';
+import { Separator } from '~/components';
+
+import type { PrimaryNavItemsGroupProps } from './PrimaryNavItemsGroup.types';
+
 import styles from './PrimaryNavItemsGroup.module.scss';
 
 export const PrimaryNavItemsGroup: React.FC<PrimaryNavItemsGroupProps> = ({

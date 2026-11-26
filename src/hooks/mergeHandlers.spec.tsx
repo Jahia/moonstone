@@ -1,6 +1,7 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {mergeHandlers} from './mergeHandlers';
+
+import { mergeHandlers } from './mergeHandlers';
 
 describe('mergeHandlers', () => {
     const Mock = (props: React.HTMLAttributes<HTMLDivElement>) => {
@@ -14,7 +15,7 @@ describe('mergeHandlers', () => {
         const firstHandler = vi.fn();
         const secondHandler = vi.fn();
 
-        render(<Mock {...mergeHandlers({onClick: firstHandler}, {onClick: secondHandler})}/>);
+        render(<Mock {...mergeHandlers({ onClick: firstHandler }, { onClick: secondHandler })}/>);
 
         await user.click(screen.getByTestId('test'));
         expect(firstHandler).toHaveBeenCalled();
@@ -25,7 +26,7 @@ describe('mergeHandlers', () => {
         const user = userEvent.setup();
         const onClick = vi.fn();
 
-        render(<Mock {...mergeHandlers({onClick: onClick})}/>);
+        render(<Mock {...mergeHandlers({ onClick: onClick })}/>);
 
         await user.click(screen.getByTestId('test'));
         expect(onClick).toHaveBeenCalled();
@@ -36,7 +37,7 @@ describe('mergeHandlers', () => {
         const firstHandler = vi.fn(e => e.preventDefault());
         const secondHandler = vi.fn();
 
-        render(<Mock {...mergeHandlers({onClick: firstHandler}, {onClick: secondHandler})}/>);
+        render(<Mock {...mergeHandlers({ onClick: firstHandler }, { onClick: secondHandler })}/>);
 
         await user.click(screen.getByTestId('test'));
         expect(firstHandler).toHaveBeenCalled();

@@ -1,26 +1,31 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+
 import type {
     CustomCellPosition,
     CustomHeaderWidths,
     UseCustomCellsProps,
-    UseCustomCellsReturn
+    UseCustomCellsReturn,
 } from './useCustomCells.types';
 
-const defaultHeaderWidths = (): CustomHeaderWidths => ({before: [], after: []});
+const defaultHeaderWidths = (): CustomHeaderWidths => ({
+    before: [],
+    after: [],
+});
 
 export function useCustomCells<T extends NonNullable<unknown>>({
     data,
     primaryKey,
-    renderRow
+    renderRow,
 }: UseCustomCellsProps<T>): UseCustomCellsReturn {
     const [customBeforeCount, setCustomBeforeCount] = useState(0);
     const [customAfterCount, setCustomAfterCount] = useState(0);
     const pendingCustomBefore = useRef(0);
     const pendingCustomAfter = useRef(0);
     const [customHeaderWidths, setCustomHeaderWidths] = useState<CustomHeaderWidths>(defaultHeaderWidths);
-    const observersRef = useRef<{ before:(ResizeObserver | undefined)[]; after: (ResizeObserver | undefined)[] }>({
+    const observersRef = useRef<{ before: (ResizeObserver | undefined)[];
+        after: (ResizeObserver | undefined)[]; }>({
         before: [],
-        after: []
+        after: [],
     });
 
     useEffect(() => () => {
@@ -92,24 +97,27 @@ export function useCustomCells<T extends NonNullable<unknown>>({
                     const measure = () => {
                         const width = `${element.offsetWidth}px`;
 
-                        setCustomHeaderWidths(previous => {
+                        setCustomHeaderWidths((previous) => {
                             if (previous[position][index] === width) {
                                 return previous;
                             }
 
                             const next = [...previous[position]];
                             next[index] = width;
-                            return {...previous, [position]: next};
+                            return {
+                                ...previous,
+                                [position]: next,
+                            };
                         });
                     };
 
                     const observer = new ResizeObserver(measure);
                     observer.observe(element);
                     observersRef.current[position][index] = observer;
-                }
+                },
             });
         },
-        []
+        [],
     );
 
     return {
@@ -117,6 +125,6 @@ export function useCustomCells<T extends NonNullable<unknown>>({
         customAfterCount,
         customHeaderWidths,
         registerCustomCellCounts,
-        withCustomCellObserver
+        withCustomCellObserver,
     };
 }

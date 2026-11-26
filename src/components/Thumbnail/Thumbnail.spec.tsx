@@ -1,51 +1,70 @@
-import {render, screen} from '@testing-library/react';
-import {Thumbnail} from './Thumbnail';
-import {Love} from '~/icons';
+import { render, screen } from '@testing-library/react';
+
+import { Thumbnail } from './Thumbnail';
+import { Love } from '~/icons';
 
 describe('Thumbnail', () => {
     it('should render fallback icon when no src provided', () => {
-        render(<Thumbnail/>);
+        render(<Thumbnail alt=""/>);
         const figure = document.querySelector('.moonstone-thumbnail');
         expect(figure).toBeInTheDocument();
-        expect(figure?.querySelector('svg')).toBeInTheDocument();
+        expect(figure?.querySelector('svg')).toHaveAttribute('aria-hidden', 'true');
     });
 
     it('should render image when src is a string', () => {
-        render(<Thumbnail src="https://example.com/image.jpg" alt="Test image"/>);
+        render(<Thumbnail alt="Test image" src="https://example.com/image.jpg"/>);
         const img = screen.getByRole('img');
         expect(img).toHaveAttribute('src', 'https://example.com/image.jpg');
         expect(img).toHaveAttribute('alt', 'Test image');
     });
 
-    it('should render React element when src is an element', () => {
+    it('should warn when alt is missing on an image, not when it is empty or there is no image', () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+        render(<Thumbnail alt="" src="https://example.com/image.jpg"/>);
+        render(<Thumbnail/>);
+        expect(warn).not.toHaveBeenCalled();
+        render(<Thumbnail src="https://example.com/image.jpg"/>);
+        expect(warn).toHaveBeenCalledWith(expect.stringContaining('`alt`'));
+        warn.mockRestore();
+    });
+
+    it('should not warn when alt is missing and src is a React element', () => {
+        const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
         render(<Thumbnail src={<Love data-testid="custom-icon"/>}/>);
+        expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
+        expect(warn).not.toHaveBeenCalled();
+        warn.mockRestore();
+    });
+
+    it('should render React element when src is an element', () => {
+        render(<Thumbnail alt="" src={<Love data-testid="custom-icon"/>}/>);
         expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
     });
 
     it('should apply default size class', () => {
-        render(<Thumbnail/>);
+        render(<Thumbnail alt=""/>);
         expect(document.querySelector('.moonstone-thumbnail_default')).toBeInTheDocument();
     });
 
     it('should apply small size class', () => {
-        render(<Thumbnail size="small"/>);
+        render(<Thumbnail alt="" size="small"/>);
         expect(document.querySelector('.moonstone-thumbnail_small')).toBeInTheDocument();
     });
 
     it('should apply preview variant class to image', () => {
-        render(<Thumbnail src="https://example.com/image.jpg" alt="Test"/>);
+        render(<Thumbnail alt="Test" src="https://example.com/image.jpg"/>);
         const img = screen.getByRole('img');
         expect(img).toHaveClass('moonstone-thumbnail_preview');
     });
 
     it('should apply icon variant class to image', () => {
-        render(<Thumbnail src="https://example.com/image.jpg" alt="Test" variant="icon"/>);
+        render(<Thumbnail alt="Test" src="https://example.com/image.jpg" variant="icon"/>);
         const img = screen.getByRole('img');
         expect(img).toHaveClass('moonstone-thumbnail_icon');
     });
 
     it('should apply custom className', () => {
-        render(<Thumbnail className="custom-class"/>);
+        render(<Thumbnail alt="" className="custom-class"/>);
         expect(document.querySelector('.moonstone-thumbnail.custom-class')).toBeInTheDocument();
     });
 });

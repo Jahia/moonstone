@@ -1,9 +1,13 @@
 import React from 'react';
-import {UncontrolledRadioGroup} from '~/components/RadioGroup/UncontrolledRadioGroup';
-import {ControlledRadioGroup} from '~/components/RadioGroup/ControlledRadioGroup';
-import type {RadioGroupProps} from '~/components/RadioGroup/RadioGroup.types';
 
-export const RadioGroup: React.FC<RadioGroupProps> = ({children, defaultValue, value, ...props}) => {
+import { ControlledRadioGroup } from '~/components/RadioGroup/ControlledRadioGroup';
+import { UncontrolledRadioGroup } from '~/components/RadioGroup/UncontrolledRadioGroup';
+
+import type { RadioGroupProps } from '~/components/RadioGroup/RadioGroup.types';
+
+export const RadioGroup: React.FC<RadioGroupProps> = ({
+    children, defaultValue, value, ...props
+}) => {
     if (!children || React.Children.count(children) < 2) {
         return null;
     }

@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
-import type {UncontrolledCheckboxItemProps} from './CheckboxItem.types';
-import {ControlledCheckboxItem} from './ControlledCheckboxItem';
-export const UncontrolledCheckboxItem: React.FC<UncontrolledCheckboxItemProps> = ({defaultChecked = false, onChange, ...props}) => {
+import { ControlledCheckboxItem } from './ControlledCheckboxItem';
+
+import type { UncontrolledCheckboxItemProps } from './CheckboxItem.types';
+export const UncontrolledCheckboxItem: React.FC<UncontrolledCheckboxItemProps> = ({ defaultChecked = false, onChange, ...props }) => {
     const [checked, setChecked] = useState(defaultChecked);
 
     return (

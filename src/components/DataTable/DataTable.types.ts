@@ -1,13 +1,18 @@
 import React from 'react';
-import type {TableCellProps} from '~/components/DataTable/cells';
-import type {SearchInputProps} from '~/components/Input/SearchInput/SearchInput.types';
-import type {DataTablePaginationProps} from './pagination';
-export type {PaginationUncontrolledProps} from './pagination';
+
+import type { DataTablePaginationProps } from './pagination';
+import type { TableCellProps } from '~/components/DataTable/cells';
+import type { SearchInputProps } from '~/components/Input/SearchInput/SearchInput.types';
+import type { PaginationProps } from '~/components/Pagination';
+export type { PaginationUncontrolledProps } from './pagination';
 
 export type SubRowKey = 'subRows';
 
 export type TableProps = Omit<React.ComponentPropsWithoutRef<'table'>, 'children' | 'className'> & {
-    /** Define HTML tag used to render the table */
+    /**
+     * Define HTML tag used to render the table
+     * @default 'table'
+     */
     component?: string;
     /** Additional classname */
     className?: string;
@@ -76,7 +81,7 @@ export type DataTableColumn<T extends NonNullable<unknown>> = {
     /** Alignment of the column content */
     align?: 'left' | 'center' | 'right';
     /**
-     * Column width as a CSS string (e.g., '250px', '20%').
+     * Column width as a CSS string, such as `'250px'` or `'20%'`.
      * When undefined, the column takes all available space.
      */
     width?: string;
@@ -114,79 +119,126 @@ export type DataTableBaseProps<T extends NonNullable<unknown>> = {
     rowProps?:
         | (React.HTMLAttributes<HTMLTableRowElement> & Record<string, unknown>)
         | ((context: RowContext<T>) => React.HTMLAttributes<HTMLTableRowElement> & Record<string, unknown>);
+    /**
+     * Texts of the component, shown on screen or read by screen readers. Translate them with the rest of the UI.
+     */
+    i18n?: DataTableI18n;
 };
 
 export type SortDirection = 'ascending' | 'descending';
 
-type SortingProps<T extends NonNullable<unknown>> =
+type SortingProps<T extends NonNullable<unknown>>
+    = | {
+        /**
+         * Enable sorting for the table
+         * @default `true`, or `false` when `isStructured`
+         */
+        enableSorting: true;
+        /** Current sort column (controlled) */
+        sortBy: Extract<Exclude<keyof T, SubRowKey>, string>;
+        /** Current sort direction (controlled) */
+        sortDirection: SortDirection;
+        /** Callback when sort changes */
+        onSortChange: (sortBy: Extract<Exclude<keyof T, SubRowKey>, string>, sortDirection: SortDirection) => void;
+        defaultSortBy?: never;
+        defaultSortDirection?: never;
+    }
     | {
-          /** Enable sorting for the table */
-          enableSorting: true;
-          /** Current sort column (controlled) */
-          sortBy: Extract<Exclude<keyof T, SubRowKey>, string>;
-          /** Current sort direction (controlled) */
-          sortDirection: SortDirection;
-          /** Callback when sort changes */
-          onSortChange: (sortBy: Extract<Exclude<keyof T, SubRowKey>, string>, sortDirection: SortDirection) => void;
-          defaultSortBy?: never;
-          defaultSortDirection?: never;
-      }
+        /**
+         * Enable sorting for the table
+         * @default `true`, or `false` when `isStructured`
+         */
+        enableSorting: true;
+        sortBy?: never;
+        sortDirection?: never;
+        /** Callback when sort changes */
+        onSortChange?: (sortBy: Extract<Exclude<keyof T, SubRowKey>, string>, sortDirection: SortDirection) => void;
+        /** Initial sort column (uncontrolled) */
+        defaultSortBy?: Extract<Exclude<keyof T, SubRowKey>, string>;
+        /**
+         * Initial sort direction (uncontrolled)
+         * @default 'ascending'
+         */
+        defaultSortDirection?: SortDirection;
+    }
     | {
-          /** Enable sorting for the table */
-          enableSorting: true;
-          sortBy?: never;
-          sortDirection?: never;
-          /** Callback when sort changes */
-          onSortChange?: (sortBy: Extract<Exclude<keyof T, SubRowKey>, string>, sortDirection: SortDirection) => void;
-          /** Initial sort column (uncontrolled) */
-          defaultSortBy?: Extract<Exclude<keyof T, SubRowKey>, string>;
-          /** Initial sort direction (uncontrolled) */
-          defaultSortDirection?: SortDirection;
-      }
-    | {
-          enableSorting?: false;
-          sortBy?: never;
-          sortDirection?: never;
-          onSortChange?: never;
-          defaultSortBy?: never;
-          defaultSortDirection?: never;
-      };
+        enableSorting?: false;
+        sortBy?: never;
+        sortDirection?: never;
+        onSortChange?: never;
+        defaultSortBy?: never;
+        defaultSortDirection?: never;
+    };
 
-export type SelectionProps =
+export type DataTableI18n = NonNullable<PaginationProps['i18n']> & {
+    /**
+     * Accessible name of each row checkbox
+     * @default 'Select row'
+     */
+    selectRow?: string;
+    /**
+     * Accessible name of the header checkbox
+     * @default 'Select all rows'
+     */
+    selectAllRows?: string;
+    /**
+     * Visually hidden name of the header cell of the selection column
+     * @default 'Selection'
+     */
+    selectionColumnLabel?: string;
+};
+
+export type SelectionProps
+    = | {
+        /** Enable selection for the table */
+        enableSelection: true;
+        /** Selected row primaryKey values (controlled) */
+        selection: string[];
+        /** Callback when selection changes */
+        onChangeSelection: (selection: string[]) => void;
+        defaultSelection?: never;
+        /** Custom HTML attributes added to the TableCell selection */
+        selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
+    }
     | {
-          /** Enable selection for the table */
-          enableSelection: true;
-          /** Selected row primaryKey values (controlled) */
-          selection: string[];
-          /** Callback when selection changes */
-          onChangeSelection: (selection: string[]) => void;
-          defaultSelection?: never;
-          /** Custom HTML attributes added to the TableCell selection */
-          selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
-      }
+        enableSelection: true;
+        /**
+         * Initial selected rows primaryKey values (uncontrolled)
+         * @default []
+         */
+        defaultSelection?: string[];
+        /** Optional callback to observe selection changes */
+        onChangeSelection?: (selection: string[]) => void;
+        selection?: never;
+        /** Custom HTML attributes added to the TableCell selection */
+        selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
+    }
     | {
-          enableSelection: true;
-          /** Initial selected rows primaryKey values (uncontrolled) */
-          defaultSelection?: string[];
-          /** Optional callback to observe selection changes */
-          onChangeSelection?: (selection: string[]) => void;
-          selection?: never;
-          /** Custom HTML attributes added to the TableCell selection */
-          selectionCellProps?: Omit<TableCellProps, 'children' | 'width' | 'component'>;
-      }
-    | {
-          enableSelection?: false;
-          selection?: never;
-          defaultSelection?: never;
-          onChangeSelection?: never;
-          selectionCellProps?: never;
-      };
+        /**
+         * Enable selection for the table
+         * @default false
+         */
+        enableSelection?: false;
+        selection?: never;
+        defaultSelection?: never;
+        onChangeSelection?: never;
+        selectionCellProps?: never;
+    };
 
 type SearchColumn<T extends NonNullable<unknown>> = Extract<Exclude<keyof T, SubRowKey>, string>;
 type SearchColumns<T extends NonNullable<unknown>> = [SearchColumn<T>, ...Array<SearchColumn<T>>];
 
-type SearchInputAttributes = Omit<SearchInputProps, 'value' | 'defaultValue' | 'onChange' | 'onClear'> &
-    ({'aria-label': string; 'aria-labelledby'?: never} | {'aria-labelledby': string; 'aria-label'?: never});
+type SearchInputName
+    = | {
+        'aria-label': string;
+        'aria-labelledby'?: never;
+    }
+    | {
+        'aria-labelledby': string;
+        'aria-label'?: never;
+    };
+
+type SearchInputAttributes = Omit<SearchInputProps, 'value' | 'defaultValue' | 'onChange' | 'onClear'> & SearchInputName;
 
 /**
  * Search answers two independent questions.
@@ -200,47 +252,47 @@ type SearchInputAttributes = Omit<SearchInputProps, 'value' | 'defaultValue' | '
  * Omitting it requires a controlled `searchValue`, because a query the table
  * does not use itself needs an owner.
  */
-type SearchProps<T extends NonNullable<unknown>> =
+type SearchProps<T extends NonNullable<unknown>>
+    = | {
+        /** Enable search for the table */
+        enableSearch: true;
+        /** Columns filtered by the table. Omit it when you filter `data` yourself */
+        searchColumns?: SearchColumns<T>;
+        /** Current search query (controlled) */
+        searchValue: string;
+        defaultSearchValue?: never;
+        /** Callback when the search query changes */
+        onSearchChange: (searchValue: string) => void;
+        /**
+         * Custom attributes added to the SearchInput element.
+         * `aria-label` or `aria-labelledby` is required: it is the accessible name of the field.
+         */
+        searchInputProps: SearchInputAttributes;
+    }
     | {
-          /** Enable search for the table */
-          enableSearch: true;
-          /** Columns filtered by the table. Omit it when you filter `data` yourself */
-          searchColumns?: SearchColumns<T>;
-          /** Current search query (controlled) */
-          searchValue: string;
-          defaultSearchValue?: never;
-          /** Callback when the search query changes */
-          onSearchChange: (searchValue: string) => void;
-          /**
-           * Custom attributes added to the SearchInput element.
-           * `aria-label` or `aria-labelledby` is required: it is the accessible name of the field.
-           */
-          searchInputProps: SearchInputAttributes;
-      }
+        /** Enable search for the table */
+        enableSearch: true;
+        /** Columns filtered by the table (case-insensitive substring match on the raw value) */
+        searchColumns: SearchColumns<T>;
+        searchValue?: never;
+        /** Initial search query (uncontrolled) */
+        defaultSearchValue?: string;
+        /** Optional callback to observe search changes */
+        onSearchChange?: (searchValue: string) => void;
+        /**
+         * Custom attributes added to the SearchInput element.
+         * `aria-label` or `aria-labelledby` is required: it is the accessible name of the field.
+         */
+        searchInputProps: SearchInputAttributes;
+    }
     | {
-          /** Enable search for the table */
-          enableSearch: true;
-          /** Columns filtered by the table (case-insensitive substring match on the raw value) */
-          searchColumns: SearchColumns<T>;
-          searchValue?: never;
-          /** Initial search query (uncontrolled) */
-          defaultSearchValue?: string;
-          /** Optional callback to observe search changes */
-          onSearchChange?: (searchValue: string) => void;
-          /**
-           * Custom attributes added to the SearchInput element.
-           * `aria-label` or `aria-labelledby` is required: it is the accessible name of the field.
-           */
-          searchInputProps: SearchInputAttributes;
-      }
-    | {
-          enableSearch?: false;
-          searchColumns?: never;
-          searchValue?: never;
-          defaultSearchValue?: never;
-          onSearchChange?: never;
-          searchInputProps?: never;
-      };
+        enableSearch?: false;
+        searchColumns?: never;
+        searchValue?: never;
+        defaultSearchValue?: never;
+        onSearchChange?: never;
+        searchInputProps?: never;
+    };
 
 export type RenderOptions = {
     /**
@@ -269,46 +321,55 @@ export type RenderRowContext<T extends NonNullable<unknown>> = RowContext<T> & {
 
 type RenderRowProps<T extends NonNullable<unknown>> = {
     /**
-     * Custom render function for rows (e.g. custom styling, wrapper elements).
+     * Custom render function for rows, such as for custom styling or wrapper elements.
      * @param context - Row context with id, data, meta, and render function.
      */
     renderRow?: (context: RenderRowContext<T>) => React.ReactNode;
+    /**
+     * Names of the custom columns that `renderRow` adds with `render({ before, after })`, in their order.
+     * Each name is visually hidden text in the header cell of its column.
+     * Each header stays empty when its name is missing.
+     */
+    customColumnLabels?: {
+        before?: string[];
+        after?: string[];
+    };
 };
 
-type StructuredProps =
+type StructuredProps
+    = | {
+        /** Whether the table data has a hierarchical structure with subRows */
+        isStructured: true;
+        /** IDs of currently expanded rows (controlled). */
+        expandedRows: string[];
+        /** Callback fired when expanded rows change (required in controlled mode). */
+        onExpandChange: (expandedRows: string[]) => void;
+        defaultExpandedRows?: never;
+    }
     | {
-          /** Whether the table data has a hierarchical structure with subRows */
-          isStructured: true;
-          /** IDs of currently expanded rows (controlled). */
-          expandedRows: string[];
-          /** Callback fired when expanded rows change (required in controlled mode). */
-          onExpandChange: (expandedRows: string[]) => void;
-          defaultExpandedRows?: never;
-      }
-    | {
-          /** Whether the table data has a hierarchical structure with subRows */
-          isStructured: true;
-          expandedRows?: never;
-          /** Callback fired when expanded rows change (uncontrolled). */
-          onExpandChange?: (expandedRows: string[]) => void;
-          /**
+        /** Whether the table data has a hierarchical structure with subRows */
+        isStructured: true;
+        expandedRows?: never;
+        /** Callback fired when expanded rows change (uncontrolled). */
+        onExpandChange?: (expandedRows: string[]) => void;
+        /**
            * IDs of rows expanded at mount (uncontrolled).
            * Pass `true` to expand all rows (default when `isStructured` is set).
            */
-          defaultExpandedRows?: true | string[];
-      }
+        defaultExpandedRows?: true | string[];
+    }
     | {
-          isStructured?: false;
-          expandedRows?: never;
-          onExpandChange?: never;
-          defaultExpandedRows?: never;
-      };
+        isStructured?: false;
+        expandedRows?: never;
+        onExpandChange?: never;
+        defaultExpandedRows?: never;
+    };
 
-export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'children'> &
-    DataTableBaseProps<T> &
-    SortingProps<T> &
-    SelectionProps &
-    SearchProps<T> &
-    StructuredProps &
-    RenderRowProps<T> &
-    DataTablePaginationProps;
+export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'children'>
+    & DataTableBaseProps<T>
+    & SortingProps<T>
+    & SelectionProps
+    & SearchProps<T>
+    & StructuredProps
+    & RenderRowProps<T>
+    & DataTablePaginationProps;

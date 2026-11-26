@@ -1,22 +1,21 @@
-import {ImgWrapper} from './index';
+import markdownNotes from './ImgWrapper.md?raw';
+import { ImgWrapper } from './index';
 import icon from '~/__storybook__/assets/img-icon.webp';
-
-import markdownNotes from './ImgWrapper.md';
 
 export default {
     title: 'Utilities/ImgWrapper',
     component: ImgWrapper,
     parameters: {
-        componentSubtitle: 'Image wrapper',
+        componentSubtitle: 'An image shown at icon scale.',
         layout: 'centered',
-        notes: {markdown: markdownNotes}
-    }
+        docs: { description: { component: markdownNotes } },
+    },
 };
 
 export const Default = {
     args: {
         src: icon,
         alt: 'imgWrapper',
-        size: 'default'
-    }
+        size: 'default',
+    },
 };

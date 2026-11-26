@@ -1,11 +1,13 @@
+@use "../../../tokens/colors/palette";
+
 .moonstone-SortIndicator {
-    color: var(--moon-color-gray_light);
+    color: var(--moon-color-gray);
 
     &:hover {
-        color: var(--moon-color-gray);
+        color: var(--moon-color-gray_dark);
     }
 }
 
 .moonstone-SortIndicator-sorted {
-    color: var(--moon-color-accent);
+    color: palette.$color-blue-50;
 }

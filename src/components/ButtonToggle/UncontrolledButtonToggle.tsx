@@ -1,14 +1,17 @@
-import React, {useState} from 'react';
-import type {UncontrolledButtonToggleProps} from './ButtonToggle.types';
-import {ControlledButtonToggle} from './index';
+import React, { useState } from 'react';
 
-export const UncontrolledButtonToggle: React.FC<UncontrolledButtonToggleProps> = ({defaultPressed = false, onClick, ...props}) => {
+import { ControlledButtonToggle } from './index';
+
+import type { UncontrolledButtonToggleProps } from './ButtonToggle.types';
+
+export const UncontrolledButtonToggle = React.forwardRef<HTMLButtonElement, UncontrolledButtonToggleProps>(({ defaultPressed = false, onClick, ...props }, ref) => {
     const [pressed, setPressed] = useState(defaultPressed);
 
     return (
         <ControlledButtonToggle
             {...props}
             isPressed={pressed}
+            ref={ref}
             onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
                 setPressed(prevPressed => !prevPressed);
                 if (typeof onClick === 'function') {
@@ -17,6 +20,6 @@ export const UncontrolledButtonToggle: React.FC<UncontrolledButtonToggleProps> =
             }}
         />
     );
-};
+});
 
 UncontrolledButtonToggle.displayName = 'UncontrolledButtonToggle';

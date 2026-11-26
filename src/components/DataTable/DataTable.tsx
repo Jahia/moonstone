@@ -1,34 +1,37 @@
 import {
-    useReactTable,
     getCoreRowModel,
     getExpandedRowModel,
     getFilteredRowModel,
+    getPaginationRowModel,
     getSortedRowModel,
-    getPaginationRowModel
+    useReactTable,
 } from '@tanstack/react-table';
 import clsx from 'clsx';
-import {toNodeArray} from '~/utils/helpers';
-import type {Row} from '@tanstack/react-table';
-import React, {useMemo, useCallback} from 'react';
-import {useCustomCells, useExpansion, usePagination, useSearch, useSearchPaginationWarning, useSelection, useSorting} from './hooks';
-import type {DataTableProps, RenderOptions} from './DataTable.types';
-import {createTableColumns} from './shared';
-import {renderCell, renderHeadCell} from './utils';
-import {Checkbox} from '~/components';
-import {SearchInput} from '~/components/Input';
-import {Pagination} from '~/components/Pagination';
-import styles from './DataTable.module.scss';
+import React, { useCallback, useMemo } from 'react';
+
+import { useCustomCells, useExpansion, usePagination, useSearch, useSearchPaginationWarning, useSelection, useSorting } from './hooks';
+import { createTableColumns } from './shared';
+import { renderCell, renderHeadCell } from './utils';
+import { Checkbox } from '~/components';
 import {
     Table,
-    TableRow,
     TableBody,
-    TableHead,
     TableCell,
-    TableHeadCell
+    TableHead,
+    TableHeadCell,
+    TableRow,
 } from '~/components/DataTable';
+import { SearchInput } from '~/components/Input';
+import { Pagination } from '~/components/Pagination';
+import { toNodeArray } from '~/utils/helpers';
+
+import type { DataTableProps, RenderOptions } from './DataTable.types';
+import type { Row } from '@tanstack/react-table';
+
+import styles from './DataTable.module.scss';
 
 // Styles for custom column headers (no padding to match measured cell widths)
-const CUSTOM_HEADER_STYLE = {padding: 0};
+const CUSTOM_HEADER_STYLE = { padding: 0 };
 
 // Not translatable yet: the table-level i18n prop has its own ticket
 const NO_RESULTS_MESSAGE = 'No results';
@@ -40,7 +43,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     data,
     columns,
     primaryKey,
-    isStructured = false,
+    isStructured,
     enableSelection = false,
     selection,
     onChangeSelection,
@@ -55,6 +58,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
     defaultExpandedRows,
     onExpandChange,
     renderRow,
+    customColumnLabels,
     onClickTableHeadCell,
     selectionCellProps,
     // Pagination props
@@ -78,10 +82,10 @@ export const DataTable = <T extends NonNullable<unknown>>({
     rowProps,
     ...props
 }: DataTableProps<T>) => {
-    const {expanded, handleExpandedChange} = useExpansion({
+    const { expanded, handleExpandedChange } = useExpansion({
         expandedRows,
         defaultExpandedRows: defaultExpandedRows ?? (isStructured ? true : undefined),
-        onExpandChange
+        onExpandChange,
     });
 
     const {
@@ -89,41 +93,41 @@ export const DataTable = <T extends NonNullable<unknown>>({
         customAfterCount,
         customHeaderWidths,
         registerCustomCellCounts,
-        withCustomCellObserver
+        withCustomCellObserver,
     } = useCustomCells({
         data,
         primaryKey,
-        renderRow
+        renderRow,
     });
 
-    const {sorting, isSortingControlled, handleSortingChange} = useSorting<T>({
+    const { sorting, isSortingControlled, handleSortingChange } = useSorting<T>({
         sortBy,
         sortDirection,
         defaultSortBy,
         defaultSortDirection,
-        onSortChange
+        onSortChange,
     });
 
-    const {rowSelection, handleRowSelectionChange} = useSelection({
+    const { rowSelection, handleRowSelectionChange } = useSelection({
         selection,
         defaultSelection,
-        onChangeSelection
+        onChangeSelection,
     });
 
-    const {pagination, isPaginationControlled, handlePaginationChange} = usePagination({
+    const { pagination, isPaginationControlled, handlePaginationChange } = usePagination({
         currentPage,
         itemsPerPage,
         defaultCurrentPage,
         defaultItemsPerPage,
         onPageChange,
         onItemsPerPageChange,
-        totalItems
+        totalItems,
     });
 
-    const {globalFilter, handleGlobalFilterChange} = useSearch({
+    const { globalFilter, handleGlobalFilterChange } = useSearch({
         searchValue,
         defaultSearchValue,
-        onSearchChange
+        onSearchChange,
     });
 
     const isTableFiltering = Boolean(searchColumns?.length);
@@ -140,7 +144,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
             rowSelection,
             sorting,
             globalFilter,
-            ...(enablePagination && {pagination})
+            ...(enablePagination && { pagination }),
         },
         onSortingChange: handleSortingChange,
         onGlobalFilterChange: handleGlobalFilterChange,
@@ -165,7 +169,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
         // UX decision: Toggle between asc/desc only, no unsorted state to prevent user confusion
         enableSortingRemoval: false,
         enableRowSelection: enableSelection,
-        getRowId: (row: T) => String(row[primaryKey])
+        getRowId: (row: T) => String(row[primaryKey]),
     });
 
     const renderRowContent = useCallback(
@@ -185,12 +189,16 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     {enableSelection && (
                         <TableCell width="auto" {...selectionCellProps}>
                             <Checkbox
+                                aria-label={i18n?.selectRow || 'Select row'}
                                 checked={row.getIsSelected()}
                                 onChange={row.getToggleSelectedHandler()}
                             />
                         </TableCell>
                     )}
-                    {renderCell({row, isStructured})}
+                    {renderCell({
+                        row,
+                        isStructured,
+                    })}
 
                     {afterCells.map((cell, i) => (
                         <React.Fragment key={(cell as React.ReactElement).key}>
@@ -200,7 +208,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 </>
             );
         },
-        [enableSelection, isStructured, registerCustomCellCounts, selectionCellProps, withCustomCellObserver]
+        [enableSelection, isStructured, registerCustomCellCounts, selectionCellProps, i18n?.selectRow, withCustomCellObserver],
     );
 
     const renderRowWithCustomization = useCallback(
@@ -209,29 +217,32 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
             const rowContext = {
                 id: row.id,
-                data: row.original as T,
+                data: row.original,
                 meta: {
                     index: row.index,
                     isSelected: row.getIsSelected(),
-                    isExpanded: row.getIsExpanded()
-                }
+                    isExpanded: row.getIsExpanded(),
+                },
             };
 
             if (renderRow) {
-                return renderRow({...rowContext, render});
+                return renderRow({
+                    ...rowContext,
+                    render,
+                });
             }
 
             return (
                 <TableRow
-                    key={row.id}
                     aria-selected={row.getIsSelected() || undefined}
+                    key={row.id}
                     {...(typeof rowProps === 'function' ? rowProps(rowContext) : rowProps)}
                 >
                     {render()}
                 </TableRow>
             );
         },
-        [renderRow, renderRowContent, rowProps]
+        [renderRow, renderRowContent, rowProps],
     );
 
     const isEmpty = !data || !Array.isArray(data) || data.length === 0;
@@ -248,12 +259,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
         <>
             {enableSearch && (
                 <SearchInput
-                    variant="outlined"
                     value={globalFilter}
+                    variant="outlined"
                     onChange={event => table.setGlobalFilter(event.target.value)}
                     onClear={() => table.setGlobalFilter('')}
                     {...searchInputProps}
-                    className={clsx(styles.search, searchInputProps?.className)}
+                    className={clsx(styles.dataTable_search, searchInputProps?.className)}
                 />
             )}
             <Table className={className} {...props}>
@@ -261,18 +272,22 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     {table.getHeaderGroups().map(headerGroup => (
                         <TableRow key={headerGroup.id} type="head">
                             {/* Custom "before" column headers */}
-                            {Array.from({length: customBeforeCount}, (_, i) => (
+                            {Array.from({ length: customBeforeCount }, (_, i) => (
                                 <TableHeadCell
                                     key={`custom-before-header-${i}`}
-                                    width={customHeaderWidths.before[i]}
                                     style={CUSTOM_HEADER_STYLE}
-                                />
+                                    width={customHeaderWidths.before[i]}
+                                >
+                                    {customColumnLabels?.before?.[i] && <span className={styles.dataTable_hiddenLabel}>{customColumnLabels.before[i]}</span>}
+                                </TableHeadCell>
                             ))}
 
                             {/* Selection header */}
                             {enableSelection && (
                                 <TableHeadCell width="auto" {...selectionCellProps}>
+                                    <span className={styles.dataTable_hiddenLabel}>{i18n?.selectionColumnLabel || 'Selection'}</span>
                                     <Checkbox
+                                        aria-label={i18n?.selectAllRows || 'Select all rows'}
                                         checked={table.getIsAllRowsSelected()}
                                         indeterminate={table.getIsSomeRowsSelected()}
                                         onChange={table.getToggleAllRowsSelectedHandler()}
@@ -285,43 +300,44 @@ export const DataTable = <T extends NonNullable<unknown>>({
                                 headerGroup,
                                 enableSorting,
                                 isStructured,
-                                onClickTableHeadCell
+                                onClickTableHeadCell,
                             })}
 
                             {/* Custom "after" column headers */}
-                            {Array.from({length: customAfterCount}, (_, i) => (
+                            {Array.from({ length: customAfterCount }, (_, i) => (
                                 <TableHeadCell
                                     key={`custom-after-header-${i}`}
-                                    width={customHeaderWidths.after[i]}
                                     style={CUSTOM_HEADER_STYLE}
-                                />
+                                    width={customHeaderWidths.after[i]}
+                                >
+                                    {customColumnLabels?.after?.[i] && <span className={styles.dataTable_hiddenLabel}>{customColumnLabels.after[i]}</span>}
+                                </TableHeadCell>
                             ))}
                         </TableRow>
                     ))}
                 </TableHead>
                 <TableBody>
-                    {showNoResults ? (
+                    {showNoResults && (
                         <TableRow>
-                            <TableCell colSpan={columnCount} align="center" aria-live="polite">{NO_RESULTS_MESSAGE}</TableCell>
+                            <TableCell align="center" aria-live="polite" colSpan={columnCount}>{NO_RESULTS_MESSAGE}</TableCell>
                         </TableRow>
-                    ) : (
-                        rows.map(row => renderRowWithCustomization(row))
                     )}
+                    {rows.map(row => renderRowWithCustomization(row))}
                 </TableBody>
             </Table>
             {enablePagination && (
                 <Pagination
                     currentPage={table.getState().pagination.pageIndex + 1}
-                    totalOfItems={
-                        isPaginationControlled && totalItems !== undefined ?
-                            totalItems :
-                            table.getPrePaginationRowModel().rows.length
-                    }
+                    i18n={i18n}
                     itemsPerPage={table.getState().pagination.pageSize}
                     itemsPerPageOptions={itemsPerPageOptions}
-                    i18n={i18n}
-                    onPageChange={(page: number) => table.setPageIndex(page - 1)}
+                    totalOfItems={
+                        isPaginationControlled && totalItems !== undefined
+                            ? totalItems
+                            : table.getPrePaginationRowModel().rows.length
+                    }
                     onItemsPerPageChange={(size: number) => table.setPageSize(size)}
+                    onPageChange={(page: number) => table.setPageIndex(page - 1)}
                     {...paginationProps}
                 />
             )}

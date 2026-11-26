@@ -8,6 +8,7 @@ export type BasicCheckboxProps = Omit<React.ComponentPropsWithRef<'input'>, 'val
 
     /**
      * Size of the Checkbox
+     * @default 'default'
      */
     size?: 'default' | 'big';
 
@@ -27,6 +28,12 @@ export type BasicCheckboxProps = Omit<React.ComponentPropsWithRef<'input'>, 'val
     isReadOnly?: boolean;
 
     /**
+     * Whether the checkbox should be indeterminate
+     * @default false
+     */
+    indeterminate?: boolean;
+
+    /**
      * Function triggered on focus of the checkbox value
      */
     onFocus?: React.FocusEventHandler;
@@ -35,7 +42,7 @@ export type BasicCheckboxProps = Omit<React.ComponentPropsWithRef<'input'>, 'val
      * Function triggered when the checkbox value loses focus
      */
     onBlur?: React.FocusEventHandler;
-}
+};
 
 type ControlledProps = {
     /**
@@ -47,16 +54,12 @@ type ControlledProps = {
      * Function triggered on change of the checkbox value
      */
     onChange: (event: React.ChangeEvent<HTMLInputElement>, value: string, checked: boolean) => void;
-
-    /**
-     * Whether the checkbox should be indeterminate (controlled)
-     */
-    indeterminate?: boolean;
 };
 
 type UncontrolledProps = {
     /**
      * Whether the checkbox should be checked - default value (uncontrolled)
+     * @default false
      */
     defaultChecked?: boolean;
 

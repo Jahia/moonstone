@@ -1,8 +1,11 @@
-import React from 'react';
 import clsx from 'clsx';
-import {Typography} from '~/components';
-import type {TableCellProps} from './TableCell.types';
-import {layout} from '~/globals/css-utils.js';
+import React from 'react';
+
+import { Typography } from '~/components';
+import { layout } from '~/globals/css-utils.js';
+
+import type { TableCellProps } from './TableCell.types';
+
 import styles from './TableCell.module.scss';
 
 const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellProps> = (
@@ -16,14 +19,11 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
         component = 'td',
         ...props
     },
-    ref
+    ref,
 ) => {
     return (
         <Typography
-            ref={ref}
             isNowrap
-            component={component}
-            variant="body"
             className={clsx(
                 styles.tableCell,
                 align === 'left' ? layout.justifyStart : align === 'right' ? layout.justifyEnd : layout.justifyCenter,
@@ -31,12 +31,15 @@ const TableCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, 
                 layout.alignCenter,
                 width ? undefined : layout.flexFluid,
                 isScrollable && styles.scrollable,
-                className
+                className,
             )}
+            component={component}
+            ref={ref}
             style={{
                 width: width,
-                ...style
+                ...style,
             }}
+            variant="body"
             {...props}
         >
             {children}

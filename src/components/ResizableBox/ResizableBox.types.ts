@@ -1,5 +1,6 @@
 import React from 'react';
-import type {Size, ResizeStartCallback, ResizeCallback} from 're-resizable';
+
+import type { NumberSize, ResizeCallback, ResizeDirection, ResizeStartCallback, Size } from 're-resizable';
 
 export type EnableZonesProps = {
     // Top?: boolean;
@@ -24,29 +25,33 @@ export type ResizableBoxMinWidth = string | number;
 
 export type ResizableBoxMaxWidth = string | number;
 
-export type ResizableBoxProps = {
+export type ResizableBoxProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children' | 'className' | 'onResize'> & {
     /**
-     * Content of the component
+     * Content of the panel.
      */
     children?: React.ReactNode;
     /**
-     * Set the resizable area of the box
+     * Edges the user drags to resize the box. Only `right` is supported.
+     * @default ['right']
      */
     enable?: ResizableBoxEnable[];
     /**
-     * Set the minimum width
+     * Minimum width, in pixels or as a CSS length. Keep it wide enough for the content to stay readable.
+     * @default 50
      */
     minWidth?: ResizableBoxMinWidth;
     /**
-     * Set the maximum width
+     * Maximum width, in pixels or as a CSS length.
+     * @default 200
      */
     maxWidth?: ResizableBoxMaxWidth;
     /**
-     * Set the default size
+     * Size on first render, in uncontrolled mode.
+     * @default {width: '100%', height: 'auto'}
      */
     defaultSize?: Size;
     /**
-     * Manage the size
+     * Size of the box, in controlled mode: update it in `onResizeStop`. `defaultSize` is then ignored.
      */
     size?: Size;
     /**
@@ -54,28 +59,46 @@ export type ResizableBoxProps = {
      */
     className?: string;
     /**
-     * Role
+     * ARIA role of the root element. The box has none by default: pass the landmark the panel needs, such as `region`.
      */
     role?: string;
     /**
-     * Function triggered when the resize begins
-     * @param {object} e - Mouse event
-     * @param {string} dir - Direction resized
-     * @param {node} ref - HTML element resized
+     * Called when the user starts dragging the handle. A keyboard resize does not call it.
+     * @param e - The mouse or touch event.
+     * @param dir - The resized edge, `'right'`.
+     * @param elementRef - The resized element.
      */
     onResizeStart?: ResizeStartCallback;
     /**
-     * Function on resizing
-     * @param {object} e - event
+     * Called on every move while the user drags the handle. A keyboard resize does not call it.
+     * @param event - The mouse or touch event.
+     * @param direction - The resized edge, `'right'`.
+     * @param elementRef - The resized element.
+     * @param delta - The change of `width` and `height` since the drag began.
      */
     onResizing?: ResizeCallback;
     /**
-     * Function triggered when the resize is finished
-     * @param {object} e - Mouse event
-     * @param {string} dir - Direction resized
-     * @param {node} ref - HTML element resized
-     * @param {object} delta - delta between after resize
+     * Called when the user releases the handle, and after each key press that resizes the box from the focused handle. With a controlled `size`, apply `delta` to it.
+     * @param event - The mouse, touch, or keyboard event.
+     * @param direction - The resized edge, `'right'`.
+     * @param elementRef - The resized element.
+     * @param delta - The change of `width` and `height` since the resize began.
      */
-    onResizeStop?: ResizeCallback;
-}
-
+    // Method syntax: TypeScript checks its parameters bivariantly, so a 2.21.1 ResizeCallback compiles
+    onResizeStop?(this: void, event: MouseEvent | TouchEvent | KeyboardEvent, direction: ResizeDirection, elementRef: HTMLElement, delta: NumberSize): void;
+    /**
+     * Texts of the component, shown on screen or read by screen readers. Translate them with the rest of the UI.
+     */
+    i18n?: {
+        /**
+         * Accessible name of the resize handle.
+         * @default the `aria-label` of the box, else 'Resize'
+         */
+        handleLabel?: string;
+        /**
+         * Unit read after the width when the handle is focused, such as "pixels".
+         * @default 'pixels'
+         */
+        widthUnit?: string;
+    };
+};

@@ -1,6 +1,7 @@
-import type {Meta, StoryObj} from '@storybook/react-vite';
-import {TimezoneSelector} from './TimezoneSelector';
-import markdownNotes from './TimezoneSelector.md';
+import { TimezoneSelector } from './TimezoneSelector';
+import markdownNotes from './TimezoneSelector.md?raw';
+
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 // Fixed reference date so the displayed UTC offsets stay stable across runs (stories double
 // as visual snapshots); with this anchor Paris reads +01:00. Naming convention: `baseDate`.
@@ -12,9 +13,10 @@ export default {
     tags: ['beta'],
     parameters: {
         layout: 'centered',
-        actions: {argTypesRegex: '^on.*'},
-        notes: {markdown: markdownNotes}
-    }
+        actions: { argTypesRegex: '^on.*' },
+        componentSubtitle: 'Lets the user pick a standalone IANA timezone.',
+        docs: { description: { component: markdownNotes } },
+    },
 } satisfies Meta<typeof TimezoneSelector>;
 
 type Story = StoryObj<typeof TimezoneSelector>;
@@ -22,7 +24,7 @@ type Story = StoryObj<typeof TimezoneSelector>;
 export const Default: Story = {
     args: {
         defaultValue: 'Europe/Paris',
-        referenceDate: baseDate
+        referenceDate: baseDate,
     },
-    name: 'Default'
+    name: 'Default',
 };

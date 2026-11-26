@@ -1,15 +1,16 @@
 import React from 'react';
 
-import type {CheckboxProps} from './Checkbox.types';
-import {UncontrolledCheckbox} from './UncontrolledCheckbox';
-import {ControlledCheckbox} from './ControlledCheckbox';
+import { ControlledCheckbox } from './ControlledCheckbox';
+import { UncontrolledCheckbox } from './UncontrolledCheckbox';
 
-export const Checkbox: React.FC<CheckboxProps> = ({checked, ...props}) => {
+import type { CheckboxProps } from './Checkbox.types';
+
+export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(({ checked, ...props }, ref) => {
     if (typeof checked === 'undefined') {
-        return <UncontrolledCheckbox {...props}/>;
+        return <UncontrolledCheckbox ref={ref} {...props}/>;
     }
 
-    return <ControlledCheckbox checked={checked} onChange={props.onChange} {...props}/>;
-};
+    return <ControlledCheckbox checked={checked} ref={ref} onChange={props.onChange} {...props}/>;
+});
 
 Checkbox.displayName = 'Checkbox';

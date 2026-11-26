@@ -8,6 +8,7 @@ export type BadgeProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className'
 
     /**
      * Define the background color of the badge
+     * @default 'accent'
      */
     color?: typeof badgeColors[number];
 
@@ -15,4 +16,4 @@ export type BadgeProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className'
      * Additional classname
      */
     className?: string;
-}
+};

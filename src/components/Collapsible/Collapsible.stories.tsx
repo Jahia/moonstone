@@ -1,16 +1,20 @@
-import {useState} from 'react';
-import {StoryObj} from '@storybook/react-vite';
+import { useState } from 'react';
 
-import {Collapsible} from './index';
-import {Typography} from '~/components';
-import type {CollapsibleProps} from './Collapsible.types';
+import markdownNotes from './Collapsible.md?raw';
+import { Collapsible } from './index';
+import { Typography } from '~/components';
+
+import type { CollapsibleProps } from './Collapsible.types';
+import type { StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/Collapsible',
     component: Collapsible,
     parameters: {
-        actions: {argTypesRegex: '^on.*'}
-    }
+        actions: { argTypesRegex: '^on.*' },
+        componentSubtitle: 'Shows or hides a section from its header.',
+        docs: { description: { component: markdownNotes } },
+    },
 };
 
 const BodyCollapsible = () => {
@@ -73,12 +77,12 @@ export const Uncontrolled = {
     args: {
         label: 'Collapsible label',
         children: <BodyCollapsible/>,
-        isDefaultExpanded: false
-    }
+        isDefaultExpanded: false,
+    },
 };
 
 export const Controlled: StoryObj<CollapsibleProps> = {
-    render: args => {
+    render: (args) => {
         const [isExpanded, setIsExpanded] = useState(false);
         const handleOnClick = () => {
             setIsExpanded(!isExpanded);
@@ -86,9 +90,9 @@ export const Controlled: StoryObj<CollapsibleProps> = {
 
         return (
             <Collapsible
-        {...args}
-        isExpanded={isExpanded}
-        onClick={() => handleOnClick()}
+                {...args}
+                isExpanded={isExpanded}
+                onClick={() => handleOnClick()}
             >
                 <BodyCollapsible/>
             </Collapsible>
@@ -96,8 +100,8 @@ export const Controlled: StoryObj<CollapsibleProps> = {
     },
 
     args: {
-        label: 'Collapsible label'
-    }
+        label: 'Collapsible label',
+    },
 };
 
 export const StickyCollapsibles = () => {

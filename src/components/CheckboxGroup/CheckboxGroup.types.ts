@@ -1,7 +1,8 @@
 import React from 'react';
-import {CheckboxItemProps} from './CheckboxItem/CheckboxItem.types';
 
-export type CheckboxGroupProps = {
+import type { CheckboxItemProps } from './CheckboxItem/CheckboxItem.types';
+
+export type CheckboxGroupProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'children' | 'className' | 'onChange'> & {
     /**
      * Set the same name to all CheckboxItem
      */
@@ -31,7 +32,7 @@ export type CheckboxGroupProps = {
      * Whether the checkboxes can be selected but not changed by the user
      */
     isReadOnly?: boolean;
-}
+};
 
 export type CheckboxGroupContextProps = {
     /**
@@ -53,5 +54,4 @@ export type CheckboxGroupContextProps = {
      * Whether all CheckboxItems should be read-only
      */
     isReadOnly?: boolean;
-}
-
+};

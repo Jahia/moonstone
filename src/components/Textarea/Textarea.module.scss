@@ -28,7 +28,7 @@ $minHeight-size: 50px;
 
     &::placeholder {
         font-style: italic;
-        color: var(--moon-color-gray_dark60);
+        color: var(--moon-color-gray);
 
         opacity: 1;
     }
@@ -39,7 +39,7 @@ $minHeight-size: 50px;
         }
 
         &:focus-visible {
-            @extend %is-focused;
+            @include utils.focus-ring;
         }
     }
 

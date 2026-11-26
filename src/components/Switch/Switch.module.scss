@@ -1,4 +1,9 @@
+@use "../../utils/motion" as *;
+@use "../../utils/mixins" as *;
+
 .moonstone-switch_icon {
+    @include transition(all 0.2s ease-out);
+
     position: absolute;
 
     width: 20px;
@@ -6,8 +11,6 @@
 
     border-radius: 100%;
     background-color: var(--switch-icon_bg);
-
-    transition: all 0.2s ease-out;
 
     pointer-events: none;
 }
@@ -51,6 +54,8 @@
 }
 
 .moonstone-switch_input {
+    @include min-target-size;
+
     position: absolute;
     top: 2px;
 
@@ -70,7 +75,7 @@
 
     // Only triggered when the input is focus with tab
     &:focus-visible {
-        border: 2px solid var(--moon-color-accent_light);
+        @include focus-ring;
     }
 }
 

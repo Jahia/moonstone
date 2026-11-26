@@ -1,12 +1,13 @@
-import React from 'react';
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {AccordionContext} from '~/components/Accordion';
-import {AccordionItem} from './index';
+import React from 'react';
+
+import { AccordionItem } from './index';
+import { AccordionContext } from '~/components/Accordion';
 
 const requiredProps = {
     label: 'accordion label',
-    id: 'test-id'
+    id: 'test-id',
 };
 
 describe('AccordionItem', () => {
@@ -23,16 +24,16 @@ describe('AccordionItem', () => {
 
     it('should display additional className', () => {
         render(
-            <AccordionItem {...requiredProps} data-testid="accordion-item" className="extra"><div/></AccordionItem>
+            <AccordionItem {...requiredProps} className="extra" data-testid="accordion-item"><div/></AccordionItem>,
         );
         expect(screen.getByTestId('accordion-item')).toHaveClass('extra');
     });
 
     it('should add extra attribute on AccordionItem', () => {
-        render(<AccordionItem {...requiredProps} data-testid="id" data-custom="extra"><div/></AccordionItem>);
+        render(<AccordionItem {...requiredProps} data-custom="extra" data-testid="id"><div/></AccordionItem>);
         expect(screen.getByTestId('id')).toHaveAttribute(
             'data-custom',
-            'extra'
+            'extra',
         );
     });
 
@@ -42,16 +43,16 @@ describe('AccordionItem', () => {
                 value={{
                     onSetOpenedItem: vi.fn(),
                     currentItem: 'not correspond',
-                    isReversed: true
+                    isReversed: true,
                 }}
             >
                 <AccordionItem {...requiredProps} data-testid="accordion-item">
                     content here
                 </AccordionItem>
-            </AccordionContext.Provider>
+            </AccordionContext.Provider>,
         );
         expect(screen.getByTestId('accordion-item')).toHaveClass(
-            'moonstone-reversed'
+            'moonstone-reversed',
         );
     });
 
@@ -62,7 +63,7 @@ describe('AccordionItem', () => {
             <AccordionContext.Provider
                 value={{
                     onSetOpenedItem: vi.fn(),
-                    currentItem: 'not correspond'
+                    currentItem: 'not correspond',
                 }}
             >
                 <AccordionItem
@@ -72,10 +73,10 @@ describe('AccordionItem', () => {
                 >
                     content here
                 </AccordionItem>
-            </AccordionContext.Provider>
+            </AccordionContext.Provider>,
         );
         expect(screen.getByTestId('accordion-item')).not.toHaveTextContent(
-            'content here'
+            'content here',
         );
     });
 
@@ -86,7 +87,7 @@ describe('AccordionItem', () => {
             <AccordionContext.Provider
                 value={{
                     onSetOpenedItem: vi.fn(),
-                    currentItem: 'test-id'
+                    currentItem: 'test-id',
                 }}
             >
                 <AccordionItem
@@ -96,11 +97,11 @@ describe('AccordionItem', () => {
                 >
                     content here
                 </AccordionItem>
-            </AccordionContext.Provider>
+            </AccordionContext.Provider>,
         );
 
         expect(screen.getByTestId('accordion-item')).toHaveTextContent(
-            'content here'
+            'content here',
         );
     });
 
@@ -112,7 +113,7 @@ describe('AccordionItem', () => {
             <AccordionContext.Provider
                 value={{
                     onSetOpenedItem: vi.fn(),
-                    currentItem: 'not correspond'
+                    currentItem: 'not correspond',
                 }}
             >
                 <AccordionItem
@@ -121,7 +122,7 @@ describe('AccordionItem', () => {
                 >
                     content here
                 </AccordionItem>
-            </AccordionContext.Provider>
+            </AccordionContext.Provider>,
         );
         await user.click(screen.getByText(requiredProps.label));
 
@@ -140,22 +141,22 @@ describe('AccordionItem', () => {
             <AccordionContext.Provider
                 value={{
                     onSetOpenedItem: vi.fn(),
-                    currentItem: 'not correspond'
+                    currentItem: 'not correspond',
                 }}
             >
                 <AccordionItem {...requiredProps} onClick={handleOnClick}>
                     content here
                 </AccordionItem>
-            </AccordionContext.Provider>
+            </AccordionContext.Provider>,
         );
-        await user.click(screen.getByRole('accordion-item'));
+        await user.click(screen.getByRole('button', { name: requiredProps.label }));
 
         expect(isOpen).toBe(true);
     });
 
     it('should onClick callback return false if item has been closed', async () => {
         const user = userEvent.setup();
-        const handleOnClick = (e: React.MouseEvent, open:boolean) => {
+        const handleOnClick = (e: React.MouseEvent, open: boolean) => {
             isOpen = open;
         };
 
@@ -165,7 +166,7 @@ describe('AccordionItem', () => {
             <AccordionContext.Provider
                 value={{
                     onSetOpenedItem: vi.fn(),
-                    currentItem: 'test-id'
+                    currentItem: 'test-id',
                 }}
             >
                 <AccordionItem
@@ -174,9 +175,9 @@ describe('AccordionItem', () => {
                 >
                     content here
                 </AccordionItem>
-            </AccordionContext.Provider>
+            </AccordionContext.Provider>,
         );
-        await user.click(screen.getByRole('accordion-item'));
+        await user.click(screen.getByRole('button', { name: requiredProps.label }));
 
         expect(isOpen).toBe(false);
     });
@@ -188,16 +189,34 @@ describe('AccordionItem', () => {
             <AccordionContext.Provider
                 value={{
                     onSetOpenedItem: vi.fn(),
-                    currentItem: 'test-id'
+                    currentItem: 'test-id',
                 }}
             >
                 <AccordionItem {...requiredProps}>
                     content here
                 </AccordionItem>
-            </AccordionContext.Provider>
+            </AccordionContext.Provider>,
         );
 
         // No error should occur when there is no onClickToClose defined
-        await user.click(screen.getByRole('accordion-item'));
+        await user.click(screen.getByRole('button', { name: requiredProps.label }));
+    });
+
+    it('should associate the open button with its panel', () => {
+        render(
+            <AccordionContext.Provider value={{ onSetOpenedItem: vi.fn(), currentItem: 'test-id' }}>
+                <AccordionItem {...requiredProps}>content here</AccordionItem>
+            </AccordionContext.Provider>,
+        );
+        const panel = screen.getByRole('region', { name: requiredProps.label });
+        expect(screen.getByRole('button', { name: requiredProps.label })).toHaveAttribute('aria-controls', panel.id);
+    });
+
+    it('should keep the consumer id in aria-controls when closed', () => {
+        render(<AccordionItem {...requiredProps}>content here</AccordionItem>);
+        const button = screen.getByRole('button', { name: requiredProps.label });
+
+        expect(button).toHaveAttribute('aria-expanded', 'false');
+        expect(button).toHaveAttribute('aria-controls', requiredProps.id);
     });
 });

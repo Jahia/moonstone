@@ -18,9 +18,9 @@ export type TreeViewData = {
 };
 
 type TreeItemProps = {
-    style?: object,
-    className?: string
-}
+    style?: object;
+    className?: string;
+};
 
 type BasicTreeViewProps = {
     /**
@@ -29,14 +29,17 @@ type BasicTreeViewProps = {
     data: TreeViewData[];
     /**
      * Selected items' ids
+     * @default []
      */
     selectedItems?: string[];
     /**
      * IDs of the highlighted items
+     * @default []
      */
     highlightedItems?: string[];
     /**
      * Show checkbox for selected items
+     * @default false
      */
     showCheckbox?: boolean;
     /**
@@ -54,22 +57,27 @@ type BasicTreeViewProps = {
     onContextMenuItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
     /**
      * Whether the component should use reversed colors, it useful with dark background
+     * @default false
      */
     isReversed?: boolean;
     /**
      * Component used for the list (ul)
+     * @default 'ul'
      */
     component?: string;
     /**
      * Component used for every item (li)
+     * @default 'li'
      */
     itemComponent?: string;
     /**
      * TreeView row sizes
+     * @default 'default'
      */
     size?: 'small' | 'default';
     /**
      * When using virtualization row may require padding if they become detached from its parent
+     * @default false
      */
     isPadVirtualizedRow?: boolean;
     /**
@@ -84,29 +92,30 @@ type ControlledProps = {
      */
     openedItems: string[];
     /**
-     * Trigger on opening node
+     * Called when the user opens a node.
      */
     onOpenItem: (node: TreeViewData, e?: React.MouseEvent) => void;
     /**
-     * Trigger on opening node
+     * Called when the user closes a node.
      */
     onCloseItem: (node: TreeViewData, e?: React.MouseEvent) => void;
-}
+};
 
 type UncontrolledProps = {
     /**
      * Opened items ids by default, when uncontrolled
+     * @default []
      */
     defaultOpenedItems?: string[];
     /**
-     * Trigger on opening node
+     * Called when the user opens a node.
      */
     onOpenItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
     /**
-     * Trigger on opening node
+     * Called when the user closes a node.
      */
     onCloseItem?: (node: TreeViewData, e?: React.MouseEvent) => void;
-}
+};
 
 export type TreeViewProps = BasicTreeViewProps & Partial<ControlledProps> & Partial<UncontrolledProps>;
 export type ControlledTreeViewProps = BasicTreeViewProps & ControlledProps;

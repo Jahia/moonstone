@@ -4,16 +4,16 @@ type SvgWrapperSize = 'small' | 'default' | 'big';
 
 export type SvgWrapperProps = Omit<React.ComponentPropsWithoutRef<'svg'>, 'className'> & {
     /**
-     * Svg as a string
+     * The SVG element to render.
      */
     svg: React.ReactElement;
     /**
      * Svg size
+     * @default 'default'
      */
     size?: SvgWrapperSize;
     /**
      * Additional classname
      */
     className?: string;
-}
-
+};

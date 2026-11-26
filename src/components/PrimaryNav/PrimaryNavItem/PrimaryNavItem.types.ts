@@ -1,47 +1,32 @@
 import React from 'react';
 
-import type {BadgeProps} from '~/components/Badge/Badge.types';
-import type {TypographyVariant} from '~/components/Typography/Typography.types';
-
-export type ItemProps = {
-    label?: string;
-    icon?: React.ReactElement;
-    textVariant?: TypographyVariant;
-    subtitle?: string;
-    button?: React.ReactNode;
-};
-
-export type ItemTypeResolverProps = {
-    url?: string;
-    label?: string;
-    icon?: React.ReactElement;
-    subtitle?: string;
-    button?: React.ReactNode;
-};
+import type { BadgeProps } from '~/components/Badge/Badge.types';
 
 export type PrimaryNavItemProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'onClick' | 'className'> & {
     /**
-     * Label
+     * Label of the navigation entry
+     * @default ''
      */
     label?: string;
     /**
-     * Icon node from our icon library
+     * Icon to illustrate the navigation entry
      */
     icon?: React.ReactElement;
     /**
-     * Subtitle
+     * Secondary line of text shown below the label.
      */
     subtitle?: string;
     /**
-     * Optional button
+     * Extra control rendered at the end of the item
      */
     button?: React.ReactNode;
     /**
-     * Element is selected or not
+     * Marks the item as the current page or section. Set it on only one item at a time.
+     * @default false
      */
     isSelected?: boolean;
     /**
-     * Badge
+     * Badge shown at the end of the item
      */
     badge?: React.ReactElement<BadgeProps>;
     /**
@@ -49,11 +34,11 @@ export type PrimaryNavItemProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'on
      */
     url?: string;
     /**
-     * Additional classname
+     * Additional class name.
      */
     className?: string;
     /**
-     * Function triggered on click
+     * Called when the item is activated by click, Enter, or Space. Activating it also collapses an expanded PrimaryNav.
      */
     onClick?: React.MouseEventHandler;
 };

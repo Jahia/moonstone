@@ -1,49 +1,53 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import {Field} from './index';
-import type {FieldProps} from './Field.types';
-import {FieldSelector} from './FieldSelector';
-import {Button} from '~/components/Button';
-import {Chip} from '~/components/Chip';
-import {Add, Love} from '~/icons';
+import { FieldSelector } from './FieldSelector';
+import { Field } from './index';
+import { Button } from '~/components/Button';
+import { Chip } from '~/components/Chip';
+import { Dropdown } from '~/components/Dropdown';
+import { Input } from '~/components/Input';
+import { Textarea } from '~/components/Textarea';
+import { Add, Love } from '~/icons';
+
+import type { FieldProps } from './Field.types';
 
 const requiredProps = {
     id: 'test',
-    label: 'Field label'
+    label: 'Field label',
 };
 
 describe('Field', () => {
     it('should render nothing when no children are provided', () => {
-        const incompleteProps = {...requiredProps, children: undefined} as FieldProps;
-        const {container} = render(<Field {...incompleteProps}/>);
+        const incompleteProps = { ...requiredProps, children: undefined } as FieldProps;
+        const { container } = render(<Field {...incompleteProps}/>);
         expect(container).toBeEmptyDOMElement();
     });
 
     it('should display additional class names', () => {
         render(
-            <Field {...requiredProps} data-testid="field" className="extra">
+            <Field {...requiredProps} className="extra" data-testid="field">
                 <FieldSelector
                     selector={<textarea placeholder="Input value"/>}
                 />
-            </Field>
+            </Field>,
         );
         expect(screen.getByTestId('field')).toHaveClass('extra');
     });
 
     it('should display label', () => {
         render(<Field {...requiredProps}><div/></Field>);
-        expect(screen.queryByText('Field label')).toBeInTheDocument();
+        expect(screen.getByText('Field label')).toBeInTheDocument();
     });
 
     it('should display chips', () => {
         render(<Field {...requiredProps} chips={<Chip label="Field chip"/>}><div/></Field>);
-        expect(screen.queryByText('Field chip')).toBeInTheDocument();
+        expect(screen.getByText('Field chip')).toBeInTheDocument();
     });
 
     it('should display helper', () => {
         render(<Field {...requiredProps} helper="Field helper"><div/></Field>);
-        expect(screen.queryByText('Field helper')).toBeInTheDocument();
+        expect(screen.getByText('Field helper')).toBeInTheDocument();
     });
 
     it('should display formatted helper', () => {
@@ -55,9 +59,9 @@ describe('Field', () => {
         render(
             <Field {...requiredProps}>
                 <FieldSelector selector={<textarea value="Input value"/>}/>
-            </Field>
+            </Field>,
         );
-        expect(screen.queryByText('Input value')).toBeInTheDocument();
+        expect(screen.getByText('Input value')).toBeInTheDocument();
     });
 
     it('should display multiple children', () => {
@@ -65,28 +69,29 @@ describe('Field', () => {
             <Field {...requiredProps}>
                 <FieldSelector selector={<textarea value="Input value"/>}/>
                 <FieldSelector selector={<textarea value="Input value"/>}/>
-            </Field>
+            </Field>,
         );
         expect(screen.getAllByText('Input value')).toHaveLength(2);
     });
 
     it('should display buttons', () => {
         render(<Field {...requiredProps} buttons={<Button label="Click me"/>}><div/></Field>);
-        expect(screen.queryByText('Click me')).toBeInTheDocument();
+        expect(screen.getByText('Click me')).toBeInTheDocument();
     });
 
     it('should display multiple buttons', () => {
         render(
-            <Field {...requiredProps}
-                   buttons={
-                       <>
-                           <Button icon={<Add/>} label="Click me"/>
-                           <Button icon={<Love/>} label="Click me"/>
-                       </>
-                }
+            <Field
+                {...requiredProps}
+                buttons={(
+                    <>
+                        <Button icon={<Add/>} label="Click me"/>
+                        <Button icon={<Love/>} label="Click me"/>
+                    </>
+                )}
             >
                 <div/>
-            </Field>
+            </Field>,
         );
         expect(screen.getAllByText('Click me')).toHaveLength(2);
     });
@@ -94,10 +99,10 @@ describe('Field', () => {
     it('should call onClick when button is clicked', async () => {
         const onClick = vi.fn();
         render(
-            <Field {...requiredProps} buttons={<Button data-testid="testButton" label="Click me" onClick={onClick}/>}><div/></Field>
+            <Field {...requiredProps} buttons={<Button data-testid="testButton" label="Click me" onClick={onClick}/>}><div/></Field>,
         );
         await userEvent.click(
-            screen.getByTestId('testButton')
+            screen.getByTestId('testButton'),
         );
         expect(onClick).toHaveBeenCalled();
     });
@@ -105,12 +110,130 @@ describe('Field', () => {
     it('should display as error variant', () => {
         render(<Field {...requiredProps} hasError data-testid="field"><div/></Field>);
         expect(screen.getByTestId('field')).toHaveClass(
-            'moonstone-field_error'
+            'moonstone-field_error',
         );
     });
 
     it('should display errorMessage', () => {
         render(<Field {...requiredProps} hasError errorMessage="Field errorMessage"><div/></Field>);
-        expect(screen.queryByText('Field errorMessage')).toBeInTheDocument();
+        expect(screen.getByText('Field errorMessage')).toBeInTheDocument();
+    });
+
+    it('should name the input inside with its label, and describe it with its helper and its error', () => {
+        render(
+            <Field
+                hasError
+                errorMessage="Required"
+                helper="Help"
+                id="title"
+                label="Title"
+            >
+                <Input/>
+            </Field>,
+        );
+        const input = screen.getByRole('textbox', { name: 'Title' });
+        expect(input).toHaveAccessibleDescription('Help Required');
+        expect(input).toBeInvalid();
+        expect(screen.getByRole('alert')).toHaveTextContent('Required');
+    });
+
+    it('should name a Dropdown inside with its label followed by the selected value', () => {
+        render(
+            <Field id="language" label="Language">
+                <Dropdown data={[{ label: 'French', value: 'fr' }]} value="fr" onChange={() => null}/>
+            </Field>,
+        );
+        expect(screen.getByRole('listbox', { name: 'Language French' })).toBeInTheDocument();
+    });
+
+    it('should name a multiple Dropdown inside with its label followed by its tags', () => {
+        const data = [{ label: 'French', value: 'fr' }, { label: 'German', value: 'de' }];
+        render(
+            <Field id="languages" label="Languages">
+                <Dropdown data={data} values={['fr', 'de']} onChange={() => null}/>
+            </Field>,
+        );
+        expect(screen.getByRole('listbox', { name: 'Languages French German' })).toBeInTheDocument();
+    });
+
+    it('should name a Textarea inside with its label, and describe it with its helper', () => {
+        render(<Field helper="Help" id="summary" label="Summary"><Textarea/></Field>);
+        expect(screen.getByRole('textbox', { name: 'Summary' })).toHaveAccessibleDescription('Help');
+    });
+
+    it('should focus the input inside on a click on its label', async () => {
+        render(<Field id="title" label="Title"><Input/></Field>);
+        await userEvent.click(screen.getByText('Title'));
+        expect(screen.getByRole('textbox', { name: 'Title' })).toHaveFocus();
+    });
+
+    it('should give the id the label points to the first control inside only, and a unique id to the others', () => {
+        render(
+            <Field id="keyword" label="Keyword">
+                <Input/>
+                <Textarea/>
+            </Field>,
+        );
+        const controls = screen.getAllByRole('textbox', { name: 'Keyword' });
+        expect(controls[0]).toHaveAttribute('id', 'keyword-control');
+        expect(controls[1].id).not.toBe(controls[0].id);
+    });
+
+    it('should give the id the label points to the next input when the first one is removed', () => {
+        const { rerender } = render(
+            <Field id="keyword" label="Keyword">
+                <Input key="first"/>
+                <Input key="second"/>
+                <Input key="third"/>
+            </Field>,
+        );
+        rerender(
+            <Field id="keyword" label="Keyword">
+                <Input key="second"/>
+                <Input key="third"/>
+            </Field>,
+        );
+        const inputs = screen.getAllByRole('textbox', { name: 'Keyword' });
+        expect(inputs[0]).toHaveAttribute('id', 'keyword-control');
+        expect(inputs[1].id).not.toBe(inputs[0].id);
+    });
+
+    // Limit: FloatingList sorts the controls again only when one mounts or unmounts
+    it.fails('should give the id the label points to the input that becomes first after a keyed reorder', () => {
+        const { rerender } = render(
+            <Field id="keyword" label="Keyword">
+                <Input key="first"/>
+                <Input key="second"/>
+            </Field>,
+        );
+        rerender(
+            <Field id="keyword" label="Keyword">
+                <Input key="second"/>
+                <Input key="first"/>
+            </Field>,
+        );
+        expect(screen.getAllByRole('textbox', { name: 'Keyword' })[0]).toHaveAttribute('id', 'keyword-control');
+    });
+
+    it('should join the aria-describedby of the input to its helper', () => {
+        render(
+            <Field helper="Help" id="title" label="Title">
+                <span id="hint">Hint</span>
+                <Input aria-describedby="hint"/>
+            </Field>,
+        );
+        expect(screen.getByRole('textbox', { name: 'Title' })).toHaveAccessibleDescription('Hint Help');
+    });
+
+    it('should not link the search box of a Dropdown inside to its label or helper', async () => {
+        render(
+            <Field helper="Help" id="language" label="Language">
+                <Dropdown hasSearch data={[{ label: 'French', value: 'fr' }]} value="fr" onChange={() => null}/>
+            </Field>,
+        );
+        await userEvent.click(screen.getByRole('listbox', { name: 'Language French' }));
+        const searchbox = screen.getByRole('searchbox');
+        expect(searchbox).not.toHaveAttribute('aria-labelledby');
+        expect(searchbox).not.toHaveAttribute('aria-describedby');
     });
 });

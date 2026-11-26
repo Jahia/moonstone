@@ -1,4 +1,6 @@
+@use "../../utils/motion" as *;
 @use "../../utils/mixins" as *;
+@use "../../tokens/colors/palette";
 
 $checkbox-sizeDefault: 16px;
 $checkbox-sizeBig: 20px;
@@ -34,6 +36,9 @@ $checkbox-sizeBig: 20px;
 }
 
 .moonstone-checkbox_input {
+    @include transition(box-shadow 0.1s);
+    @include min-target-size;
+
     --shadow-size: 1px;
     --shadow-color: var(--moon-color-gray);
 
@@ -54,29 +59,27 @@ $checkbox-sizeBig: 20px;
     box-shadow: inset 0 0 0 var(--shadow-size) var(--shadow-color);
     cursor: pointer;
 
-    transition: box-shadow 0.1s;
-
     &:hover {
         --shadow-color: var(--moon-color-gray60);
         --shadow-size: 2px;
     }
 
     // Only triggered when the input is focus with tab
-    &:focus-visible:not([disabled], [aria-readonly="true"]) {
-        @extend %is-focused;
+    &:focus-visible {
+        @include focus-ring(false, inset 0 0 0 var(--shadow-size) var(--shadow-color));
     }
 
-    &[aria-checked="true"],
-    &[aria-checked="mixed"] {
+    &:checked,
+    &:indeterminate {
         --shadow-size: 12px;
-        --shadow-color: var(--moon-color-accent);
+        --shadow-color: #{palette.$color-blue-50};
 
         &:hover {
-            border: 2px solid var(--moon-color-accent_dark);
+            border: 2px solid palette.$color-blue-60;
         }
 
         & ~ .moonstone-checkbox_icon {
-            animation: checkboxBounce 0.1s linear forwards 0.05s;
+            @include animation(checkboxBounce 0.1s linear forwards 0.05s);
         }
     }
 
@@ -88,15 +91,20 @@ $checkbox-sizeBig: 20px;
         // Prevent :hover on disabled and read-only
         pointer-events: none;
 
+        // Only a read-only checkbox can take the focus: its ring shows at full strength
+        &:focus-visible {
+            opacity: 1;
+        }
+
         // Reset :hover style for disabled and readonly state
         &:hover {
             --shadow-color: var(--moon-color-gray);
             --shadow-size: 1px;
         }
 
-        &[aria-checked="true"]:hover,
-        &[aria-checked="mixed"]:hover {
-            --shadow-color: var(--moon-color-accent);
+        &:checked:hover,
+        &:indeterminate:hover {
+            --shadow-color: #{palette.$color-blue-50};
             --shadow-size: 12px;
 
             border: none;

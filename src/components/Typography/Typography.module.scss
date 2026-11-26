@@ -64,3 +64,14 @@
         @extend %upperCase;
     }
 }
+
+// Button reset
+:where(button.moonstone-typography) {
+    color: inherit;
+    text-align: inherit;
+
+    border: 0;
+
+    background: none;
+    cursor: pointer;
+}

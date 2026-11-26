@@ -1,4 +1,4 @@
-import {ReactElement} from 'react';
+import type { ReactElement } from 'react';
 
 export type ModalProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 'children'> & {
 
@@ -19,6 +19,7 @@ export type ModalProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 
 
     /**
      * Size of the Modal
+     * @default 'medium'
      */
     size?: 'small' | 'medium' | 'large' | 'full';
 
@@ -26,4 +27,4 @@ export type ModalProps = Omit<React.ComponentPropsWithRef<'div'>, 'className' | 
      * Additional classname
      */
     className?: string;
-}
+};

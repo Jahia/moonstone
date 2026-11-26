@@ -1,31 +1,34 @@
-import {StoryObj} from '@storybook/react-vite';
+import { RadioGroup } from '../index';
+import { RadioItem } from './index';
+import markdownNotes from './RadioItem.md?raw';
 
-import {RadioItem} from './index';
-import type {RadioItemProps} from './RadioItem.types';
-import {RadioGroup} from '../index';
+import type { RadioItemProps } from './RadioItem.types';
+import type { StoryObj } from '@storybook/react-vite';
 
 export default {
-    title: 'Components/RadioGroup/RadioItem',
+    title: 'Components/RadioItem',
     component: RadioItem,
     parameters: {
         layout: 'centered',
-        knobs: {disable: true},
-        storysource: {disable: true},
-        actions: {argTypesRegex: '^on.*'}
-    }
+        knobs: { disable: true },
+        storysource: { disable: true },
+        actions: { argTypesRegex: '^on.*' },
+        componentSubtitle: 'One option of a RadioGroup.',
+        docs: { description: { component: markdownNotes } },
+    },
 };
 
 export const Playground: StoryObj<RadioItemProps> = {
-    render: args => {
+    render: (args) => {
         return (
             <RadioGroup name="playground-name">
                 <RadioItem {...args}/>
                 <RadioItem
-          label="Radio"
-          value="radio"
-          id="radio"
-          description="Description of the radio"
-        />
+                    description="Description of the radio"
+                    id="radio"
+                    label="Radio"
+                    value="radio"
+                />
             </RadioGroup>
         );
     },
@@ -34,6 +37,6 @@ export const Playground: StoryObj<RadioItemProps> = {
         id: 'playground-item',
         label: 'Play with me',
         description: 'Use the storybook controls to update this element',
-        value: 'playground-value'
-    }
+        value: 'playground-value',
+    },
 };

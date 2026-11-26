@@ -1,15 +1,16 @@
 import React from 'react';
 
-import type {SwitchProps} from './Switch.types';
-import {UncontrolledSwitch} from './UncontrolledSwitch';
-import {ControlledSwitch} from './ControlledSwitch';
+import { ControlledSwitch } from './ControlledSwitch';
+import { UncontrolledSwitch } from './UncontrolledSwitch';
 
-export const Switch: React.FC<SwitchProps> = ({checked, ...props}) => {
+import type { SwitchProps } from './Switch.types';
+
+export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(({ checked, ...props }, ref) => {
     if (typeof checked === 'undefined') {
-        return <UncontrolledSwitch {...props}/>;
+        return <UncontrolledSwitch ref={ref} {...props}/>;
     }
 
-    return <ControlledSwitch checked={checked} {...props}/>;
-};
+    return <ControlledSwitch checked={checked} ref={ref} {...props}/>;
+});
 
 Switch.displayName = 'Switch';

@@ -1,9 +1,11 @@
 import React from 'react';
-import type {PolymorphicPropsWithRef} from '~/types/Polymorphic.types';
+
+import type { PolymorphicPropsWithRef } from '~/types/Polymorphic.types';
 
 export type BasicPaperProps = {
     /**
      * Define if the component has padding
+     * @default true
      */
     hasPadding?: boolean;
 

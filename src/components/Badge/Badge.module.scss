@@ -1,3 +1,5 @@
+@use "../../tokens/colors/palette";
+
 .moonstone-badge {
     color: var(--moon-color-light);
 
@@ -16,14 +18,16 @@
     }
 
     &.moonstone-badge_accent {
-        background-color: var(--moon-color-accent);
+        background-color: palette.$color-blue-50;
     }
 
     &.moonstone-badge_danger {
-        background-color: var(--moon-color-danger);
+        background-color: palette.$color-red-50;
     }
 
     &.moonstone-badge_success {
-        background-color: var(--moon-color-success);
+        color: var(--moon-color-white);
+
+        background-color: palette.$color-green-50;
     }
 }

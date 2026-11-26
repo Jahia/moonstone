@@ -1,10 +1,11 @@
-import React from 'react';
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {describe, it, expect, vi} from 'vitest';
-import {TableStructuredCell} from './TableStructuredCell';
+import React from 'react';
+import { describe, expect, it, vi } from 'vitest';
 
-const TableWrapper: React.FC<{ readonly children: React.ReactNode }> = ({children}) => (
+import { TableStructuredCell } from './TableStructuredCell';
+
+const TableWrapper: React.FC<{ readonly children: React.ReactNode }> = ({ children }) => (
     <table>
         <tbody>
             <tr>{children}</tr>
@@ -17,16 +18,16 @@ describe('TableStructuredCell', () => {
         render(
             <TableWrapper>
                 <TableStructuredCell depth={0}>Content</TableStructuredCell>
-            </TableWrapper>
+            </TableWrapper>,
         );
         expect(screen.getByText('Content')).toBeInTheDocument();
     });
 
     it('should render nothing when children is missing', () => {
-        const {container} = render(
+        const { container } = render(
             <TableWrapper>
-                <TableStructuredCell depth={0} data-testid="empty-cell"/>
-            </TableWrapper>
+                <TableStructuredCell data-testid="empty-cell" depth={0}/>
+            </TableWrapper>,
         );
         // Component returns null when no children, so tr should be empty
         expect(container.querySelector('tr')?.children.length).toBe(0);
@@ -38,9 +39,9 @@ describe('TableStructuredCell', () => {
             render(
                 <TableWrapper>
                     <TableStructuredCell depth={0}>Root</TableStructuredCell>
-                </TableWrapper>
+                </TableWrapper>,
             );
-            expect(screen.getByText('Root').closest('[style]')).toHaveStyle({marginLeft: '0px'});
+            expect(screen.getByText('Root').closest('[style]')).toHaveStyle({ marginLeft: '0px' });
         });
 
         it('should apply correct indentation for depth 2', () => {
@@ -48,9 +49,9 @@ describe('TableStructuredCell', () => {
             render(
                 <TableWrapper>
                     <TableStructuredCell depth={2}>Nested</TableStructuredCell>
-                </TableWrapper>
+                </TableWrapper>,
             );
-            expect(screen.getByText('Nested').closest('[style]')).toHaveStyle({marginLeft: '40px'});
+            expect(screen.getByText('Nested').closest('[style]')).toHaveStyle({ marginLeft: '40px' });
         });
 
         it('should not add buffer for expandable cells', () => {
@@ -58,9 +59,9 @@ describe('TableStructuredCell', () => {
             render(
                 <TableWrapper>
                     <TableStructuredCell isExpandable depth={1}>Parent</TableStructuredCell>
-                </TableWrapper>
+                </TableWrapper>,
             );
-            expect(screen.getByText('Parent').closest('[style]')).toHaveStyle({marginLeft: '20px'});
+            expect(screen.getByText('Parent').closest('[style]')).toHaveStyle({ marginLeft: '20px' });
         });
     });
 
@@ -73,7 +74,7 @@ describe('TableStructuredCell', () => {
                     <TableStructuredCell depth={0} onToggleExpand={onToggle}>
                         Clickable
                     </TableStructuredCell>
-                </TableWrapper>
+                </TableWrapper>,
             );
 
             await user.click(screen.getByText('Clickable'));
@@ -85,8 +86,8 @@ describe('TableStructuredCell', () => {
         const ref = React.createRef<HTMLTableCellElement>();
         render(
             <TableWrapper>
-                <TableStructuredCell ref={ref} depth={0}>Content</TableStructuredCell>
-            </TableWrapper>
+                <TableStructuredCell depth={0} ref={ref}>Content</TableStructuredCell>
+            </TableWrapper>,
         );
         expect(ref.current?.tagName).toBe('TD');
     });
@@ -94,10 +95,10 @@ describe('TableStructuredCell', () => {
     it('should add custom className', () => {
         render(
             <TableWrapper>
-                <TableStructuredCell depth={0} className="custom" data-testid="cell">
+                <TableStructuredCell className="custom" data-testid="cell" depth={0}>
                     Content
                 </TableStructuredCell>
-            </TableWrapper>
+            </TableWrapper>,
         );
         expect(screen.getByTestId('cell')).toHaveClass('custom');
     });

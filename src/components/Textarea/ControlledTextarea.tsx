@@ -1,6 +1,11 @@
-import React from 'react';
+import { useMergeRefs } from '@floating-ui/react';
 import clsx from 'clsx';
-import type {ControlledTextareaProps} from './Textarea.types';
+import React from 'react';
+
+import { useFieldAria, useFieldControlId } from '~/components/Field/Field.context';
+
+import type { ControlledTextareaProps } from './Textarea.types';
+
 import styles from './Textarea.module.scss';
 
 export const ControlledTextarea = React.forwardRef<HTMLTextAreaElement, ControlledTextareaProps>(({
@@ -16,23 +21,28 @@ export const ControlledTextarea = React.forwardRef<HTMLTextAreaElement, Controll
     onFocus,
     ...props
 }, ref) => {
+    const fieldAria = useFieldAria(props);
+    const { id: controlId, ref: fieldRef } = useFieldControlId(id);
+    const mergedRef = useMergeRefs([ref, fieldRef]);
+
     return (
         <textarea
-            ref={ref}
+            disabled={isDisabled}
+            readOnly={isReadOnly}
             className={clsx(
                 ['moonstone-textarea', styles['moonstone-textarea']],
                 isResizable && ['moonstone-textarea_resizable', styles['moonstone-textarea_resizable']],
-                className
+                className,
             )}
-            value={value}
-            id={id}
+            id={controlId}
             placeholder={placeholder}
-            disabled={isDisabled}
-            readOnly={isReadOnly}
-            onChange={(!isDisabled || !isReadOnly) && onChange}
+            ref={mergedRef}
+            value={value}
             onBlur={(!isDisabled || !isReadOnly) && onBlur}
+            onChange={(!isDisabled || !isReadOnly) && onChange}
             onFocus={(!isDisabled || !isReadOnly) && onFocus}
             {...props}
+            {...fieldAria}
         />
     );
 });

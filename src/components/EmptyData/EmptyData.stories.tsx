@@ -1,41 +1,44 @@
-import {EmptyData} from './index';
-import {Love} from '~/icons';
+import markdownNotes from './EmptyData.md?raw';
+import { EmptyData } from './index';
+import { Love } from '~/icons';
 
 export default {
     title: 'Components/EmptyData',
     component: EmptyData,
     tags: ['beta'],
     parameters: {
-        layout: 'centered'
-    }
+        layout: 'centered',
+        componentSubtitle: 'A placeholder explaining why an area has no content.',
+        docs: { description: { component: markdownNotes } },
+    },
 };
 
 export const Default = {
     args: {
         title: 'No data available',
-        message: 'There is no data to display at the moment.'
-    }
+        message: 'There is no data to display at the moment.',
+    },
 };
 
 export const WithMessage = {
     args: {
         title: 'No data available',
-        message: 'There is no data to display at the moment.'
-    }
+        message: 'There is no data to display at the moment.',
+    },
 };
 
 export const WithIcon = {
     args: {
         icon: <Love size="big"/>,
         title: 'No favorites found',
-        message: 'You have not added any items to your favorites yet.'
-    }
+        message: 'You have not added any items to your favorites yet.',
+    },
 };
 
 export const Full = {
     args: {
         icon: <Love size="big"/>,
         title: 'No favorites found',
-        message: 'You have not added any items to your favorites yet.'
-    }
+        message: 'You have not added any items to your favorites yet.',
+    },
 };

@@ -1,6 +1,8 @@
-import React, {ReactNode} from 'react';
-import type {PolymorphicPropsWithRef} from '~/types/Polymorphic.types';
-import type {BasicPaperProps} from '~/components/Paper/Paper.types';
+import React from 'react';
+
+import type { ReactNode } from 'react';
+import type { BasicPaperProps } from '~/components/Paper/Paper.types';
+import type { PolymorphicPropsWithRef } from '~/types/Polymorphic.types';
 
 // Inherits future Paper props without needing manual updates here.
 type PaperCustomProps = Omit<BasicPaperProps, 'children' | 'className'>;
@@ -13,8 +15,14 @@ export type BasicDrawerProps = PaperCustomProps & {
 
     /**
      * Whether the Drawer is open
+     * @default false
      */
     isOpen?: boolean;
+
+    /**
+     * Called with `false` when Escape is pressed inside the Drawer. Escape closes the Drawer only when this callback is set.
+     */
+    onOpenChange?: (open: boolean) => void;
 
     /**
      * Additional classname

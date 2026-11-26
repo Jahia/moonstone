@@ -1,6 +1,8 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {Textarea} from './index';
+import { createRef } from 'react';
+
+import { Textarea } from './index';
 
 describe('Textarea', () => {
     it('should render', () => {
@@ -9,26 +11,38 @@ describe('Textarea', () => {
     });
 
     it('should display additional className', () => {
-        const {container} = render(<Textarea className="test-class"/>);
+        const { container } = render(<Textarea className="test-class"/>);
         expect(container.querySelector('.test-class')).toBeInTheDocument();
     });
 
     it('should display additional attributes', () => {
-        const {container} = render(<Textarea data-test="test"/>);
+        const { container } = render(<Textarea data-test="test"/>);
         expect(
-            container.querySelector('[data-test="test"]')
+            container.querySelector('[data-test="test"]'),
         ).toBeInTheDocument();
     });
 
+    it('should forward aria-invalid and aria-describedby to the textarea', () => {
+        render(
+            <>
+                <Textarea aria-describedby="error" aria-invalid="true" aria-label="Description"/>
+                <span id="error">Required</span>
+            </>,
+        );
+        const textarea = screen.getByRole('textbox', { name: 'Description' });
+        expect(textarea).toBeInvalid();
+        expect(textarea).toHaveAccessibleDescription('Required');
+    });
+
     it('should have specified id', () => {
-        const {container} = render(<Textarea id="test-id"/>);
+        const { container } = render(<Textarea id="test-id"/>);
         expect(container.querySelector('#test-id')).toBeInTheDocument();
     });
 
     it('should have specified placeholder', () => {
         render(<Textarea placeholder="test-placeholder"/>);
         expect(
-            screen.getByPlaceholderText('test-placeholder')
+            screen.getByPlaceholderText('test-placeholder'),
         ).toBeInTheDocument();
     });
 
@@ -40,14 +54,14 @@ describe('Textarea', () => {
     it('should be read only', () => {
         render(<Textarea isReadOnly data-testid="moonstone-textarea"/>);
         expect(screen.getByTestId('moonstone-textarea')).toHaveAttribute(
-            'readonly'
+            'readonly',
         );
     });
 
     it('should be resizeable', () => {
         render(<Textarea isResizable data-testid="moonstone-textarea"/>);
         expect(screen.getByTestId('moonstone-textarea')).toHaveClass(
-            'moonstone-textarea_resizable'
+            'moonstone-textarea_resizable',
         );
     });
 
@@ -57,10 +71,26 @@ describe('Textarea', () => {
         render(<Textarea data-testid="moonstone-textarea"/>);
         await user.type(
             screen.getByTestId('moonstone-textarea'),
-            'type a value'
+            'type a value',
         );
 
         expect(screen.getByDisplayValue('type a value')).toBeInTheDocument();
+    });
+
+    it('should forward the ref to the textarea when uncontrolled', () => {
+        const ref = createRef<HTMLTextAreaElement>();
+
+        render(<Textarea ref={ref}/>);
+
+        expect(ref.current).toBe(screen.getByRole('textbox'));
+    });
+
+    it('should forward the ref to the textarea when controlled', () => {
+        const ref = createRef<HTMLTextAreaElement>();
+
+        render(<Textarea ref={ref} value="" onChange={vi.fn()}/>);
+
+        expect(ref.current).toBe(screen.getByRole('textbox'));
     });
 });
 
@@ -68,7 +98,7 @@ describe('UncontrolledTextarea', () => {
     it('should have specified defaultValue', () => {
         render(<Textarea defaultValue="test-default-value"/>);
         expect(
-            screen.getByDisplayValue('test-default-value')
+            screen.getByDisplayValue('test-default-value'),
         ).toBeInTheDocument();
     });
 
@@ -78,11 +108,11 @@ describe('UncontrolledTextarea', () => {
             <Textarea
                 data-testid="moonstone-textarea"
                 defaultValue="test-default-value"
-            />
+            />,
         );
         await user.type(screen.getByTestId('moonstone-textarea'), '-updated');
         expect(
-            screen.getByDisplayValue('test-default-value-updated')
+            screen.getByDisplayValue('test-default-value-updated'),
         ).toBeInTheDocument();
     });
 
@@ -95,7 +125,7 @@ describe('UncontrolledTextarea', () => {
                 data-testid="moonstone-textarea"
                 defaultValue="test-default-value"
                 onChange={handleChange}
-            />
+            />,
         );
         await user.type(screen.getByTestId('moonstone-textarea'), '1');
 
@@ -111,14 +141,14 @@ describe('UncontrolledTextarea', () => {
         it('should not update when value is specified', async () => {
             const user = userEvent.setup();
             render(
-                <Textarea data-testid="moonstone-textarea" value="test-value"/>
+                <Textarea data-testid="moonstone-textarea" value="test-value"/>,
             );
             await user.type(
                 screen.getByTestId('moonstone-textarea'),
-                '-updated'
+                '-updated',
             );
             expect(
-                screen.queryByDisplayValue('test-value-updated')
+                screen.queryByDisplayValue('test-value-updated'),
             ).not.toBeInTheDocument();
         });
 
@@ -131,7 +161,7 @@ describe('UncontrolledTextarea', () => {
                     data-testid="moonstone-textarea"
                     value="test-value"
                     onChange={handleChange}
-                />
+                />,
             );
             await user.type(screen.getByTestId('moonstone-textarea'), '1');
 

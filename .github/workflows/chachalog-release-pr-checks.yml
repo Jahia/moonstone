@@ -1,0 +1,30 @@
+name: Chachalog - Release PR Checks
+
+# Chachalog pushes the release PR with GITHUB_TOKEN, and events made with that token trigger no workflow
+# except workflow_dispatch: once the `release` branch is updated, dispatch the PR checks on it.
+# workflow_run only fires from the copy of this file on the default branch.
+on:
+  workflow_run:
+    workflows: [Chachalog - Prepare Changelog]
+    types: [completed]
+
+permissions:
+  actions: write # gh workflow run
+  contents: read # gh api branches
+
+jobs:
+  dispatch:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-slim
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          # no pending changeset → no release branch → nothing to check
+          if ! gh api "repos/$GH_REPO/branches/release" --silent; then
+            echo "No release branch, nothing to dispatch"
+            exit 0
+          fi
+          gh workflow run on-code-change.yml --ref release
+          gh workflow run pkg-pr-new.yml --ref release

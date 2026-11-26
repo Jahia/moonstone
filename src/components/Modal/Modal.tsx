@@ -1,74 +1,90 @@
-import React from 'react';
-import clsx from 'clsx';
-import type {ModalProps} from './Modal.types';
 import {
-    useFloating,
-    useDismiss,
-    useRole,
-    useClick,
-    useInteractions,
-    useId,
-    useMergeRefs,
     FloatingFocusManager,
     FloatingOverlay,
-    FloatingPortal
+    FloatingPortal,
+    useClick,
+    useDismiss,
+    useFloating,
+    useId,
+    useInteractions,
+    useMergeRefs,
+    useRole,
 } from '@floating-ui/react';
-import {layout} from '~/globals/css-utils.js';
+import clsx from 'clsx';
+import React, { useEffect, useMemo } from 'react';
+
+import { ModalContext } from './Modal.context';
+import { layout } from '~/globals/css-utils.js';
+import { warnOnce } from '~/utils/warnOnce';
+
+import type { ModalProps } from './Modal.types';
+
 import styles from './Modal.module.scss';
 
 const ModalForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, ModalProps> = ({
     className,
-    isOpen = false,
+    isOpen,
     onOpenChange,
     size = 'medium',
     children,
     ...props
 }, ref) => {
-    const {refs, context} = useFloating({
+    const { refs, elements, context } = useFloating({
         open: isOpen,
-        onOpenChange
+        onOpenChange,
     });
 
     const modalRef = useMergeRefs([refs.setFloating, ref]);
 
     const click = useClick(context);
     const role = useRole(context);
-    const dismiss = useDismiss(context, {outsidePressEvent: 'mousedown'});
+    // 'click' closes on the up-event, so a press outside can still be cancelled by dragging away (WCAG 2.5.2)
+    const dismiss = useDismiss(context, { outsidePressEvent: 'click' });
 
-    const {getFloatingProps} = useInteractions([
+    const { getFloatingProps } = useInteractions([
         click,
         role,
-        dismiss
+        dismiss,
     ]);
 
-    const headingId = useId();
+    const titleId = useId();
+    const contextValue = useMemo(() => ({ titleId }), [titleId]);
+    const ariaLabel = props['aria-label'];
+    const ariaLabelledBy = props['aria-labelledby'];
+
+    // The portal mounts the dialog one render after isOpen, so the check waits for the dialog element
+    useEffect(() => {
+        if (elements.floating && !ariaLabel && !ariaLabelledBy && !document.getElementById(titleId)) {
+            warnOnce('Modal.name', 'Modal: add a ModalHeader with a title, or an aria-label, to name the dialog');
+        }
+    }, [elements.floating, ariaLabel, ariaLabelledBy, titleId]);
 
     return (
         children && isOpen && (
-        <FloatingPortal>
-            <FloatingOverlay lockScroll className={clsx('moonstone-modal_overlay', styles['moonstone-modal_overlay'])}>
-                {/* FloatingFocusManager handles context to allow each modal to be treated separately
+            <FloatingPortal>
+                <FloatingOverlay lockScroll className={clsx('moonstone-modal_overlay', styles['moonstone-modal_overlay'])}>
+                    {/* FloatingFocusManager handles context to allow each modal to be treated separately
                 (e.g if a modal is inside a modal: pressing esc will only close the last one open) */}
-                <FloatingFocusManager context={context}>
-                    <div
-                        ref={modalRef}
-                        className={clsx(
-                            ['moonstone-modal', styles['moonstone-modal']],
-                            [`moonstone-modal_${size}`, styles[`moonstone-modal_${size}`]],
-                            ['flexCol_nowrap', layout.flexCol_nowrap],
-                            className
-                        )}
-                        aria-labelledby={`moonstone-modal_${headingId}`}
-                        aria-modal="true"
-                        {...getFloatingProps()}
-                        id={`moonstone-modal_${headingId}`}
-                        {...props}
-                    >
-                        {children}
-                    </div>
-                </FloatingFocusManager>
-            </FloatingOverlay>
-        </FloatingPortal>
+                    <FloatingFocusManager context={context}>
+                        <div
+                            aria-labelledby={props['aria-label'] ? undefined : titleId}
+                            aria-modal="true"
+                            className={clsx(
+                                ['moonstone-modal', styles['moonstone-modal']],
+                                [`moonstone-modal_${size}`, styles[`moonstone-modal_${size}`]],
+                                ['flexCol_nowrap', layout.flexCol_nowrap],
+                                className,
+                            )}
+                            ref={modalRef}
+                            {...getFloatingProps(props)}
+                        >
+                            <ModalContext.Provider value={contextValue}>
+                                {children}
+                            </ModalContext.Provider>
+                        </div>
+                    </FloatingFocusManager>
+                </FloatingOverlay>
+            </FloatingPortal>
         )
     );
 };

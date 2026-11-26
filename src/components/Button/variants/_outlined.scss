@@ -1,4 +1,5 @@
 @use "../../../utils/mixins" as *;
+@use "../../../tokens/colors/palette";
 
 %outlined_disabled {
     color: var(--moon-color-gray_dark);
@@ -20,20 +21,20 @@
     background-color: transparent;
 
     &:hover:not(:disabled) {
-        color: var(--moon-color-accent);
+        color: palette.$color-blue-50;
 
-        border-color: var(--moon-color-accent);
+        border-color: palette.$color-blue-50;
     }
 
     &:focus-visible:not(:disabled) {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:active:not(:disabled) {
         color: var(--moon-color-white);
 
         border-color: var(--moon-color-white);
-        background-color: var(--moon-color-accent);
+        background-color: palette.$color-blue-50;
     }
 
     &:disabled {
@@ -45,6 +46,12 @@
 
         border-color: var(--moon-color-light);
 
+        &:hover:not(:disabled, :active) {
+            color: var(--moon-color-accent_light);
+
+            border-color: var(--moon-color-accent_light);
+        }
+
         &:disabled {
             @extend %outlined_disabled_reversed;
         }
@@ -52,26 +59,32 @@
 }
 
 %outlined_danger {
-    color: var(--moon-color-danger);
+    color: palette.$color-red-50;
 
-    border: 1px solid var(--moon-color-danger);
+    border: 1px solid palette.$color-red-50;
     background-color: transparent;
 
     &:hover:not(:disabled) {
-        color: var(--moon-color-danger);
+        color: palette.$color-red-50;
 
-        border-color: var(--moon-color-danger);
+        border-color: palette.$color-red-50;
     }
 
     &:focus-visible:not(:disabled) {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:active:not(:disabled) {
         color: var(--moon-color-white);
 
-        border-color: var(--moon-color-danger);
-        background-color: var(--moon-color-danger);
+        border-color: palette.$color-red-50;
+        background-color: palette.$color-red-50;
+    }
+
+    &.moonstone-reverse:not(:disabled, :active) {
+        color: var(--moon-color-danger_plain60);
+
+        border-color: var(--moon-color-danger_plain60);
     }
 
     &:disabled {
@@ -84,19 +97,19 @@
 }
 
 %outlined_accent {
-    color: var(--moon-color-accent);
+    color: palette.$color-blue-50;
 
-    border: 1px solid var(--moon-color-accent);
+    border: 1px solid palette.$color-blue-50;
     background-color: transparent;
 
     &:hover:not(:disabled) {
-        color: var(--moon-color-accent_dark);
+        color: palette.$color-blue-60;
 
-        border-color: var(--moon-color-accent_dark);
+        border-color: palette.$color-blue-60;
     }
 
     &:focus-visible:not(:disabled) {
-        @extend %is-focused;
+        @include focus-ring;
     }
 
     &:active:not(:disabled) {
@@ -104,6 +117,19 @@
 
         border-color: var(--moon-color-accent_dark);
         background-color: var(--moon-color-accent_dark);
+    }
+
+    // blue-50 is too dark on reversed backgrounds, and the 2.21 accent gives 4.49:1 on gray_dark
+    &.moonstone-reverse {
+        color: var(--moon-color-accent_light);
+
+        border-color: var(--moon-color-accent_light);
+
+        &:hover:not(:disabled) {
+            color: var(--moon-color-light);
+
+            border-color: var(--moon-color-light);
+        }
     }
 
     &:disabled {

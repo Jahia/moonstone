@@ -1,6 +1,7 @@
 import React from 'react';
-import type {PolymorphicProps} from '~/types/Polymorphic.types';
-import type {BasicTypographyProps} from '~/components/Typography/Typography.types';
+
+import type { BasicTypographyProps } from '~/components/Typography/Typography.types';
+import type { PolymorphicProps } from '~/types/Polymorphic.types';
 
 export type BasicIconTextIconProps = {
     /**
@@ -19,7 +20,8 @@ export type BasicIconTextIconProps = {
     iconEnd?: React.ReactElement;
 
     /**
-     * Which size of icon to render; is "default" by default ;)
+     * Size of the icons.
+     * @default 'default'
      */
     iconSize?: 'small' | 'default' | 'big';
 

@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef, useState} from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import toPX from 'to-px';
 
 type Position = {
@@ -6,7 +6,7 @@ type Position = {
     left?: number;
     bottom?: number;
     right?: number;
-}
+};
 type AnchorElOrigin = {
     horizontal: 'left' | 'center' | 'right';
     vertical: 'top' | 'center' | 'bottom';
@@ -19,13 +19,13 @@ type PositioningType = 'absolute' | 'fixed';
 
 const initialPosition: Position = {
     top: -1000,
-    left: -1000
+    left: -1000,
 };
 
 const getPosition = (anchorPosition: Position): Position => {
     return {
         top: typeof anchorPosition.top === 'string' ? toPX(anchorPosition.top) : anchorPosition.top,
-        left: typeof anchorPosition.left === 'string' ? toPX(anchorPosition.left) : anchorPosition.left
+        left: typeof anchorPosition.left === 'string' ? toPX(anchorPosition.left) : anchorPosition.left,
     };
 };
 
@@ -45,7 +45,7 @@ const getClosestRelativeAncestor = (el: HTMLElement) => {
 const getAbsolutePositionCSS = (
     anchorElOrigin: AnchorElOrigin,
     transformElOrigin: TransformElOrigin,
-    anchorPosition: Position
+    anchorPosition: Position,
 ): React.CSSProperties => {
     const style: React.CSSProperties = {};
 
@@ -93,40 +93,52 @@ const getAbsolutePosition = (
     itemRef: React.MutableRefObject<HTMLElement>,
     anchorElOrigin: AnchorElOrigin,
     transformElOrigin: TransformElOrigin,
-    anchorPosition: Position
-):React.CSSProperties => {
+    anchorPosition: Position,
+): React.CSSProperties => {
     const menuRectangle = itemRef?.current?.getBoundingClientRect();
     const closestRelativeAncestorRect = getClosestRelativeAncestor(itemRef?.current).getBoundingClientRect();
     let stylePosition = getAbsolutePositionCSS(anchorElOrigin, transformElOrigin, anchorPosition);
 
     if (
-        stylePosition.left &&
-        (closestRelativeAncestorRect.left + anchorPosition.left + menuRectangle.width) > window.document.body.clientWidth &&
-        anchorElOrigin.horizontal === 'right'
+        stylePosition.left
+        && (closestRelativeAncestorRect.left + anchorPosition.left + menuRectangle.width) > window.document.body.clientWidth
+        && anchorElOrigin.horizontal === 'right'
     ) {
         stylePosition = getAbsolutePositionCSS(
-            {...anchorElOrigin, horizontal: 'left'},
-            {...transformElOrigin, horizontal: 'right'},
-            anchorPosition
+            {
+                ...anchorElOrigin,
+                horizontal: 'left',
+            },
+            {
+                ...transformElOrigin,
+                horizontal: 'right',
+            },
+            anchorPosition,
         );
     }
 
     if (
-        stylePosition.top &&
-        (closestRelativeAncestorRect.top + closestRelativeAncestorRect.height + anchorPosition.top + menuRectangle.height) >
-            window.document.body.clientHeight &&
-        anchorElOrigin.vertical === 'bottom'
+        stylePosition.top
+        && (closestRelativeAncestorRect.top + closestRelativeAncestorRect.height + anchorPosition.top + menuRectangle.height)
+        > window.document.body.clientHeight
+        && anchorElOrigin.vertical === 'bottom'
     ) {
         stylePosition = getAbsolutePositionCSS(
-            {...anchorElOrigin, vertical: 'top'},
-            {...transformElOrigin, vertical: 'bottom'},
-            anchorPosition
+            {
+                ...anchorElOrigin,
+                vertical: 'top',
+            },
+            {
+                ...transformElOrigin,
+                vertical: 'bottom',
+            },
+            anchorPosition,
         );
     }
 
     return {
         ...stylePosition,
-        position: 'absolute'
+        position: 'absolute',
     };
 };
 
@@ -134,7 +146,7 @@ const getPositionRelativeToEl = (
     resolvedAnchorEl: HTMLDivElement,
     anchorElOrigin: AnchorElOrigin,
     transformElOrigin: TransformElOrigin,
-    anchorPosition: Position
+    anchorPosition: Position,
 ) => {
     const anchorElRectangle = resolvedAnchorEl.getBoundingClientRect();
     const point: Position = {};
@@ -196,8 +208,8 @@ const getFixedPosition = (
     anchorEl: React.MutableRefObject<HTMLElement>,
     anchorElOrigin: AnchorElOrigin,
     transformElOrigin: TransformElOrigin,
-    anchorPosition: Position
-):React.CSSProperties => {
+    anchorPosition: Position,
+): React.CSSProperties => {
     const menuRectangle = itemRef?.current?.getBoundingClientRect();
     const resolvedAnchorEl = anchorEl && anchorEl.current ? anchorEl.current : anchorEl;
 
@@ -207,31 +219,43 @@ const getFixedPosition = (
             resolvedAnchorEl as HTMLDivElement,
             anchorElOrigin,
             transformElOrigin,
-            anchorPosition
+            anchorPosition,
         );
         if (
-            stylePosition.left &&
-            (stylePosition.left + menuRectangle.width) > window.document.body.clientWidth &&
-            anchorElOrigin.horizontal === 'right'
+            stylePosition.left
+            && (stylePosition.left + menuRectangle.width) > window.document.body.clientWidth
+            && anchorElOrigin.horizontal === 'right'
         ) {
             stylePosition = getPositionRelativeToEl(
                 resolvedAnchorEl as HTMLDivElement,
-                {...anchorElOrigin, horizontal: 'left'},
-                {...transformElOrigin, horizontal: 'right'},
-                anchorPosition
+                {
+                    ...anchorElOrigin,
+                    horizontal: 'left',
+                },
+                {
+                    ...transformElOrigin,
+                    horizontal: 'right',
+                },
+                anchorPosition,
             );
         }
 
         if (
-            stylePosition.top &&
-            (stylePosition.top + menuRectangle.height) > window.document.body.clientHeight &&
-            anchorElOrigin.vertical === 'bottom'
+            stylePosition.top
+            && (stylePosition.top + menuRectangle.height) > window.document.body.clientHeight
+            && anchorElOrigin.vertical === 'bottom'
         ) {
             stylePosition = getPositionRelativeToEl(
                 resolvedAnchorEl as HTMLDivElement,
-                {...anchorElOrigin, vertical: 'top'},
-                {...transformElOrigin, vertical: 'bottom'},
-                anchorPosition
+                {
+                    ...anchorElOrigin,
+                    vertical: 'top',
+                },
+                {
+                    ...transformElOrigin,
+                    vertical: 'bottom',
+                },
+                anchorPosition,
             );
         }
     } else {
@@ -248,7 +272,7 @@ const getFixedPosition = (
 
     return {
         ...stylePosition,
-        position: 'fixed'
+        position: 'fixed',
     };
 };
 
@@ -263,9 +287,9 @@ const hasTransform = (resolvedAnchorEl: HTMLDivElement) => {
 };
 
 const hasParentWithTransform = (resolvedAnchorEl: HTMLDivElement) => {
-    return (resolvedAnchorEl &&
-        resolvedAnchorEl.closest &&
-        resolvedAnchorEl.closest('[style*="transform"]'));
+    return (resolvedAnchorEl
+        && resolvedAnchorEl.closest
+        && resolvedAnchorEl.closest('[style*="transform"]'));
 };
 
 export const usePositioning = (
@@ -274,10 +298,21 @@ export const usePositioning = (
     anchorEl: React.MutableRefObject<HTMLElement>,
     anchorElOrigin: AnchorElOrigin,
     transformElOrigin: TransformElOrigin,
-    position: PositioningType
+    position: PositioningType,
 ): [React.CSSProperties, React.MutableRefObject<HTMLDivElement>] => {
     const [stylePosition, setStylePosition] = useState<React.CSSProperties>(initialPosition as React.CSSProperties);
+    const [wasDisplayed, setWasDisplayed] = useState(isDisplayed);
     const itemRef = useRef(null);
+
+    // Reset while hiding rather than from an effect: reopening then starts off-screen
+    // instead of flashing one frame at the previous anchor's position.
+    if (isDisplayed !== wasDisplayed) {
+        setWasDisplayed(isDisplayed);
+
+        if (!isDisplayed) {
+            setStylePosition(initialPosition as React.CSSProperties);
+        }
+    }
 
     const computePosition = useCallback(() => {
         if (!itemRef.current) {
@@ -285,17 +320,15 @@ export const usePositioning = (
         }
 
         const resolvedAnchorEl = (anchorEl && anchorEl.current ? anchorEl.current : anchorEl) as HTMLDivElement;
-        const _stylePosition = (position === 'absolute' || hasTransform(resolvedAnchorEl)) ?
-            getAbsolutePosition(itemRef, anchorElOrigin, transformElOrigin, anchorPosition) :
-            getFixedPosition(itemRef, anchorEl, anchorElOrigin, transformElOrigin, anchorPosition);
+        const _stylePosition = (position === 'absolute' || hasTransform(resolvedAnchorEl))
+            ? getAbsolutePosition(itemRef, anchorElOrigin, transformElOrigin, anchorPosition)
+            : getFixedPosition(itemRef, anchorEl, anchorElOrigin, transformElOrigin, anchorPosition);
         setStylePosition(_stylePosition);
     }, [anchorEl, anchorPosition, anchorElOrigin, transformElOrigin, position]);
 
     useEffect(() => {
         if (isDisplayed) {
             computePosition();
-        } else {
-            setStylePosition(initialPosition);
         }
     }, [
         anchorEl,
@@ -306,7 +339,7 @@ export const usePositioning = (
         anchorElOrigin,
         transformElOrigin,
         position,
-        computePosition
+        computePosition,
     ]);
 
     // Reposition when the menu resizes (e.g. loading items resolve and some become invisible)

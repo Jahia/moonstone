@@ -17,6 +17,7 @@ export type ButtonProps = Omit<React.ComponentPropsWithRef<'button'>, 'className
 
     /**
      * Size of the button
+     * @default 'default'
      */
     size?: ButtonSize;
 
@@ -32,11 +33,13 @@ export type ButtonProps = Omit<React.ComponentPropsWithRef<'button'>, 'className
 
     /**
      * Style of the button
+     * @default 'default'
      */
     variant?: ButtonVariant;
 
     /**
      * Color of the button
+     * @default 'default'
      */
     color?: ButtonColor;
 
@@ -46,14 +49,14 @@ export type ButtonProps = Omit<React.ComponentPropsWithRef<'button'>, 'className
     isDisabled?: boolean;
 
     /**
-     * Whether the component should use reversed colors, it useful with dark background
+     * Whether the component should use reversed colors. Useful on a dark background
      */
     isReversed?: boolean;
 
     /**
-     * Whether the button is loading
+     * Shows a spinner in place of the icon and disables interaction
      */
-     isLoading?: boolean;
+    isLoading?: boolean;
 
     /**
      * Additional classname
@@ -64,4 +67,4 @@ export type ButtonProps = Omit<React.ComponentPropsWithRef<'button'>, 'className
      * Function triggered on click
      */
     onClick?: React.MouseEventHandler;
-}
+};

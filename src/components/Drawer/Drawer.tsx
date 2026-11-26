@@ -1,10 +1,15 @@
-import React from 'react';
+import { useMergeRefs } from '@floating-ui/react';
 import clsx from 'clsx';
-import type {PolymorphicComponent} from '~/types/Polymorphic.types';
-import type {BasicPaperProps, PaperProps} from '~/components/Paper/Paper.types';
-import type {BasicDrawerProps, DrawerProps} from './Drawer.types';
-import {Paper} from '~/components/Paper';
-import {usePresence} from '~/hooks';
+import React, { useEffect, useRef } from 'react';
+
+import { Paper } from '~/components/Paper';
+import { mergeHandlers, shouldIgnoreKey, usePresence } from '~/hooks';
+import { FOCUSABLE } from '~/utils/helpers';
+
+import type { BasicDrawerProps, DrawerProps } from './Drawer.types';
+import type { BasicPaperProps, PaperProps } from '~/components/Paper/Paper.types';
+import type { PolymorphicComponent } from '~/types/Polymorphic.types';
+
 import styles from './Drawer.module.scss';
 
 // Duration of the slide animation, in ms.
@@ -14,24 +19,59 @@ const ANIMATION_DURATION = 400;
 export const Drawer = React.forwardRef(<C extends React.ElementType = 'aside'>({
     className,
     isOpen = false,
+    onOpenChange,
     children,
     component,
     style,
     ...props
 }: DrawerProps<C>,
     ref: React.Ref<HTMLElement>) => {
-    const {isPresent, state} = usePresence(isOpen, ANIMATION_DURATION);
+    const { isPresent, state } = usePresence(isOpen, ANIMATION_DURATION);
+
+    const drawerRef = useRef<HTMLElement>(null);
+    const mergedRef = useMergeRefs([drawerRef, ref]);
+    const wasOpen = useRef(isOpen);
+    const returnFocusTo = useRef<HTMLElement | null>(null);
+
+    // Focus moves only when `isOpen` changes, not on mount: a Drawer rendered open was not opened by the user
+    useEffect(() => {
+        if (isOpen === wasOpen.current) {
+            return;
+        }
+
+        wasOpen.current = isOpen;
+        if (isOpen) {
+            returnFocusTo.current = document.activeElement as HTMLElement | null;
+            // The Drawer is still off-screen at the start of its slide-in, so focus must not scroll to it
+            drawerRef.current?.querySelector<HTMLElement>(FOCUSABLE)?.focus({ preventScroll: true });
+        } else if (drawerRef.current?.contains(document.activeElement)) {
+            returnFocusTo.current?.focus();
+        }
+    }, [isOpen]);
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (shouldIgnoreKey(e) || e.key !== 'Escape' || !onOpenChange) {
+            return;
+        }
+
+        // Stops a Modal around the Drawer from closing on the same Escape
+        e.stopPropagation();
+        onOpenChange(false);
+    };
 
     // The <C> resolved by Drawer's own polymorphism can't be statically verified against Paper's
     // independent <C> at the same time, so the merged prop bag is cast once as an escape hatch.
     const paperProps = {
-        ref,
-        component: component || 'aside',
-        className: clsx(styles.drawer, className),
-        ...props as BasicPaperProps,
-        style: {...style, '--drawer-animation-duration': `${ANIMATION_DURATION}ms`} as React.CSSProperties,
+        'ref': mergedRef,
+        'component': component || 'aside',
+        'className': clsx(styles.drawer, className),
+        ...mergeHandlers(props, { onKeyDown: handleKeyDown }) as BasicPaperProps,
+        'style': {
+            ...style,
+            '--drawer-animation-duration': `${ANIMATION_DURATION}ms`,
+        } as React.CSSProperties,
         'data-state': state,
-        children
+        children,
     } as unknown as PaperProps<C>;
 
     return (

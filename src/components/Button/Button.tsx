@@ -1,30 +1,33 @@
-import React, {useRef} from 'react';
 import clsx from 'clsx';
-import {Typography} from '../Typography';
-import {TypographyWeight} from '~/components/Typography/Typography.types';
-import {ButtonProps} from './Button.types';
-import {Loader} from '~/components/Loader';
-import {layout} from '~/globals/css-utils.js';
+import React from 'react';
+
+import { Typography } from '../Typography';
+import { Loader } from '~/components/Loader';
+import { layout } from '~/globals/css-utils.js';
+import { warnOnce } from '~/utils/warnOnce';
+
+import type { ButtonProps } from './Button.types';
+import type { TypographyWeight } from '~/components/Typography/Typography.types';
+
 import styles from './Button.module.scss';
 
 // We have many conditions because of classname=..., we can safely ignore complexity here
 // eslint-disable-next-line complexity
-export const Button = ({
-    label = '',
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
+    label,
     size = 'default',
-    isReversed = false,
-    isDisabled = false,
-    isLoading = false,
-    icon = null,
-    iconEnd = null,
+    isReversed,
+    isDisabled,
+    isLoading,
+    icon,
+    iconEnd,
     variant = 'default',
     color = 'default',
-    className = null,
+    className,
     onClick,
     ...props
-}: ButtonProps) => {
+}, ref) => {
     let typoWeight: TypographyWeight = 'default';
-    const ButtonEl = useRef(null);
 
     if (size === 'small') {
         typoWeight = 'light';
@@ -34,15 +37,20 @@ export const Button = ({
         typoWeight = 'semiBold';
     }
 
-    const handleOnClick: React.MouseEventHandler = e => {
-        onClick(e);
+    const handleOnClick: React.MouseEventHandler = (e) => {
+        onClick?.(e);
     };
+
+    if (!label && !props['aria-label'] && !props['aria-labelledby'] && !props.title) {
+        warnOnce('Button.name', 'Button: add a label, an aria-label, an aria-labelledby or a title to name a button that only shows an icon');
+    }
 
     const LoaderReversed = Boolean(variant === 'default' && (color === 'accent' || color === 'danger'));
 
     return (
         <button
-            ref={ButtonEl}
+            disabled={isDisabled || isLoading}
+            aria-busy={isLoading || undefined}
             className={clsx(
                 ['moonstone-button', styles['moonstone-button']],
                 [`moonstone-button_${size}`, styles[`moonstone-button_${size}`]],
@@ -52,30 +60,35 @@ export const Button = ({
                 isReversed && ['moonstone-reverse', styles['moonstone-reverse']],
                 isLoading && ['moonstone-button_loading', styles['moonstone-button_loading']],
                 layout.alignCenter,
-                className
+                className,
             )}
-            type="button"
-            data-variant={variant}
             data-color={color}
             data-size={size}
-            disabled={isDisabled || isLoading}
+            data-variant={variant}
+            ref={ref}
+            type="button"
             onClick={e => handleOnClick(e)}
             {...props}
         >
             {/* Display icon when an icon is provided */}
             {icon && !isLoading && <icon.type {...icon.props} size={(size === 'big') ? 'default' : size}/>}
             {/* When the button has an icon the loader replaces the icon otherwise we display the loader as overlay */}
-            {isLoading && <Loader size="small"
-                                  isReversed={LoaderReversed}
-                                  className={clsx(!icon && ['moonstone-button_loaderOverlay', styles['moonstone-button_loaderOverlay']])}/>}
+            {isLoading && (
+                <Loader
+                    isReversed={LoaderReversed}
+                    aria-hidden
+                    className={clsx(!icon && ['moonstone-button_loaderOverlay', styles['moonstone-button_loaderOverlay']])}
+                    size="small"
+                />
+            )}
             {label && (
                 <Typography
                     isNowrap
+                    isUpperCase={size === 'big'}
+                    className={clsx('flexFluid', layout.flexFluid)}
                     component="span"
                     variant="button"
-                    isUpperCase={size === 'big'}
                     weight={typoWeight}
-                    className={clsx('flexFluid', layout.flexFluid)}
                 >
                     {label}
                 </Typography>
@@ -83,6 +96,6 @@ export const Button = ({
             {label && iconEnd && <iconEnd.type {...iconEnd.props} size={(size === 'big') ? 'default' : size}/>}
         </button>
     );
-};
+});
 
 Button.displayName = 'Button';

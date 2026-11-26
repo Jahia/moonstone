@@ -1,13 +1,14 @@
-import {Temporal} from 'temporal-polyfill';
+import { Temporal } from 'temporal-polyfill';
+
 import {
     dateToPlainDate,
     getTodayPlainDate,
+    isValidTimeZone,
     plainDateToDate,
+    toInstant,
     toPlainDate,
     toPlainDateTime,
     toPlainTime,
-    toInstant,
-    isValidTimeZone
 } from './temporal';
 
 describe('temporal adapter', () => {
@@ -30,11 +31,11 @@ describe('temporal adapter', () => {
 
     describe('toPlainTime', () => {
         it('parses an ISO string', () => {
-            expect(toPlainTime('14:30')?.toString({smallestUnit: 'minute'})).toBe('14:30');
+            expect(toPlainTime('14:30')?.toString({ smallestUnit: 'minute' })).toBe('14:30');
         });
 
         it('passes through a Temporal.PlainTime', () => {
-            expect(toPlainTime(Temporal.PlainTime.from('09:05'))?.toString({smallestUnit: 'minute'})).toBe('09:05');
+            expect(toPlainTime(Temporal.PlainTime.from('09:05'))?.toString({ smallestUnit: 'minute' })).toBe('09:05');
         });
 
         it('rejects an out-of-range time instead of clamping', () => {

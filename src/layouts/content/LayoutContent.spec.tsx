@@ -1,14 +1,38 @@
-import {render, screen} from '@testing-library/react';
-import {LayoutContent} from './index';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import { LayoutContent } from './index';
 
 const requiredProps = {
-    children: 'test-content'
+    children: 'test-content',
 };
 
 describe('LayoutContent', () => {
     it('should display header', () => {
         render(<LayoutContent {...requiredProps} header="test-header"/>);
         expect(screen.getByText('test-header')).toBeInTheDocument();
+    });
+
+    it('should not take the focus on a click inside it', async () => {
+        const user = userEvent.setup();
+        render(<LayoutContent i18n={{ contentLabel: 'Users' }}><p>text</p><button type="button">action</button></LayoutContent>);
+        await user.click(screen.getByText('text'));
+        expect(screen.getByRole('region', { name: 'Users' })).not.toHaveFocus();
+    });
+
+    it('should expose no region landmark without i18n.contentLabel', () => {
+        render(<LayoutContent {...requiredProps}/>);
+        expect(screen.queryByRole('region')).not.toBeInTheDocument();
+    });
+
+    it('should render no aria-label attribute when i18n.contentLabel is empty', () => {
+        render(<LayoutContent {...requiredProps} i18n={{ contentLabel: '' }}/>);
+        expect(screen.getByText(requiredProps.children)).not.toHaveAttribute('aria-label');
+    });
+
+    it('should name the content area with i18n.contentLabel', () => {
+        render(<LayoutContent {...requiredProps} i18n={{ contentLabel: 'Users' }}/>);
+        expect(screen.getByRole('region', { name: 'Users' })).toBeInTheDocument();
     });
 
     it('should display content', () => {
@@ -22,13 +46,18 @@ describe('LayoutContent', () => {
         expect(screen.queryByText(requiredProps.children)).not.toBeInTheDocument();
     });
 
+    it('should name the loader with i18n.loadingLabel', () => {
+        render(<LayoutContent isLoading i18n={{ loadingLabel: 'Chargement' }} {...requiredProps}/>);
+        expect(screen.getByRole('status')).toHaveAccessibleName('Chargement');
+    });
+
     it('should have the class "moonstone-layoutContent_centered" when "isCentered" set to true', () => {
-        const {container} = render(<LayoutContent isCentered {...requiredProps}/>);
+        const { container } = render(<LayoutContent isCentered {...requiredProps}/>);
         expect(container.querySelector('.moonstone-layoutContent_centered')).toBeInTheDocument();
     });
 
     it('should not have the class "moonstone-layoutContent_withPadding" when "hasPadding" set to false', () => {
-        const {container} = render(<LayoutContent hasPadding={false} {...requiredProps}/>);
+        const { container } = render(<LayoutContent hasPadding={false} {...requiredProps}/>);
         expect(container.querySelector('.moonstone-layoutContent_withPadding')).not.toBeInTheDocument();
     });
 

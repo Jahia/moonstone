@@ -1,4 +1,9 @@
+@use "../../../../utils/motion" as *;
+@use "../../../../tokens/colors/palette";
+
 .panel {
+    @include transition(max-width 0.4s ease-in-out, visibility 0.3s);
+
     position: absolute;
     top: 0;
     bottom: 0;
@@ -20,8 +25,6 @@
     box-shadow: 1px 0 3px 0 var(--moon-color-gray_dark20);
 
     visibility: hidden;
-
-    transition: max-width 0.4s ease-in-out, visibility 0.3s;
 }
 
 .tableCellStatus {
@@ -33,7 +36,8 @@
 
     border-left: 6px solid var(--tableCellStatus-bar);
 
-    &:hover {
+    &:hover,
+    tr:focus-visible > &:not(.dismissed) {
         .panel {
             max-width: 500px;
 
@@ -45,13 +49,13 @@
 .success {
     --tableCellStatus-background: var(--moon-color-success_plain20);
     --tableCellStatus-color: var(--moon-color-success_dark);
-    --tableCellStatus-bar: var(--moon-color-success);
+    --tableCellStatus-bar: #{palette.$color-green-50};
 }
 
 .warning {
     --tableCellStatus-background: var(--moon-color-warning_plain20);
     --tableCellStatus-color: var(--moon-color-warning_dark);
-    --tableCellStatus-bar: var(--moon-color-warning);
+    --tableCellStatus-bar: #{palette.$color-amber-50};
 }
 
 .danger {
@@ -75,5 +79,5 @@
 .info {
     --tableCellStatus-background: var(--moon-color-accent_light_plain20);
     --tableCellStatus-color: var(--moon-color-accent_dark_contrast);
-    --tableCellStatus-bar: var(--moon-color-accent);
+    --tableCellStatus-bar: #{palette.$color-blue-50};
 }
