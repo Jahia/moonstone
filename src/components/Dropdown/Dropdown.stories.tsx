@@ -37,7 +37,6 @@ export default {
 type Story = StoryObj<typeof Dropdown>;
 
 export const FlatData: Story = {
-    // Opens the first dropdown, then waits for its menu, so the screenshot shows the menu open
     play: async ({ canvasElement }) => {
         await userEvent.click(within(canvasElement).getByRole('listbox', { name: 'Select something' }));
         await within(document.body).findByRole('list');

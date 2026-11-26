@@ -32,6 +32,9 @@ const ignore = new Set([
     './components/Fieldset/Fieldset.stories.tsx-SingleField',
     // Unstable: differs from its reference by one pixel in some runs, with the global styles.
     './components/Menu/Menu.stories.tsx-SmallImageMenuItems',
+    // globals.scss forwards CustomDropdown.module.scss before Menu.module.scss, so with the global
+    // styles the open menu loses its padding, and the two suites render it differently.
+    './components/Dropdown/CustomDropdown/CustomDropdown.stories.tsx-IconButtonWithText',
 ]);
 
 /**

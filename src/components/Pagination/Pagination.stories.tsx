@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { userEvent, within } from 'storybook/test';
 
 import { Pagination } from './index';
 import markdownNotes from './Pagination.md?raw';
@@ -29,7 +30,12 @@ export default meta;
 
 type Story = StoryObj<typeof Pagination>;
 
-export const Playground: Story = {};
+export const Playground: Story = {
+    play: async ({ canvasElement }) => {
+        await userEvent.click(within(canvasElement).getByRole('listbox'));
+        await within(document.body).findByRole('list');
+    },
+};
 
 export const Controlled: Story = {
     render: (args) => {
