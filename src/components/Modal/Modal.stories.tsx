@@ -28,10 +28,10 @@ export default meta;
 
 type Story = StoryObj<typeof Modal>;
 
-// Clicks the trigger, then waits for the dialog, so the screenshot shows the modal open.
-const openModal = async (canvasElement: HTMLElement) => {
+// Opens the modal so that the visual test captures it, not only the button
+const openModal: Story['play'] = async ({ canvasElement }) => {
     await userEvent.click(within(canvasElement).getByRole('button', { name: 'Open modal' }));
-    return within(document.body).findByRole('dialog');
+    await within(document.body).findByRole('dialog');
 };
 
 const Template = (args: ModalProps) => {
@@ -109,15 +109,14 @@ const ModalInModalTemplate = (args: ModalProps) => {
 
 export const Playground: Story = {
     render: PlaygroundTemplate,
-    play: async ({ canvasElement }) => {
-        await openModal(canvasElement);
-    },
+    play: openModal,
 };
 
 export const ModalInModal: Story = {
     render: ModalInModalTemplate,
     play: async ({ canvasElement }) => {
-        const dialog = await openModal(canvasElement);
+        await userEvent.click(within(canvasElement).getByRole('button', { name: 'Open modal' }));
+        const dialog = await within(document.body).findByRole('dialog');
         await userEvent.click(within(dialog).getByRole('button', { name: 'Open modal' }));
         // Only the second modal holds the text
         await within(document.body).findByText(/^Lorem ipsum/);
@@ -182,7 +181,5 @@ export const Advanced: Story = {
     </>,
     },
     render: Template,
-    play: async ({ canvasElement }) => {
-        await openModal(canvasElement);
-    },
+    play: openModal,
 };

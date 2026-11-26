@@ -6,7 +6,7 @@ import placeholder from '~/__storybook__/assets/img-placeholder.jpg';
 import { Badge, Button, Chip, PrimaryNav, PrimaryNavItem, PrimaryNavItemsGroup } from '~/components';
 import { Apps, Feather, Home, Person, Profile, Setting } from '~/icons';
 
-import type { Meta, StoryFn } from '@storybook/react-vite';
+import type { Meta, StoryFn, StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/Tooltip',
@@ -26,16 +26,16 @@ const Template: StoryFn<typeof Tooltip> = args => (
     <Tooltip label="Tooltip" {...args}/>
 );
 
+type Story = StoryObj<typeof Tooltip>;
 type Canvas = ReturnType<typeof within>;
 
 // Hovers the trigger, then waits for the tooltip, so the screenshot shows the tooltip open.
-// A Badge has `pointer-events: none`: the hover reaches the wrapper of the tooltip, as with a mouse.
-const showTooltip = (getTrigger: (canvas: Canvas) => HTMLElement) => async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    await userEvent.hover(getTrigger(within(canvasElement)), { pointerEventsCheck: 0 });
+const showTooltip = (getTrigger: (canvas: Canvas) => HTMLElement): Story['play'] => async ({ canvasElement }) => {
+    await userEvent.hover(getTrigger(within(canvasElement)));
     await within(document.body).findByRole('tooltip');
 };
 
-export const IconButtonTooltip = {
+export const IconButtonTooltip: Story = {
     render: Template,
     play: showTooltip(canvas => canvas.getByRole('button', { name: 'Home' })),
     args: {
@@ -44,7 +44,7 @@ export const IconButtonTooltip = {
     },
 };
 
-export const ButtonTooltip = {
+export const ButtonTooltip: Story = {
     render: Template,
     play: showTooltip(canvas => canvas.getByRole('button', { name: 'Home button' })),
     args: {
@@ -53,7 +53,7 @@ export const ButtonTooltip = {
     },
 };
 
-export const DisabledButtonTooltip = {
+export const DisabledButtonTooltip: Story = {
     render: Template,
     play: showTooltip(canvas => canvas.getByRole('button', { name: 'Disabled button' })),
     args: {
@@ -61,7 +61,7 @@ export const DisabledButtonTooltip = {
     },
 };
 
-export const LongTooltip = {
+export const LongTooltip: Story = {
     render: Template,
     play: showTooltip(canvas => canvas.getByRole('button', { name: 'Home' })),
     args: {
@@ -70,7 +70,7 @@ export const LongTooltip = {
     },
 };
 
-export const ChipTooltip = {
+export const ChipTooltip: Story = {
     render: Template,
     play: showTooltip(canvas => canvas.getByText('Chip')),
     args: {
@@ -78,7 +78,7 @@ export const ChipTooltip = {
     },
 };
 
-export const TextTooltip = {
+export const TextTooltip: Story = {
     render: Template,
     play: showTooltip(canvas => canvas.getByText(/^Lorem ipsum/)),
     args: {
@@ -87,9 +87,13 @@ export const TextTooltip = {
     },
 };
 
-export const BadgeTooltip = {
+export const BadgeTooltip: Story = {
     render: Template,
-    play: showTooltip(canvas => canvas.getByText('Badge')),
+    // A Badge has `pointer-events: none`: the hover reaches the wrapper of the tooltip, as with a mouse
+    play: async ({ canvasElement }) => {
+        await userEvent.hover(within(canvasElement).getByText('Badge'), { pointerEventsCheck: 0 });
+        await within(document.body).findByRole('tooltip');
+    },
     args: {
         children: <Badge label="Badge"/>,
     },
@@ -148,7 +152,7 @@ const PrimaryNavTemplate = () => {
     );
 };
 
-export const PrimaryNavTooltip = {
+export const PrimaryNavTooltip: Story = {
     render: PrimaryNavTemplate,
-    play: showTooltip(canvas => canvas.getByText('My profile')),
+    play: showTooltip(canvas => canvas.getByRole('button', { name: /^My profile/ })),
 };
