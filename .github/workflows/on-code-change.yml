@@ -46,7 +46,8 @@ jobs:
             exit 0
           fi
 
-          awk '
+          # toMatchScreenshot colours the paths even with NO_COLOR: strip the colour codes first.
+          sed -E 's/(\x1b|\^\[)\[[0-9;]*m//g' visual-test-output.log | awk '
             /Reference screenshot:/ { mode = "reference"; next }
             /Actual screenshot:/ { mode = "actual"; next }
             /Diff image:/ { mode = "diff"; next }
@@ -63,7 +64,7 @@ jobs:
               next
             }
             { if (mode != "failure") mode = "" }
-          ' visual-test-output.log | sort -u > visual-test-paths.tsv
+          ' | sort -u > visual-test-paths.tsv
 
           baseline_count=0
           current_count=0
