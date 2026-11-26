@@ -24,7 +24,6 @@ const stories = import.meta.glob<never>('./**/*.stories.{js,jsx,ts,tsx}', { eage
 
 // These stories do not create a stable screenshot, skip for now
 const ignore = new Set([
-    './components/Menu/Menu.stories.tsx-Default',
     './icons/Icons.stories.tsx-_Default',
     // The reversed rule of BaseInput applies only with the global styles, so the two suites render
     // the search input differently and cannot share one reference.

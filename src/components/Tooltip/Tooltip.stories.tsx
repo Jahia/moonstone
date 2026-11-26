@@ -1,3 +1,5 @@
+import { userEvent, within } from 'storybook/test';
+
 import { Tooltip } from './index';
 import markdownNotes from './Tooltip.md?raw';
 import placeholder from '~/__storybook__/assets/img-placeholder.jpg';
@@ -24,8 +26,18 @@ const Template: StoryFn<typeof Tooltip> = args => (
     <Tooltip label="Tooltip" {...args}/>
 );
 
+type Canvas = ReturnType<typeof within>;
+
+// Hovers the trigger, then waits for the tooltip, so the screenshot shows the tooltip open.
+// A Badge has `pointer-events: none`: the hover reaches the wrapper of the tooltip, as with a mouse.
+const showTooltip = (getTrigger: (canvas: Canvas) => HTMLElement) => async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    await userEvent.hover(getTrigger(within(canvasElement)), { pointerEventsCheck: 0 });
+    await within(document.body).findByRole('tooltip');
+};
+
 export const IconButtonTooltip = {
     render: Template,
+    play: showTooltip(canvas => canvas.getByRole('button', { name: 'Home' })),
     args: {
         label: 'Home',
         children: <Button aria-label="Home" icon={<Home/>} variant="outlined"/>,
@@ -34,6 +46,7 @@ export const IconButtonTooltip = {
 
 export const ButtonTooltip = {
     render: Template,
+    play: showTooltip(canvas => canvas.getByRole('button', { name: 'Home button' })),
     args: {
         label: 'Home',
         children: <Button icon={<Home/>} label="Home button" variant="outlined"/>,
@@ -42,6 +55,7 @@ export const ButtonTooltip = {
 
 export const DisabledButtonTooltip = {
     render: Template,
+    play: showTooltip(canvas => canvas.getByRole('button', { name: 'Disabled button' })),
     args: {
         children: <Button isDisabled icon={<Home/>} label="Disabled button" variant="outlined"/>,
     },
@@ -49,6 +63,7 @@ export const DisabledButtonTooltip = {
 
 export const LongTooltip = {
     render: Template,
+    play: showTooltip(canvas => canvas.getByRole('button', { name: 'Home' })),
     args: {
         label: 'Very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long tooltip',
         children: <Button aria-label="Home" icon={<Home/>} variant="outlined"/>,
@@ -57,6 +72,7 @@ export const LongTooltip = {
 
 export const ChipTooltip = {
     render: Template,
+    play: showTooltip(canvas => canvas.getByText('Chip')),
     args: {
         children: <Chip icon={<Home/>} label="Chip"/>,
     },
@@ -64,6 +80,7 @@ export const ChipTooltip = {
 
 export const TextTooltip = {
     render: Template,
+    play: showTooltip(canvas => canvas.getByText(/^Lorem ipsum/)),
     args: {
         label: 'That is a long text',
         children: <p style={{ width: '400px', margin: 0 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dictum velit orci, a condimentum erat eleifend vel. Nam eu urna in libero gravida consequat nec non elit. Nulla maximus vestibulum mauris, quis volutpat metus rutrum ac. In eu libero a justo vulputate viverra at quis lacus. Duis volutpat sapien ac rhoncus elementum. Quisque id mollis tellus. Nunc sit amet magna hendrerit, convallis risus vitae, condimentum ante.</p>,
@@ -72,12 +89,13 @@ export const TextTooltip = {
 
 export const BadgeTooltip = {
     render: Template,
+    play: showTooltip(canvas => canvas.getByText('Badge')),
     args: {
         children: <Badge label="Badge"/>,
     },
 };
 
-export const PrimaryNavTooltip = () => {
+const PrimaryNavTemplate = () => {
     return (
         <div style={{ transform: 'scale(1)', height: '100vh' }}>
             <PrimaryNav
@@ -128,4 +146,9 @@ export const PrimaryNavTooltip = () => {
             />
         </div>
     );
+};
+
+export const PrimaryNavTooltip = {
+    render: PrimaryNavTemplate,
+    play: showTooltip(canvas => canvas.getByText('My profile')),
 };
