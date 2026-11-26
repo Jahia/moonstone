@@ -18,6 +18,7 @@ import {
 import { Love } from '~/icons';
 
 import type { DropdownDataOption, DropdownProps } from './Dropdown.types';
+import type { StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/Dropdown',
@@ -32,9 +33,12 @@ export default {
         icon: <Love/>,
     },
 };
-export const FlatData = {
+
+type Story = StoryObj<typeof Dropdown>;
+
+export const FlatData: Story = {
     // Opens the first dropdown, then waits for its options, so the screenshot shows the menu open
-    play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    play: async ({ canvasElement }) => {
         await userEvent.click(within(canvasElement).getByRole('listbox', { name: 'Select something' }));
         await within(document.body).findAllByRole('option');
     },
