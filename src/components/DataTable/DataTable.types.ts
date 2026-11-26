@@ -2,6 +2,7 @@ import React from 'react';
 
 import type { DataTablePaginationProps } from './pagination';
 import type { TableCellProps } from '~/components/DataTable/cells';
+import type { SearchInputProps } from '~/components/Input/SearchInput/SearchInput.types';
 import type { PaginationProps } from '~/components/Pagination';
 export type { PaginationUncontrolledProps } from './pagination';
 
@@ -185,6 +186,11 @@ export type DataTableI18n = NonNullable<PaginationProps['i18n']> & {
      * @default 'Selection'
      */
     selectionColumnLabel?: string;
+    /**
+     * Message of the row shown when the search matches no row
+     * @default 'No results found.'
+     */
+    noResults?: string;
 };
 
 export type SelectionProps
@@ -222,6 +228,69 @@ export type SelectionProps
         defaultSelection?: never;
         onChangeSelection?: never;
         selectionCellProps?: never;
+    };
+
+type SearchColumn<T extends NonNullable<unknown>> = Extract<Exclude<keyof T, SubRowKey>, string>;
+type SearchColumns<T extends NonNullable<unknown>> = [SearchColumn<T>, ...Array<SearchColumn<T>>];
+
+type SearchInputName
+    = | {
+        'aria-label': string;
+        'aria-labelledby'?: never;
+    }
+    | {
+        'aria-labelledby': string;
+        'aria-label'?: never;
+    };
+
+type SearchInputAttributes = Omit<SearchInputProps, 'value' | 'defaultValue' | 'onChange' | 'onClear'> & SearchInputName;
+
+type SearchProps<T extends NonNullable<unknown>>
+    = | {
+        /** Shows a search field above the table. The table then stays rendered when `data` is empty */
+        enableSearch: true;
+        /** Keys of `columns` the table filters, matching part of the raw value and ignoring case. Omit it when you filter `data` yourself */
+        searchColumns?: SearchColumns<T>;
+        /** Current search query (controlled) */
+        searchValue: string;
+        defaultSearchValue?: never;
+        /**
+         * Called when the user changes the query
+         * @param searchValue - The new query
+         */
+        onSearchChange: (searchValue: string) => void;
+        /**
+         * Custom attributes added to the SearchInput element.
+         * `aria-label` or `aria-labelledby` is required: it is the accessible name of the field.
+         */
+        searchInputProps: SearchInputAttributes;
+    }
+    | {
+        /** Shows a search field above the table. The table then stays rendered when `data` is empty */
+        enableSearch: true;
+        /** Keys of `columns` the table filters, matching part of the raw value and ignoring case. Omit it when you filter `data` yourself */
+        searchColumns: SearchColumns<T>;
+        searchValue?: never;
+        /** Initial search query (uncontrolled) */
+        defaultSearchValue?: string;
+        /**
+         * Called when the user changes the query
+         * @param searchValue - The new query
+         */
+        onSearchChange?: (searchValue: string) => void;
+        /**
+         * Custom attributes added to the SearchInput element.
+         * `aria-label` or `aria-labelledby` is required: it is the accessible name of the field.
+         */
+        searchInputProps: SearchInputAttributes;
+    }
+    | {
+        enableSearch?: false;
+        searchColumns?: never;
+        searchValue?: never;
+        defaultSearchValue?: never;
+        onSearchChange?: never;
+        searchInputProps?: never;
     };
 
 export type RenderOptions = {
@@ -299,6 +368,7 @@ export type DataTableProps<T extends NonNullable<unknown>> = Omit<TableProps, 'c
     & DataTableBaseProps<T>
     & SortingProps<T>
     & SelectionProps
+    & SearchProps<T>
     & StructuredProps
     & RenderRowProps<T>
     & DataTablePaginationProps;

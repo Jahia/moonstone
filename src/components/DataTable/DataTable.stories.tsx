@@ -24,6 +24,7 @@ export default {
         defaultItemsPerPage: { control: 'number' },
         itemsPerPageOptions: { control: 'object' },
         i18n: { control: 'object' },
+        searchColumns: { control: 'object' },
     },
 } satisfies Meta<typeof DataTable<DataUser>>;
 
@@ -119,6 +120,62 @@ export const ControlledDataTable: Story = {
         );
     },
     name: 'Controlled DataTable',
+};
+
+export const SearchableDataTable: Story = {
+    render: (args) => {
+        return <DataTable {...args}/>;
+    },
+    args: {
+        data: tableFlat,
+        columns: dataColumnsUser,
+        primaryKey: 'id',
+        enableSearch: true,
+        searchColumns: ['firstName', 'status', 'progress'],
+        searchInputProps: { 'aria-label': 'Search users', 'placeholder': 'Search by user, status or progress' },
+    },
+    name: 'Searchable DataTable (uncontrolled)',
+};
+
+export const ServerSideSearchDataTable: Story = {
+    render: ({ columns, primaryKey, searchInputProps }) => {
+        const [searchValue, setSearchValue] = useState('');
+        const [currentPage, setCurrentPage] = useState(1);
+        const [itemsPerPage, setItemsPerPage] = useState(10);
+
+        const query = searchValue.toLowerCase();
+        const matchingRows = tableFlat.filter(row => `${row.firstName} ${row.lastName}`.toLowerCase().includes(query));
+        const pageRows = matchingRows.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+        return (
+            <DataTable
+                enablePagination
+                enableSearch
+                columns={columns}
+                currentPage={currentPage}
+                data={pageRows}
+                // Sorting is off: the table holds a single server-fetched page, so it would reorder that page alone
+                enableSorting={false}
+                itemsPerPage={itemsPerPage}
+                primaryKey={primaryKey}
+                searchInputProps={searchInputProps}
+                searchValue={searchValue}
+                totalItems={matchingRows.length}
+                onItemsPerPageChange={setItemsPerPage}
+                onPageChange={setCurrentPage}
+                onSearchChange={(value) => {
+                    setSearchValue(value);
+                    setCurrentPage(1);
+                }}
+            />
+        );
+    },
+    args: {
+        columns: dataColumnsUser,
+        primaryKey: 'id',
+        searchInputProps: { 'aria-label': 'Search users', 'placeholder': 'Search on the server' },
+    },
+    name: 'Server-side search (the consumer filters)',
 };
 
 export const InsertCells: Story = {
