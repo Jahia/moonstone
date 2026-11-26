@@ -10,6 +10,17 @@ import type { TableCellStatusProps } from './TableCellStatus.types';
 
 import style from './TableCellStatus.module.scss';
 
+// The Escape listener of each hovered status cell, added on the document while the pointer is over the cell
+const escapeListeners = new WeakMap<HTMLElement, (e: KeyboardEvent) => void>();
+
+const stopListening = (cell: HTMLElement) => {
+    const listener = escapeListeners.get(cell);
+    if (listener) {
+        document.removeEventListener('keydown', listener, true);
+        escapeListeners.delete(cell);
+    }
+};
+
 const TableCellStatusForwardRef: React.ForwardRefRenderFunction<HTMLTableCellElement, TableCellStatusProps> = (
     {
         color,
@@ -22,34 +33,37 @@ const TableCellStatusForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEle
     const row = useContext(TableRowContext);
     const registerStatus = row?.registerStatus;
     const isRowStatusDismissed = row?.isStatusDismissed;
-    const [hoveredCell, setHoveredCell] = useState<HTMLElement | null>(null);
     const [isHoverDismissed, setIsHoverDismissed] = useState(false);
 
     useEffect(() => registerStatus?.(), [registerStatus]);
 
     // Escape hides the panel shown on hover until the pointer leaves the cell (WCAG 1.4.13)
-    useEffect(() => {
-        if (!hoveredCell || isHoverDismissed) {
-            return undefined;
-        }
+    const listenForEscape = (cell: HTMLElement) => {
+        stopListening(cell);
+        const listener = (e: KeyboardEvent) => {
+            // The cell left the page while hovered: no pointerleave comes
+            if (!cell.isConnected) {
+                stopListening(cell);
+                return;
+            }
 
-        const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key !== 'Escape' || shouldIgnoreKey(e)) {
                 return;
             }
 
+            stopListening(cell);
             setIsHoverDismissed(true);
-            // The row stops the Escape that also hides the panel shown on its keyboard focus
-            const rowElement = hoveredCell.closest('tr');
-            if (e.target !== rowElement || !rowElement.matches(':focus-visible') || isRowStatusDismissed) {
+            // The row stops the Escape that also hides the panel shown on its keyboard focus. The class,
+            // not isRowStatusDismissed, gives the state of the row at this keydown.
+            const rowElement = cell.closest('tr');
+            if (e.target !== rowElement || !rowElement.matches(':focus-visible') || cell.classList.contains(style.dismissed)) {
                 e.stopPropagation();
             }
         };
-
+        escapeListeners.set(cell, listener);
         // Capture: a Modal around the table listens for Escape on the document too, and closes on the next Escape
-        document.addEventListener('keydown', handleKeyDown, true);
-        return () => document.removeEventListener('keydown', handleKeyDown, true);
-    }, [hoveredCell, isHoverDismissed, isRowStatusDismissed]);
+        document.addEventListener('keydown', listener, true);
+    };
 
     return (
         <TableCell
@@ -64,9 +78,9 @@ const TableCellStatusForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEle
             ref={ref}
             width="8px"
             {...mergeHandlers(props, {
-                onPointerEnter: (e: React.PointerEvent<HTMLElement>) => setHoveredCell(e.currentTarget),
-                onPointerLeave: () => {
-                    setHoveredCell(null);
+                onPointerEnter: (e: React.PointerEvent<HTMLElement>) => listenForEscape(e.currentTarget),
+                onPointerLeave: (e: React.PointerEvent<HTMLElement>) => {
+                    stopListening(e.currentTarget);
                     setIsHoverDismissed(false);
                 },
             })}
