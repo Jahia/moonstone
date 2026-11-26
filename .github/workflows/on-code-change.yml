@@ -176,6 +176,8 @@ jobs:
         with:
           name: visual-test-screenshots-${{ github.run_id }}
           path: visual-test-screenshots/
+          # The actual and diff screenshots come from .vitest-attachments, a hidden directory.
+          include-hidden-files: true
           if-no-files-found: warn
           retention-days: 7
       - name: Summarize failed visual screenshots
