@@ -27,13 +27,14 @@ then the rules of the Docs page.
   - No workaround for a test: no `data-testid`, no delay, no mock of a component. A fixed value
     that makes the render the same on every run, such as a fixed date, is not a workaround.
   - A short `play` function. It only brings the story to what the story shows: the action that
-    opens the overlay, found by its role, then the wait for the overlay. No assertion: a test goes
-    in `<Component>.spec.tsx` or `<Component>.browser.spec.tsx`.
+    opens the overlay, found by its role or by its text when it has no role, then the wait for
+    the overlay. No assertion: a test goes in `<Component>.spec.tsx` or
+    `<Component>.browser.spec.tsx`.
 
 ```tsx
 play: async ({ canvasElement }) => {
-    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Open modal' }));
-    await within(document.body).findByRole('dialog');
+    await userEvent.click(within(canvasElement).getByRole('listbox', { name: 'Select something' }));
+    await within(document.body).findByRole('list');
 },
 ```
 
@@ -67,8 +68,8 @@ export const Sizes: Story = {
 - **The states.** <!-- PENDING Jahia/moonstone#1732: how a story shows the hover, active and focus
   states. Write the chosen method here once it is merged. -->
 - **A story leaves the visual tests with the `!visual` tag**, never with the `ignore` set of
-  `src/visualStoriesSuite.tsx`. That set holds only the unstable stories, each with the link of
-  its issue.
+  `src/visualStoriesSuite.tsx`. That set holds only the stories that cannot match their
+  reference, unstable or rendered differently by the two suites, each with a comment that says why.
 
 ```tsx
 export const Uncontrolled: Story = {
