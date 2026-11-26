@@ -1,51 +1,28 @@
 import React from 'react';
 
-import type { PaginationProps as ComponentPaginationProps } from '~/components/Pagination';
+import type { ControlledPaginationProps, UncontrolledPaginationProps } from '~/components/Pagination';
 
 type PaginationBaseProps = {
     /**
      * Choices for items per page value
      * @default [5, 10, 25]
      */
-    itemsPerPageOptions?: ComponentPaginationProps['itemsPerPageOptions'];
+    itemsPerPageOptions?: ControlledPaginationProps['itemsPerPageOptions'];
     /** Custom attributes for the Pagination element */
     paginationProps?: Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> & Record<string, unknown>;
 };
 
-type PaginationControlledProps = {
-    /** Current page 1-indexed (Controlled) */
-    currentPage: ComponentPaginationProps['currentPage'];
-    /** Items per page (Controlled) */
-    itemsPerPage?: ComponentPaginationProps['itemsPerPage'];
-    /** Total number of items across all pages (Controlled) */
-    totalItems: number;
-    /** Callback when page changes (Controlled) */
-    onPageChange: ComponentPaginationProps['onPageChange'];
-    /** Callback when items per page changes */
-    onItemsPerPageChange?: ComponentPaginationProps['onItemsPerPageChange'];
-    defaultCurrentPage?: never;
-    defaultItemsPerPage?: never;
-};
+type PaginationControlledProps = Pick<ControlledPaginationProps, 'currentPage' | 'itemsPerPage' | 'onPageChange' | 'defaultCurrentPage' | 'defaultItemsPerPage'>
+    & Partial<Pick<ControlledPaginationProps, 'onItemsPerPageChange'>>
+    & {
+        /** Total number of items across all pages, when you pass only the rows of the current page */
+        totalItems: number;
+    };
 
-export type PaginationUncontrolledProps = {
-    currentPage?: never;
-    /**
-     * Initial page 1-indexed (Uncontrolled)
-     * @default 1
-     */
-    defaultCurrentPage?: number;
-    /**
-     * Initial items per page (Uncontrolled)
-     * @default the first of `itemsPerPageOptions`
-     */
-    defaultItemsPerPage?: number;
-    itemsPerPage?: never;
-    totalItems?: never;
-    /** Callback when page changes */
-    onPageChange?: ComponentPaginationProps['onPageChange'];
-    /** Callback when items per page changes */
-    onItemsPerPageChange?: ComponentPaginationProps['onItemsPerPageChange'];
-};
+export type PaginationUncontrolledProps = Pick<UncontrolledPaginationProps, 'currentPage' | 'itemsPerPage' | 'defaultCurrentPage' | 'defaultItemsPerPage' | 'onPageChange' | 'onItemsPerPageChange'>
+    & {
+        totalItems?: never;
+    };
 
 export type DataTablePaginationProps
     = | ({

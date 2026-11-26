@@ -177,3 +177,49 @@ describe('Pagination', () => {
         expect(screen.getByTestId('pagination-total-items')).toHaveTextContent('1-3 of 3');
     });
 });
+
+describe('Pagination without currentPage', () => {
+    it('should hold the page itself, from defaultCurrentPage', async () => {
+        const user = userEvent.setup();
+        const onPageChange = vi.fn();
+        render(<Pagination defaultCurrentPage={2} itemsPerPageOptions={[5, 10, 25]} totalOfItems={100} onPageChange={onPageChange}/>);
+
+        await user.click(screen.getByTestId('pagination-button-next-page'));
+
+        expect(screen.getByTestId('pagination-total-items')).toHaveTextContent('11-15 of 100');
+        expect(onPageChange).toHaveBeenCalledWith(3);
+    });
+
+    it('should go back to the first page when the items per page change', async () => {
+        const user = userEvent.setup();
+        const onPageChange = vi.fn();
+        const onItemsPerPageChange = vi.fn();
+        render(
+            <Pagination
+                defaultCurrentPage={3}
+                defaultItemsPerPage={10}
+                itemsPerPageOptions={[5, 10, 25]}
+                totalOfItems={100}
+                onItemsPerPageChange={onItemsPerPageChange}
+                onPageChange={onPageChange}
+            />,
+        );
+        expect(screen.getByTestId('pagination-total-items')).toHaveTextContent('21-30 of 100');
+
+        await user.click(screen.getByRole('listbox'));
+        await user.click(await screen.findByRole('option', { name: '25' }));
+
+        expect(screen.getByTestId('pagination-total-items')).toHaveTextContent('1-25 of 100');
+        expect(onItemsPerPageChange).toHaveBeenCalledWith(25);
+        expect(onPageChange).toHaveBeenCalledWith(1);
+    });
+
+    it('should keep the page in range when totalOfItems shrinks', () => {
+        const { rerender } = render(<Pagination defaultCurrentPage={5} totalOfItems={120}/>);
+
+        rerender(<Pagination defaultCurrentPage={5} totalOfItems={10}/>);
+
+        expect(screen.getByTestId('pagination-total-items')).toHaveTextContent('1-10 of 10');
+        expect(screen.getByTestId('pagination-button-next-page')).toBeDisabled();
+    });
+});
