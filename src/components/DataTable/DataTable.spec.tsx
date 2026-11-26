@@ -4,6 +4,8 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { DataTable, numberColumn, stringColumn, TableCell, TableCellStatus, TableRow } from '~/components/DataTable';
 
+import type { DataTableColumn } from '~/components/DataTable/DataTable.types';
+
 type TestData = {
     id: string;
     name: string;
@@ -492,6 +494,37 @@ describe('DataTable', () => {
 
         const nameHeader = screen.getByText('Name').closest('th');
         expect(nameHeader).not.toHaveStyle({ width: '200px' });
+    });
+
+    describe('empty cell', () => {
+        type EmptyCellData = { id: string; name?: string | number };
+
+        const getNameCell = (name: EmptyCellData['name'], renderCell?: DataTableColumn<EmptyCellData>['render']) => {
+            render(
+                <DataTable<EmptyCellData>
+                    columns={[{ key: 'name', label: 'Name', render: renderCell, cellProps: { 'data-testid': 'name-cell' } }]}
+                    data={[{ id: '1', name }]}
+                    primaryKey="id"
+                />,
+            );
+            return screen.getByTestId('name-cell');
+        };
+
+        it('should show "-" when the value is undefined and the column has no render', () => {
+            expect(getNameCell(undefined)).toHaveTextContent(/^-$/);
+        });
+
+        it.each([null, undefined, false, ''])('should show "-" when render returns %s', (content) => {
+            expect(getNameCell('Alice', () => content)).toHaveTextContent(/^-$/);
+        });
+
+        it('should keep the cell empty when render returns an empty fragment', () => {
+            expect(getNameCell('Alice', () => <></>)).toBeEmptyDOMElement();
+        });
+
+        it('should show "0" when the value is 0', () => {
+            expect(getNameCell(0)).toHaveTextContent(/^0$/);
+        });
     });
 
     it('should apply cellProps to regular cells', () => {
