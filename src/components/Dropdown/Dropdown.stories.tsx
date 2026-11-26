@@ -37,10 +37,10 @@ export default {
 type Story = StoryObj<typeof Dropdown>;
 
 export const FlatData: Story = {
-    // Opens the first dropdown, then waits for its options, so the screenshot shows the menu open
+    // Opens the first dropdown, then waits for its menu, so the screenshot shows the menu open
     play: async ({ canvasElement }) => {
         await userEvent.click(within(canvasElement).getByRole('listbox', { name: 'Select something' }));
-        await within(document.body).findAllByRole('option');
+        await within(document.body).findByRole('list');
     },
     render: (args: Omit<DropdownProps, 'value' | 'values' | 'data' | 'treeData'>) => {
         const [currentOption, setCurrentOption] = useState<DropdownDataOption | null>(null);
