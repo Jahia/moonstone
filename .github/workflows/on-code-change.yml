@@ -46,8 +46,7 @@ jobs:
             exit 0
           fi
 
-          # toMatchScreenshot colours the paths even with NO_COLOR: strip the colour codes first.
-          sed -E 's/(\x1b|\^\[)\[[0-9;]*m//g' visual-test-output.log | awk '
+          awk '
             /Reference screenshot:/ { mode = "reference"; next }
             /Actual screenshot:/ { mode = "actual"; next }
             /Diff image:/ { mode = "diff"; next }
@@ -64,7 +63,7 @@ jobs:
               next
             }
             { if (mode != "failure") mode = "" }
-          ' | sort -u > visual-test-paths.tsv
+          ' visual-test-output.log | sort -u > visual-test-paths.tsv
 
           baseline_count=0
           current_count=0
@@ -176,8 +175,6 @@ jobs:
         with:
           name: visual-test-screenshots-${{ github.run_id }}
           path: visual-test-screenshots/
-          # The actual and diff screenshots come from .vitest-attachments, a hidden directory.
-          include-hidden-files: true
           if-no-files-found: warn
           retention-days: 7
       - name: Summarize failed visual screenshots
