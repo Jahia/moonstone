@@ -28,6 +28,9 @@ const ignore = new Set([
     './icons/Icons.stories.tsx-_Default',
     // This story times out: https://github.com/Jahia/moonstone/issues/1710
     './components/Menu/MenuItem.stories.tsx-Playground',
+    // The reversed rule of BaseInput applies only with the global styles, so the two suites render
+    // the search input differently and cannot share one reference.
+    './components/Menu/Menu.stories.tsx-Reversed',
 ]);
 
 /**
