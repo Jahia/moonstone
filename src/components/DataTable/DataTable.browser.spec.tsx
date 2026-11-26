@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 
@@ -286,6 +286,61 @@ describe('DataTable keyboard', () => {
             await waitFor(() => expect(screen.getByText('Status 1')).toBeVisible());
             await userEvent.keyboard('{Escape}');
             expect(onOpenChange).not.toHaveBeenCalled();
+            await userEvent.keyboard('{Escape}');
+            expect(onOpenChange).toHaveBeenCalledWith(false, expect.anything(), 'escape-key');
+        });
+
+        // The panel is hidden until shown, so the hover targets its cell, the status bar
+        const statusCell = () => within(row('Alice')).getAllByRole('cell')[0];
+
+        it('hides the status panel shown on hover with Escape until the pointer leaves its cell', async () => {
+            renderWithStatus();
+            await userEvent.hover(statusCell());
+            await waitFor(() => expect(screen.getByText('Status 1')).toBeVisible());
+            await userEvent.keyboard('{Escape}');
+            await waitFor(() => expect(screen.getByText('Status 1')).not.toBeVisible());
+            await userEvent.unhover(statusCell());
+            await userEvent.hover(statusCell());
+            await waitFor(() => expect(screen.getByText('Status 1')).toBeVisible());
+        });
+
+        it('hides the status panel shown on hover and on keyboard focus with one Escape, and passes it to the onKeyDown of the row', async () => {
+            const onKeyDown = vi.fn();
+            renderWithStatus({ onKeyDown });
+            screen.getByRole('button', { name: 'before' }).focus();
+            await userEvent.keyboard('{Tab}');
+            await userEvent.keyboard('{Tab}');
+            await userEvent.hover(statusCell());
+            await waitFor(() => expect(screen.getByText('Status 1')).toBeVisible());
+            await userEvent.keyboard('{Escape}');
+            expect(onKeyDown).toHaveBeenCalledWith(expect.objectContaining({ key: 'Escape' }));
+            await waitFor(() => expect(screen.getByText('Status 1')).not.toBeVisible());
+        });
+
+        it('hides the status panel shown on hover before closing a Modal around the table with Escape', async () => {
+            const onOpenChange = vi.fn();
+            // A full Modal keeps the status cell inside the narrow viewport of the tests, so the pointer reaches it
+            render(
+                <Modal isOpen aria-label="Users" size="full" onOpenChange={onOpenChange}>
+                    <DataTable
+                        columns={kbColumns}
+                        data={kbData}
+                        enablePagination={false}
+                        primaryKey="id"
+                        renderRow={({ id, render: renderCells }: RenderRowContext<User>) => (
+                            <TableRow key={id}>
+                                {renderCells({ before: <TableCellStatus color="success">{`Status ${id}`}</TableCellStatus> })}
+                            </TableRow>
+                        )}
+                    />
+                </Modal>,
+            );
+            await waitFor(() => expect(screen.getByRole('dialog')).toContainElement(document.activeElement as HTMLElement));
+            await userEvent.hover(statusCell());
+            await waitFor(() => expect(screen.getByText('Status 1')).toBeVisible());
+            await userEvent.keyboard('{Escape}');
+            expect(onOpenChange).not.toHaveBeenCalled();
+            await waitFor(() => expect(screen.getByText('Status 1')).not.toBeVisible());
             await userEvent.keyboard('{Escape}');
             expect(onOpenChange).toHaveBeenCalledWith(false, expect.anything(), 'escape-key');
         });
