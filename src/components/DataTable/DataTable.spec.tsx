@@ -1339,11 +1339,12 @@ describe('DataTable search', () => {
             />,
         );
 
-        expect(screen.queryByText('No results')).not.toBeInTheDocument();
+        expect(screen.getByRole('status')).toBeEmptyDOMElement();
 
         await user.type(screen.getByRole('searchbox'), 'zzz');
 
-        expect(screen.getByText('No results')).toBeInTheDocument();
+        expect(screen.getByRole('status')).toHaveTextContent('No results found.');
+        expect(screen.queryByText(/of 0/)).not.toBeInTheDocument();
     });
 
     it('should translate the no-results message', async () => {
@@ -1362,7 +1363,7 @@ describe('DataTable search', () => {
 
         await user.type(screen.getByRole('searchbox'), 'zzz');
 
-        expect(screen.getByText('Aucun résultat')).toBeInTheDocument();
+        expect(screen.getByRole('status')).toHaveTextContent('Aucun résultat');
     });
 
     it('should not show the no-results message when data is empty without a query', () => {
@@ -1377,7 +1378,7 @@ describe('DataTable search', () => {
             />,
         );
 
-        expect(screen.queryByText('No results')).not.toBeInTheDocument();
+        expect(screen.getByRole('status')).toBeEmptyDOMElement();
     });
 
     it('should warn once when the table filters but the consumer paginates', async () => {

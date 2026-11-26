@@ -1,7 +1,7 @@
 import { warnOnce } from '~/utils/warnOnce';
 
 // Search and pagination must be done on the same side (table or consumer), otherwise the item count is wrong
-export function useSearchPaginationWarning(isEnabled: boolean, isTableFiltering: boolean, isTablePaginating: boolean) {
+export function warnOnSearchPaginationMismatch(isEnabled: boolean, isTableFiltering: boolean, isTablePaginating: boolean) {
     if (!isEnabled || isTableFiltering === isTablePaginating) {
         return;
     }

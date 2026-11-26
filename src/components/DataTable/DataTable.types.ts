@@ -188,7 +188,7 @@ export type DataTableI18n = NonNullable<PaginationProps['i18n']> & {
     selectionColumnLabel?: string;
     /**
      * Message of the row shown when the search matches no row
-     * @default 'No results'
+     * @default 'No results found.'
      */
     noResults?: string;
 };
@@ -245,28 +245,19 @@ type SearchInputName
 
 type SearchInputAttributes = Omit<SearchInputProps, 'value' | 'defaultValue' | 'onChange' | 'onClear'> & SearchInputName;
 
-/**
- * Search answers two independent questions.
- *
- * Who holds the query? The table, seeded by `defaultSearchValue`, or you,
- * through `searchValue` and `onSearchChange` — the controlled/uncontrolled
- * choice of any React input, and nothing more.
- *
- * Who drops the rows that do not match? The table when `searchColumns` is
- * given, you when it is omitted, and `data` must then arrive already filtered.
- * Omitting it requires a controlled `searchValue`, because a query the table
- * does not use itself needs an owner.
- */
 type SearchProps<T extends NonNullable<unknown>>
     = | {
-        /** Enable search for the table */
+        /** Shows a search field above the table. The table then stays rendered when `data` is empty */
         enableSearch: true;
-        /** Columns filtered by the table. Omit it when you filter `data` yourself */
+        /** Keys of `columns` the table filters, matching part of the raw value and ignoring case. Omit it when you filter `data` yourself */
         searchColumns?: SearchColumns<T>;
         /** Current search query (controlled) */
         searchValue: string;
         defaultSearchValue?: never;
-        /** Callback when the search query changes */
+        /**
+         * Called when the user changes the query
+         * @param searchValue - The new query
+         */
         onSearchChange: (searchValue: string) => void;
         /**
          * Custom attributes added to the SearchInput element.
@@ -275,14 +266,17 @@ type SearchProps<T extends NonNullable<unknown>>
         searchInputProps: SearchInputAttributes;
     }
     | {
-        /** Enable search for the table */
+        /** Shows a search field above the table. The table then stays rendered when `data` is empty */
         enableSearch: true;
-        /** Columns filtered by the table (case-insensitive substring match on the raw value) */
+        /** Keys of `columns` the table filters, matching part of the raw value and ignoring case. Omit it when you filter `data` yourself */
         searchColumns: SearchColumns<T>;
         searchValue?: never;
         /** Initial search query (uncontrolled) */
         defaultSearchValue?: string;
-        /** Optional callback to observe search changes */
+        /**
+         * Called when the user changes the query
+         * @param searchValue - The new query
+         */
         onSearchChange?: (searchValue: string) => void;
         /**
          * Custom attributes added to the SearchInput element.

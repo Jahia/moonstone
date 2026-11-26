@@ -29,7 +29,6 @@ export function useSearch({ searchValue, defaultSearchValue = '', onSearchChange
 
     return {
         globalFilter,
-        isSearchControlled,
         handleGlobalFilterChange,
     };
 }

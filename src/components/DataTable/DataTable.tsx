@@ -9,9 +9,9 @@ import {
 import clsx from 'clsx';
 import React, { useCallback, useMemo } from 'react';
 
-import { useCustomCells, useExpansion, usePagination, useSearch, useSearchPaginationWarning, useSelection, useSorting } from './hooks';
+import { useCustomCells, useExpansion, usePagination, useSearch, useSelection, useSorting } from './hooks';
 import { createTableColumns } from './shared';
-import { renderCell, renderHeadCell } from './utils';
+import { renderCell, renderHeadCell, warnOnSearchPaginationMismatch } from './utils';
 import { Checkbox } from '~/components';
 import {
     Table,
@@ -32,8 +32,6 @@ import styles from './DataTable.module.scss';
 
 // Styles for custom column headers (no padding to match measured cell widths)
 const CUSTOM_HEADER_STYLE = { padding: 0 };
-
-const hasNoSearchResult = (enableSearch: boolean, query: string, rowCount: number) => enableSearch && query !== '' && rowCount === 0;
 
 export const DataTable = <T extends NonNullable<unknown>>({
     className,
@@ -129,7 +127,7 @@ export const DataTable = <T extends NonNullable<unknown>>({
 
     const isTableFiltering = Boolean(searchColumns?.length);
 
-    useSearchPaginationWarning(enableSearch && enablePagination, isTableFiltering, !isPaginationControlled);
+    warnOnSearchPaginationMismatch(enableSearch && enablePagination, isTableFiltering, !isPaginationControlled);
 
     const tableColumns = useMemo(() => createTableColumns(columns), [columns]);
 
@@ -153,7 +151,6 @@ export const DataTable = <T extends NonNullable<unknown>>({
         getFilteredRowModel: enableSearch ? getFilteredRowModel() : undefined,
         globalFilterFn: 'includesString',
         getColumnCanGlobalFilter: column => Boolean(searchColumns?.some(key => key === column.id)),
-        manualFiltering: !isTableFiltering,
         filterFromLeafRows: isStructured,
         getExpandedRowModel: getExpandedRowModel(),
         getPaginationRowModel: enablePagination ? getPaginationRowModel() : undefined,
@@ -245,7 +242,8 @@ export const DataTable = <T extends NonNullable<unknown>>({
     const isEmpty = !data || !Array.isArray(data) || data.length === 0;
 
     const rows = table.getRowModel().rows;
-    const showNoResults = hasNoSearchResult(enableSearch, globalFilter, rows.length);
+    const showNoResults = enableSearch && globalFilter !== '' && rows.length === 0;
+    const noResults = i18n?.noResults || 'No results found.';
     const columnCount = customBeforeCount + (enableSelection ? 1 : 0) + tableColumns.length + customAfterCount;
 
     if (isEmpty && !enableSearch) {
@@ -263,6 +261,12 @@ export const DataTable = <T extends NonNullable<unknown>>({
                     {...searchInputProps}
                     className={clsx(styles.dataTable_search, searchInputProps?.className)}
                 />
+            )}
+            {/* Stays mounted with the search field so the no-results message is announced when it appears */}
+            {enableSearch && (
+                <div className={styles.dataTable_hiddenLabel} role="status">
+                    {showNoResults && noResults}
+                </div>
             )}
             <Table className={className} {...props}>
                 <TableHead>
@@ -316,13 +320,13 @@ export const DataTable = <T extends NonNullable<unknown>>({
                 <TableBody>
                     {showNoResults && (
                         <TableRow>
-                            <TableCell align="center" aria-live="polite" colSpan={columnCount}>{i18n?.noResults || 'No results'}</TableCell>
+                            <TableCell align="center" colSpan={columnCount}>{noResults}</TableCell>
                         </TableRow>
                     )}
                     {rows.map(row => renderRowWithCustomization(row))}
                 </TableBody>
             </Table>
-            {enablePagination && (
+            {enablePagination && rows.length > 0 && (
                 <Pagination
                     currentPage={table.getState().pagination.pageIndex + 1}
                     i18n={i18n}
