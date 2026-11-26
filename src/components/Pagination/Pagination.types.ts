@@ -1,17 +1,10 @@
 import type React from 'react';
 
-export type PaginationProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className'> & {
+type BasePaginationProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'className'> & {
     /**
      * Additional classname
      */
     className?: string;
-
-    /**
-     * Number of items on each page. It must be one of `itemsPerPageOptions`: the component
-     * throws otherwise.
-     * @default the first of `itemsPerPageOptions`
-     */
-    itemsPerPage?: number;
 
     /**
      * Choices of the items-per-page selector.
@@ -20,24 +13,9 @@ export type PaginationProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'class
     itemsPerPageOptions?: number[];
 
     /**
-     * Called with the new number of items per page when the user picks one.
-     */
-    onItemsPerPageChange: (itemsPerPage: number) => void;
-
-    /**
      * Total number of items, across all pages.
      */
     totalOfItems: number;
-
-    /**
-     * Number of the current page, starting at 1: the component throws below 1.
-     */
-    currentPage: number;
-
-    /**
-     * Called with the number of the page the user moves to.
-     */
-    onPageChange: (page: number) => void;
 
     /**
      * Pagination labels
@@ -85,3 +63,67 @@ export type PaginationProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'class
         lastPage?: string;
     };
 };
+
+type ControlledProps = {
+    /**
+     * Number of the current page, starting at 1: the component throws below 1. Pass it to hold the page yourself.
+     */
+    currentPage: number;
+
+    /**
+     * Number of items on each page. It must be one of `itemsPerPageOptions`: the component
+     * throws otherwise.
+     * @default the first of `itemsPerPageOptions`
+     */
+    itemsPerPage?: number;
+
+    /**
+     * Called when the user moves to another page.
+     * @param page - The number of the new page, starting at 1
+     */
+    onPageChange: (page: number) => void;
+
+    /**
+     * Called when the user picks a number of items per page.
+     * @param itemsPerPage - The new number of items per page
+     */
+    onItemsPerPageChange: (itemsPerPage: number) => void;
+
+    defaultCurrentPage?: never;
+    defaultItemsPerPage?: never;
+};
+
+type UncontrolledProps = {
+    currentPage?: never;
+    itemsPerPage?: never;
+
+    /**
+     * Page shown first, starting at 1, when the component holds the page itself.
+     * @default 1
+     */
+    defaultCurrentPage?: number;
+
+    /**
+     * Number of items on each page shown first, when the component holds it itself. It must be one of `itemsPerPageOptions`.
+     * @default the first of `itemsPerPageOptions`
+     */
+    defaultItemsPerPage?: number;
+
+    /**
+     * Called when the user moves to another page.
+     * @param page - The number of the new page, starting at 1
+     */
+    onPageChange?: (page: number) => void;
+
+    /**
+     * Called when the user picks a number of items per page.
+     * @param itemsPerPage - The new number of items per page
+     */
+    onItemsPerPageChange?: (itemsPerPage: number) => void;
+};
+
+export type ControlledPaginationProps = BasePaginationProps & ControlledProps;
+
+export type UncontrolledPaginationProps = BasePaginationProps & UncontrolledProps;
+
+export type PaginationProps = ControlledPaginationProps | UncontrolledPaginationProps;
