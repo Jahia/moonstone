@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { userEvent, within } from 'storybook/test';
 
 import { Fieldset } from '../Fieldset';
 import markdownNotes from './Modal.md?raw';
@@ -26,6 +27,13 @@ const meta: Meta<typeof Modal> = {
 export default meta;
 
 type Story = StoryObj<typeof Modal>;
+
+// Opens the modal so that the visual test captures it, not only the button
+const openModal: Story['play'] = async ({ canvasElement }) => {
+    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Open modal' }));
+    await within(document.body).findByRole('dialog');
+};
+
 const Template = (args: ModalProps) => {
     const [open, setOpen] = useState(false);
     return (
@@ -36,7 +44,7 @@ const Template = (args: ModalProps) => {
     );
 };
 
-export const Playground = (args: ModalProps) => {
+const PlaygroundTemplate = (args: ModalProps) => {
     const [open, setOpen] = useState(false);
     return (
         <div style={{ maxWidth: '100vw' }}>
@@ -61,7 +69,7 @@ export const Playground = (args: ModalProps) => {
     );
 };
 
-export const ModalInModal = (args: ModalProps) => {
+const ModalInModalTemplate = (args: ModalProps) => {
     const [open, setOpen] = useState(false);
     const [open2, setOpen2] = useState(false);
     return (
@@ -97,6 +105,22 @@ export const ModalInModal = (args: ModalProps) => {
             </Modal>
         </div>
     );
+};
+
+export const Playground: Story = {
+    render: PlaygroundTemplate,
+    play: openModal,
+};
+
+export const ModalInModal: Story = {
+    render: ModalInModalTemplate,
+    play: async ({ canvasElement }) => {
+        await userEvent.click(within(canvasElement).getByRole('button', { name: 'Open modal' }));
+        const dialog = await within(document.body).findByRole('dialog');
+        await userEvent.click(within(dialog).getByRole('button', { name: 'Open modal' }));
+        // Only the second modal holds the text
+        await within(document.body).findByText(/^Lorem ipsum/);
+    },
 };
 
 export const Advanced: Story = {
@@ -157,4 +181,5 @@ export const Advanced: Story = {
     </>,
     },
     render: Template,
+    play: openModal,
 };

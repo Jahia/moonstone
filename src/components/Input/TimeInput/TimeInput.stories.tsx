@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { userEvent, within } from 'storybook/test';
 
 import { TimeInput } from './TimeInput';
 import markdownNotes from './TimeInput.md?raw';
@@ -29,6 +30,10 @@ export const Default: Story = {
 };
 
 export const TwelveHours: Story = {
+    play: async ({ canvasElement }) => {
+        await userEvent.click(within(canvasElement).getByRole('listbox', { name: /^AM\/PM/ }));
+        await within(document.body).findByRole('list');
+    },
     args: {
         timeFormat: '12h',
         defaultValue: '23:56',

@@ -1,3 +1,5 @@
+import { userEvent, within } from 'storybook/test';
+
 import { TimezoneSelector } from './TimezoneSelector';
 import markdownNotes from './TimezoneSelector.md?raw';
 
@@ -22,6 +24,10 @@ export default {
 type Story = StoryObj<typeof TimezoneSelector>;
 
 export const Default: Story = {
+    play: async ({ canvasElement }) => {
+        await userEvent.click(within(canvasElement).getByRole('listbox'));
+        await within(document.body).findByRole('list');
+    },
     args: {
         defaultValue: 'Europe/Paris',
         referenceDate: baseDate,

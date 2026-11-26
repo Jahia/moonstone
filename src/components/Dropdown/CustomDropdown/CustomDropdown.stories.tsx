@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { action } from 'storybook/actions';
+import { userEvent, within } from 'storybook/test';
 
 import { CustomDropdown } from './CustomDropdown';
 import markdownNotes from './CustomDropdown.md?raw';
@@ -8,6 +9,7 @@ import { File } from '~/icons';
 import * as icons from '~/icons/components';
 
 import type { CustomDropdownProps } from './CustomDropdown.types';
+import type { StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/CustomDropdown',
@@ -51,8 +53,11 @@ const TemplateSimple = (args: CustomDropdownProps & { ariaLabel?: string }) => {
     );
 };
 
-export const IconButtonWithText = {
-
+export const IconButtonWithText: StoryObj<CustomDropdownProps & { ariaLabel?: string }> = {
+    play: async ({ canvasElement }) => {
+        await userEvent.click(within(canvasElement).getByRole('button', { name: 'text dropdown' }));
+        await within(document.body).findByRole('list');
+    },
     render: TemplateSimple,
 
     args: {

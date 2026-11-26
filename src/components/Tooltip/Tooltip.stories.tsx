@@ -1,10 +1,12 @@
+import { userEvent, within } from 'storybook/test';
+
 import { Tooltip } from './index';
 import markdownNotes from './Tooltip.md?raw';
 import placeholder from '~/__storybook__/assets/img-placeholder.jpg';
 import { Badge, Button, Chip, PrimaryNav, PrimaryNavItem, PrimaryNavItemsGroup } from '~/components';
 import { Apps, Feather, Home, Person, Profile, Setting } from '~/icons';
 
-import type { Meta, StoryFn } from '@storybook/react-vite';
+import type { Meta, StoryFn, StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/Tooltip',
@@ -24,60 +26,80 @@ const Template: StoryFn<typeof Tooltip> = args => (
     <Tooltip label="Tooltip" {...args}/>
 );
 
-export const IconButtonTooltip = {
+type Story = StoryObj<typeof Tooltip>;
+type Canvas = ReturnType<typeof within>;
+
+// Hovers the trigger, then waits for the tooltip, so the screenshot shows the tooltip open.
+const showTooltip = (getTrigger: (canvas: Canvas) => HTMLElement): Story['play'] => async ({ canvasElement }) => {
+    await userEvent.hover(getTrigger(within(canvasElement)));
+    await within(document.body).findByRole('tooltip');
+};
+
+export const IconButtonTooltip: Story = {
     render: Template,
+    play: showTooltip(canvas => canvas.getByRole('button', { name: 'Home' })),
     args: {
         label: 'Home',
         children: <Button aria-label="Home" icon={<Home/>} variant="outlined"/>,
     },
 };
 
-export const ButtonTooltip = {
+export const ButtonTooltip: Story = {
     render: Template,
+    play: showTooltip(canvas => canvas.getByRole('button', { name: 'Home button' })),
     args: {
         label: 'Home',
         children: <Button icon={<Home/>} label="Home button" variant="outlined"/>,
     },
 };
 
-export const DisabledButtonTooltip = {
+export const DisabledButtonTooltip: Story = {
     render: Template,
+    play: showTooltip(canvas => canvas.getByRole('button', { name: 'Disabled button' })),
     args: {
         children: <Button isDisabled icon={<Home/>} label="Disabled button" variant="outlined"/>,
     },
 };
 
-export const LongTooltip = {
+export const LongTooltip: Story = {
     render: Template,
+    play: showTooltip(canvas => canvas.getByRole('button', { name: 'Home' })),
     args: {
         label: 'Very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long tooltip',
         children: <Button aria-label="Home" icon={<Home/>} variant="outlined"/>,
     },
 };
 
-export const ChipTooltip = {
+export const ChipTooltip: Story = {
     render: Template,
+    play: showTooltip(canvas => canvas.getByText('Chip')),
     args: {
         children: <Chip icon={<Home/>} label="Chip"/>,
     },
 };
 
-export const TextTooltip = {
+export const TextTooltip: Story = {
     render: Template,
+    play: showTooltip(canvas => canvas.getByText(/^Lorem ipsum/)),
     args: {
         label: 'That is a long text',
         children: <p style={{ width: '400px', margin: 0 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dictum velit orci, a condimentum erat eleifend vel. Nam eu urna in libero gravida consequat nec non elit. Nulla maximus vestibulum mauris, quis volutpat metus rutrum ac. In eu libero a justo vulputate viverra at quis lacus. Duis volutpat sapien ac rhoncus elementum. Quisque id mollis tellus. Nunc sit amet magna hendrerit, convallis risus vitae, condimentum ante.</p>,
     },
 };
 
-export const BadgeTooltip = {
+export const BadgeTooltip: Story = {
     render: Template,
+    // A Badge has `pointer-events: none`: the hover reaches the wrapper of the tooltip, as with a mouse
+    play: async ({ canvasElement }) => {
+        await userEvent.hover(within(canvasElement).getByText('Badge'), { pointerEventsCheck: 0 });
+        await within(document.body).findByRole('tooltip');
+    },
     args: {
         children: <Badge label="Badge"/>,
     },
 };
 
-export const PrimaryNavTooltip = () => {
+const PrimaryNavTemplate = () => {
     return (
         <div style={{ transform: 'scale(1)', height: '100vh' }}>
             <PrimaryNav
@@ -128,4 +150,9 @@ export const PrimaryNavTooltip = () => {
             />
         </div>
     );
+};
+
+export const PrimaryNavTooltip: Story = {
+    render: PrimaryNavTemplate,
+    play: showTooltip(canvas => canvas.getByRole('button', { name: /^My profile/ })),
 };

@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import React, { useState } from 'react';
+import { userEvent, within } from 'storybook/test';
 
 import { Menu, MenuItem } from './index';
 import markdownNotes from './Menu.md?raw';
@@ -45,95 +46,117 @@ export const Default: StoryObj<MenuProps> = {
     },
 };
 
-export const ContextualMenu = () => {
-    const [isDisplayed, setIsDisplayed] = useState<boolean>(false);
-    const [menuPosition, setMenuPosition] = useState<AnchorPosition>();
+export const ContextualMenu: StoryObj<MenuProps> = {
+    // userEvent.click sends no coordinates, and the menu opens where the page is clicked: click the centre of the text
+    play: async ({ canvasElement }) => {
+        const text = within(canvasElement).getByText('Click somewhere to display the menu, another click close it');
+        const rect = text.getBoundingClientRect();
+        await userEvent.pointer({
+            keys: '[MouseLeft]',
+            target: text,
+            coords: {
+                clientX: rect.x + (rect.width / 2),
+                clientY: rect.y + (rect.height / 2),
+            },
+        });
+        await within(document.body).findByRole('list');
+    },
+    render: () => {
+        const [isDisplayed, setIsDisplayed] = useState<boolean>(false);
+        const [menuPosition, setMenuPosition] = useState<AnchorPosition>();
 
-    const handleOnClick = (e: React.MouseEvent) => {
-        if (isDisplayed) {
-            handleClose();
-        } else {
-            setIsDisplayed(true);
-            setMenuPosition({
-                top: e.clientY,
-                left: e.clientX,
-            });
-        }
-    };
+        const handleOnClick = (e: React.MouseEvent) => {
+            if (isDisplayed) {
+                handleClose();
+            } else {
+                setIsDisplayed(true);
+                setMenuPosition({
+                    top: e.clientY,
+                    left: e.clientX,
+                });
+            }
+        };
 
-    const handleClose = () => {
-        setIsDisplayed(false);
-    };
+        const handleClose = () => {
+            setIsDisplayed(false);
+        };
 
-    return (
-        // oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- a click anywhere opens the menu
-        <div
-            className={clsx('flexRow_center', 'alignCenter', layout.flexRow_center, layout.alignCenter)}
-            style={{ transform: 'scale(1)', height: '100vh' }}
-            onClick={handleOnClick}
-        >
-            <p>Click somewhere to display the menu, another click close it</p>
-            <Menu
-                isDisplayed={isDisplayed}
-                anchorPosition={menuPosition}
-                onClose={handleClose}
-            >
-                <MenuItem label="Item1"/>
-                <MenuItem label="Item2"/>
-                <MenuItem label="Item3"/>
-            </Menu>
-        </div>
-    );
-};
-
-export const AnchorElOrigin = () => {
-    const [isDisplayed, setIsDisplayed] = useState(false);
-    const [anchorEl, setAnchorEl] = useState(null);
-    const buttonEl = React.useRef();
-
-    const handleOnClick = () => {
-        setAnchorEl(buttonEl);
-        if (isDisplayed) {
-            handleClose();
-        } else {
-            setIsDisplayed(true);
-        }
-    };
-
-    const handleClose = () => {
-        setIsDisplayed(false);
-    };
-
-    return (
-        <>
-            <button
-                ref={buttonEl}
-                style={{ margin: '90px', width: '100px', height: '100px' }}
-                type="button"
+        return (
+            // oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- a click anywhere opens the menu
+            <div
+                className={clsx('flexRow_center', 'alignCenter', layout.flexRow_center, layout.alignCenter)}
+                style={{ transform: 'scale(1)', height: '100vh' }}
                 onClick={handleOnClick}
             >
-                Display menu
-            </button>
-            <Menu
-                isDisplayed={isDisplayed}
-                anchorEl={anchorEl}
-                anchorElOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                }}
-                anchorPosition={{ top: 0, left: 0 }}
-                transformElOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                }}
-                onClose={handleClose}
-            >
-                <MenuItem label="Item1"/>
-                <MenuItem label="Item2"/>
-                <MenuItem label="Item3"/>
-            </Menu>
-        </>
-    );
+                <p>Click somewhere to display the menu, another click close it</p>
+                <Menu
+                    isDisplayed={isDisplayed}
+                    anchorPosition={menuPosition}
+                    onClose={handleClose}
+                >
+                    <MenuItem label="Item1"/>
+                    <MenuItem label="Item2"/>
+                    <MenuItem label="Item3"/>
+                </Menu>
+            </div>
+        );
+    },
+};
+
+export const AnchorElOrigin: StoryObj<MenuProps> = {
+    play: async ({ canvasElement }) => {
+        await userEvent.click(within(canvasElement).getByRole('button', { name: 'Display menu' }));
+        await within(document.body).findByRole('list');
+    },
+    render: () => {
+        const [isDisplayed, setIsDisplayed] = useState(false);
+        const [anchorEl, setAnchorEl] = useState(null);
+        const buttonEl = React.useRef();
+
+        const handleOnClick = () => {
+            setAnchorEl(buttonEl);
+            if (isDisplayed) {
+                handleClose();
+            } else {
+                setIsDisplayed(true);
+            }
+        };
+
+        const handleClose = () => {
+            setIsDisplayed(false);
+        };
+
+        return (
+            <>
+                <button
+                    ref={buttonEl}
+                    style={{ margin: '90px', width: '100px', height: '100px' }}
+                    type="button"
+                    onClick={handleOnClick}
+                >
+                    Display menu
+                </button>
+                <Menu
+                    isDisplayed={isDisplayed}
+                    anchorEl={anchorEl}
+                    anchorElOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    anchorPosition={{ top: 0, left: 0 }}
+                    transformElOrigin={{
+                        vertical: 'top',
+                        horizontal: 'left',
+                    }}
+                    onClose={handleClose}
+                >
+                    <MenuItem label="Item1"/>
+                    <MenuItem label="Item2"/>
+                    <MenuItem label="Item3"/>
+                </Menu>
+            </>
+        );
+    },
 };
 
 export const PositionAbsolute = () => {

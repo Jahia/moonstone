@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { userEvent, within } from 'storybook/test';
 
 import { SearchContextInput } from './index';
 import markdownNotes from './SearchContextInput.md?raw';
@@ -57,6 +58,10 @@ const searchContextData: DropdownDataOption[] = [
 ];
 
 export const SearchContext: StoryObj<SearchContextInputProps> = {
+    play: async ({ canvasElement }) => {
+        await userEvent.click(within(canvasElement).getByRole('listbox', { name: 'Global users' }));
+        await within(document.body).findByRole('list');
+    },
     render: (args) => {
         const [contextOption, setContextOption] = useState(searchContextData[0]);
         const handleDropdownOnChange = (

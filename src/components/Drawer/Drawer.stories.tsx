@@ -1,4 +1,5 @@
 import { useId, useState } from 'react';
+import { userEvent, within } from 'storybook/test';
 
 import { Drawer } from './Drawer';
 import markdownNotes from './Drawer.md?raw';
@@ -21,6 +22,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
+    play: async ({ canvasElement }) => {
+        await userEvent.click(within(canvasElement).getByRole('button', { name: 'Toggle drawer' }));
+        await within(canvasElement).findByRole('complementary', { name: 'Drawer title' });
+    },
     render: (args) => {
         const [open, setOpen] = useState(false);
         const titleId = useId();
