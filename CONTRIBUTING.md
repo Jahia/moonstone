@@ -5,6 +5,7 @@ If your are a generous contributor, you are encouraged to follow those rules, bu
 
 -   [Development Flow](#development-flow)
 -   [Coding Rules](#rules)
+-   [Visual tests](#visual-tests)
 -   [Commit Message Guidelines](#commit)
 
 ## <a name="development-flow"></a> Development flow
@@ -79,6 +80,21 @@ Note that using `.` as separator for [Modifier] actually declares a separate cla
 Global classes are available for flexbox layout, and can be found in `globals` folder. 
 
 Colors and spacings should be defined using only the variables defined in `tokens` folder. 
+
+## <a name="visual-tests"></a> Visual tests
+
+The `visual` job of each pull request takes a screenshot of each story and compares it with its reference screenshot in `src/__screenshots__`.
+
+When the job fails, its summary lists the failed stories, and its `visual-test-screenshots` artifact holds the reference, actual and diff images:
+
+-   The render changed by mistake: fix the code.
+-   The change is intended: add the `update-screenshots` label to the pull request. A workflow commits the new reference screenshots on the branch, removes the label and runs the visual tests again. Pull that commit before you push again. The reviewer checks the changed images in the Files changed tab.
+
+After the commit of the workflow, GitHub shows workflows that wait for an approval on that commit. You do not need to approve them: the workflow already runs the visual tests on the commit.
+
+A new story has no reference screenshot, so its test fails until the `update-screenshots` label adds one.
+
+Never commit a screenshot made on a local machine: the fonts differ from the fonts of the CI, so the test would fail. Locally, `yarn test:visual` fails on many stories for the same reason.
 
 ## <a name="commit"></a> Commit Message Guidelines
 
