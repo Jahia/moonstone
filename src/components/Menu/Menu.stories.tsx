@@ -310,3 +310,33 @@ export const Reversed = () => (
         </Menu>
     </div>
 );
+
+export const States: StoryObj<MenuProps> = {
+    render: args => (
+        <div style={{ position: 'relative', width: '200px', height: '200px' }}>
+            <Menu {...args}>
+                {/* The menu focuses its first item when it shows, so the Focus item comes first. */}
+                <MenuItem id="focus-visible" label="Focus"/>
+                <MenuItem label="Rest"/>
+                <MenuItem id="hover" label="Hover"/>
+                <MenuItem id="active" label="Active"/>
+                <MenuItem isDisabled label="Disabled"/>
+            </Menu>
+        </div>
+    ),
+
+    args: {
+        isDisplayed: true,
+        position: 'absolute',
+        anchorElOrigin: { vertical: 'top', horizontal: 'left' },
+        hasOverlay: false,
+    },
+
+    parameters: {
+        pseudo: {
+            hover: '#hover',
+            active: '#active',
+            focusVisible: '#focus-visible',
+        },
+    },
+};

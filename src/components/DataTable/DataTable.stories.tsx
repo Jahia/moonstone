@@ -171,3 +171,24 @@ export const InsertCells: Story = {
     },
     name: 'Insert custom cells (renderRow)',
 };
+
+export const States: Story = {
+    render: (args) => {
+        return <DataTable {...args}/>;
+    },
+    args: {
+        data: tableFlat.slice(0, 5),
+        columns: dataColumnsUser,
+        primaryKey: 'id',
+        enableSorting: true,
+        defaultSortBy: 'progress',
+    },
+    parameters: {
+        // A row and a header cell take no id, so each selector targets one by its position. The
+        // header cell carries the hover style, and its sort button carries the focus ring.
+        pseudo: {
+            hover: ['tbody tr:nth-child(2)', 'thead th:nth-child(2)'],
+            focusVisible: ['tbody tr:nth-child(4)', 'thead th:nth-child(4) button'],
+        },
+    },
+};

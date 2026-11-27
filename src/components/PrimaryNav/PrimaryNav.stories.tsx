@@ -104,3 +104,28 @@ export const Default: Story = {
         </div>
     ),
 };
+
+export const States: Story = {
+    render: args => (
+        <div style={{ transform: 'scale(1)', height: '100vh' }}>
+            <PrimaryNav
+                top={(
+                    <PrimaryNavItemsGroup>
+                        <PrimaryNavItem {...args} icon={<Feather/>} label="Rest"/>
+                        <PrimaryNavItem {...args} icon={<Feather/>} id="hover" label="Hover"/>
+                        <PrimaryNavItem {...args} icon={<Feather/>} id="focus-visible" label="Focus"/>
+                        <PrimaryNavItem {...args} isSelected icon={<Feather/>} label="Selected"/>
+                    </PrimaryNavItemsGroup>
+                )}
+            />
+        </div>
+    ),
+
+    parameters: {
+        pseudo: {
+            // The item has the hover background, and its control has the hover color
+            hover: ['#hover', '#hover > button'],
+            focusVisible: '#focus-visible > button',
+        },
+    },
+};

@@ -3,7 +3,7 @@ import markdownNotes from './SecondaryNav.md?raw';
 import { Love } from '~/icons';
 
 import type { SecondaryNavProps } from './SecondaryNav.types';
-import type { Meta, StoryFn } from '@storybook/react-vite';
+import type { Meta, StoryFn, StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/SecondaryNav',
@@ -63,5 +63,23 @@ export const WithHeaderComponent = {
                 <Love size="big"/>
             </SecondaryNavHeader>
         ),
+    },
+};
+
+export const States: StoryObj<typeof SecondaryNav> = {
+    render: args => (
+        <>
+            <SecondaryNav {...args} header="Rest"/>
+            <SecondaryNav {...args} header="Hover" id="hover"/>
+            <SecondaryNav {...args} header="Focus" id="focus-visible"/>
+        </>
+    ),
+
+    parameters: {
+        pseudo: {
+            // The id goes to the nav, and the hover and focus styles are on its toggle button
+            hover: '#hover button[aria-expanded]',
+            focusVisible: '#focus-visible button[aria-expanded]',
+        },
     },
 };

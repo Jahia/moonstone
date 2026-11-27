@@ -90,3 +90,28 @@ export const Error: Story = {
     },
     render: Template,
 };
+
+export const States: Story = {
+    render: args => (
+        <div style={{ display: 'grid', gap: '8px', padding: '8px' }}>
+            <CardSelector {...args} displayName="Rest"/>
+            <CardSelector {...args} displayName="Hover" id="hover"/>
+            <CardSelector {...args} displayName="Active" id="active"/>
+            <CardSelector {...args} displayName="Focus" id="focus-visible"/>
+            <CardSelector {...args} displayName="Focus and hover" id="focus-visible-hover"/>
+            <CardSelector {...args} isDisabled displayName="Disabled"/>
+            <CardSelector {...args} hasError errorMessage="Error"/>
+            <CardSelector {...args} hasError errorMessage="Error and hover" id="error-hover"/>
+            <CardSelector {...args} hasError errorMessage="Error and focus" id="error-focus-visible"/>
+        </div>
+    ),
+
+    parameters: {
+        pseudo: {
+            // The card is the parent of the button that takes the id
+            hover: [':has(> #hover)', ':has(> #focus-visible-hover)', '#error-hover'],
+            active: ':has(> #active)',
+            focusVisible: ['#focus-visible', '#focus-visible-hover', '#error-focus-visible'],
+        },
+    },
+};

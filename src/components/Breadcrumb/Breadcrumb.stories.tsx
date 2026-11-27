@@ -2,7 +2,7 @@ import markdownNotes from './Breadcrumb.md?raw';
 import { Breadcrumb, BreadcrumbItem } from '~/components';
 
 import type { BreadcrumbProps } from './Breadcrumb.types';
-import type { Meta, StoryFn } from '@storybook/react-vite';
+import type { Meta, StoryFn, StoryObj } from '@storybook/react-vite';
 
 export default {
     title: 'Components/Breadcrumb',
@@ -33,4 +33,23 @@ const Template: StoryFn<BreadcrumbProps> = args => (
 
 export const Default = {
     render: Template,
+};
+
+export const States: StoryObj<BreadcrumbProps> = {
+    render: args => (
+        <Breadcrumb {...args}>
+            <BreadcrumbItem id="hover" label="Hover"/>
+            <BreadcrumbItem id="active" label="Active"/>
+            <BreadcrumbItem id="focus-visible" label="Focus"/>
+            <BreadcrumbItem label="Rest"/>
+        </Breadcrumb>
+    ),
+
+    parameters: {
+        pseudo: {
+            hover: '#hover',
+            active: '#active',
+            focusVisible: '#focus-visible',
+        },
+    },
 };

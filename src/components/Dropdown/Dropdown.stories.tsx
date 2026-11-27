@@ -17,6 +17,9 @@ import {
 import { Love } from '~/icons';
 
 import type { DropdownDataOption, DropdownProps } from './Dropdown.types';
+import type { StoryObj } from '@storybook/react-vite';
+
+import '~/__storybook__/storybook.scss';
 
 export default {
     title: 'Components/Dropdown',
@@ -337,5 +340,34 @@ export const TreeDataMultiple = {
                 />
             </section>
         );
+    },
+};
+
+export const States: StoryObj<typeof Dropdown> = {
+    render: args => (
+        <section className="storyGrid">
+            <Dropdown {...args} placeholder="Rest"/>
+            <Dropdown {...args} placeholder="Hover"/>
+            <Dropdown {...args} placeholder="Active"/>
+            <Dropdown {...args} placeholder="Focus"/>
+            <Dropdown {...args} isDisabled placeholder="Disabled"/>
+            <Dropdown {...args} placeholder="Outlined" variant="outlined"/>
+            <Dropdown {...args} placeholder="Outlined hover" variant="outlined"/>
+            <Dropdown {...args} placeholder="Outlined focus" variant="outlined"/>
+            <Dropdown {...args} isDisabled placeholder="Outlined disabled" variant="outlined"/>
+        </section>
+    ),
+
+    args: {
+        data: dropdownData,
+    },
+
+    parameters: {
+        pseudo: {
+            // The Dropdown takes no id, so its trigger is found by its role and its aria-label
+            hover: ['[role="listbox"][aria-label="Hover"]', '[role="listbox"][aria-label="Outlined hover"]'],
+            active: '[role="listbox"][aria-label="Active"]',
+            focusVisible: ['[role="listbox"][aria-label="Focus"]', '[role="listbox"][aria-label="Outlined focus"]'],
+        },
     },
 };

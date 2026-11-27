@@ -177,3 +177,28 @@ export const Disabled = {
         controls: { exclude: ['variant', 'label'] },
     },
 };
+
+export const States: Story = {
+    render: args => (
+        <section className="storyGrid">
+            <Button {...args} label="Rest"/>
+            <Button {...args} id="hover" label="Hover"/>
+            <Button {...args} id="active" label="Active"/>
+            <Button {...args} id="focus-visible" label="Focus"/>
+            <Button {...args} isDisabled label="Disabled"/>
+        </section>
+    ),
+
+    args: {
+        icon: <Love/>,
+    },
+
+    parameters: {
+        pseudo: {
+            hover: '#hover',
+            active: '#active',
+            focusVisible: '#focus-visible',
+        },
+        controls: { exclude: ['label', 'isDisabled'] },
+    },
+};

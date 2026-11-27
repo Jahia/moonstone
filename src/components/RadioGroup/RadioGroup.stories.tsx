@@ -90,3 +90,30 @@ export const Controlled: StoryObj<typeof RadioGroup> = {
         );
     },
 };
+
+export const States: StoryObj<typeof RadioGroup> = {
+    render: args => (
+        <div style={{ padding: '8px' }}>
+            <RadioGroup {...args}>
+                <RadioItem label="Rest" value="rest"/>
+                <RadioItem id="hover" label="Hover" value="hover"/>
+                <RadioItem id="focus-visible" label="Focus" value="focus"/>
+                <RadioItem label="Checked" value="checked"/>
+                <RadioItem isDisabled label="Disabled" value="disabled"/>
+                <RadioItem isReadOnly label="Read-only" value="read-only"/>
+            </RadioGroup>
+        </div>
+    ),
+
+    args: {
+        name: 'states',
+        defaultValue: 'checked',
+    },
+
+    parameters: {
+        pseudo: {
+            hover: '#hover',
+            focusVisible: '#focus-visible',
+        },
+    },
+};
