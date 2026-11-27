@@ -1,0 +1,35 @@
+// One row: the blocks at the start fill the room left by the blocks at the end, and shrink rather than wrap
+.collectionBar {
+    display: flex;
+    gap: var(--moon-spacing-small);
+    align-items: center;
+    padding: var(--moon-spacing-small);
+}
+
+.start,
+.end {
+    display: flex;
+    gap: var(--moon-spacing-small);
+    align-items: center;
+    min-width: 0;
+}
+
+// The start fills the room that the end leaves
+.start {
+    flex: 1;
+}
+
+// A SearchInput takes the full width of its row: in the bar it keeps the width of a search field, set as a width
+// so that the end of the bar, which takes the width of its content, makes room for it.
+// When room lacks, it shrinks first, down to its min-width, so that the chips keep their text
+.start > [role="search"],
+.end > [role="search"] {
+    flex: 0 1000 auto;
+    width: var(--moon-collectionBar-searchWidth, 192px);
+    min-width: min(144px, var(--moon-collectionBar-searchWidth, 192px));
+}
+
+.end {
+    flex: none;
+    margin-left: auto;
+}

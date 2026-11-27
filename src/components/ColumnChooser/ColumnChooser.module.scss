@@ -1,0 +1,82 @@
+.popover {
+    width: 280px;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--moon-spacing-nano);
+}
+
+.list {
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.row {
+    position: relative;
+
+    display: flex;
+    gap: var(--moon-spacing-small);
+    justify-content: space-between;
+    align-items: center;
+    min-height: 32px;
+}
+
+.checkbox {
+    flex: 1;
+    min-width: 0;
+}
+
+.dragHandle {
+    display: flex;
+    flex: none;
+
+    cursor: move;
+}
+
+// A hidden column keeps the room of the handle, so that every checkbox lines up
+.dragHandleHidden {
+    visibility: hidden;
+}
+
+// The look of the drag and drop of Moonstone lists: the dragged row fades, a line shows where it drops
+.dragging {
+    opacity: 0.5;
+}
+
+.dropBefore::before,
+.dropAfter::after {
+    position: absolute;
+    right: 0;
+    left: 0;
+
+    height: 2px;
+
+    background-color: var(--moon-color-accent_light60);
+
+    content: "";
+}
+
+.dropBefore::before {
+    top: -1px;
+}
+
+.dropAfter::after {
+    bottom: -1px;
+}
+
+.moveButtons {
+    display: flex;
+    flex: none;
+}
+
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: var(--moon-spacing-small);
+
+    border-top: 1px solid var(--moon-color-gray_light);
+}
