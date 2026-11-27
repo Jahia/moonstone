@@ -1,0 +1,49 @@
+.popover {
+    z-index: 9000;
+
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    max-width: calc(100vw - 2 * var(--moon-spacing-medium));
+    max-height: calc(100vh - 2 * var(--moon-spacing-medium));
+    overflow: auto;
+
+    color: var(--moon-color-gray_dark);
+
+    border-radius: var(--moon-radius);
+    background-color: var(--moon-color-light);
+    box-shadow: 0 var(--moon-spacing-nano) var(--moon-spacing-small) var(--moon-color-gray_dark60);
+}
+
+// Forced colours remove the shadow, the only edge of the popup
+@media (forced-colors: active) {
+    .popover {
+        border: 1px solid canvastext;
+    }
+}
+
+// The padding sits on a wrapper, as on the li of a MenuItem: the reset of Typography outranks a class on it
+.title {
+    display: flex;
+    gap: var(--moon-spacing-nano);
+    align-items: center;
+    padding: var(--moon-spacing-small) var(--moon-spacing-medium) 0;
+}
+
+// The chevron starts at x=8 of its 24-wide viewBox, so 16px * 8 / 24 inside the 16px icon
+$chevron-inset: calc(16px * 8 / 24);
+
+// The back button keeps its 24px target but sits out by its padding and the chevron inset:
+// the chevron lines up with the left edge of the content, and the title with the labels of a checkbox list
+.back[data-variant] {
+    margin-right: $chevron-inset;
+    margin-left: calc(-1 * (var(--moon-spacing-nano) + #{$chevron-inset}));
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--moon-spacing-small);
+    align-items: stretch;
+    padding: var(--moon-spacing-small) var(--moon-spacing-medium) var(--moon-spacing-medium);
+}
