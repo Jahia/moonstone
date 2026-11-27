@@ -17,7 +17,10 @@ declare module 'vitest/browser' {
 }
 
 // A composed story is a render function; Storybook attaches its `play` interaction (if any) to it.
-type ComposedStory = (() => JSX.Element) & { play?: (context: { canvasElement: HTMLElement }) => Promise<void> };
+type ComposedStory = (() => JSX.Element) & {
+    tags: string[];
+    play?: (context: { canvasElement: HTMLElement }) => Promise<void>;
+};
 
 // Import all stories
 const stories = import.meta.glob<never>('./**/*.stories.{js,jsx,ts,tsx}', { eager: true });
@@ -38,7 +41,8 @@ const ignore = new Set([
 export const runVisualStoriesSuite = () => {
     describe.for(Object.entries(stories))('%s', ([file, imports]) => {
         test.for(Object.entries<ComposedStory>(composeStories(imports, projectAnnotations)))('%s', async ([name, Story], { skip }) => {
-            skip(ignore.has(`${file}-${name}`));
+            // A story leaves the visual tests with the `!visual` tag, which removes the `visual` tag of the preview
+            skip(ignore.has(`${file}-${name}`) || !Story.tags.includes('visual'));
             // On Linux, Chromium hovers the element under a mouse that never moved, at the top-left
             // corner of the story. Move the mouse out before the render, so a `play` function can
             // still hover an element on purpose.

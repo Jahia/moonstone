@@ -45,6 +45,21 @@
     margin: var(--moon-spacing-big);
 }
 
+.storyPropValues {
+    margin: 0 auto;
+
+    border-spacing: var(--moon-spacing-medium);
+
+    th {
+        font-weight: normal;
+        font-family: monospace;
+    }
+
+    td {
+        text-align: center;
+    }
+}
+
 .storyColumn {
     display: flex;
     flex-direction: column;

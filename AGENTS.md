@@ -37,4 +37,4 @@ rules. `.claude/skills/<name>` is a symlink to that folder. Each rule is written
 
 Naming: `moon-<artifact>`, one skill per artifact, covering both writing and reviewing it.
 
-- `moon-doc` — a component's `.md`, the props' JSDoc, and its Storybook wiring.
+- `moon-doc` — a component's `.md`, the props' JSDoc, its Storybook wiring, and its stories.
