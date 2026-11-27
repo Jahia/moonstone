@@ -1,17 +1,14 @@
-# Copied from https://vitest.dev/guide/browser/visual-regression-testing.html#the-update-workflow
+# Adapted from https://vitest.dev/guide/browser/visual-regression-testing.html#the-update-workflow
 name: Update Visual Regression Screenshots
 
 on:
-  workflow_dispatch: # manual trigger
-  # pull_request: # used for the initial setup, uncomment to run on the current PR
+  workflow_dispatch: # manual trigger, on the branch to update
+  pull_request:
+    types: [labeled] # the `update-screenshots` label, see the `if` of the job
 
 env:
-  AUTHOR_NAME: "github-actions[bot]"
-  AUTHOR_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
-  COMMIT_MESSAGE: |
-    test: update visual regression screenshots
-
-    Co-authored-by: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+  BRANCH: ${{ github.head_ref || github.ref_name }}
+  GH_REPO: ${{ github.repository }}
 
 jobs:
   update-screenshots:
@@ -19,33 +16,51 @@ jobs:
     # reference screenshots in the same pull request, also in on-code-change.yml.
     runs-on: ubuntu-26.04
 
-    # safety first: don't run on main
-    if: github.ref_name != github.event.repository.default_branch
+    # Never on main. On a pull request: only for the label, and not from a fork, where the token is read-only.
+    if: >-
+      (github.head_ref || github.ref_name) != github.event.repository.default_branch &&
+      (github.event_name == 'workflow_dispatch' ||
+      (github.event.label.name == 'update-screenshots' && !github.event.pull_request.head.repo.fork))
 
     # one at a time per branch
     concurrency:
-      group: visual-regression-screenshots@${{ github.ref_name }}
+      group: visual-regression-screenshots@${{ github.head_ref || github.ref_name }}
       cancel-in-progress: true
 
     permissions:
-      contents: write # needs to push changes
+      contents: write # create the commit
+      pull-requests: write # remove the label
+      actions: write # dispatch on-code-change.yml
 
     steps:
-      - name: Checkout selected branch
+      - name: Checkout the branch
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ github.head_ref || github.ref_name }}
-          # use PAT if triggering other workflows
-          # token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ env.BRANCH }}
+          # the history of the default branch, for the check below
+          fetch-depth: 0
+          # no step pushes with git, so the token stays out of .git/config
+          persist-credentials: false
 
-      - name: Configure Git
+      # The pull request checks render the merge of the branch into the default branch.
+      # A branch that holds the default branch renders the same as that merge.
+      - name: Check the branch holds the default branch
+        env:
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
         run: |
-          git config --global user.name "${{ env.AUTHOR_NAME }}"
-          git config --global user.email "${{ env.AUTHOR_EMAIL }}"
+          if ! git merge-base --is-ancestor "origin/$DEFAULT_BRANCH" HEAD; then
+            echo "::error::Merge $DEFAULT_BRANCH into $BRANCH first, then set the label again."
+            exit 1
+          fi
 
       # toolchain comes from mise.toml
       - name: Setup toolchain
         uses: jdx/mise-action@7e36c90d9ab29c415a2384db3006f3ec8a8cc654 # v4.2.4
+
+      # mise-action gives the job token to every later step, as MISE_GITHUB_TOKEN.
+      # The steps that install, build and test do not need it.
+      - name: Hide the token from the next steps
+        run: echo "MISE_GITHUB_TOKEN=" >> "$GITHUB_ENV"
 
       - name: Install dependencies
         run: yarn install && yarn playwright install chromium --only-shell
@@ -56,58 +71,63 @@ jobs:
       - name: Build library
         run: yarn build:lib
 
-      # the magic happens below 🪄
+      # `--update` keeps the reference of a story that no longer exists. Without any reference, the
+      # run writes one per story: a reference that does not come back has no story.
+      - name: Find the references that have no story
+        run: |
+          rm -r src/__screenshots__
+          yarn test:visual --update
+          git ls-files --deleted src/__screenshots__ > "$RUNNER_TEMP/orphans"
+          git restore src/__screenshots__
+
+      # With its reference, a story gets a new one only when its render changed.
       - name: Update Visual Regression Screenshots
-        run: yarn test:visual --update
-
-      # check what changed
-      - name: Check for changes
-        id: check_changes
         run: |
-          CHANGED_FILES=$(git status --porcelain | awk '{print $2}')
-          if [ "${CHANGED_FILES:+x}" ]; then
-            echo "changes=true" >> $GITHUB_OUTPUT
-            echo "Changes detected"
+          yarn test:visual --update
+          xargs --no-run-if-empty rm < "$RUNNER_TEMP/orphans"
 
-            # save the list for the summary
-            echo "changed_files<<EOF" >> $GITHUB_OUTPUT
-            echo "$CHANGED_FILES" >> $GITHUB_OUTPUT
-            echo "EOF" >> $GITHUB_OUTPUT
-            echo "changed_count=$(echo "$CHANGED_FILES" | wc -l)" >> $GITHUB_OUTPUT
-          else
-            echo "changes=false" >> $GITHUB_OUTPUT
-            echo "No changes detected"
+      # GitHub signs a commit that its API creates, not a commit that `git push` sends.
+      - name: Commit the changed screenshots
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CO_AUTHOR: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+        run: |
+          git add --all src/__screenshots__
+          if git diff --cached --quiet; then
+            echo "### No screenshot changed" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
           fi
 
-      # commit if there are changes
-      - name: Commit changes
-        if: steps.check_changes.outputs.changes == 'true'
-        run: |
-          git add -A
-          git commit -m "${{ env.COMMIT_MESSAGE }}"
+          # one JSON object per file, then one request: the API takes the content of a file in base64
+          {
+            git diff --cached --no-renames --name-only --diff-filter=D | jq -R '{deletions: {path: .}}'
+            git diff --cached --no-renames --name-only --diff-filter=d | while IFS= read -r path; do
+              base64 -w0 "$path" | jq -R --arg path "$path" '{additions: {path: $path, contents: .}}'
+            done
+          } | jq -s --arg repo "$GH_REPO" --arg branch "$BRANCH" --arg head "$(git rev-parse HEAD)" --arg coAuthor "$CO_AUTHOR" '{
+            query: "mutation($input: CreateCommitOnBranchInput!) { createCommitOnBranch(input: $input) { commit { url } } }",
+            variables: {input: {
+              branch: {repositoryNameWithOwner: $repo, branchName: $branch},
+              expectedHeadOid: $head,
+              message: {headline: "test: update visual regression screenshots", body: "Co-authored-by: \($coAuthor)"},
+              fileChanges: {additions: map(.additions // empty), deletions: map(.deletions // empty)}
+            }}
+          }' > "$RUNNER_TEMP/commit.json"
+          commit_url=$(gh api graphql --input "$RUNNER_TEMP/commit.json" --jq .data.createCommitOnBranch.commit.url)
 
-      - name: Push changes
-        if: steps.check_changes.outputs.changes == 'true'
-        run: git push origin ${{ github.head_ref || github.ref_name }}
+          {
+            echo "### Screenshots updated on \`$BRANCH\`: $commit_url"
+            echo '```'
+            git diff --cached --no-renames --name-status
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
-      # pretty summary for humans
-      - name: Summary
-        run: |
-          if [[ "${{ steps.check_changes.outputs.changes }}" == "true" ]]; then
-            echo "### 📸 Visual Regression Screenshots Updated" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "Successfully updated **${{ steps.check_changes.outputs.changed_count }}** screenshot(s) on \`${{ github.head_ref || github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "#### Changed Files:" >> $GITHUB_STEP_SUMMARY
-            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-            echo "${{ steps.check_changes.outputs.changed_files }}" >> $GITHUB_STEP_SUMMARY
-            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "✅ The updated screenshots have been committed and pushed. Your visual regression baseline is now up to date!" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "### ℹ️ No Screenshot Updates Required" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "The visual regression test command ran successfully but no screenshots needed updating." >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "All screenshots are already up to date! 🎉" >> $GITHUB_STEP_SUMMARY
-          fi
+          # A commit made with GITHUB_TOKEN starts no workflow, except through workflow_dispatch.
+          gh workflow run on-code-change.yml --ref "$BRANCH"
+
+      - name: Remove the label
+        if: always() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PULL_REQUEST: ${{ github.event.pull_request.number }}
+        run: gh pr edit "$PULL_REQUEST" --remove-label update-screenshots
