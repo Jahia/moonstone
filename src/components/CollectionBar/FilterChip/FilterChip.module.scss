@@ -1,3 +1,5 @@
+@use '../../../utils/index' as utils;
+
 $chip-maxWidth: 400px;
 
 // An empty chip keeps its name whole; a filled chip shrinks, so a narrow bar shows the ellipsis of its value
@@ -93,4 +95,10 @@ $chip-maxWidth: 400px;
 
     border-color: var(--moon-color-accent_light_plain60);
     background-color: var(--moon-color-accent_light_plain60);
+}
+
+// The two buttons of a chip with a clear button touch: the focus ring stays inside the focused one, so it covers no part of the other
+.withClear .chipButton[data-variant]:focus-visible:not(:disabled),
+.withClear .clearButton[data-variant]:focus-visible:not(:disabled) {
+    @include utils.focus-ring(true);
 }
