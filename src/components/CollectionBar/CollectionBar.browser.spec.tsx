@@ -135,3 +135,42 @@ describe('FilterChip keyboard and tooltip', () => {
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
     });
 });
+
+const TwoAddedChips = () => {
+    const [user, setUser] = useState('root');
+    const [action, setAction] = useState('Published');
+    return (
+        <CollectionBar aria-label="Filters">
+            <FilterChip
+                isAddable
+                filterKey="user"
+                label="User"
+                valueLabel={user}
+                onClear={() => setUser('')}
+            >
+                x
+            </FilterChip>
+            <FilterChip
+                isAddable
+                filterKey="action"
+                label="Action"
+                valueLabel={action}
+                onClear={() => setAction('')}
+            >
+                x
+            </FilterChip>
+            <AddFilter/>
+        </CollectionBar>
+    );
+};
+
+describe('CollectionBar focus after a clear', () => {
+    it('goes to Add filter, once enabled again, after Delete on an added chip while another keeps a value', async () => {
+        render(<TwoAddedChips/>);
+        expect(screen.getByRole('button', { name: 'Add filter' })).toBeDisabled();
+
+        screen.getByRole('button', { name: 'User: root' }).focus();
+        await userEvent.keyboard('{Delete}');
+        await expect.poll(() => document.activeElement).toBe(screen.getByRole('button', { name: 'Add filter' }));
+    });
+});

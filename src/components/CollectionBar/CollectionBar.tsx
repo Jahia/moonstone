@@ -39,6 +39,7 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
     const chipButtons = useRef(new Map<string, HTMLButtonElement>());
     const focusRequest = useRef<CollectionBarFocusRequest | null>(null);
     const lastOpenFilterKey = useRef(currentOpenFilterKey);
+    const hasWaitedForAddFilter = useRef(false);
 
     const setOpenFilterKey = useCallback((filterKey: string | null) => {
         if (!isControlled) {
@@ -105,8 +106,32 @@ export const CollectionBar: React.FC<CollectionBarProps> = ({
 
         const chip = request === 'addFilter' ? null : chipButtons.current.get(request.filterKey);
         const firstChip = [...chipButtons.current.values()].find(isFocusable);
-        const target = [chip, addFilterRef.current, firstChip].find(isFocusable);
-        target?.focus();
+        const fallback = () => [addFilterRef.current, firstChip].find(isFocusable)?.focus();
+        if (isFocusable(chip)) {
+            chip.focus();
+            return;
+        }
+
+        // After the clear of an added chip, AddFilter is enabled a render later, once the chips update the bar: the request
+        // waits one render for it, then falls back to the first chip
+        const addFilter = addFilterRef.current;
+        if (addFilter?.isConnected && addFilter.disabled && !hasWaitedForAddFilter.current) {
+            hasWaitedForAddFilter.current = true;
+            focusRequest.current = request;
+            requestAnimationFrame(() => {
+                if (focusRequest.current === request) {
+                    focusRequest.current = null;
+                    hasWaitedForAddFilter.current = false;
+                    if (isFocusLost()) {
+                        fallback();
+                    }
+                }
+            });
+            return;
+        }
+
+        hasWaitedForAddFilter.current = false;
+        fallback();
     });
 
     const context = useMemo<CollectionBarContextValue>(() => ({
