@@ -12,6 +12,7 @@ const config: StorybookConfig = {
         'storybook-addon-tag-badges',
         '@storybook/addon-mcp',
         '@storybook/addon-vitest',
+        'storybook-addon-pseudo-states',
     ],
     features: {
         experimentalReactComponentMeta: true,

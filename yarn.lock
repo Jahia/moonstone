@@ -957,6 +957,7 @@ __metadata:
     rollup-plugin-sbom: "npm:^3.2.3"
     sass-embedded: "npm:^1.103.1"
     storybook: "npm:^10.5.10"
+    storybook-addon-pseudo-states: "npm:~10.5.10"
     storybook-addon-tag-badges: "npm:^3.1.0"
     stylelint: "npm:^13.13.1"
     temporal-polyfill: "npm:^1.0.4"
@@ -8894,6 +8895,15 @@ __metadata:
   version: 4.0.0
   resolution: "std-env@npm:4.0.0"
   checksum: 10c0/63b1716eae27947adde49e21b7225a0f75fb2c3d410273ae9de8333c07c7d5fc7a0628ae4c8af6b4b49b4274ed46c2bf118ed69b64f1261c9d8213d76ed1c16c
+  languageName: node
+  linkType: hard
+
+"storybook-addon-pseudo-states@npm:~10.5.10":
+  version: 10.5.10
+  resolution: "storybook-addon-pseudo-states@npm:10.5.10"
+  peerDependencies:
+    storybook: ^10.5.10
+  checksum: 10c0/eafd55d6c1cf96b86ca0a4bd3a084e010d60d8fa1cd59a31a1ff91d1a6312a3599a289be7e5c7ed28281c8690d028ae8fa0adaaff0bef63061fb83877a963195
   languageName: node
   linkType: hard
 
