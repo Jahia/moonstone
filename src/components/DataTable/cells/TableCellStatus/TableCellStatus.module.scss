@@ -81,3 +81,9 @@
     --tableCellStatus-color: var(--moon-color-accent_dark_contrast);
     --tableCellStatus-bar: #{palette.$color-blue-50};
 }
+
+// Opens the panel of a sticky status over the sticky cells that follow
+.tableCellStatus.sticky:hover,
+tr:focus-visible > .tableCellStatus.sticky:not(.dismissed) {
+    z-index: 2;
+}

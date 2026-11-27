@@ -6,6 +6,8 @@ export type CustomCellPosition = 'before' | 'after';
 
 export type CustomHeaderWidths = Record<CustomCellPosition, string[]>;
 
+export type CustomStickyCells = Record<CustomCellPosition, boolean[]>;
+
 export type UseCustomCellsProps<T extends NonNullable<unknown>> = {
     data: T[];
     primaryKey: string;
@@ -16,7 +18,8 @@ export type UseCustomCellsReturn = {
     customBeforeCount: number;
     customAfterCount: number;
     customHeaderWidths: CustomHeaderWidths;
-    registerCustomCellCounts: (beforeCount: number, afterCount: number) => void;
+    customStickyCells: CustomStickyCells;
+    registerCustomCellCounts: (beforeCount: number, afterCount: number, stickyCells: CustomStickyCells) => void;
     withCustomCellObserver: (
         node: React.ReactNode,
         rowIndex: number,

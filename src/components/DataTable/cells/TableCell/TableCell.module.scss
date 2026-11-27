@@ -11,6 +11,14 @@
     overflow: hidden;
 }
 
+// Wins over the `position: relative` of TableCellActions and TableCellStatus; sticky anchors their panels too
+.tableCell.sticky {
+    position: sticky;
+    z-index: 1;
+
+    background-color: var(--moon-row-background);
+}
+
 .scrollable {
     height: -webkit-fill-available; // firefox fixes
     /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
