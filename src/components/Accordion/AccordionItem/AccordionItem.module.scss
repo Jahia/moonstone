@@ -1,7 +1,7 @@
 @use "../../../tokens/spacings/spacings" as *;
 @use "../../../utils/mixins" as *;
 
-$accordionHeader_height: 48px;
+$accordionHeader_height: 40px;
 
 .moonstone-accordionItem {
     min-height: $accordionHeader_height;
