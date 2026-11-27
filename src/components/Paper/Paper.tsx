@@ -27,7 +27,7 @@ export const Paper = React.forwardRef(<C extends React.ElementType = 'section'>(
     const Component = component ?? 'section';
 
     return (
-        <Component className={classNameProps} ref={ref} {...props}>
+        <Component className={classNameProps} data-moonstone="Paper" ref={ref} {...props}>
             {children}
         </Component>
     );

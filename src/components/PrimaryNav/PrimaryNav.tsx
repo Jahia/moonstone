@@ -108,6 +108,7 @@ export const PrimaryNav: React.FC<PrimaryNavProps> = ({
                     isExpanded && ['moonstone-expanded', styles['moonstone-expanded']],
                     ['flexCol_nowrap', layout.flexCol_nowrap],
                 )}
+                data-moonstone="PrimaryNav"
                 id={navId}
             >
                 <div className={clsx(

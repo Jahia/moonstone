@@ -16,6 +16,7 @@ export const SecondaryNavHeader: React.FC<SecondaryNavHeaderProps> = ({ children
             ['alignCenter', layout.alignCenter],
         )}
         component="header"
+        data-moonstone="SecondaryNavHeader"
         variant="heading"
     >
         {children}

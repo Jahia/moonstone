@@ -12,6 +12,7 @@ describe('Tab', () => {
     it('should pass props to the element', () => {
         render(<Tab title="tabulation">toto</Tab>);
         expect(screen.getByTitle('tabulation')).toBeInTheDocument();
+        expect(screen.getByTitle('tabulation')).toHaveAttribute('data-moonstone', 'Tab');
     });
 
     it('should add extra className', () => {

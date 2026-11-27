@@ -29,6 +29,7 @@ describe('Accordion', () => {
             'data-custom',
             'extra',
         );
+        expect(screen.getByTestId('id')).toHaveAttribute('data-moonstone', 'Accordion');
     });
 
     it('should display nothing when the component has no children', () => {

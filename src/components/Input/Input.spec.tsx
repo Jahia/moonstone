@@ -20,6 +20,7 @@ describe('Input', () => {
         expect(
             container.querySelector('[data-test="test"]'),
         ).toBeInTheDocument();
+        expect(container.firstChild).toHaveAttribute('data-moonstone', 'Input');
     });
 
     it('should have specified id', () => {

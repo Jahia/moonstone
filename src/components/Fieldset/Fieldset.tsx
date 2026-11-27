@@ -33,6 +33,7 @@ export const Fieldset = React.forwardRef<HTMLFieldSetElement, FieldsetProps>(({
             id={id}
             ref={ref}
             {...props}
+            data-moonstone="Fieldset"
         >
             <legend
                 className={clsx(

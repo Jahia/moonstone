@@ -29,6 +29,7 @@ export const IconTextIcon = <C extends React.ElementType = 'div'> ({
                 className,
             )}
             {...props}
+            data-moonstone="IconTextIcon"
         >
             <>
                 {iconStart && (

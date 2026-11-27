@@ -16,6 +16,7 @@ describe('Header', () => {
     it('should display additional attributes', () => {
         render(<Header data-custom="test" data-testid="test-header" title="title"/>);
         expect(screen.getByTestId('test-header')).toHaveAttribute('data-custom', 'test');
+        expect(screen.getByTestId('test-header')).toHaveAttribute('data-moonstone', 'Header');
     });
 
     it('should not display information area when no actions are provided', () => {

@@ -26,6 +26,7 @@ describe('MultipleLeftRightSelector', () => {
     it('should display empty list', () => {
         const { container } = render(<ListSelector {...requiredProps}/>);
         expect(container.querySelectorAll('li')).toHaveLength(0);
+        expect(container.firstChild).toHaveAttribute('data-moonstone', 'ListSelector');
     });
 
     it('should name the search input of each list after its title', () => {

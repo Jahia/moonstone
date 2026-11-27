@@ -22,6 +22,7 @@ export const Loader: React.FC<LoaderProps> = ({
             )}
             role="status"
             {...props}
+            data-moonstone="Loader"
         >
             <circle
                 className={clsx(

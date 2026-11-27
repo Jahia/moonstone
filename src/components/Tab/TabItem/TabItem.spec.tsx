@@ -70,6 +70,7 @@ describe('TabItem', () => {
     it('should have extra attribute', () => {
         render(<TabItem data-custom="extra" data-testid="tab-item"/>);
         expect(screen.getByTestId('tab-item')).toHaveAttribute('data-custom', 'extra');
+        expect(screen.getByTestId('tab-item')).toHaveAttribute('data-moonstone', 'TabItem');
     });
 
     it('should have extra className', () => {

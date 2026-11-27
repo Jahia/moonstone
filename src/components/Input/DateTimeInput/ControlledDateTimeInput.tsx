@@ -250,7 +250,7 @@ export const ControlledDateTimeInput = React.forwardRef<HTMLInputElement, Contro
     };
 
     return (
-        <div className={clsx(styles.dateTimeInput, className)}>
+        <div className={clsx(styles.dateTimeInput, className)} data-moonstone="DateTimeInput">
             {/* oxlint-disable-next-line jsx-a11y/no-static-element-interactions -- catches the Escape that bubbles up from the fields */}
             <div
                 className={styles.fieldsRow}

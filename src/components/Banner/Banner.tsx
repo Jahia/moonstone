@@ -44,6 +44,7 @@ const BannerForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, BannerPro
             ref={ref}
             role={variant === 'warning' || variant === 'danger' ? 'alert' : 'status'}
             {...props}
+            data-moonstone="Banner"
         >
             <div className={clsx(
                 ['moonstone-banner_title', styles['moonstone-banner_title']],

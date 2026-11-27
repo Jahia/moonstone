@@ -29,6 +29,7 @@ export const ControlledAccordion: React.FC<ControlledAccordionProps> = ({
                     )
                 }
                 {...props}
+                data-moonstone="Accordion"
             >
                 {children}
             </div>

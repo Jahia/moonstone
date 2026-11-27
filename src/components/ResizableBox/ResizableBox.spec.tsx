@@ -16,5 +16,6 @@ describe('ResizableBox', () => {
     it('should add extra attribute', () => {
         render(<ResizableBox data-custom="extra" data-testid="resizable-box">My content here</ResizableBox>);
         expect(screen.getByTestId('resizable-box')).toHaveAttribute('data-custom', 'extra');
+        expect(screen.getByTestId('resizable-box')).toHaveAttribute('data-moonstone', 'ResizableBox');
     });
 });

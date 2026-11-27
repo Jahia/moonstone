@@ -30,6 +30,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
                     ['flexCol', layout.flexCol],
                     className,
                 )}
+                data-moonstone="CheckboxGroup"
             >
                 {children}
             </div>

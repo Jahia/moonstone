@@ -66,6 +66,7 @@ export const Drawer = React.forwardRef(<C extends React.ElementType = 'aside'>({
         'component': component || 'aside',
         'className': clsx(styles.drawer, className),
         ...mergeHandlers(props, { onKeyDown: handleKeyDown }) as BasicPaperProps,
+        'data-moonstone': 'Drawer',
         'style': {
             ...style,
             '--drawer-animation-duration': `${ANIMATION_DURATION}ms`,

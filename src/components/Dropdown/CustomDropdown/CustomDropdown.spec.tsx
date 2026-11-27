@@ -15,6 +15,7 @@ describe('CustomDropdown', () => {
             </CustomDropdown>,
         );
         expect(screen.getByTestId('moonstone-dropdown')).toBeInTheDocument();
+        expect(screen.getByTestId('moonstone-dropdown')).toHaveAttribute('data-moonstone', 'CustomDropdown');
     });
 
     it('should display icon', () => {

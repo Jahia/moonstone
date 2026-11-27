@@ -27,6 +27,7 @@ describe('SecondaryNav', () => {
             'data-custom',
             'extra',
         );
+        expect(screen.getByTestId('secondary-nav')).toHaveAttribute('data-moonstone', 'SecondaryNav');
     });
 
     it('should name the resize handle after the navigation by default', () => {
@@ -166,5 +167,6 @@ describe('SecondaryNavHeader', () => {
             </SecondaryNavHeader>,
         );
         expect(screen.getByText('required children')).toBeInTheDocument();
+        expect(screen.getByRole('banner')).toHaveAttribute('data-moonstone', 'SecondaryNavHeader');
     });
 });

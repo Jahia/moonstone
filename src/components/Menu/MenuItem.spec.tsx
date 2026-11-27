@@ -22,6 +22,7 @@ describe('MenuItem', () => {
             </Menu>,
         );
         expect(screen.getByTestId('moonstone-menuItem')).toHaveClass('test-custom-class');
+        expect(screen.getByTestId('moonstone-menuItem')).toHaveAttribute('data-moonstone', 'MenuItem');
     });
 
     it('should call onClick when MenuItem is enabled', async () => {

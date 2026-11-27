@@ -5,8 +5,9 @@ import { NumberInput } from './index';
 
 describe('NumberInput', () => {
     it('should render', () => {
-        render(<NumberInput data-testid="moonstone-numberInput"/>);
+        const { container } = render(<NumberInput data-testid="moonstone-numberInput"/>);
         expect(screen.getByTestId('moonstone-numberInput')).toBeInTheDocument();
+        expect(container.firstChild).toHaveAttribute('data-moonstone', 'NumberInput');
     });
 
     it('should have value', () => {

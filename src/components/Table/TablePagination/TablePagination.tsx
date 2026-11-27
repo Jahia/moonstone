@@ -46,6 +46,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
                 className,
             )}
             {...props}
+            data-moonstone="TablePagination"
         >
             <Typography variant="caption">{label?.rowsPerPage || 'Rows per page'}</Typography>
             <Dropdown

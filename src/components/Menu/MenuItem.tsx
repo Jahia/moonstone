@@ -69,6 +69,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
                 onKeyDown: keys.onKeyDown,
                 onKeyUp: keys.onKeyUp,
             }) as ListItemProps}
+            data-moonstone="MenuItem"
         />
     );
 

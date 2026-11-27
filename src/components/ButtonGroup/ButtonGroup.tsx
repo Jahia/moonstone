@@ -32,6 +32,7 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(({
             role="group"
             {...props}
             data-color={color}
+            data-moonstone="ButtonGroup"
             data-size={size}
             data-variant={variant}
         >

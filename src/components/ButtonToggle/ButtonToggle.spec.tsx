@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createRef } from 'react';
 
-import { ButtonToggle } from './index';
+import { ButtonToggle, ControlledButtonToggle, UncontrolledButtonToggle } from './index';
 import { Apps } from '~/icons';
 
 describe('ButtonToggle', () => {
@@ -16,6 +16,18 @@ describe('ButtonToggle', () => {
         expect(
             screen.getByTestId('moonstone-buttonToggle'),
         ).toBeInTheDocument();
+        expect(screen.getByTestId('moonstone-buttonToggle')).toHaveAttribute('data-moonstone', 'ButtonToggle');
+    });
+
+    it('should name the controlled and uncontrolled variants', () => {
+        render(
+            <>
+                <ControlledButtonToggle isPressed={false} data-testid="controlled" label="test me"/>
+                <UncontrolledButtonToggle data-testid="uncontrolled" label="test me"/>
+            </>,
+        );
+        expect(screen.getByTestId('controlled')).toHaveAttribute('data-moonstone', 'ControlledButtonToggle');
+        expect(screen.getByTestId('uncontrolled')).toHaveAttribute('data-moonstone', 'UncontrolledButtonToggle');
     });
 
     it('should display additional className', () => {

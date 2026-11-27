@@ -24,6 +24,7 @@ export const EmptyData = React.forwardRef<HTMLElement, EmptyDataProps>(
                 )}
                 ref={ref}
                 {...props}
+                data-moonstone="EmptyData"
             >
                 {icon}
                 {title && (

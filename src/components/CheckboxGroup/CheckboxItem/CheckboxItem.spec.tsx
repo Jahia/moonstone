@@ -16,6 +16,7 @@ describe('CheckboxItem', () => {
             <CheckboxItem {...initProps} className={className}/>,
         );
         expect(container.querySelector('.test')).toBeInTheDocument();
+        expect(container.querySelector('.test')).toHaveAttribute('data-moonstone', 'CheckboxItem');
     });
 
     it('should be disabled when isDisabled is set', () => {

@@ -56,6 +56,7 @@ const ControlledCollapsibleForwardRef: React.ForwardRefRenderFunction<HTMLDivEle
             className={classNameProps}
             ref={ref}
             {...other}
+            data-moonstone="Collapsible"
         >
             <div className={clsx('moonstone-collapsible_topdiv', styles['moonstone-collapsible_topdiv'])} ref={topDivRef}/>
             <button

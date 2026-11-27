@@ -42,6 +42,7 @@ export const TabItem: React.FC<TabItemProps> = ({
             ...rovingItemProps,
             onClick,
             ...props,
+            'data-moonstone': 'TabItem',
         },
         (
             <>

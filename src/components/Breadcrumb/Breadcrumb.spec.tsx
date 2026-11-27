@@ -19,6 +19,7 @@ describe('Breadcrumb', () => {
             </Breadcrumb>,
         );
         expect(screen.getByTestId('breadcrumb')).toHaveAttribute('data-custom', 'extra');
+        expect(screen.getByTestId('breadcrumb')).toHaveAttribute('data-moonstone', 'Breadcrumb');
     });
 
     it('should keep the aria-current of the last item', () => {

@@ -18,6 +18,7 @@ describe('Pill', () => {
     it('should add additional attribute', () => {
         render(<Pill data-testid="moonstone-listItemChip">Say my name</Pill>);
         expect(screen.getByTestId('moonstone-listItemChip')).toBeInTheDocument();
+        expect(screen.getByTestId('moonstone-listItemChip')).toHaveAttribute('data-moonstone', 'Pill');
     });
 
     it('should display an icon when children is an icon element', () => {

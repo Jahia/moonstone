@@ -17,6 +17,7 @@ describe('Collapsible', () => {
         expect(screen.getByTestId('moonstone-collapsible')).toHaveClass(
             'extra',
         );
+        expect(screen.getByTestId('moonstone-collapsible')).toHaveAttribute('data-moonstone', 'Collapsible');
     });
 });
 

@@ -30,6 +30,7 @@ export const Pill: React.FC<PillProps> = ({
             variant="caption"
             weight="semiBold"
             {...props}
+            data-moonstone="Pill"
         >
             {children ?? label}
         </Typography>

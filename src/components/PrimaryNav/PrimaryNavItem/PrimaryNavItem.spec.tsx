@@ -19,6 +19,7 @@ describe('NavItem', () => {
             'data-custom',
             'extra',
         );
+        expect(screen.getByTestId('primaryNav-item')).toHaveAttribute('data-moonstone', 'PrimaryNavItem');
     });
 
     it('should add extra className', () => {

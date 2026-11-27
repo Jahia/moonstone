@@ -72,6 +72,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(({
                 max: max,
                 separator: separator,
             }))}
+            data-moonstone="NumberInput"
             onChange={handleOnChange}
         />
     );

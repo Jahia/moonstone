@@ -46,6 +46,7 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(({
             id={id}
             ref={ref}
             {...props}
+            data-moonstone="Field"
         >
             <div
                 className={clsx(

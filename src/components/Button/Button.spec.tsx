@@ -10,6 +10,7 @@ describe('Button', () => {
     it('should render', () => {
         render(<Button data-testid="moonstone-button" label="test me"/>);
         expect(screen.getByTestId('moonstone-button')).toBeInTheDocument();
+        expect(screen.getByTestId('moonstone-button')).toHaveAttribute('data-moonstone', 'Button');
     });
 
     it('should display additional className', () => {

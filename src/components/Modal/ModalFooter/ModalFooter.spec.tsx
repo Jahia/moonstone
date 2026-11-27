@@ -11,5 +11,6 @@ describe('ModalFooter', () => {
     it('should add extra classname', () => {
         render(<ModalFooter className="extra" data-testid="moonstone-modalFooter">ModalFooter content</ModalFooter>);
         expect(screen.getByTestId('moonstone-modalFooter')).toHaveClass('extra');
+        expect(screen.getByTestId('moonstone-modalFooter')).toHaveAttribute('data-moonstone', 'ModalFooter');
     });
 });

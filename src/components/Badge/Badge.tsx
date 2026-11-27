@@ -31,6 +31,7 @@ export const Badge: React.FC<BadgeProps> = ({
             variant="caption"
             weight="bold"
             {...other}
+            data-moonstone="Badge"
         >
             {label}
         </Typography>

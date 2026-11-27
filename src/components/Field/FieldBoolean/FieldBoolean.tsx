@@ -38,6 +38,7 @@ export const FieldBoolean = React.forwardRef<HTMLDivElement, FieldBooleanProps>(
             id={id}
             ref={ref}
             {...props}
+            data-moonstone="FieldBoolean"
         >
             <div
                 className={clsx(

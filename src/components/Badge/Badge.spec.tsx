@@ -11,6 +11,7 @@ describe('Badge', () => {
     it('should add additional attributes', () => {
         render(<Badge data-custom="test" data-testid="moonstone-badge" label="3"/>);
         expect(screen.getByTestId('moonstone-badge')).toHaveAttribute('data-custom', 'test');
+        expect(screen.getByTestId('moonstone-badge')).toHaveAttribute('data-moonstone', 'Badge');
     });
 
     it('should display a label', () => {

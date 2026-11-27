@@ -40,6 +40,7 @@ export const TableHeadCell: React.FC<TableCellProps> = ({
                 className,
             )}
             component={component}
+            data-moonstone="TableHeadCell"
             style={{
                 ...props.style,
                 width: width,

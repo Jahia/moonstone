@@ -37,6 +37,7 @@ export const Typography = React.forwardRef(<C extends React.ElementType = 'p'> (
                 isUpperCase && ['moonstone-upperCase', styles['moonstone-upperCase']],
                 hasLineThrough && ['moonstone-lineThrough', styles['moonstone-lineThrough']],
             )}
+            data-moonstone="Typography"
             ref={ref}
             {...props}
         >

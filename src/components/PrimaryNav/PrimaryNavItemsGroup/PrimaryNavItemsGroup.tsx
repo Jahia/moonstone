@@ -24,7 +24,7 @@ export const PrimaryNavItemsGroup: React.FC<PrimaryNavItemsGroupProps> = ({
             <li className={clsx('moonstone-primaryNavItemsGroup', styles['moonstone-primaryNavItemsGroup'])}>
                 <Separator size="large" spacing="small"/>
             </li>
-            <li className={clsx('moonstone-primaryNavItemsGroup', styles['moonstone-primaryNavItemsGroup'])} {...props}>
+            <li className={clsx('moonstone-primaryNavItemsGroup', styles['moonstone-primaryNavItemsGroup'])} {...props} data-moonstone="PrimaryNavItemsGroup">
                 <ul>
                     {children}
                 </ul>

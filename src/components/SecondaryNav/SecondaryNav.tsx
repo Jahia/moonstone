@@ -59,6 +59,7 @@ export const SecondaryNav: React.FC<SecondaryNavProps> = ({
                         width: 0,
                     }}
             {...props}
+            data-moonstone="SecondaryNav"
         >
             <button
                 aria-controls={wrapperId}

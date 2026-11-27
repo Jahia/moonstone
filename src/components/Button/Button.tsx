@@ -63,6 +63,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
                 className,
             )}
             data-color={color}
+            data-moonstone="Button"
             data-size={size}
             data-variant={variant}
             ref={ref}

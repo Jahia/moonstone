@@ -28,6 +28,7 @@ const ModalHeaderForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, Moda
                 )}
                 ref={ref}
                 {...props}
+                data-moonstone="ModalHeader"
             >
                 <Typography component="h4" id={titleId} variant="heading" weight="bold">
                     {title}

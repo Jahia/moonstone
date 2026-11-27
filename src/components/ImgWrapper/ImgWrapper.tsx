@@ -22,7 +22,7 @@ export const ImgWrapper: React.FC<ImgWrapperProps> = ({
         [`moonstone-icon_${size}`, icons[`moonstone-icon_${size}`]],
     );
     return (
-        <img {...props} alt={alt} className={classes}/>
+        <img {...props} alt={alt} className={classes} data-moonstone="ImgWrapper"/>
     );
 };
 

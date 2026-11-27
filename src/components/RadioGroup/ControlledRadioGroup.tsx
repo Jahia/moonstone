@@ -34,6 +34,7 @@ export const ControlledRadioGroup: React.FC<ControlledRadioGroupProps> = ({
                 className={clsx(
                     'flexCol', layout.flexCol, className,
                 )}
+                data-moonstone="RadioGroup"
             >
                 {children}
             </div>

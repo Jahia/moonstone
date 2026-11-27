@@ -39,6 +39,7 @@ export const Tab = React.forwardRef<HTMLDivElement, TabProps>(({ children, class
                         ['alignCenter', layout.alignCenter],
                         className,
                     )}
+                    data-moonstone="Tab"
                     role="tablist"
                 />
             )}

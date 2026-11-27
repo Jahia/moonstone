@@ -46,6 +46,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
                 open ? ['flexFluid', layout.flexFluid] : null,
                 className,
             )}
+            data-moonstone="AccordionItem"
         >
             <Typography component="h3">
                 <Typography

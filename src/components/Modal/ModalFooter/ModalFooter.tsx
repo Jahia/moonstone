@@ -24,6 +24,7 @@ const ModalFooterForwardRef: React.ForwardRefRenderFunction<HTMLDivElement, Moda
                 )}
                 ref={ref}
                 {...props}
+                data-moonstone="ModalFooter"
             >
                 {children}
             </footer>

@@ -51,5 +51,6 @@ describe('PrimaryNavItemsGroup', () => {
             </PrimaryNavItemsGroup>,
         );
         expect(screen.getByTestId('primaryNav-itemsGroup')).toHaveAttribute('data-custom', 'extra');
+        expect(screen.getByTestId('primaryNav-itemsGroup')).toHaveAttribute('data-moonstone', 'PrimaryNavItemsGroup');
     });
 });

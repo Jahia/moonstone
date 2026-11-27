@@ -62,6 +62,7 @@ export const ListSelector: React.FC<ListSelectorSelectorProps> = ({
                 ['moonstone-listSelector', styles['moonstone-listSelector']],
             )}
             {...props}
+            data-moonstone="ListSelector"
         >
             <section
                 className={clsx(

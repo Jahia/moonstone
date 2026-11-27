@@ -42,6 +42,7 @@ export const EmptyCardSelector = React.forwardRef<HTMLButtonElement, EmptyCardSe
             type="button"
             onClick={e => handleOnClick(e)}
             {...props}
+            data-moonstone="EmptyCardSelector"
         >
             {iconStart}
             {label && <Typography data-testid="emptyCardSelector-label">{label}</Typography>}

@@ -105,7 +105,7 @@ export const ControlledTimeInput = React.forwardRef<HTMLInputElement, Controlled
     };
 
     return (
-        <div className={clsx(styles.timeInput, layout.flexRow_nowrap, layout.alignCenter, className)}>
+        <div className={clsx(styles.timeInput, layout.flexRow_nowrap, layout.alignCenter, className)} data-moonstone="TimeInput">
             <BaseInput
                 ref={handleRef}
                 {...mergeHandlers(props, { onKeyDown: handleKeyDown })}

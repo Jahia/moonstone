@@ -81,6 +81,7 @@ const TableBodyCellForwardRef: React.ForwardRefRenderFunction<HTMLTableCellEleme
             style={{ width: width }}
             variant="body"
             {...props}
+            data-moonstone="TableBodyCell"
         >
             {renderTableCell()}
         </Typography>

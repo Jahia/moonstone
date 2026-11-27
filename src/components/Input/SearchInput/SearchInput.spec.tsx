@@ -18,6 +18,7 @@ describe('SearchInput', () => {
     it('should have the role search', () => {
         render(<SearchInput/>);
         expect(screen.getByRole('search')).toBeInTheDocument();
+        expect(screen.getByRole('search')).toHaveAttribute('data-moonstone', 'SearchInput');
     });
 
     it('should not show the reset button on an empty field', () => {

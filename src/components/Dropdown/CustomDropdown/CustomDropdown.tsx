@@ -120,6 +120,7 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
                         }
                     },
                 })}
+                data-moonstone="CustomDropdown"
             />
 
             {isOpened && (

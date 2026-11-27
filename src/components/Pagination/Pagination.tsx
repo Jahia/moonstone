@@ -48,6 +48,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                 className,
             )}
             {...props}
+            data-moonstone="Pagination"
         >
             <div
                 className={clsx(

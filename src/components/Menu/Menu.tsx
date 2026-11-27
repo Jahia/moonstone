@@ -222,6 +222,7 @@ export const Menu: React.FC<MenuProps> = ({
                             onKeyDown: rovingTabIndex.onKeyDown(compositeProps.onKeyDown),
                             onBlur: rovingTabIndex.onBlur,
                         }, { onKeyDown: handleKeyDown })}
+                        data-moonstone="Menu"
                     />
                 )}
             >

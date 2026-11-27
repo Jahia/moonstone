@@ -43,6 +43,7 @@ export const ControlledTextarea = React.forwardRef<HTMLTextAreaElement, Controll
             onFocus={(!isDisabled || !isReadOnly) && onFocus}
             {...props}
             {...fieldAria}
+            data-moonstone="Textarea"
         />
     );
 });

@@ -19,7 +19,7 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
     }, ref) => React.createElement(
     component,
     {
-        className: clsx(
+        'className': clsx(
             ['flexRow', layout.flexRow],
             ['moonstone-TableRow', styles['moonstone-TableRow']],
             ['alignCenter', layout.alignCenter],
@@ -28,8 +28,9 @@ const TableRowForwardRef: React.ForwardRefRenderFunction<HTMLElement, TableRowPr
             isHighlighted && ['moonstone-TableRow-highlighted', styles['moonstone-TableRow-highlighted']],
             className,
         ),
-        tabIndex: 0,
+        'tabIndex': 0,
         ...props,
+        'data-moonstone': 'TableRow',
         ref,
     },
     children,

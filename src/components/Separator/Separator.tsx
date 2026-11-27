@@ -25,6 +25,7 @@ export const Separator: React.FC<SeparatorProps> = ({
                 invisible && [`moonstone-invisible_${invisible}`, styles[`moonstone-invisible_${invisible}`]],
                 className,
             )}
+            data-moonstone="Separator"
         />
     );
 };

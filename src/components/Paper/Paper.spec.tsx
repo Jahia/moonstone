@@ -22,6 +22,7 @@ describe('Paper', () => {
     it('should add additional attributes', () => {
         render(<Paper data-custom="test" data-testid="moonstone-paper">Content here</Paper>);
         expect(screen.getByTestId('moonstone-paper')).toHaveAttribute('data-custom', 'test');
+        expect(screen.getByTestId('moonstone-paper')).toHaveAttribute('data-moonstone', 'Paper');
     });
 
     it('should forward ref', () => {

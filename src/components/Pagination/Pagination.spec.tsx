@@ -20,6 +20,7 @@ describe('Pagination', () => {
     it('should render', () => {
         render(<Pagination {...defaultProps} data-testid="moonstone-pagination"/>);
         expect(screen.getByTestId('moonstone-pagination')).toBeInTheDocument();
+        expect(screen.getByTestId('moonstone-pagination')).toHaveAttribute('data-moonstone', 'Pagination');
     });
 
     it('should display additional className', () => {
